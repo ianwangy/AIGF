@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI风险管理执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        margin: auto;
+        height: 300px;
+        max-height: 360px
+    }
+
+    .nav-link:hover {
+        color:#0369a1
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color:#fff
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9
+    }
+
+    .roadmap-step {
+        transition:all 0.2s
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12)
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom:1px solid #f1f5f9
+    }
+
+    .check-item:last-child {
+        border-bottom: none
+    }
+
+    .fade-in {
+        animation:fadeIn 0.3s ease
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform:translateY(6px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width:6px
+    }
+
+    ::-webkit-scrollbar-track {
+        background:#f1f5f9
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .step-btn {
+        transition: all 0.2s;
+        border-left: 4px solid transparent;
+        cursor: pointer
+    }
+
+    .step-btn.active {
+        background-color: #0f172a;
+        color: #fff;
+        border-left-color: #d97706
+    }
+
+    .step-btn:not(.active):hover {
+        background-color: #f1f5f9
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🛡️</span>
+                <span class="font-bold text-xl tracking-tight text-sky-800">【14】AI风险管理</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#overview" class="nav-link text-slate-600 font-medium transition-colors">AI风险管理概览</a>
+                <a href="#why" class="nav-link text-slate-600 font-medium transition-colors">为什么做</a>
+                <a href="#objectives" class="nav-link text-slate-600 font-medium transition-colors">任务目标</a>
+                <a href="#framework" class="nav-link text-slate-600 font-medium transition-colors">架构模型</a>
+                <a href="#how" class="nav-link text-slate-600 font-medium transition-colors">如何做</a>
+                <a href="#roadmap" class="nav-link text-slate-600 font-medium transition-colors">执行路线</a>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- 概览 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI风险管理执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    本方案面向董事会与高管层，聚焦 AI 系统的本体风险治理：
+                    <strong class="text-sky-700">面向企业所有 AI 系统（含自研、外采、第三方模型/服务），聚焦 AI 本体风险的全生命周期治理——将不可见的算法黑盒风险转化为可度量的阈值、可执行的控制点、可审计的证据链</strong>
+                    。
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🌐</div>
+                    <h3 class="font-bold text-slate-800 mb-1">全覆盖一致性</h3>
+                    <p class="text-sm text-slate-600">自研外采全纳入，跨场景风险判定口径统一，无遗漏死角。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">📊</div>
+                    <h3 class="font-bold text-slate-800 mb-1">可量化可比较</h3>
+                    <p class="text-sm text-slate-600">明确度量指标与阈值，支持横向对比与趋势跟踪。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🛑</div>
+                    <h3 class="font-bold text-slate-800 mb-1">可控可缓解</h3>
+                    <p class="text-sm text-slate-600">残余风险满足合规要求，控制点在生命周期各阶段有效验证。</p>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-1">聚焦对象</span>
+                    <span class="text-2xl font-extrabold text-amber-800">
+                        AI
+                        <br>
+                        本体
+                    </span>
+                    <p class="text-sm text-amber-600 font-medium mt-1">算法·数据·模型·伦理</p>
+                </div>
+            </div>
+            <!-- RG vs RO vs RS 边界 -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">RG 的职责边界：与 RO、RS、RT 的协同定位</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-amber-50 p-5 rounded-xl border-2 border-amber-300 relative">
+                        <div class="absolute top-3 right-3 text-xs bg-amber-600 text-white px-2 py-0.5 rounded font-bold">当前聚焦</div>
+                        <h3 class="font-bold text-amber-800 mb-1">RG：AI 风险管理</h3>
+                        <p class="text-xs font-semibold text-amber-600 mb-2">关注："AI 是否合规可控"</p>
+                        <p class="text-sm text-amber-700">围绕模型/数据/算法/安全/合规本身的风险。强调评估、测试、审计与证据链。定义控制要求与验证证据。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-700 mb-1">RO：AI 运营风险</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-2">关注："AI 服务是否稳定交付"</p>
+                        <p class="text-sm text-slate-600">围绕生产运行与交付（SLA/SLO、变更发布、监控告警、运维流程等）。协同：将 RG 要求固化到发布门禁；出问题时 RG 负责回溯"AI 本体根因"。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-700 mb-1">RS：战略风险</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-2">关注："战略层不确定性"</p>
+                        <p class="text-sm text-slate-600">方向、节奏、资源与重大决策。协同：RG 管理系统层专项风险；规模化或高影响场景下，RG 风险可能上升为 RS 关注的战略风险。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3">🔬 本质特征提炼</h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>门禁制：</strong>
+                                在 AI 生命周期每个关键节点设置风险评估门禁，不达标不得进入下一阶段。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>证据链：</strong>
+                                每项风险控制措施须产出可审计的证据文档，满足监管的"可执法接口"要求。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>全生命周期：</strong>
+                                从立项评估到退役下线，风险管控贯穿 AI 系统全程，而非仅上线前审查。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3">🏭 行业典型表现</h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>金融业：</strong>
+                                某银行 AI 信贷模型上线前完成偏见检测，识别出对某特定群体误拒率偏高 25%，修复后避免重大监管处罚。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>医疗业：</strong>
+                                某 AI 辅助诊断系统通过可解释性审计（SHAP 分析），向监管机构提供了满足要求的决策依据，顺利通过二类医疗器械认证。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>互联网：</strong>
+                                某推荐系统通过对抗测试发现提示注入漏洞，上线前修复，避免用户数据泄露风险。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 为什么做 -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：AI 本体风险的七大类型</h2>
+                <p class="text-slate-500 mt-2 pl-5">AI 系统引入了传统 IT 系统所没有的全新风险类型，每一类都可能在不被察觉的情况下造成重大业务或合规损失。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚖️</span>
+                        <h3 class="font-bold text-red-800">算法偏见与公平性</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 模型可能对特定群体（性别/年龄/地域）产生系统性歧视输出，引发法律诉讼和声誉危机，且往往在规模化应用后才被发现。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🔒</span>
+                        <h3 class="font-bold text-red-800">数据隐私与泄露</h3>
+                    </div>
+                    <p class="text-sm text-red-700">训练数据中的个人信息可能被模型"记忆"并通过特定查询泄露，GDPR/PIPL 违规处罚极高，且技术层面难以在事后补救。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🤖</span>
+                        <h3 class="font-bold text-red-800">模型鲁棒性缺陷</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 系统对输入扰动极度敏感，对抗样本可导致关键决策（如安防、金融风控）完全失效，在安全攸关场景中后果不可逆。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💉</span>
+                        <h3 class="font-bold text-red-800">提示注入与模型攻击</h3>
+                    </div>
+                    <p class="text-sm text-red-700">大模型应用中，恶意用户可通过精心设计的提示绕过安全过滤，导致有害内容生成、数据外泄或业务逻辑被操纵。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">📉</span>
+                        <h3 class="font-bold text-red-800">模型退化与数据漂移</h3>
+                    </div>
+                    <p class="text-sm text-red-700">生产环境的数据分布随时间变化，导致模型性能静默退化——往往在造成大量错误决策后才被业务侧察觉，纠偏成本极高。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💡</span>
+                        <h3 class="font-bold text-sky-800">黑盒不可解释性</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">
+                        AI 决策无法解释将面临监管"可执法接口"要求，金融/医疗/法律等领域强制要求可解释性，
+                        <strong>无解释能力意味着无法合规使用。</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">AI 本体风险全景：七大风险向量</h3>
+                    <p class="text-sm text-slate-500 mb-5">极坐标图展示了企业 AI 系统面临的七大类本体风险的相对影响力分布，帮助高管直观理解 RG 的覆盖范围与重点。</p>
+                    <div class="space-y-2 text-xs text-slate-600">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
+                            性能/鲁棒性缺陷
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
+                            数据质量与偏差
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
+                            隐私与数据安全
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
+                            对抗攻击（提示注入等）
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
+                            可解释性与透明度
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
+                            伦理与社会影响
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 shrink-0"></span>
+                            合规与知识产权
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="riskDriversChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务目标 -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：四大核心目标 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按 RG 体系建设核心目标分组，每组附可量化验收标准。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🌐</span>
+                        <h3 class="font-bold text-slate-800">全覆盖与分类分级</h3>
+                        <span class="ml-auto badge-core">基础优先</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立企业 AI 系统台账（含 Owner/用途/影响范围/适用法规）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>统一风险分类词典（性能/数据/隐私/对抗/可解释/伦理/合规七维）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>制定高/中/低风险分级标准及控制强度映射表</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>豁免规则明确：豁免条件/证据/审批流程完整定义</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🚪</span>
+                        <h3 class="font-bold text-slate-800">生命周期门禁体系</h3>
+                        <span class="ml-auto badge-core">核心机制</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>设计七大门禁：立项/数据/训练/评估/上线/变更/退役</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>每个门禁明确：硬要求/软要求/必交证据清单</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>与风险发布流程对接：风险管理门禁嵌入风险发布管道</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>门禁执行率：所有高风险系统上线前 100% 通过 RG 评估</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔍</span>
+                        <h3 class="font-bold text-slate-800">模型与数据风险评估</h3>
+                        <span class="ml-auto badge-new">技术深度</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>数据风险：完成数据合规/质量/偏差/安全全维度评估</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>模型风险：性能/鲁棒性/公平性/可解释性/安全测试全覆盖</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立模型卡（Model Card）和数据卡（Data Card）标准模板</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>引入 LIME/SHAP 可解释性工具，满足监管可审计要求</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📋</span>
+                        <h3 class="font-bold text-slate-800">可追责与证据链管理</h3>
+                        <span class="ml-auto badge-core">合规保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>每项风险控制措施须产出可审计证据文档</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 系统运行期风险监控（漂移/偏见/安全事件）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期输出 AI 风险管理报告（月度/季度），向治理委员会汇报</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>退役机制：下线系统的数据处理和模型归档合规管理</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 架构模型 -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 14）。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07 · 08</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11 · 12</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">13 · 15 · 16</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- 如何做 -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：全生命周期 10 步执行法</h2>
+                <p class="text-slate-500 mt-2 pl-5">按"全生命周期 + 门禁（Gate）+ 证据链"方式，将 RG 细化为可执行的 10 个步骤。点击步骤查看输入/动作/产出。</p>
+            </div>
+            <div class="flex flex-col lg:flex-row bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden" style="min-height:480px">
+                <div class="w-full lg:w-64 shrink-0 bg-slate-50 border-r border-slate-200 overflow-y-auto" id="step-menu" style="max-height:480px"></div>
+                <div class="flex-1 p-8 overflow-y-auto" id="step-detail" style="max-height:480px"></div>
+            </div>
+        </section>
+
+        <!-- 执行路线 -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：风险管理体系建设五步推进图</h2>
+                <p class="text-slate-500 mt-2 pl-5">从体系建立到持续演进，分五步系统化建立企业 AI 风险管理能力。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"AI 风险管理的目标不是阻止 AI 应用，而是让每个 AI 系统都能在可量化、可审计、可控制的框架内规模化落地。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        new Chart(document.getElementById('riskDriversChart').getContext('2d'), {
+            type: 'polarArea',
+            data: {
+                labels: ['性能/鲁棒性', '数据质量/偏差', '隐私与安全', '对抗攻击', '可解释性', '伦理社会影响', '合规/IP'],
+                datasets: [{
+                    data: [82, 88, 90, 75, 85, 70, 92],
+                    backgroundColor: ['rgba(217,119,6,.6)', 'rgba(239,68,68,.6)', 'rgba(3,105,161,.6)', 'rgba(124,58,237,.6)', 'rgba(16,185,129,.6)', 'rgba(245,158,11,.5)', 'rgba(220,38,38,.5)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        ticks: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 11
+                            },
+                            boxWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: 'RG 须嵌入 AI 战略的全执行链条——为变革管理提供组织风险识别，为运营模式转换提供流程安全评估，为技术路线迁移提供技术风险防控。',
+                components: [{
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: 'RG 为 AI 战略转型提供全程风险防护——每个重大战略方向在执行前须完成 RG 评估，避免战略落地时遭遇未预见的算法风险、数据合规问题或伦理争议导致被迫叫停。',
+                    core: true
+                }, {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: 'AI 系统引入往往带来员工数据的大规模收集（如绩效 AI 系统），这些场景须纳入 RG 的数据隐私和伦理评估。变革过程中员工对 AI 偏见的信任危机也是 RG 需要预防的风险。',
+                    core: false
+                }, {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: '运营流程 AI 化后，流程中的 AI 系统须全部纳入 RG 管控。运营模式转换的成功与否，部分取决于转换后的 AI 系统是否能通过 RG 的风险验证门禁，确保在合规的前提下高效运营。',
+                    core: false
+                }, {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '新技术平台的引入（如大模型）带来全新的风险类型（提示注入/幻觉/隐私泄露）。技术路线迁移须触发 RG 的全面重新评估——旧平台的风险控制方案不自动适用于新技术架构。',
+                    core: true
+                }]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'RG 是 AI 价值创造的可信度保障——只有通过 RG 评估的 AI 系统，其产出的价值才具备可持续性和合规可交付性。',
+                components: [{
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: 'AI 赋能的每个业务场景都须经过 RG 的用例影响评估，确认 AI 辅助决策不会引入算法偏见或数据隐私问题。RG 为赋能场景的可持续落地提供合规保障。',
+                    core: true
+                }, {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: 'AI 创新应用往往探索新场景和新技术组合，带来新型风险。RG 须为每个创新试点场景建立专属的快速风险评估机制，在不过度阻碍创新速度的前提下确保基本风险可控。',
+                    core: false
+                }, {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: 'AI 系统的风险指标须纳入 VO 的度量体系——偏见检测指标、可解释性评分、合规事件数等，成为 AI 系统健康度的组成部分，支撑基于数据的风险管控决策。',
+                    core: true
+                }, {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: 'VT 的技术适用性评估须专项纳入 RG 视角——某些技术方案在功能上适用，但在风险可控性上不具备适用性（如某大模型无法提供可解释性接口）。RG 为 VT 的技术选型提供风险维度输入。',
+                    core: false
+                }]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: 'RG 的有效执行依赖于领导层的合规意志、治理委员会的决策权威、CoE 的日常执行能力，以及具备风险管控专业能力的技术人才。',
+                components: [{
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: 'RG 的门禁机制须获得领导层明确背书，才能在业务部门面对上线压力时不被绕过。领导层须公开表达对 AI 合规的重视，让"不通过 RG 评估不得上线"成为真实有效的组织规则。',
+                    core: false
+                }, {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '治理委员会负责 RG 体系的最终审批和重大风险的决策——高风险 AI 系统的上线审批、重大合规问题的处理决定、风险容忍度阈值的调整，都须经委员会决议。',
+                    core: true
+                }, {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE 是 RG 日常执行的主要承担者——维护风险分类框架、执行模型评估、管理门禁流程、追踪运营期风险指标。CoE 的专业能力直接决定 RG 体系的质量深度。',
+                    core: true
+                }, {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: 'RG 需要掌握算法审计、可解释性工具（LIME/SHAP）、对抗安全测试等专业能力的人才。技术人才的风险管控能力不足，是 RG 体系形同虚设的根本原因。',
+                    core: true
+                }]
+            },
+            risk: {
+                title: '🛡️ 风险管控层（协同）',
+                desc: 'RG 与 RS（战略风险）、RO（运营风险）和 RT（安全信创）形成分层协同——各司其职又相互穿透，构成企业 AI 风险防御的完整闭环。',
+                components: [{
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: 'RG 管理 AI 系统层专项风险；在规模化应用或高影响场景下，RG 发现的重大风险（如大规模算法歧视被曝光）可能上升为 RS 需要处置的战略危机，须建立"底层风险向上穿透预警"机制。',
+                    core: true
+                }, {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: 'RG 定义风险控制要求，RO 将这些要求固化到发布门禁和运营监控中。深度协同：RG 负责上线前的风险评估，RO 负责上线后的持续监控；出现问题时 RG 负责回溯"AI 本体根因"。',
+                    core: true
+                }, {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: 'RT 提供 AI 系统底层安全基础设施（密钥管理/访问控制/网络隔离），RG 在此基础上叠加 AI 特有的风险控制（对抗防护/数据隐私/模型安全）。两者是纵深防御体系的不同层次。',
+                    core: false
+                }]
+            }
+        };
+
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        const steps = [
+        {
+            n: '00',
+            title: '统一范围与对象清单',
+            sub: 'Inventory',
+            input: '组织内 AI 能力清单（自研模型/外采模型/第三方 API/平台能力/规则统计模型等）',
+            actions: ['定义"什么算 AI 系统/模型"的纳入标准', '盘点系统边界：用途/业务场景/影响对象/人群范围/决策链条', '明确责任人：业务 Owner/模型 Owner/数据 Owner/风险合规 Owner'],
+            output: 'AI 系统台账（含 Owner 与使用场景）\n适用法规/标准初筛结果'
+        },
+        {
+            n: '01',
+            title: '风险分类与分级',
+            sub: 'Taxonomy + Rating',
+            input: 'AI 系统台账、适用场景与影响分析',
+            actions: ['统一风险维度：性能/鲁棒性/数据质量/偏差/隐私安全/对抗攻击/可解释性/伦理/合规 IP', '明确分级口径：高/中/低风险及"控制强度"对应关系', '定义豁免规则：豁免条件/证据/审批流程'],
+            output: '风险分类与分级标准\n控制强度映射表\n豁免与例外处理机制'
+        },
+        {
+            n: '02',
+            title: '生命周期门禁设计',
+            sub: 'Gates Design',
+            input: '分级标准、研发与交付流程（含 RO 发布流程）',
+            actions: ['设定关键门禁：立项/数据/训练/评估/上线/变更/退役门禁七类', '每个门禁明确：必须满足的硬要求/可接受的软要求/需要提交的证据', '与 RO 对齐：把 RG 门禁嵌入 RO 的发布与变更流程'],
+            output: '门禁清单（Gate Checklist）\n证据清单（Evidence Checklist）\n与 RO 的流程对接说明'
+        },
+        {
+            n: '03',
+            title: '用例与影响评估',
+            sub: 'Use-case Impact Assessment',
+            input: '业务需求/用户画像/决策流程/影响人群与影响范围',
+            actions: ['明确是否涉及关键决策与敏感人群', '定义"可接受的错误类型"和"不可接受的伤害"（歧视/隐私泄露/重大误导）', '设计人在回路（HITL）与申诉/救济路径（如适用）'],
+            output: '用例风险说明书\n影响评估结论\nHITL/申诉机制设计要点'
+        },
+        {
+            n: '04',
+            title: '数据风险评估与控制',
+            sub: 'Data Controls',
+            input: '数据来源/数据字典/采集与授权/标注方案/数据版本',
+            actions: ['数据合规：授权/用途边界/最小化/留存与删除策略', '数据质量：完整性/一致性/噪声/标签质量/覆盖面', '偏差与代表性：关键群体覆盖/采样偏差检测/偏差修正策略', '安全：敏感字段处理/访问控制/脱敏匿名化方案'],
+            output: '数据风险评估报告\n数据卡（Data Card）\n数据版本与血缘记录'
+        },
+        {
+            n: '05',
+            title: '模型风险评估',
+            sub: 'Model Evaluation',
+            input: '模型方案/训练配置/评估集与基线/模型版本',
+            actions: ['性能：离线指标 + 关键子人群分层指标', '鲁棒性：噪声/扰动敏感性/分布偏移模拟/压力测试', '公平性：群体间差异指标/阈值敏感性分析', '可解释性：LIME/SHAP 方法与解释稳定性', '安全：对抗测试/模型窃取/提示注入评估'],
+            output: '模型卡（Model Card）\n测试报告包\n风险点清单与残余风险评估'
+        },
+        {
+            n: '06',
+            title: '风险缓解与验证',
+            sub: 'Mitigation + Verification',
+            input: '风险点清单/残余风险评估',
+            actions: ['选择缓解策略：数据层/模型层/系统层/流程层（HITL/审批）', '复测与对比：验证缓解前后风险指标变化，确认达到阈值', '明确止损/回滚条件：哪些指标触发下线或回滚'],
+            output: '缓解方案与复测记录\n残余风险确认结论\n回滚/止损条件'
+        },
+        {
+            n: '07',
+            title: '上线与变更门禁',
+            sub: 'Release Gate',
+            input: '门禁清单/证据包/RO 发布计划',
+            actions: ['上线前审查：证据是否齐全/风险结论是否满足阈值/豁免是否合规', '变更触发规则：模型/数据/用途/部署环境变化触发再评估', '与 RO 协同：将关键 KRI/监控项/告警规则交付 RO 纳入运行体系'],
+            output: '上线批准记录/豁免记录\n变更再评估规则\n监控与告警交付清单'
+        },
+        {
+            n: '08',
+            title: '运行期风险监控',
+            sub: 'Runtime Monitoring',
+            input: '上线模型/在线日志指标/用户反馈',
+            actions: ['漂移与退化：输入分布漂移/性能退化/置信度异常监控', '偏见与伤害信号：群体差异扩大/异常输出模式追踪', '安全与滥用：异常调用/提示注入/可疑样本检测'],
+            output: '运行期 KRI 监控看板\n异常事件处置记录\n月度风险健康度报告'
+        },
+        {
+            n: '09',
+            title: '退役与归档',
+            sub: 'Retirement & Archiving',
+            input: '退役决策/数据留存规则/审计要求',
+            actions: ['退役评估：性能持续下降/业务场景失效/合规要求变化', '数据与模型归档：满足监管留存期要求的完整归档', '经验沉淀：提炼本系统 RG 经验，更新分类标准'],
+            output: '退役决策记录\n数据/模型归档方案\n经验更新到分类框架'
+        }
+        ];
+
+        const menu = document.getElementById('step-menu');
+        const detail = document.getElementById('step-detail');
+        function showStep(idx) {
+            document.querySelectorAll('.step-btn').forEach((b, i) => {
+                b.classList.toggle('active', i === idx);
+            });
+            const s = steps[idx];
+            detail.innerHTML = `<div class="fade-in"><div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100"><span class="text-3xl font-black text-slate-200">${s.n}</span><div><h3 class="text-xl font-bold text-sky-800">${s.title}</h3><p class="text-xs text-slate-400 uppercase tracking-wider">${s.sub}</p></div></div><div class="space-y-4"><div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400"><h4 class="font-bold text-blue-900 text-sm mb-2">📥 输入</h4><p class="text-sm text-slate-600">${s.input}</p></div><div class="bg-amber-50 p-4 rounded-lg border-l-4 border-amber-400"><h4 class="font-bold text-amber-900 text-sm mb-2">⚙️ 关键动作</h4><ul class="space-y-1">${s.actions.map(a => `<li class="text-sm text-slate-600 flex items-start gap-2"><span class="text-amber-500 shrink-0 mt-0.5">▸</span>${a}</li>`).join('')}</ul></div><div class="bg-emerald-50 p-4 rounded-lg border-l-4 border-emerald-400"><h4 class="font-bold text-emerald-900 text-sm mb-2">📤 产出物</h4><p class="text-sm text-emerald-700 whitespace-pre-line font-medium">${s.output}</p></div></div></div>`;
+        }
+        steps.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'step-btn w-full text-left px-4 py-3 text-sm font-medium text-slate-700 border-b border-slate-100 focus:outline-none';
+            btn.innerHTML = `<div class="flex items-center gap-2"><span class="text-xs font-black text-slate-300 w-7">${s.n}</span><div><div class="font-bold text-slate-800 text-xs leading-tight">${s.title}</div><div class="text-xs text-slate-400 mt-0.5">${s.sub}</div></div></div>`;
+            btn.onclick = () => showStep(i);
+            menu.appendChild(btn);
+        });
+        showStep(0);
+
+        const roadmap = [
+        {
+            phase: '第一步',
+            title: '体系框架设计',
+            desc: '建立 AI 系统台账，制定风险分类词典和分级标准，完成门禁体系设计，与 RO 发布流程完成对接设计。',
+            deliverable: '交付物：AI 台账 · 分类分级标准 · 门禁清单设计'
+        },
+        {
+            phase: '第二步',
+            title: '首批系统评估与验证',
+            desc: '对现有高风险 AI 系统完成首轮全面 RG 评估，识别重大风险并完成缓解验证，形成模型卡和数据卡标准。',
+            deliverable: '交付物：首批系统风险评估报告 · 模型卡/数据卡模板 · 缓解验证记录'
+        },
+        {
+            phase: '第三步',
+            title: '门禁机制运营化',
+            desc: 'RG 门禁正式嵌入 RO 发布流程，新系统上线强制通过 RG 评估，建立豁免审批机制，完成团队能力培训。',
+            deliverable: '交付物：门禁执行规范 · 首批门禁记录 · 团队 RG 培训完成证明'
+        },
+        {
+            phase: '第四步',
+            title: '运营期监控体系建立',
+            desc: '部署运营期风险监控（漂移/偏见/安全告警），建立月度风险健康度报告机制，完成可解释性工具集成。',
+            deliverable: '交付物：运营监控看板 · 月度风险报告 · LIME/SHAP 集成完成'
+        },
+        {
+            phase: '第五步（持续进行）',
+            title: '体系成熟与持续演进',
+            desc: '定期更新分类标准和评估框架，沉淀 RG 经验知识库，跟踪 AI 监管法规动态并更新合规要求，建立行业对标机制。',
+            deliverable: '里程碑：年度 RG 能力成熟度评估 · 合规更新记录 · 行业对标报告'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        roadmap.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === roadmap.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

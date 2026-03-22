@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI战略风险执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+        height: 300px;
+        max-height: 360px
+    }
+
+    .nav-link:hover {
+        color:#0369a1
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color: #fff
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9
+    }
+
+    .roadmap-step {
+        transition:all 0.2s
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12)
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom:1px solid #f1f5f9
+    }
+
+    .check-item:last-child {
+        border-bottom: none
+    }
+
+    .fade-in {
+        animation:fadeIn 0.3s ease
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform:translateY(6px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width:6px
+    }
+
+    ::-webkit-scrollbar-track {
+        background:#f1f5f9
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .step-btn {
+        transition: all 0.2s;
+        border-left: 4px solid transparent;
+        cursor: pointer
+    }
+
+    .step-btn.active {
+        background-color: #0f172a;
+        color: #fff;
+        border-left-color: #d97706
+    }
+
+    .step-btn:not(.active):hover {
+        background-color: #f1f5f9
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🎯</span>
+                <span class="font-bold text-xl tracking-tight text-sky-800">【13】AI战略风险管控</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#overview" class="nav-link text-slate-600 font-medium transition-colors">AI战略风险概览</a>
+                <a href="#why" class="nav-link text-slate-600 font-medium transition-colors">为什么做</a>
+                <a href="#objectives" class="nav-link text-slate-600 font-medium transition-colors">任务目标</a>
+                <a href="#framework" class="nav-link text-slate-600 font-medium transition-colors">架构模型</a>
+                <a href="#how" class="nav-link text-slate-600 font-medium transition-colors">如何做</a>
+                <a href="#roadmap" class="nav-link text-slate-600 font-medium transition-colors">执行路线</a>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- 概览 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI战略风险执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    本方案面向董事会与高管层，聚焦 AI 转型全程的方向性风险管控：
+                    <strong class="text-sky-700">在战略制定、投资决策、执行验证全过程中，持续识别并控制战略级不确定性，保障 AI 目标可实现、可持续、可迭代</strong>
+                    。
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🎯</div>
+                    <h3 class="font-bold text-slate-800 mb-1">方向性风险</h3>
+                    <p class="text-sm text-slate-600">聚焦影响路线图和市场地位的战略级风险，而非普通项目风险。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">⚖️</div>
+                    <h3 class="font-bold text-slate-800 mb-1">决策不可逆性</h3>
+                    <p class="text-sm text-slate-600">涉及重大资产投入或关键供应商绑定，一旦锁定后期调整代价极高。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🔄</div>
+                    <h3 class="font-bold text-slate-800 mb-1">动态持续监控</h3>
+                    <p class="text-sm text-slate-600">技术快速演进使战略假设随时面临颠覆，须建立持续更新机制。</p>
+                </div>
+                <div class="bg-red-50 p-5 rounded-xl border border-red-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-red-600 uppercase tracking-widest mb-1">最高风险等级</span>
+                    <span class="text-3xl font-extrabold text-red-700">RS</span>
+                    <p class="text-sm text-red-600 font-medium mt-1">需董事会级别关注与授权</p>
+                </div>
+            </div>
+            <!-- 对比表 -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">RS 战略风险 vs 普通项目风险：本质区别</h2>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">比较维度</th>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">普通项目风险</th>
+                                <th class="px-5 py-3 bg-red-50 text-left text-xs font-bold text-red-700 uppercase">RS 战略风险（本方案）</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">影响范围</td>
+                                <td class="px-5 py-3 text-slate-500">局部功能或单个业务线</td>
+                                <td class="px-5 py-3 font-semibold text-red-700">波及公司级目标、核心竞争力及全体资源配置</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">不确定性来源</td>
+                                <td class="px-5 py-3 text-slate-500">技术实现问题，可预测</td>
+                                <td class="px-5 py-3 font-semibold text-red-700">技术/市场/政策/组织复杂交织，难以用概率预测</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">决策可逆性</td>
+                                <td class="px-5 py-3 text-slate-500">可以调整回滚，成本可控</td>
+                                <td class="px-5 py-3 font-semibold text-red-700">涉及重大资产投入，锁定后调整代价极高</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">管控责任人</td>
+                                <td class="px-5 py-3 text-slate-500">项目经理/技术负责人</td>
+                                <td class="px-5 py-3 font-semibold text-red-700">CEO/董事会，须高管层亲自关注与裁决</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">评审频率</td>
+                                <td class="px-5 py-3 text-slate-500">项目里程碑节点</td>
+                                <td class="px-5 py-3 font-semibold text-red-700">例行季度审视 + 重大事件触发式紧急评审</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3">🔬 本质特征提炼</h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>影响面广：</strong>
+                                一旦发生，波及公司级目标、核心竞争力及全体资源配置，不可局部修复。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>高度不确定：</strong>
+                                风险源复杂交织（技术/市场/政策/组织），难以用传统概率精确预测。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>决策不可逆：</strong>
+                                涉及重大资产投入或关键供应商绑定，试错成本极高，须在投入前做好评估。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3">🏭 行业典型表现</h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>技术路线押错：</strong>
+                                某企业押注特定大模型架构，技术被淘汰后 3 年累计投入 2 亿元全部沉没。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>监管合规风暴：</strong>
+                                某金融机构未提前评估算法合规风险，上线 AI 信贷系统后被监管叫停，造成重大声誉损失。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>竞争生态位失守：</strong>
+                                某零售企业战略决策迟缓，6 个月窗口期内被竞争对手 AI 化，核心市场份额下降 25%。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 为什么做 -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：六大战略风险驱动力</h2>
+                <p class="text-slate-500 mt-2 pl-5">AI 转型不是单纯的 IT 升级，而是关乎生死存亡的战略重塑——以下六类风险需要高管亲自关注。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💸</span>
+                        <h3 class="font-bold text-red-800">巨额沉没成本</h3>
+                    </div>
+                    <p class="text-sm text-red-700">方向性错误将导致长期巨额投资血本无归，丧失竞争优势。AI 项目平均投资规模大、周期长，错误方向一旦深入难以抽身。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚡</span>
+                        <h3 class="font-bold text-red-800">高度技术不确定性</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 技术迭代极快，基于当前假设的战略随时面临技术路线被淘汰的风险。每 6 个月可能出现颠覆性进展，已投入的方向可能瞬间过时。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🧱</span>
+                        <h3 class="font-bold text-red-800">组织变革阻力</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 转型涉及深层利益与结构重组，战略执行阻力巨大，极易引发治理失效。没有高层持续护航，阻力会让战略在推进过程中逐渐走样。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🌪️</span>
+                        <h3 class="font-bold text-red-800">竞争格局剧变</h3>
+                    </div>
+                    <p class="text-sm text-red-700">跨界打击成为常态，战略迟缓或冒进都可能在极短窗口期内导致生态位失守。AI 时代竞争窗口比传统行业短 3–5 倍。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚖️</span>
+                        <h3 class="font-bold text-red-800">监管与合规风暴</h3>
+                    </div>
+                    <p class="text-sm text-red-700">政策法规快速演进，数据与算法伦理风险随时可能触发业务停摆或声誉崩塌。主动合规比被动整改的成本低 10 倍以上。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💡</span>
+                        <h3 class="font-bold text-sky-800">路径深度依赖</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">
+                        关键平台与供应商选择具有不可逆性，一旦锁定，后期调整代价极其高昂。
+                        <strong>提前识别路径依赖风险，是降低战略调整成本的最高效手段。</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">战略风险特征画像：为什么需要顶层管控</h3>
+                    <p class="text-sm text-slate-500 mb-5">与普通风险不同，AI 战略风险在影响面、不确定性、决策不可逆、时效紧迫性四个维度具有极端特征，必须由最高层直接管控。</p>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-red-50 rounded-lg border border-red-100">
+                            <span class="text-red-600 font-bold w-5 shrink-0 text-center">①</span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">影响面极广：</span>
+                                <p class="text-xs text-slate-500 mt-0.5">一旦发生，波及公司级目标、核心竞争力及全体资源配置。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-red-50 rounded-lg border border-red-100">
+                            <span class="text-red-600 font-bold w-5 shrink-0 text-center">②</span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">不确定性极高：</span>
+                                <p class="text-xs text-slate-500 mt-0.5">风险源复杂交织（技术、市场、政策、组织），难以精确预测。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-red-50 rounded-lg border border-red-100">
+                            <span class="text-red-600 font-bold w-5 shrink-0 text-center">③</span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">决策不可逆：</span>
+                                <p class="text-xs text-slate-500 mt-0.5">重大资产投入或关键供应商绑定，试错成本极高。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-amber-50 rounded-lg border border-amber-100">
+                            <span class="text-amber-600 font-bold w-5 shrink-0 text-center">④</span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">时效紧迫：</span>
+                                <p class="text-xs text-slate-500 mt-0.5">AI 竞争窗口极短，错过最佳时机的代价持续复利累积。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="riskProfileChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务目标 -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：四大维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按战略风险管控核心职能分组，每组附可落地验收标准，供战略委员会与高管层对标自查。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔍</span>
+                        <h3 class="font-bold text-slate-800">风险识别与评估体系</h3>
+                        <span class="ml-auto badge-core">基础优先</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 战略风险统一分类词典（技术/市场/竞争/组织/资源/合规）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>制定影响力×概率×可控性三维量化评分标准</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>形成 Top 10–20 战略风险清单，建立动态更新机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>设定 KRI（关键风险指标）并划定黄/橙/红三级预警阈值</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">⚖️</span>
+                        <h3 class="font-bold text-slate-800">风险偏好与边界设定</h3>
+                        <span class="ml-auto badge-core">战略核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>与董事会/CEO 对齐最大容忍投入与可接受失败范围</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>明确合规与声誉红线，形成书面风险偏好/容忍度声明</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>为高投入方向设定刚性止损条件（KRI 触红线即停止）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立触发式紧急评审清单（政策突变/竞争颠覆/技术失效等）</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔄</span>
+                        <h3 class="font-bold text-slate-800">监控与动态调整机制</h3>
+                        <span class="ml-auto badge-new">运行保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 KRI 实时追踪看板，主要指标可视化</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>高管层季度战略风险例会 + 重大事件即时上报机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期扫描外部环境（技术动态/监管政策/竞争格局）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>PDCA 闭环：验证风险应对结果是否达到 KRI 要求</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🗺️</span>
+                        <h3 class="font-bold text-slate-800">风险全景矩阵建设</h3>
+                        <span class="ml-auto badge-new">可视化工具</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>按影响力 × 概率建立动态风险矩阵（红/黄/绿三区分级）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>每个风险明确：影响场景/触发条件/应对方案/责任人</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立风险应对行动计划（RACI 矩阵 + 预算 + 验证方式）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期输出《战略风险状态报告》向董事会汇报</span>
+                </div>
+                </ul>
+            </div>
+            </div>
+        </section>
+
+        <!-- 架构模型 -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 13）。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07 · 08</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11 · 12</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">14 · 15 · 16</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- 如何做 -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：6步战略风险管控闭环</h2>
+                <p class="text-slate-500 mt-2 pl-5">一套结构化方法论，将不确定性转化为可追踪清单，清单转化为优先级，优先级转化为管理动作。点击步骤查看执行细节。</p>
+            </div>
+            <div class="flex flex-col lg:flex-row bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[400px]">
+                <div class="w-full lg:w-64 shrink-0 bg-slate-50 border-r border-slate-200" id="step-menu"></div>
+                <div class="flex-1 p-8 min-h-[400px]" id="step-detail"></div>
+            </div>
+        </section>
+
+        <!-- 执行路线 -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：战略风险管控体系建设路径</h2>
+                <p class="text-slate-500 mt-2 pl-5">从启动对齐到持续演进，系统化建立企业 AI 战略风险管控能力。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"战略风险管控不是阻止行动，而是让每一个重大投入都有清醒的方向感和可承受的退出机制。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        new Chart(document.getElementById('riskProfileChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['影响面广泛', '不确定性高', '决策不可逆', '时效紧迫', '传导性强'],
+                datasets: [{
+                    label: 'AI战略风险特征',
+                    data: [95, 90, 100, 85, 88],
+                    backgroundColor: 'rgba(239,68,68,0.15)',
+                    borderColor: '#dc2626',
+                    pointBackgroundColor: '#d97706',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        pointLabels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 12
+                            },
+                            color: '#1e293b'
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: '战略风险须与 AI 战略转型双向绑定，同时为变革管理提供阻力风险预警，为运营模式转换和技术路线迁移提供决策止损机制。',
+                components: [{
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: '战略风险与战略转型形成"战略假设—风险评估—战略调整"的双向反馈闭环。每个战略假设都须识别对应的验伪风险，风险评估结果直接约束战略目标的激进程度与执行节奏。',
+                    core: true
+                }, {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: '组织变革阻力是重要的战略风险来源，须纳入 RS 的风险识别范畴。同时，战略方向调整时须通过变革管理确保组织能快速适应新方向，防止战略调整引发二次组织动荡。',
+                    core: true
+                }, {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: '运营模式转换的成本超预期和落地失败风险，是战略投资回报的重要威胁。RS 须持续评估运营模式转换的可行性风险，在转换方案不成立时触发战略调整。',
+                    core: false
+                }, {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '技术路线选型是路径深度依赖风险最集中的决策点。RS 须为重大技术路线决策提供风险评估依据，识别潜在的供应商锁定风险和技术路线被淘汰的可能性。',
+                    core: true
+                }]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: '战略风险管控确保所有 AI 价值创造活动建立在稳固的战略假设上，防止资源被浪费在错误方向的"价值创造"上。',
+                components: [{
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: '赋能投资方向的战略正确性须持续评估——如果目标赋能场景的市场价值假设发生根本性变化，应触发 RS 的战略重评机制，防止继续在错误场景上堆积资源。',
+                    core: false
+                }, {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: '创新赛道选择是战略风险最密集的决策——押注错误技术方向、错误市场时机或错误商业模式都属于 RS 范畴。RS 为 VG 的创新投资提供风险阈值约束，防止盲目投入。',
+                    core: true
+                }, {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: '指标体系须包含战略层 KRI（关键风险指标）。当核心战略假设的验证指标持续偏离预期时，须触发 RS 的战略评估，而非仅调整执行方案。',
+                    core: true
+                }, {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: '技术适用性选择本质上是对技术锁定风险的管控。RS 在 VT 决策时提供战略视角——某些技术在单项目上"适用"，但可能带来整体战略层面的不可接受风险。',
+                    core: false
+                }]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: '领导者是战略风险的最终责任人，治理委员会是 RS 的最高审议平台，CoE 负责日常风险追踪，人才配置影响风险管控能力的实现。',
+                components: [{
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '领导者是战略风险的最终决策人和责任承担者——重大战略风险的应对决策（如叫停、调整方向）须由领导层直接裁决。领导层的风险偏好声明是 RS 工作的基准输入。',
+                    core: true
+                }, {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '治理委员会是 RS 战略风险的最高审议平台——季度战略风险审视、重大 KRI 预警响应、止损决策均由委员会完成。委员会章程须明确 RS 相关决策的授权边界。',
+                    core: true
+                }, {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE 负责 RS 日常风险监控的执行——收集 KRI 数据、维护风险矩阵、触发预警上报。CoE 是战略风险信号的第一手采集者和向上传递的执行主体。',
+                    core: false
+                }, {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: '人才战略方向押注错误是 RS 的重要风险场景——大量培养某项技术人才后该技术被淘汰，将造成重大沉没成本。RS 须评估人才战略中的技术方向风险。',
+                    core: false
+                }]
+            },
+            risk: {
+                title: '🛡️ 风险管控层（协同关系）',
+                desc: 'RS 战略风险与其他风险组件形成上下游协同——RG 和 RO 的风险在规模化或高影响场景下可上升为 RS 关注的战略风险，RT 的合规失败可演变为战略层的监管风险。',
+                components: [{
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: 'RG 管理 AI 系统本体风险（算法偏见/数据质量/合规缺陷）；当这些风险在规模化应用中演变为重大声誉或监管危机时，须上升为 RS 处理的战略风险——两者形成"底层风险向上穿透预警"机制。',
+                    core: true
+                }, {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: 'RO 的长期 SLA 违约、成本失控或多次重大事故可能演变为战略风险——引发声誉受损、业务中断与监管惩罚。RS 须关注 RO 风险的累积与升级趋势。',
+                    core: false
+                }, {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: '信创合规失败和网络安全重大事件可能直接演变为政策合规层面的战略风险。RT 的合规状态是 RS 战略合规风险的重要监测输入，须定期纳入战略风险全景审视。',
+                    core: false
+                }]
+            }
+        };
+
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        const steps = [
+        {
+            title: '0. 启动与对齐（画定边界）',
+            sub: '明确前提与红线，防止预期错位',
+            actions: ['区分边界：聚焦影响路线图和市场地位的战略级风险，剥离普通项目风险', '确立偏好：与董事会/CEO 对齐最大容忍投入、可接受的失败范围与合规声誉红线', '设定机制：确立例行评审频率（季度）与触发式评审条件（政策突变等）'],
+            outputs: ['RS 工作范围说明', '风险偏好/容忍度声明', '触发评审清单']
+        },
+        {
+            title: '1. 战略风险识别（列出不确定性）',
+            sub: '多源输入，形成标准化风险条目',
+            actions: ['建立词典：采用统一分类（技术/市场/竞争/组织/资源/合规）', '多维扫描：审视战略假设依赖，复盘历史失败模式，扫描外部环境趋势', '跨界研讨：组织业务/技术/合规多方工作坊，打破信息孤岛识别风险'],
+            outputs: ['战略风险登记册 v1', '标准风险描述模板', 'Top 风险候选池']
+        },
+        {
+            title: '2. 战略风险评估（确立优先级）',
+            sub: '量化指标，聚焦核心 Top 风险',
+            actions: ['统一口径：设定影响、概率、时间窗口、可控性的量化打分标准', '矩阵排摸：计算综合评分，形成 Top 10/20 清单，分析根因及连锁反应', '设定阈值：为 Top 风险定义 1–3 个 KRI，设定黄/橙/红三级预警线'],
+            outputs: ['战略风险矩阵（优先级排序）', 'KRI 指标与预警阈值', 'Top 风险根因分析报告']
+        },
+        {
+            title: '3. 战略风险应对（制定行动与底线）',
+            sub: '资源匹配，明确止损机制',
+            actions: ['选择策略：接受/降低/转移/规避——与战略目标和资源现实匹配', '落实责任：建立 RACI 矩阵，明确目标状态、关键动作、预算与完成验证方式', '设定止损：为高投入方向设定刚性停止条件（KRI 触红线/核心假设证伪）'],
+            outputs: ['风险应对行动计划（带 RACI）', '各风险止损/退出条件', '预算分配与资源保障方案']
+        },
+        {
+            title: '4. 战略风险监控（日常化运转）',
+            sub: '动态追踪，避免错过不可逆节点',
+            actions: ['高频 KRI 追踪：主要指标嵌入高管日报/周报，例外情况即时提醒', '外部扫描：定期追踪竞争动态、监管动向、技术突破', '季度例会：结构化讨论所有 Top 风险的状态变化与判断更新'],
+            outputs: ['KRI 看板（可视化）', '月度风险动态简报', '季度高管层风险状态报告']
+        },
+        {
+            title: '5. 战略调整与迭代（闭环改进）',
+            sub: '将风险反馈转化为战略校准',
+            actions: ['执行 PDCA：验证风险应对结果是否达到 KRI 阈值要求', '敏捷校准：当外部环境质变或假设失效时，果断调整战略目标/节奏/资源', '沉淀经验：记录风险识别/应对的成功与失败，形成组织级决策知识库'],
+            outputs: ['战略校准决策记录', '下轮风险识别改进建议', '战略风险管理能力评估报告']
+        }
+        ];
+
+        const menu = document.getElementById('step-menu');
+        const detail = document.getElementById('step-detail');
+        function showStep(idx) {
+            document.querySelectorAll('.step-btn').forEach((b, i) => {
+                b.classList.toggle('active', i === idx);
+            });
+            const s = steps[idx];
+            detail.innerHTML = `<div class="fade-in"><div class="mb-4 pb-3 border-b border-slate-100"><h3 class="text-xl font-bold text-sky-800 mb-1">${s.title}</h3><p class="text-sm text-slate-500">${s.sub}</p></div><div class="mb-5"><h4 class="font-bold text-slate-700 mb-3 text-sm flex items-center gap-2"><span class="w-1.5 h-4 bg-sky-500 rounded-full inline-block"></span>关键动作</h4><ul class="space-y-2">${s.actions.map(a => `<li class="flex items-start gap-2 text-sm text-slate-600"><span class="text-sky-500 mt-0.5 shrink-0">▸</span>${a}</li>`).join('')}</ul></div><div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4"><h4 class="font-bold text-emerald-800 mb-2 text-sm">📤 核心交付物</h4><ul class="space-y-1">${s.outputs.map(o => `<li class="text-sm text-emerald-700 flex items-center gap-2"><span class="text-emerald-500">✓</span>${o}</li>`).join('')}</ul></div></div>`;
+        }
+        steps.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'step-btn w-full text-left px-5 py-4 text-sm font-medium text-slate-700 border-b border-slate-100 focus:outline-none';
+            btn.innerHTML = `<div class="font-bold text-slate-800 mb-0.5">${s.title.split('（')[0]}</div><div class="text-xs text-slate-400">${s.sub}</div>`;
+            btn.onclick = () => showStep(i);
+            menu.appendChild(btn);
+        });
+        showStep(0);
+
+        const roadmap = [
+        {
+            phase: '第一阶段',
+            title: '启动与边界对齐',
+            desc: '召开董事会/CEO 专项对齐会议，明确 RS 工作范围，确立风险偏好声明，设定 KRI 指标体系初版。',
+            deliverable: '交付物：风险偏好声明 · KRI 指标库 · 工作范围定义'
+        },
+        {
+            phase: '第二阶段',
+            title: '全面风险识别与评估',
+            desc: '组织跨部门工作坊，完成首轮全面战略风险识别，建立风险矩阵，形成 Top 10–20 清单，设定预警阈值。',
+            deliverable: '交付物：战略风险登记册 · 风险矩阵 · Top 风险优先级报告'
+        },
+        {
+            phase: '第三阶段',
+            title: '应对方案制定与责任落地',
+            desc: '为每个 Top 风险制定应对行动计划，明确 RACI，设定刚性止损条件，完成预算分配和资源保障。',
+            deliverable: '交付物：风险应对计划（含 RACI）· 止损条件清单 · 资源分配方案'
+        },
+        {
+            phase: '第四阶段',
+            title: '监控体系运行与常态化',
+            desc: 'KRI 看板上线并纳入高管日常决策信息流，季度例会制度化，外部环境扫描机制建立，首次完整复盘。',
+            deliverable: '交付物：KRI 看板 · 季度例会议程模板 · 首次年度复盘报告'
+        },
+        {
+            phase: '第五阶段（持续进行）',
+            title: '动态调整与能力进化',
+            desc: '基于 PDCA 持续优化风险识别标准和 KRI 阈值，沉淀决策知识库，将 RS 机制融入 AI 战略规划常规流程。',
+            deliverable: '里程碑：年度风险能力评估 · 知识库建立 · 下轮战略规划集成'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        roadmap.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === roadmap.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

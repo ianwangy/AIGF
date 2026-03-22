@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI运营团队执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 520px;
+        margin: auto;
+        height: 320px;
+        max-height: 380px
+    }
+
+    .nav-link:hover {
+        color: #0369a1
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color: #fff
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9
+    }
+
+    .exec-tab {
+        transition: all 0.3s
+    }
+
+    .exec-tab:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12);
+        border-color: #0369a1
+    }
+
+    .exec-tab.active {
+        background-color: #e0f2fe;
+        border-color: #0369a1
+    }
+
+    .roadmap-step {
+        transition: all 0.2s
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12)
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9
+    }
+
+    .check-item:last-child {
+        border-bottom: none
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform:translateY(6px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width:6px
+    }
+
+    ::-webkit-scrollbar-track {
+        background:#f1f5f9
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .phase-btn {
+        transition: all 0.2s;
+        border-left: 4px solid transparent
+    }
+
+    .phase-btn.active {
+        border-left-color: #0369a1;
+        background-color: #f0f9ff;
+        color: #0369a1;
+        font-weight: 700
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">⚙️</span>
+                    <span class="font-bold text-xl tracking-tight text-sky-800">【11】AI运营团队</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#overview" class="nav-link text-slate-600 font-medium transition-colors">AI运营团队概览</a>
+                    <a href="#why" class="nav-link text-slate-600 font-medium transition-colors">为什么做</a>
+                    <a href="#objectives" class="nav-link text-slate-600 font-medium transition-colors">任务目标</a>
+                    <a href="#framework" class="nav-link text-slate-600 font-medium transition-colors">架构模型</a>
+                    <a href="#how" class="nav-link text-slate-600 font-medium transition-colors">如何做</a>
+                    <a href="#roadmap" class="nav-link text-slate-600 font-medium transition-colors">执行路线</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- 概览 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI运营团队（CoE）执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    本方案面向董事会与高管层，聚焦 AI 落地执行的核心结构命题：
+                    <strong class="text-sky-700">AI 运营团队（Center of Excellence）是战略层与执行层之间的核心枢纽——是 AI 战略从"制定"走向"落地"的执行引擎，也是"翻译官"和"助推器"</strong>
+                    。
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🚀</div>
+                    <h3 class="font-bold text-slate-800 mb-1">战略落地保障</h3>
+                    <p class="text-sm text-slate-600">将高层制定的 AI 战略"翻译"成可执行的项目计划，确保战略真正落地产生价值。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🔄</div>
+                    <h3 class="font-bold text-slate-800 mb-1">资源与风险控制</h3>
+                    <p class="text-sm text-slate-600">统筹规划避免重复投资，集中配置 AI 能力，建立统一的风险管理流程。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">📈</div>
+                    <h3 class="font-bold text-slate-800 mb-1">持续优化与价值</h3>
+                    <p class="text-sm text-slate-600">建立监控指标，基于数据反馈迭代优化模型，提升全员 AI 素养，释放组织能力。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">团队规模</span>
+                    <span class="text-3xl font-extrabold text-sky-800">7</span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">核心跨职能角色配置</p>
+                </div>
+            </div>
+            <!-- 团队角色 -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">团队架构：七大核心角色配置</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-5">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center cursor-pointer hover:bg-sky-50 hover:border-sky-200 transition-all" onclick="showRole('caio')">
+                        <div class="text-sky-600 text-2xl mb-2">🎖️</div>
+                        <p class="text-xs font-bold text-slate-700">CAIO</p>
+                        <p class="text-xs text-slate-400 mt-0.5">AI负责人</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center cursor-pointer hover:bg-sky-50 hover:border-sky-200 transition-all" onclick="showRole('pm')">
+                        <div class="text-sky-600 text-2xl mb-2">💼</div>
+                        <p class="text-xs font-bold text-slate-700">AI产品经理</p>
+                        <p class="text-xs text-slate-400 mt-0.5">场景挖掘</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center cursor-pointer hover:bg-sky-50 hover:border-sky-200 transition-all" onclick="showRole('algo')">
+                        <div class="text-sky-600 text-2xl mb-2">🧠</div>
+                        <p class="text-xs font-bold text-slate-700">算法工程师</p>
+                        <p class="text-xs text-slate-400 mt-0.5">模型开发</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center cursor-pointer hover:bg-sky-50 hover:border-sky-200 transition-all" onclick="showRole('data')">
+                        <div class="text-sky-600 text-2xl mb-2">📊</div>
+                        <p class="text-xs font-bold text-slate-700">数据工程师</p>
+                        <p class="text-xs text-slate-400 mt-0.5">数据处理</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center cursor-pointer hover:bg-sky-50 hover:border-sky-200 transition-all" onclick="showRole('mlops')">
+                        <div class="text-sky-600 text-2xl mb-2">⚙️</div>
+                        <p class="text-xs font-bold text-slate-700">MLOps工程师</p>
+                        <p class="text-xs text-slate-400 mt-0.5">平台运维</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center cursor-pointer hover:bg-sky-50 hover:border-sky-200 transition-all" onclick="showRole('ba')">
+                        <div class="text-sky-600 text-2xl mb-2">📈</div>
+                        <p class="text-xs font-bold text-slate-700">业务分析师</p>
+                        <p class="text-xs text-slate-400 mt-0.5">价值度量</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center cursor-pointer hover:bg-sky-50 hover:border-sky-200 transition-all" onclick="showRole('pm2')">
+                        <div class="text-sky-600 text-2xl mb-2">📋</div>
+                        <p class="text-xs font-bold text-slate-700">项目经理</p>
+                        <p class="text-xs text-slate-400 mt-0.5">进度协调</p>
+                    </div>
+                </div>
+                <div id="role-detail" class="bg-slate-50 rounded-xl p-5 border border-slate-200 min-h-[80px] text-sm text-slate-600 fade-in">👆 点击上方角色卡片，查看该角色在 AI 项目生命周期中的具体职责和协作边界。</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3">🔬 本质特征提炼</h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>跨职能整合：</strong>
+                                产品、算法、数据、工程、业务五类人才协作，防止 AI 项目成为"技术孤岛"。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>能力复用：</strong>
+                                共享 AI 基础设施和工具链，各业务线按需调用，避免重复建设浪费资源。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>知识沉淀：</strong>
+                                将成功经验系统化为可复用的方法论，提升全组织的 AI 执行能力。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3">🏭 行业典型表现</h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>互联网：</strong>
+                                CoE 建立后，跨业务线 AI 能力复用率从 5% 提升至 60%，重复建设成本降低 70%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>金融业：</strong>
+                                跨职能 CoE 使 AI 项目从立项到上线的周期从 18 个月压缩至 4 个月。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业：</strong>
+                                CoE 建立标准化 MLOps 流程后，模型上线失败率从 45% 降至 8%。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 为什么做 -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：设立 AI 运营团队的战略必要性</h2>
+                <p class="text-slate-500 mt-2 pl-5">AI 运营团队位于战略层和执行层之间——没有它，战略将"悬空"，执行将"碎片化"。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🚀</span>
+                        <h3 class="font-bold text-red-800">战略落地保障</h3>
+                    </div>
+                    <p class="text-sm text-red-700">高层制定的 AI 战略如果缺乏专业执行团队承接，将停留在 PPT 上。CoE 负责将战略"翻译"成可执行的项目计划、里程碑和交付物，确保战略不悬空。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💰</span>
+                        <h3 class="font-bold text-red-800">避免重复建设浪费</h3>
+                    </div>
+                    <p class="text-sm text-red-700">没有统一的 CoE，各部门各自招募 AI 人才、搭建 AI 平台，导致严重重复投资。统筹规划的 CoE 可将共享能力成本降低 50–70%，释放资源用于差异化场景。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">📈</span>
+                        <h3 class="font-bold text-sky-800">建立可持续执行能力</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">CoE 通过标准化流程、工具库和方法论，将每个项目的成功经验沉淀为可复用的组织资产，使后续每个 AI 项目都能站在前人肩膀上，执行效率持续提升。</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">AI Ops 团队：八大能力维度成熟度</h3>
+                    <p class="text-sm text-slate-500 mb-5">雷达图展示了 AI 运营团队须覆盖的八大核心能力维度，帮助高管直观评估团队建设的成熟度与短板。</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-slate-600">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            项目管理能力
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            数据工程能力
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            模型开发与优化
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            MLOps 平台
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            业务价值度量
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            风险合规管理
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            产品与场景挖掘
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            知识管理与传播
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="radarChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务目标 -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：六大维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按 AI 运营核心职能分组，每组附可落地验收标准，供 CoE 团队自查与高层考核。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📋</span>
+                        <h3 class="font-bold text-slate-800">项目管理与协作</h3>
+                        <span class="ml-auto badge-core">核心职能</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立统一的 AI 项目管理框架（立项/里程碑/评审/收尾）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>维护活跃项目看板，向治理委员会定期汇报（月度）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立跨部门协作机制，CoE 作为业务线的 AI 联络枢纽</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>制定 AI 项目敏捷开发规范，2–4 周迭代节奏</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🧠</span>
+                        <h3 class="font-bold text-slate-800">模型开发与 MLOps</h3>
+                        <span class="ml-auto badge-core">技术核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>搭建企业级 MLOps 平台（训练/部署/监控一体化）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立模型版本管理与灰度发布机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>部署模型漂移监控，设定自动预警阈值</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 Prompt 工程和 RAG 能力框架，支撑大模型应用</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📊</span>
+                        <h3 class="font-bold text-slate-800">场景挖掘与业务赋能</h3>
+                        <span class="ml-auto badge-new">价值核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 场景挖掘方法论，定期开展业务部门访谈</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>维护 AI 机会评估矩阵（价值 × 可行性 × 优先级）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立业务需求到 AI 解决方案的标准转化流程</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期组织 AI 成功案例分享，推动跨业务线复制</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🛠️</span>
+                        <h3 class="font-bold text-slate-800">基础设施建设</h3>
+                        <span class="ml-auto badge-core">基础保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>分阶段建立 AI 基础设施（公有云 MVP → 混合云平台 → 智能化）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立数据治理体系，完成跨系统数据接入</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>搭建向量数据库，支撑 RAG 和知识库检索能力</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 GPU/TPU 算力调度机制，支持训练和推理需求</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📏</span>
+                        <h3 class="font-bold text-slate-800">价值度量与报告</h3>
+                        <span class="ml-auto badge-new">决策支撑</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 项目价值追踪体系（效率/成本/收入三维）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>维护 AI 运营健康度看板，实时展示关键指标</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>月度向治理委员会提交项目绩效报告</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 项目 ROI 计算标准，支撑投资决策</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🎓</span>
+                        <h3 class="font-bold text-slate-800">全员能力赋能</h3>
+                        <span class="ml-auto badge-new">文化驱动</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立分层培训体系（全员基础 / 业务骨干 / 技术精英）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>全员 AI 基础素养培训覆盖率 ≥ 80%</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立内部 AI 实践社区（CoP），沉淀知识资产</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期举办 AI 技术分享和案例复盘活动</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 架构模型 -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 11）。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07 · 08</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 12</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- 如何做 -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：基础设施三阶段渐进式建设</h2>
+                <p class="text-slate-500 mt-2 pl-5">避免盲目重资产投资，采用渐进式策略分三个阶段建设 AI 基础设施。点击阶段按钮查看详情。</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-56 flex flex-col gap-3 shrink-0">
+                        <button class="phase-btn active text-left py-3 px-4 rounded-lg bg-slate-50 border border-slate-200 text-sm focus:outline-none" data-phase="1">
+                            初期
+                            <br>
+                            <span class="text-xs font-normal text-slate-400">敏捷起步 MVP</span>
+                        </button>
+                        <button class="phase-btn text-left py-3 px-4 rounded-lg bg-slate-50 border border-slate-200 text-sm focus:outline-none" data-phase="2">
+                            中期
+                            <br>
+                            <span class="text-xs font-normal text-slate-400">企业级平台</span>
+                        </button>
+                        <button class="phase-btn text-left py-3 px-4 rounded-lg bg-slate-50 border border-slate-200 text-sm focus:outline-none" data-phase="3">
+                            长期
+                            <br>
+                            <span class="text-xs font-normal text-slate-400">智能化演进</span>
+                        </button>
+                    </div>
+                    <div class="flex-1 bg-slate-50 p-6 rounded-xl fade-in" id="phase-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 执行路线 -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：CoE 建设五步推进图</h2>
+                <p class="text-slate-500 mt-2 pl-5">从组建到成熟，分五个阶段建立 AI 运营团队的完整能力体系。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"AI 运营团队是战略的'最后一公里'——没有它，再好的 AI 战略都是空中楼阁。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const roles = {
+            caio: {
+                t: 'CAIO / AI负责人',
+                d: '负责将 AI 战略"翻译"成可执行计划，向治理委员会和高管层汇报，管理团队资源与优先级，代表 CoE 参与战略决策。'
+            },
+            pm: {
+                t: 'AI产品经理',
+                d: '深入业务线挖掘 AI 应用场景，将业务需求转化为技术可行的产品方案，定义 MVP 范围，管理产品迭代节奏。'
+            },
+            algo: {
+                t: '算法工程师',
+                d: '负责模型选型、开发、微调和优化，解决具体 AI 技术问题，评估不同算法方案的可行性，持续提升模型性能。'
+            },
+            data: {
+                t: '数据工程师',
+                d: '设计和构建数据管道，完成数据清洗、特征工程和数据治理，确保 AI 模型获得高质量的数据输入。'
+            },
+            mlops: {
+                t: 'MLOps工程师',
+                d: '建设和维护 AI 平台基础设施（训练/部署/监控），建立 CI/CD 流水线，确保模型从实验到生产的高效自动化。'
+            },
+            ba: {
+                t: '业务分析师',
+                d: '量化 AI 项目的业务价值，建立 ROI 追踪指标，在技术团队和业务团队之间担任"翻译官"，确保 AI 解决真实业务问题。'
+            },
+            pm2: {
+                t: '项目经理',
+                d: '负责项目进度追踪、资源协调和风险管理，维护项目看板，确保里程碑按时交付，处理跨部门协作障碍。'
+            }
+        };
+        window.showRole = function(key) {
+            const d = roles[key];
+            if (!d)
+                return;
+            document.getElementById('role-detail').innerHTML = `<strong class="text-sky-700">${d.t}：</strong>${d.d}`;
+            document.getElementById('role-detail').classList.add('fade-in');
+        };
+
+        new Chart(document.getElementById('radarChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['项目管理', '数据工程', '模型开发', 'MLOps平台', '价值度量', '风险合规', '产品场景', '知识管理'],
+                datasets: [{
+                    label: '目标成熟度',
+                    data: [90, 85, 88, 82, 80, 75, 86, 78],
+                    backgroundColor: 'rgba(3,105,161,0.2)',
+                    borderColor: '#0369a1',
+                    pointBackgroundColor: '#d97706',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        pointLabels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 11
+                            },
+                            color: '#1e293b'
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const phases = {
+            1: {
+                t: '敏捷起步 MVP 构建',
+                items: ['基于公有云服务快速搭建 MVP，重点支持核心试点项目', '使用云厂商现成 ML 平台（AWS SageMaker / Azure ML），避免重资产投入', '建立基础的数据、代码和模型版本管理规范', '部署简单的模型推理服务，验证业务价值闭环', '策略：最小投入验证最大价值，快速迭代不等待完美']
+            },
+            2: {
+                t: '企业级平台建设',
+                items: ['自建或采购企业级 MLOps 平台，支持多团队并行使用', '引入向量数据库，支撑 RAG 和企业知识库能力', '建立混合云架构，关键数据和模型在私有云运行', '完善特征工程平台，确保离线训练和在线推理特征一致性', '策略：共享基础设施，统一工具链，降低跨团队成本']
+            },
+            3: {
+                t: '智能化演进',
+                items: ['建立自动化的模型选择和超参优化体系', '实现 AI 辅助 AI：用 AI 工具提升开发和运营效率', '建立实时 AI 系统，支持毫秒级在线推理和决策', '探索多模态 AI 能力和 Agent 自主工作流', '策略：平台能力成熟后，转向更复杂的创新场景探索']
+            }
+        };
+        const phaseContent = document.getElementById('phase-content');
+        function showPhase(n) {
+            const d = phases[n];
+            phaseContent.innerHTML = `<h4 class="font-bold text-sky-800 mb-4">${d.t}</h4><ul class="space-y-3">${d.items.map(i => `<li class="flex items-start gap-3"><span class="text-sky-500 mt-0.5 shrink-0">✓</span><span class="text-sm text-slate-700">${i}</span></li>`).join('')}</ul>`;
+            phaseContent.classList.remove('fade-in');
+            void phaseContent.offsetWidth;
+            phaseContent.classList.add('fade-in');
+        }
+        document.querySelectorAll('.phase-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.phase-btn').forEach(b => {
+                    b.classList.remove('active')
+                });
+                btn.classList.add('active');
+                showPhase(parseInt(btn.getAttribute('data-phase')));
+            });
+        });
+        showPhase(1);
+
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: 'AI 运营团队是战略落地的执行引擎，须与战略转型对齐；通过变革管理支持确保新流程被采用；驱动运营模式转换的具体实施；并依赖技术路线迁移提供平台底座。',
+                components: [{
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: 'CoE 是 AI 战略转型的主要执行主体——接收治理委员会的战略指令，将其分解为具体的项目计划和执行路线图。CoE 的项目组合直接反映战略执行进度。',
+                    core: true
+                }, {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: 'CoE 在推动 AI 应用落地时，必然面临业务部门的采用阻力。须与变革管理机制协同，为业务团队提供培训、沟通和持续支持，确保技术交付之外的组织适应。',
+                    core: true
+                }, {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: 'CoE 是运营模式转换最直接的执行主体——识别转换机会、设计新流程、部署 AI 工具、追踪转换效果，是从"现有运营"走向"AI驱动运营"的核心推手。',
+                    core: true
+                }, {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '技术路线迁移为 CoE 提供了 AI 平台的基础设施基础。CoE 须与技术架构团队紧密协作，确保 MLOps 平台、数据管道和 AI 服务的部署环境满足业务需求。',
+                    core: false
+                }]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'CoE 是所有 AI 价值创造活动的日常执行主体，负责场景赋能的落地、创新应用的孵化、价值指标的追踪，以及技术方案的适用性评估。',
+                components: [{
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: 'CoE 是 AI 赋能的直接交付者——从场景识别、技术方案设计、到 MVP 开发、A/B 测试和规模化推广。CoE 的执行能力决定了赋能的速度、深度和覆盖范围。',
+                    core: true
+                }, {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: 'CoE 是创新孵化的核心执行团队，通过跨职能敏捷小队运作快速验证创新场景，沉淀成功经验为可复制模式，并负责将创新成果推广至其他业务线。',
+                    core: true
+                }, {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: 'CoE 建立并维护 AI 项目的价值追踪体系，定期向治理委员会汇报项目绩效，为增资、优化或叫停决策提供客观的数据支撑。',
+                    core: true
+                }, {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: 'CoE 在技术方案选型时须进行多维适用性评估（业务需求/技术成熟度/团队能力/维护成本），避免"为技术而技术"的过度复杂化，确保选型与业务场景最优匹配。',
+                    core: false
+                }]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: 'CoE 接受领导层的战略授权和治理委员会的决策指导，同时配合人才体系建设，持续提升组织整体 AI 执行能力。',
+                components: [{
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '领导者须明确授权 CoE 的职能边界和跨部门协调权力，否则 CoE 将在部门壁垒前举步维艰。领导层对 CoE 的公开支持，是 CoE 建立跨部门公信力的前提。',
+                    core: true
+                }, {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '治理委员会是 CoE 的最高汇报对象——审批 CoE 的项目组合，调配资源优先级，在 CoE 遭遇跨部门冲突时提供权威裁决。CoE 向委员会定期汇报运营状况。',
+                    core: true
+                }, {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: 'CoE 既是 AI 人才的主要使用方，也是人才培养的核心平台——通过项目实战培养复合型 AI 人才，沉淀方法论降低新人上手成本，向其他部门输出 AI 素养。',
+                    core: false
+                }]
+            },
+            risk: {
+                title: '🛡️ 风险管控层',
+                desc: 'CoE 在 AI 系统的整个生命周期中负有运营安全责任，须确保技术交付的同时充分考虑合规、安全和可解释性要求。',
+                components: [{
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: 'CoE 须向治理委员会提供战略层面的风险预警信息——哪些场景赛道存在技术不成熟风险，哪些项目存在战略方向偏差，哪些资源配置存在机会成本损失。',
+                    core: false
+                }, {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: 'CoE 负责在每个 AI 项目的开发和上线阶段执行风险评估，确保算法偏见、数据隐私和模型可解释性等风险在部署前被系统识别和管控。',
+                    core: true
+                }, {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: 'CoE 是 AI 运营风险的直接管理者——建立并维护模型监控看板、设定预警阈值、响应模型漂移告警、执行版本回滚，确保 AI 系统的生产稳定性。',
+                    core: true
+                }, {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: 'CoE 在技术选型和部署方案中须充分考虑信创合规要求，确保数据不出域、系统满足等保标准，在每个项目上线前完成安全合规检查清单。',
+                    core: false
+                }]
+            }
+        };
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        const steps = [{
+            phase: '第一步',
+            title: '团队组建与职能定义',
+            desc: '明确 CoE 的使命边界和汇报关系，确定核心岗位需求，完成关键人才引进（CAIO/MLOps/数据工程），建立团队工作规范。',
+            deliverable: '交付物：CoE 章程 · 岗位说明书 · 首席 AI 负责人任命'
+        }, {
+            phase: '第二步',
+            title: '基础设施搭建与规范制定',
+            desc: '搭建初期 MVP 云平台环境，建立数据版本管理和模型版本管理规范，完成首个试点项目的全流程支撑。',
+            deliverable: '交付物：技术架构方案 · 开发规范手册 · 首个试点项目交付'
+        }, {
+            phase: '第三步',
+            title: '场景拓展与能力标准化',
+            desc: '完成首批 3–5 个高价值场景的 AI 赋能，建立场景评估方法论和可复制模式手册，开始跨业务线复制推广。',
+            deliverable: '交付物：场景方法论 · 可复制模式库 · 价值追踪报告'
+        }, {
+            phase: '第四步',
+            title: '企业级平台与能力规模化',
+            desc: '升级为企业级 MLOps 平台，建立全员 AI 培训体系，CoE 服务能力覆盖主要业务线，治理委员会汇报进入常规节奏。',
+            deliverable: '交付物：企业 AI 平台 · 培训体系 · 全员覆盖进度报告'
+        }, {
+            phase: '第五步（持续进行）',
+            title: '智能化演进与生态建设',
+            desc: '推进 AI 自动化运营（AutoML/Agent），建立 AI 知识社区，输出行业实践，CoE 从执行团队转型为企业 AI 能力中心。',
+            deliverable: '里程碑：行业影响力报告 · 知识社区建立 · CoE 能力成熟度评估'
+        }];
+        const container = document.getElementById('roadmap-container');
+        steps.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === steps.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

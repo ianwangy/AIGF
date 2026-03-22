@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI变革管理执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', 'Segoe UI', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .chart-container { position: relative; width: 100%; max-width: 680px; margin-left: auto; margin-right: auto; height: 340px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .nav-link { transition: color 0.2s; }
+        .nav-link:hover { color: #0369a1; }
+
+        /* Framework tabs (left panel) */
+        .fw-tab { transition: all 0.2s; border-left: 4px solid transparent; }
+        .fw-tab.active { border-left-color: #d97706; background-color: #0f172a; color: #fff; }
+        .fw-tab:not(.active):hover { background-color: #f1f5f9; }
+
+        /* Execution (how-to) tabs */
+        .exec-tab { transition: all 0.3s; }
+        .exec-tab:hover { transform: translateY(-4px); box-shadow: 0 8px 20px -4px rgba(0,0,0,0.12); border-color: #0369a1; }
+        .exec-tab.active { background-color: #e0f2fe; border-color: #0369a1; }
+
+        /* Roadmap step hover */
+        .roadmap-step { transition: all 0.2s; }
+        .roadmap-step:hover { transform: translateY(-3px); box-shadow: 0 8px 20px -4px rgba(0,0,0,0.12); }
+
+        /* Checklist row */
+        .check-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+        .check-item:last-child { border-bottom: none; }
+
+        /* Fade */
+        .fade-in { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .section-title { border-left: 4px solid #0369a1; padding-left: 1rem; }
+        .badge-core { background:#fef3c7; color:#92400e; font-size:0.7rem; padding:2px 8px; border-radius:9999px; font-weight:600; }
+        .badge-new  { background:#dcfce7; color:#166534; font-size:0.7rem; padding:2px 8px; border-radius:9999px; font-weight:600; }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+<!-- ═══ NAV ═══ -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🔄</span>
+                <span class="font-bold text-xl tracking-tight text-sky-800">【02】AI变革管理</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-7">
+                <a href="#overview"    class="nav-link text-slate-600 font-medium">变革概览</a>
+                <a href="#why"         class="nav-link text-slate-600 font-medium">为什么做</a>
+                <a href="#objectives"  class="nav-link text-slate-600 font-medium">任务目标</a>
+                <a href="#framework"   class="nav-link text-slate-600 font-medium">架构模型</a>
+                <a href="#how"         class="nav-link text-slate-600 font-medium">如何做</a>
+                <a href="#roadmap"     class="nav-link text-slate-600 font-medium">执行路线</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 · 变革概览
+════════════════════════════════════════════════════════ -->
+<section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+    <div class="max-w-4xl mb-8">
+        <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI变革管理执行方案</h1>
+        <p class="text-lg text-slate-600 leading-relaxed">
+            本方案面向董事会与高管层，聚焦 AI 转型中被忽视的核心命题：
+            <strong class="text-sky-700">技术落地失败的根本原因不是技术本身，而是组织与人的适应性不足</strong>。
+            变革管理是连接战略意图与业务现实的执行中枢。
+        </p>
+    </div>
+
+    <!-- 四象限速览 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">🧩</div>
+            <h3 class="font-bold text-slate-800 mb-1">核心命题</h3>
+            <p class="text-sm text-slate-600">AI 项目失败的首要原因是文化与组织阻力，而非技术本身。变革管理是成功率的决定性杠杆。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">👥</div>
+            <h3 class="font-bold text-slate-800 mb-1">人本视角</h3>
+            <p class="text-sm text-slate-600">从个体意识到组织文化，系统性处理理性与情感两个维度，确保全员真正参与而非被动配合。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">⚡</div>
+            <h3 class="font-bold text-slate-800 mb-1">双轨并进</h3>
+            <p class="text-sm text-slate-600">ADKAR 聚焦个体转变路径，Kotter 8步法推动组织系统落地，两套模型协同驱动持久改变。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">🔗</div>
+            <h3 class="font-bold text-slate-800 mb-1">本质特征</h3>
+            <p class="text-sm text-slate-600">变革管理是 AI 战略转型的执行机制，不是配套"软措施"，而是决定整个系统成败的关键变量。</p>
+        </div>
+    </div>
+
+    <!-- 对比表格 -->
+    <div class="mb-6">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">与"技术优先、管理滞后"模式的本质区别</h2>
+        <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full divide-y divide-slate-200 text-sm">
+                <thead>
+                    <tr>
+                        <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">维度</th>
+                        <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">技术优先·管理滞后</th>
+                        <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">AI变革管理（本方案）</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-100">
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">推进逻辑</td>
+                        <td class="px-5 py-3 text-slate-500">技术上线即视为成功，忽视人的适应过程</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">技术落地与人的变革同步推进，相互支撑</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">阻力处理</td>
+                        <td class="px-5 py-3 text-slate-500">视阻力为执行问题，强制推行</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">将阻力分析纳入设计，主动引导情感与认知</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">文化融入</td>
+                        <td class="px-5 py-3 text-slate-500">项目结束即收尾，文化不改变</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">AI能力纳入胜任力模型，成为组织新常态</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">成功衡量</td>
+                        <td class="px-5 py-3 text-slate-500">系统上线率、功能交付数量</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">用户实际采用率、行为改变度、业务价值实现</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">领导角色</td>
+                        <td class="px-5 py-3 text-slate-500">高层背书，中层执行，一次性动员</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">高层持续倡导，建立变革领导联盟，全程护航</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">持续性</td>
+                        <td class="px-5 py-3 text-slate-500">项目制，变革结束即停止投入</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">持续强化循环，防止组织倒退，积累复利效应</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 本质特征 + 行业典型表现 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+            <h3 class="font-bold text-sky-900 mb-3 flex items-center gap-2"><span>🔬</span> 本质特征提炼</h3>
+            <ul class="space-y-2 text-sm text-sky-800">
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>以人为本：</strong>同时处理员工的理性认知（Why/What）与情感接受（Fear/Trust），缺一不可。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>系统性过程：</strong>不是单次培训或沟通会，而是覆盖意识→意愿→知识→能力→强化的完整闭环。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>高管即变量：</strong>领导层的态度与行为是变革成败的最强信号，比任何培训项目都重要。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>短期胜利驱动：</strong>选择高可见度的早期试点，积小胜为大胜，持续构建组织信心。</span></li>
+            </ul>
+        </div>
+        <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+            <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2"><span>🏭</span> 行业典型表现</h3>
+            <ul class="space-y-2 text-sm text-amber-800">
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>制造业：</strong>智能排产系统上线后，操作员抵触导致使用率不足 30%——变革管理缺失的典型代价。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>金融业：</strong>AI风控模型部署后，业务员绕过审批的"灰色操作"频发——文化变革滞后的信号。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>零售业：</strong>通过ADKAR框架辅助智能补货推广，员工采用率从 35% 提升至 88%，库存成本下降显著。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>服务业：</strong>AI工单系统配合完整变革管理，6个月内文化评分与工具满意度同步提升。</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 · 为什么做
+════════════════════════════════════════════════════════ -->
+<section id="why" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：变革的战略动因</h2>
+        <p class="text-slate-500 mt-2 pl-5">AI 不是单纯的工具升级，而是系统性变革触发器。以下五大动因决定了变革管理的必要性。</p>
+    </div>
+
+    <!-- 要点卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">💥</span>
+                <h3 class="font-bold text-red-800">颠覆性技术冲击</h3>
+            </div>
+            <p class="text-sm text-red-700">AI 重构了效率与成本逻辑，从个人工作习惯到核心业务流程全面渗透。不主动变革将面临"柯达时刻"——在意识到危机时已失去反应窗口。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">🏗️</span>
+                <h3 class="font-bold text-red-800">组织文化断层</h3>
+            </div>
+            <p class="text-sm text-red-700">AI 改变了工作方式与职责边界，但组织文化和决策惯性滞后。传统经验驱动的决策文化与数据驱动的 AI 逻辑形成根本性冲突。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">👤</span>
+                <h3 class="font-bold text-red-800">用户期望升级</h3>
+            </div>
+            <p class="text-sm text-red-700">消费者已习惯 AI 驱动的即时响应（智能客服、实时推荐、个性化体验）。企业若无法匹配这一期望，将在体验维度上系统性输给竞争对手。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">⚠️</span>
+                <h3 class="font-bold text-red-800">变革失败高风险</h3>
+            </div>
+            <p class="text-sm text-red-700">70% 的大型变革项目以失败告终，首因均为文化与组织阻力而非技术问题。无结构化变革管理，AI 投资将大概率沦为"试点墓地"。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">🏆</span>
+                <h3 class="font-bold text-red-800">竞争力持续侵蚀</h3>
+            </div>
+            <p class="text-sm text-red-700">AI 赋能的竞争对手在效率、服务、决策速度上持续积累优势。等待观望的成本随时间指数增长，每延迟一季度差距将加速扩大。</p>
+        </div>
+        <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">💡</span>
+                <h3 class="font-bold text-sky-800">主动变革的复利红利</h3>
+            </div>
+            <p class="text-sm text-sky-700">具备成熟变革管理能力的企业，在后续每轮技术迭代中的适应成本持续降低。<strong>变革管理本身是一种可积累的组织核心竞争力。</strong></p>
+        </div>
+    </div>
+
+    <!-- 雷达图 + 说明 -->
+    <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 mb-3">AI转型压力五维雷达图</h3>
+            <p class="text-sm text-slate-500 mb-5">当前各维度的组织压力指数（0–100分），分值越高代表驱动变革的紧迫性越强。</p>
+            <div class="space-y-3">
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0 mt-0.5">95</span><div><span class="font-semibold text-slate-700 text-sm">维持竞争力</span><p class="text-xs text-slate-500">竞争对手已开始通过 AI 拉大效率与服务差距，这是最高紧迫优先级。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0 mt-0.5">90</span><div><span class="font-semibold text-slate-700 text-sm">满足 AI 客户期望</span><p class="text-xs text-slate-500">用户体验标准已被互联网原生企业重新定义，传统服务模式难以匹配。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0 mt-0.5">85</span><div><span class="font-semibold text-slate-700 text-sm">颠覆性技术冲击</span><p class="text-xs text-slate-500">生成式 AI 的出现将传统流程优化逻辑彻底颠覆，影响范围已超出预期。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0 mt-0.5">80</span><div><span class="font-semibold text-slate-700 text-sm">规避变革风险</span><p class="text-xs text-slate-500">没有风险管理框架的 AI 推进，将使组织暴露于更高的失败和声誉风险。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0 mt-0.5">75</span><div><span class="font-semibold text-slate-700 text-sm">组织文化重塑</span><p class="text-xs text-slate-500">文化是最难改变也是最持久的竞争壁垒，需要最长周期的系统性投入。</p></div></div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="whyRadarChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 · 任务目标（六维 Checklist）
+════════════════════════════════════════════════════════ -->
+<section id="objectives" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：六大维度 Checklist</h2>
+        <p class="text-slate-500 mt-2 pl-5">按子主题分组，每组附可落地的验收标准，供变革管理团队对标自查。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+        <!-- 意识建立 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">📢</span>
+                <h3 class="font-bold text-slate-800">意识建立</h3>
+                <span class="ml-auto badge-core">ADKAR-A</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>全员知晓 AI 转型的核心原因与紧迫性（覆盖率 ≥ 90%）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>高管层完成统一叙事口径并公开承诺推动</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立内部沟通矩阵，涵盖线上/线下/1对1多渠道</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>发布"变革为何必要"的可视化材料（FAQ、视频等）</span></li>
+            </ul>
+        </div>
+
+        <!-- 意愿激发 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🔥</span>
+                <h3 class="font-bold text-slate-800">意愿激发</h3>
+                <span class="ml-auto badge-core">ADKAR-D</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>识别并转化关键意见领袖（KOL）成为变革倡导者</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立激励机制，将 AI 使用与绩效考核挂钩</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>营造心理安全感，消除"AI 会替代我"的核心顾虑</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>定期举办早期成功案例分享，激发从众效应</span></li>
+            </ul>
+        </div>
+
+        <!-- 能力建设 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🎓</span>
+                <h3 class="font-bold text-slate-800">能力建设</h3>
+                <span class="ml-auto badge-core">ADKAR-K/A</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>分层培训体系：全员基础 + 骨干进阶 + 专家精英</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>全员 AI 基础认知培训覆盖率 ≥ 80%</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>关键岗位通过"边做边学"实践转化，不止理论培训</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立 AI 学习资源库与 CoP（实践社区）</span></li>
+            </ul>
+        </div>
+
+        <!-- 阻力化解 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🛡️</span>
+                <h3 class="font-bold text-slate-800">阻力化解</h3>
+                <span class="ml-auto badge-new">风险管控</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>完成变革阻力地图绘制（部门/层级/个体维度）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>针对高阻力群体制定专项沟通与辅导计划</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>清除制度性障碍（绩效考核、审批流程等结构性壁垒）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立匿名反馈渠道，实时监测员工情绪与阻力变化</span></li>
+            </ul>
+        </div>
+
+        <!-- 文化融入 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🧬</span>
+                <h3 class="font-bold text-slate-800">文化融入</h3>
+                <span class="ml-auto badge-new">长效保障</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>将 AI 能力纳入岗位胜任力模型与晋升通道</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>领导层以身作则，在日常决策中率先使用 AI 工具</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>定期发布 AI 文化健康度评估报告（季度）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>树立内部 AI 变革标杆案例，持续放大正向叙事</span></li>
+            </ul>
+        </div>
+
+        <!-- 持续强化 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🔄</span>
+                <h3 class="font-bold text-slate-800">持续强化</h3>
+                <span class="ml-auto badge-core">ADKAR-R</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立变革效果追踪看板（采用率、满意度、业务指标）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>设置防倒退机制：识别并干预采用率下滑信号</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>庆祝阶段性里程碑，用成功故事持续刷新组织认知</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>复盘每轮变革经验，将方法论沉淀为组织资产</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4 · 架构模型（四层协同）
+════════════════════════════════════════════════════════ -->
+<section id="framework" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：变革管理的四层协同体系</h2>
+        <p class="text-slate-500 mt-2 pl-5">覆盖 01–16 全部组件（不含本组件自身 02），按四层架构分组。点击左侧层级查看每个组件与变革管理的具体协同关系。<span class="badge-core mx-1">核心枢纽</span> 标注项为直接关联的执行支点。</p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+        <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+            <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                <div class="font-bold">⚙️ 战略实施层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">01 · 03 · 04｜机制、运营与技术底座</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                <div class="font-bold">💎 价值创造层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07 · 08｜驱动业务与度量</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                <div class="font-bold">🏢 组织支撑层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11 · 12｜领导、治理与人才</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                <div class="font-bold">🛡️ 风险管控层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16｜战略、运营与合规</div>
+            </button>
+        </div>
+        <div class="flex-1 p-8" id="fw-content"></div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 5 · 如何做（双模型最佳实践）
+════════════════════════════════════════════════════════ -->
+<section id="how" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：双模型最佳实践</h2>
+        <p class="text-slate-500 mt-2 pl-5">ADKAR 聚焦个体，Kotter 推动组织，辅以沟通机制和强化手段，构成完整的变革执行矩阵。点击模块展开详情。</p>
+    </div>
+
+    <!-- Tab cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5" id="exec-tabs">
+        <div class="exec-tab active bg-white border-2 rounded-xl p-5 cursor-pointer text-center" data-target="track-adkar">
+            <div class="text-3xl mb-2">🧍</div>
+            <h3 class="font-bold text-slate-800 text-sm">ADKAR 个体模型</h3>
+            <p class="text-xs text-slate-500 mt-1">5阶段 · 个体转变路径</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-kotter">
+            <div class="text-3xl mb-2">🏗️</div>
+            <h3 class="font-bold text-slate-800 text-sm">Kotter 8步法</h3>
+            <p class="text-xs text-slate-500 mt-1">8步骤 · 组织系统推进</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-comm">
+            <div class="text-3xl mb-2">📡</div>
+            <h3 class="font-bold text-slate-800 text-sm">沟通与倡导</h3>
+            <p class="text-xs text-slate-500 mt-1">多渠道 · 持续叙事</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-reinforce">
+            <div class="text-3xl mb-2">🔒</div>
+            <h3 class="font-bold text-slate-800 text-sm">强化与防倒退</h3>
+            <p class="text-xs text-slate-500 mt-1">机制 · 激励 · 度量</p>
+        </div>
+    </div>
+
+    <!-- Content panel -->
+    <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[360px]" id="exec-content">
+
+        <!-- ADKAR -->
+        <div id="track-adkar" class="exec-detail fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">🧍</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">ADKAR 个体转变模型</h3>
+                    <p class="text-sm text-slate-500">关注每一位员工经历变革的五个必经阶段，缺失任一阶段变革即会停滞</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                    <div class="text-sky-600 font-black text-3xl mb-2">A</div>
+                    <div class="font-bold text-slate-800 text-sm mb-1">Awareness<br><span class="font-normal text-slate-500 text-xs">意识</span></div>
+                    <p class="text-xs text-slate-600">让每位员工明白为何引入 AI、不变革的后果是什么。</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                    <div class="text-sky-600 font-black text-3xl mb-2">D</div>
+                    <div class="font-bold text-slate-800 text-sm mb-1">Desire<br><span class="font-normal text-slate-500 text-xs">愿望</span></div>
+                    <p class="text-xs text-slate-600">通过激励机制与倡导者影响，让员工主动支持参与变革。</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                    <div class="text-sky-600 font-black text-3xl mb-2">K</div>
+                    <div class="font-bold text-slate-800 text-sm mb-1">Knowledge<br><span class="font-normal text-slate-500 text-xs">知识</span></div>
+                    <p class="text-xs text-slate-600">分层培训，提供应用 AI 工具和适应新流程所需的知识。</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                    <div class="text-sky-600 font-black text-3xl mb-2">A</div>
+                    <div class="font-bold text-slate-800 text-sm mb-1">Ability<br><span class="font-normal text-slate-500 text-xs">能力</span></div>
+                    <p class="text-xs text-slate-600">岗位辅导与实践支持，确保知识转化为可操作的实际技能。</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+                    <div class="text-sky-600 font-black text-3xl mb-2">R</div>
+                    <div class="font-bold text-slate-800 text-sm mb-1">Reinforcement<br><span class="font-normal text-slate-500 text-xs">强化</span></div>
+                    <p class="text-xs text-slate-600">奖惩反馈巩固成果，使 AI 使用成为员工长期行为习惯。</p>
+                </div>
+            </div>
+            <div class="bg-sky-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                <strong class="text-sky-800">管理层行动路径：</strong>
+                <span class="text-slate-700">提高员工意识 → 激发组织意愿 → 提供知识与技能 → 确保实践能力 → 奖惩反馈强化成果。ADKAR 诊断可精准定位每个员工/团队卡在哪个阶段，针对性干预。</span>
+            </div>
+        </div>
+
+        <!-- Kotter -->
+        <div id="track-kotter" class="exec-detail hidden fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">🏗️</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">Kotter 8步变革法</h3>
+                    <p class="text-sm text-slate-500">从组织系统维度推进 AI 变革，确保从紧迫感建立到文化深度融入的完整闭环</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-sky-700 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span>
+                        <div><span class="font-bold text-slate-800 text-sm">树立紧迫感</span><p class="text-xs text-slate-500 mt-0.5">用竞争数据和 AI 差距分析，打破组织自满情绪，让"现状"变得不可接受。</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-sky-700 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span>
+                        <div><span class="font-bold text-slate-800 text-sm">组建领导联盟</span><p class="text-xs text-slate-500 mt-0.5">招募跨部门高影响力人士，形成变革联盟，打破各自为政的组织壁垒。</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-sky-700 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span>
+                        <div><span class="font-bold text-slate-800 text-sm">制定愿景与战略</span><p class="text-xs text-slate-500 mt-0.5">明确 AI 转型的终极方向与路径，让每个人都能用 3 句话清晰表达变革目标。</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-sky-700 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span>
+                        <div><span class="font-bold text-slate-800 text-sm">沟通变革愿景</span><p class="text-xs text-slate-500 mt-0.5">多渠道反复传达，高管以身作则，将愿景融入日常会议与业务决策中。</p></div>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span>
+                        <div><span class="font-bold text-slate-800 text-sm">赋能与清除障碍</span><p class="text-xs text-slate-500 mt-0.5">提供算力/数据资源，调整不合时宜的制度规定，破除中层管理阻力。</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-amber-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span>
+                        <div><span class="font-bold text-slate-800 text-sm">创造短期胜利</span><p class="text-xs text-slate-500 mt-0.5">选择高可见度、易实现的 AI 试点，公开庆祝成果，为后续变革积累信心与动力。</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">7</span>
+                        <div><span class="font-bold text-slate-800 text-sm">巩固成果并深化</span><p class="text-xs text-slate-500 mt-0.5">利用成功势能迭代放大变革规模，防止组织惰性导致的流程倒退。</p></div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="w-7 h-7 bg-indigo-500 text-white rounded-full flex items-center justify-center text-xs font-bold shrink-0">8</span>
+                        <div><span class="font-bold text-slate-800 text-sm">融入企业文化</span><p class="text-xs text-slate-500 mt-0.5">将 AI 能力纳入胜任力模型与晋升通道，使变革成果成为不可逆的新常态。</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 沟通与倡导 -->
+        <div id="track-comm" class="exec-detail hidden fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">📡</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">沟通与倡导体系</h3>
+                    <p class="text-sm text-slate-500">变革的成败很大程度上取决于信息如何传达、谁来传达、传达多少次</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>沟通策略</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 制定沟通矩阵：不同层级/角色的核心信息差异化定制</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 多渠道组合：全员大会 + 部门会议 + 管理者工具包 + 内网</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 建立双向沟通通道，让员工问题有可见的回应机制</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 关键节点前后的密集沟通节奏（上线前/中/后各一轮）</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>倡导者网络</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 识别各部门的非正式影响力人物（"走廊 KOL"）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 将早期采用者培养为内部变革大使，赋予可见荣誉</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 高管层定期公开分享自身使用 AI 工具的具体经验</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 定期举办案例分享会，让"普通人"的成功故事主导叙事</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-slate-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                    <strong class="text-slate-700">⚠️ 沟通常见误区：</strong>
+                    <span class="text-slate-600">只公告不对话；只用 PPT 不用故事；高管讲了一遍就停止；忽视中层管理者的"信息过滤"作用——他们是变革信息传递的最关键节点。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 强化与防倒退 -->
+        <div id="track-reinforce" class="exec-detail hidden fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">🔒</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">强化机制与防倒退体系</h3>
+                    <p class="text-sm text-slate-500">变革最脆弱的时刻是"初步成功之后"——组织容易在此刻放松，导致旧习惯回潮</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>正向强化机制</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 将 AI 使用率与应用深度纳入绩效考核（量化可见）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 设立"AI 变革之星"等荣誉认可计划（非货币激励）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 定期公布采用率排行，制造积极的同伴压力效应</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 复盘每个成功里程碑，用数据量化变革带来的真实价值</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>防倒退监控体系</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 建立变革健康度仪表盘（采用率、满意度、业务指标三维）</li>
+                        <li class="check-item"><span class="text-sky-500">▸</span> 设置倒退预警信号（使用率连续下降 2 周即触发干预）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 季度变革评估会：What's working / What's not / Next actions</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 将方法论沉淀为变革工具包，服务下一轮 AI 迭代部署</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg text-sm">
+                    <strong class="text-amber-800">🎯 长期目标：</strong>
+                    <span class="text-amber-700">每一轮 AI 变革的成功，都是对下一轮变革能力的投资。企业最终目标是将变革管理内化为组织的动态能力，使"适应性"本身成为不可复制的竞争优势。</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 6 · 执行路线（变革管理 9 步）
+════════════════════════════════════════════════════════ -->
+<section id="roadmap" class="scroll-mt-20 pb-8">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：变革管理九步推进图</h2>
+        <p class="text-slate-500 mt-2 pl-5">将 ADKAR 与 Kotter 合并为可落地的推进步骤，每步均有明确的输入、行动与验收标准。</p>
+    </div>
+
+    <div class="relative">
+        <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+        <div class="space-y-6" id="roadmap-container"></div>
+    </div>
+</section>
+
+</main>
+
+<footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <p class="mb-2 text-slate-300 font-medium">"技术的采纳速度，取决于人心的转变速度——变革管理就是加速人心转变的工程学。"</p>
+        <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ── Radar Chart ─────────────────────────────────────────────
+    new Chart(document.getElementById('whyRadarChart').getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['颠覆性技术冲击', '组织文化重塑', '满足AI客户期望', '规避变革风险', '维持竞争力'],
+            datasets: [{
+                label: '当前压力与紧迫性指数',
+                data: [85, 75, 90, 80, 95],
+                backgroundColor: 'rgba(3, 105, 161, 0.15)',
+                borderColor: '#0369a1',
+                pointBackgroundColor: '#d97706',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#d97706',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0,0,0,0.07)' },
+                    grid: { color: 'rgba(0,0,0,0.07)' },
+                    pointLabels: {
+                        font: { family: "'Noto Sans SC', sans-serif", size: 12 },
+                        color: '#475569'
+                    },
+                    ticks: { display: false, min: 0, max: 100 }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { family: "'Noto Sans SC', sans-serif" } } },
+                tooltip: {
+                    backgroundColor: 'rgba(15,23,42,0.9)',
+                    callbacks: { label: ctx => ` 压力指数: ${ctx.raw}/100` }
+                }
+            }
+        }
+    });
+
+    // ── Framework Data（01–16，不含自身 02）──────────────────────
+    const frameworkData = {
+        strategy: {
+            title: '⚙️ 战略实施层',
+            desc: '变革管理是 AI 战略转型的直接执行机制，须与战略方向高度对齐，并为运营转换和技术迁移提供组织支撑。',
+            components: [
+                { id:'01', name:'CS-AI战略转型',
+                  detail:'变革管理是战略意图转化为行动的传动轴。战略层面的清晰度直接决定变革管理的方向与资源分配重心，是本组件的上游驱动来源。', core:true },
+                { id:'03', name:'CO-运营模式转换',
+                  detail:'运营模式的实际重构需要变革管理作为推进机制，克服流程再造过程中的组织惯性与岗位职责调整阻力。', core:true },
+                { id:'04', name:'CT-技术路线迁移',
+                  detail:'技术迁移项目必须同步配套意识建立与能力重塑，否则新系统将遭遇"技术就绪、人员未就绪"的采用率困境。', core:false }
+            ]
+        },
+        value: {
+            title: '💎 价值创造层',
+            desc: '变革管理确保 AI 能力真正被员工接受并转化为业务行为，是技术投资兑现业务价值的最后一公里。',
+            components: [
+                { id:'05', name:'VS-AI驱动和赋能',
+                  detail:'AI 赋能业务的前提是员工真正使用工具。变革管理负责驱动 AI 能力从"可用"跨越到"被用"，确保赋能效果落地而非停留在演示层面。', core:true },
+                { id:'06', name:'VG-AI创新应用模式',
+                  detail:'创新应用面临最强的惯性阻力——人们倾向于用旧方式做新事。变革管理克服"固有习惯"，是创新模式规模化推广的必要条件。', core:false },
+                { id:'07', name:'VO-可衡量的指标',
+                  detail:'变革成效须量化追踪：用户实际采用率、行为改变深度、业务指标改善幅度——这三类指标是变革管理健康度的核心仪表盘。', core:true },
+                { id:'08', name:'VT-适用性选择',
+                  detail:'基于高价值、低复杂度原则选择技术方案，变革管理需协同确保所选方案的员工接受度被纳入选型评估标准，避免技术过度设计。', core:false }
+            ]
+        },
+        org: {
+            title: '🏢 组织支撑层',
+            desc: '变革管理的执行主体与人才保障体系，是整个机制能否持续运转的核心基础。',
+            components: [
+                { id:'09', name:'OS-领导与倡导者',
+                  detail:'高层的持续倡导是变革中最强的文化信号，其影响力远超任何培训项目。高管以身作则使用 AI 工具，是解除员工观望心态的最有效手段。', core:true },
+                { id:'10', name:'OG-AI治理委员会',
+                  detail:'负责变革重大节点的决策与资源优先级裁定，是处理跨部门阻力和利益冲突时的最终仲裁机构，为变革管理提供权威背书。', core:true },
+                { id:'11', name:'OO-AI运营团队(CoE)',
+                  detail:'跨职能敏捷执行团队，是变革管理的日常操盘主体：负责 ADKAR 诊断、阻力地图绘制、干预计划制定与效果追踪。', core:true },
+                { id:'12', name:'OT-技术人才准备',
+                  detail:'AI 能力建设与人才再培训是变革管理能力的物质基础，弥合"人才断层"与"技术演进"之间的差距，确保组织具备自我迭代的能力。', core:false }
+            ]
+        },
+        risk: {
+            title: '🛡️ 风险管控层',
+            desc: '变革过程中面临的系统性风险，须与 AI 全局风险管理框架协同，防止变革本身成为新的风险来源。',
+            components: [
+                { id:'13', name:'RS-战略风险',
+                  detail:'识别变革路径与战略方向偏差的风险，防止"变革为变革"的方向性失误。同时管控技术路线判断错误或窗口期错失的战略级风险。', core:false },
+                { id:'14', name:'RG-AI风险管理',
+                  detail:'变革期间新部署的 AI 系统带来算法偏见、数据隐私、黑箱决策等本体风险。变革管理须与 RG 协同，确保风险评估纳入推广前审查。', core:false },
+                { id:'15', name:'RO-AI运营风险',
+                  detail:'变革实施阶段最直接的风险：业务中断、流程断层、新旧系统并行冲突、数据迁移隐患。须与运营团队共建 SLA 和快速响应机制。', core:true },
+                { id:'16', name:'RT-安全与信创',
+                  detail:'变革过程中的新系统接入需确保数据安全合规，满足国内数据安全法、信创要求及等保标准，变革管理须将合规审查纳入上线门禁。', core:false }
+            ]
+        }
+    };
+
+    function renderFramework(key) {
+        const d = frameworkData[key];
+        let html = `<div class="fade-in">
+            <h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3>
+            <p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p>
+            <div class="grid grid-cols-1 gap-4">`;
+        d.components.forEach(c => {
+            html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span>
+                    <span class="font-bold text-slate-800 text-sm">${c.name}</span>
+                    ${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}
+                </div>
+                <p class="text-sm text-slate-600">${c.detail}</p>
+            </div>`;
+        });
+        html += '</div></div>';
+        document.getElementById('fw-content').innerHTML = html;
+    }
+
+    document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderFramework(btn.getAttribute('data-key'));
+        });
+    });
+    renderFramework('strategy');
+
+    // ── Execution Tabs ──────────────────────────────────────────
+    document.querySelectorAll('#exec-tabs .exec-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('#exec-tabs .exec-tab').forEach(t => {
+                t.classList.remove('active');
+                t.classList.add('border-slate-200');
+            });
+            tab.classList.add('active');
+            tab.classList.remove('border-slate-200');
+            const target = tab.getAttribute('data-target');
+            document.querySelectorAll('.exec-detail').forEach(d => {
+                d.classList.add('hidden');
+                d.classList.remove('fade-in');
+            });
+            const panel = document.getElementById(target);
+            panel.classList.remove('hidden');
+            void panel.offsetWidth;
+            panel.classList.add('fade-in');
+        });
+    });
+
+    // ── Roadmap ─────────────────────────────────────────────────
+    const steps = [
+        { title: '诊断变革准备度', desc: '评估企业当前的文化成熟度、领导力准备度与员工变革意愿，绘制阻力地图，确定基线。' },
+        { title: '树立紧迫感与共识', desc: '用竞争差距数据和失败案例，在高管层形成"不变则亡"的共同认知，打破组织惯性。' },
+        { title: '组建变革领导联盟', desc: '招募跨部门高影响力人士加入变革联盟，确保每个部门都有变革倡导者，形成推进网络。' },
+        { title: '制定并发布变革愿景', desc: '将 AI 转型目标提炼为清晰、感性、可传播的叙事，通过多渠道触达全体员工与关键干系人。' },
+        { title: '启动 ADKAR 个体干预', desc: '针对不同群体定制 ADKAR 干预计划，分层培训，辅导阻力群体，优先支持关键岗位转变。' },
+        { title: '清除制度性障碍', desc: '调整与变革目标冲突的绩效考核规则、审批流程与制度规定，为新行为创造制度空间。' },
+        { title: '创造并放大短期胜利', desc: '精选高可见度 AI 试点，快速产出成果并公开庆祝。用"真实成功"对抗"想象中的风险"。' },
+        { title: '巩固成果与规模扩张', desc: '将试点经验系统化，制定推广手册，防止成功后的组织懈怠，持续迭代推动覆盖面扩大。' },
+        { title: '融入文化与持续强化', desc: '将 AI 能力纳入胜任力模型与晋升标准，建立变革健康度监控机制，使变革成果不可逆。' }
+    ];
+
+    const container = document.getElementById('roadmap-container');
+    steps.forEach((s, i) => {
+        const isEven = i % 2 === 0;
+        container.innerHTML += `
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                <div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 border-sky-700 rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold text-sky-800 z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div>
+                <div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}">
+                    <div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">${s.desc}</p>
+                    </div>
+                </div>
+                <div class="hidden md:block md:w-5/12"></div>
+            </div>`;
+    });
+
+});
+</script>
+</body>
+</html>

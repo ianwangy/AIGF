@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI安全与信创执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        margin: auto;
+        height: 300px;
+        max-height: 360px
+    }
+
+    .nav-link:hover {
+        color:#0369a1
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color:#fff
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9
+    }
+
+    .exec-tab {
+        transition:all 0.3s
+    }
+
+    .exec-tab:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12);
+        border-color: #0369a1
+    }
+
+    .exec-tab.active {
+        background-color: #e0f2fe;
+        border-color: #0369a1
+    }
+
+    .roadmap-step {
+        transition:all 0.2s
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12)
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom:1px solid #f1f5f9
+    }
+
+    .check-item:last-child {
+        border-bottom: none
+    }
+
+    .fade-in {
+        animation:fadeIn 0.3s ease
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform:translateY(6px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width:6px
+    }
+
+    ::-webkit-scrollbar-track {
+        background:#f1f5f9
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🔐</span>
+                <span class="font-bold text-xl tracking-tight text-sky-800">【16】AI安全与信创</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#overview" class="nav-link text-slate-600 font-medium transition-colors">AI安全概览</a>
+                <a href="#why" class="nav-link text-slate-600 font-medium transition-colors">为什么做</a>
+                <a href="#objectives" class="nav-link text-slate-600 font-medium transition-colors">任务目标</a>
+                <a href="#framework" class="nav-link text-slate-600 font-medium transition-colors">架构模型</a>
+                <a href="#how" class="nav-link text-slate-600 font-medium transition-colors">如何做</a>
+                <a href="#roadmap" class="nav-link text-slate-600 font-medium transition-colors">执行路线</a>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- 概览 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI安全与信创执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    本方案面向董事会与高管层，聚焦 AI 转型的安全底座与合规根基：
+                    <strong class="text-sky-700">将"安全合规"与"自主可控（信创）"要求深度嵌入企业 AI 全生命周期——面向数据、模型与应用三类核心资产，构建纵深防御体系，同时推动 AI 关键技术栈的国产化替代，降低供应链与地缘风险</strong>
+                    。
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🏗️</div>
+                    <h3 class="font-bold text-slate-800 mb-1">纵深防御</h3>
+                    <p class="text-sm text-slate-600">从架构设计到运行监控，多层次安全防护体系全覆盖。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🇨🇳</div>
+                    <h3 class="font-bold text-slate-800 mb-1">信创自主可控</h3>
+                    <p class="text-sm text-slate-600">关键业务系统 AI 技术栈国产化率目标 80%+，降低供应链风险。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">📜</div>
+                    <h3 class="font-bold text-slate-800 mb-1">合规认证</h3>
+                    <p class="text-sm text-slate-600">等保 2.0（三级）+ 行业专项认证 + AI 专项监管合规要求全覆盖。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">北极星指标</span>
+                    <span class="text-4xl font-extrabold text-sky-800">
+                        80
+                        <span class="text-2xl">%</span>
+                        +
+                    </span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">关键系统国产化率目标</p>
+                </div>
+            </div>
+            <!-- 对比表格 -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">RT 与其他安全/风险组件的职责分工</h2>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">组件</th>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">核心关注点</th>
+                                <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">与 RT 的协同关系</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-100">
+                            <tr class="bg-sky-50/50">
+                                <td class="px-5 py-3 font-bold text-sky-700">RT：安全与信创</td>
+                                <td class="px-5 py-3 text-slate-600">底层安全架构/访问控制/加密/信创合规</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">提供其他所有组件的安全基础设施</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">RG：AI 风险管理</td>
+                                <td class="px-5 py-3 text-slate-500">算法偏见/数据质量/可解释性</td>
+                                <td class="px-5 py-3 text-slate-500">在 RT 安全底座上叠加 AI 本体风险控制</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">RO：AI 运营风险</td>
+                                <td class="px-5 py-3 text-slate-500">SLA/SLO/运营稳定性</td>
+                                <td class="px-5 py-3 text-slate-500">确保 RT 安全机制在运行态持续有效可审计</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">RS：战略风险</td>
+                                <td class="px-5 py-3 text-slate-500">方向/节奏/重大投资决策</td>
+                                <td class="px-5 py-3 text-slate-500">信创合规失败可能演变为 RS 层面的政策风险</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3">🔬 本质特征提炼</h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>纵深防御：</strong>
+                                网络层/数据层/模型层/应用层多层次独立防护，单层突破不导致全局失守。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>安全左移：</strong>
+                                安全考虑嵌入 AI 系统设计阶段（SDL），而非上线后补救，成本降低 10 倍以上。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>信创分层推进：</strong>
+                                非核心试点 → 一般业务迁移 → 核心业务替代，降低迁移风险。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3">🏭 行业典型表现</h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>金融业：</strong>
+                                某银行完成 AI 系统等保 2.0 三级认证后，获得数字人民币应用试点资格，直接带来新业务机会。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>能源行业：</strong>
+                                某央企完成 AI 平台信创替代后，解除了被外国供应商断供的战略风险，同时通过了国家关键信息基础设施检查。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业：</strong>
+                                建立 AI 供应链安全管理体系后，识别出 2 个存在潜在后门风险的第三方 AI 组件，提前替换规避了重大安全事件。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 为什么做 -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：三大核心驱动力</h2>
+                <p class="text-slate-500 mt-2 pl-5">法规合规压力、AI 新型威胁和国家战略三大驱动力共同推动 RT 体系建设成为战略必选项。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚖️</span>
+                        <h3 class="font-bold text-red-800">法规合规强制要求</h3>
+                    </div>
+                    <p class="text-sm text-red-700">《数据安全法》《个人信息保护法》《生成式 AI 服务管理暂行办法》《算法推荐管理规定》等法规对 AI 系统提出了明确的安全和合规要求，违规处罚上不封顶，强制合规是市场准入的前提。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🔓</span>
+                        <h3 class="font-bold text-red-800">AI 新型威胁持续升级</h3>
+                    </div>
+                    <p class="text-sm text-red-700">提示注入攻击、模型后门、数据投毒、对抗样本、隐私萃取——这些 AI 特有的攻击向量传统安全防护体系完全无法覆盖，须建立专属的 AI 安全防护能力。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🇨🇳</span>
+                        <h3 class="font-bold text-sky-800">国家战略与自主可控</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">
+                        地缘政治带来的技术脱钩风险、国家关键信息基础设施的信创要求、供应链安全管控——
+                        <strong>信创不是可选项，而是在特定行业/场景下的合规强制要求和长期战略护城河。</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">三大驱动力：战略重要性分布</h3>
+                    <p class="text-sm text-slate-500 mb-5">点击图表区块查看对应驱动力的具体合规压力、风险痛点及政策要求详解。</p>
+                    <div id="driver-detail" class="bg-slate-50 rounded-xl p-5 border border-slate-200 min-h-[120px]">
+                        <h4 class="font-bold text-slate-700 mb-2 text-sm" id="driver-title">点击左侧图表查看详情</h4>
+                        <p class="text-sm text-slate-500" id="driver-content">三大驱动力共同推动 AI 安全与信创体系建设成为企业 AI 转型的合规底线和战略护城河。</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="driversChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务目标 -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：六大维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">覆盖安全体系、信创推进、合规认证、数据安全、供应链安全和组织保障六大核心目标维度。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🏗️</span>
+                        <h3 class="font-bold text-slate-800">AI 安全架构体系</h3>
+                        <span class="ml-auto badge-core">基础优先</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>落地 AI 系统全生命周期安全基线（SDL 流程）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>纵深防御：网络隔离/ABAC 访问控制/零信任架构</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立模型安全测试机制（对抗攻击/提示注入/模型窃取）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>AI SOC：集中日志平台 + 安全事件关联分析 + 自动响应</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🗄️</span>
+                        <h3 class="font-bold text-slate-800">数据安全管控</h3>
+                        <span class="ml-auto badge-core">合规核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>数据分类分级：依据《数据安全法》建立标准体系</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>训练数据脱敏：结构化加密/遮蔽，非结构化 NER 替换</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>数据跨境合规：敏感数据境内管控，跨境完整审计日志</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>隐私计算：联邦学习/差分隐私在敏感场景的应用</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🇨🇳</span>
+                        <h3 class="font-bold text-slate-800">信创推进与国产化</h3>
+                        <span class="ml-auto badge-core">战略目标</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>完成现有技术栈信创适配评估与三阶段路线图制定</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>1–2 个非核心场景完成国产软硬件（算力/框架/OS）试点</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>关键业务系统国产化率达 80%+，性能损失控制 ≤ 15%</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立信创技术评估体系（算子完整性/精度对齐/性能基准）</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📜</span>
+                        <h3 class="font-bold text-slate-800">合规认证体系</h3>
+                        <span class="ml-auto badge-new">准入保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>通过等保 2.0（三级）及行业专项安全认证</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>生成式 AI 服务完成算法备案（《生成式 AI 管理办法》）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>个人信息保护影响评估（PIA）制度化，高风险场景必做</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立对监管询问的标准化响应流程和证据库</span>
+                </div>
+                </ul>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                    <span class="text-xl">🔗</span>
+                    <h3 class="font-bold text-slate-800">AI 供应链安全</h3>
+                    <span class="ml-auto badge-new">新兴威胁</span>
+                </div>
+                <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>建立 AI 供应链安全管理体系（第三方模型/组件/数据）</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>高风险供应商评估机制：安全审计 + 备选方案库</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>开源模型安全审查：后门检测/许可证合规/版本锁定</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>供应链安全事件应急响应预案（2 周内完成替换能力）</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                    <span class="text-xl">👥</span>
+                    <h3 class="font-bold text-slate-800">组织与流程保障</h3>
+                    <span class="ml-auto badge-new">执行支撑</span>
+                </div>
+                <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>建立 AI 安全应急响应小组（AIRT），7×24h 值班覆盖</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>AI 安全意识培训：全员基础 + 开发人员安全编码专项</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>季度 AI 安全红队演练，持续发现安全盲点</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>输出行业可复用的 AI 安全与信创最佳实践</span>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </section>
+
+        <!-- 架构模型 -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 16）。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1">01 · 02 · 03 · 04</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1">05 · 06 · 07 · 08</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1">09 · 10 · 11 · 12</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1">13 · 14 · 15</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- 如何做 -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：四大执行支柱</h2>
+                <p class="text-slate-500 mt-2 pl-5">覆盖 AI 安全体系建设、信创推进路线图、合规认证管理和组织流程保障四个核心实践领域。</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5" id="exec-tabs">
+                <div class="exec-tab active bg-white border-2 rounded-xl p-5 cursor-pointer text-center" data-target="track-security">
+                    <div class="text-3xl mb-2">🏗️</div>
+                    <h3 class="font-bold text-slate-800 text-sm">AI 安全体系</h3>
+                    <p class="text-xs text-slate-500 mt-1">架构·模型·数据·应用</p>
+                </div>
+                <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-xinchuang">
+                    <div class="text-3xl mb-2">🇨🇳</div>
+                    <h3 class="font-bold text-slate-800 text-sm">信创推进图谱</h3>
+                    <p class="text-xs text-slate-500 mt-1">算力·框架·平台·应用</p>
+                </div>
+                <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-compliance">
+                    <div class="text-3xl mb-2">📜</div>
+                    <h3 class="font-bold text-slate-800 text-sm">合规认证</h3>
+                    <p class="text-xs text-slate-500 mt-1">等保·算法备案·PIA</p>
+                </div>
+                <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-org">
+                    <div class="text-3xl mb-2">👥</div>
+                    <h3 class="font-bold text-slate-800 text-sm">组织流程保障</h3>
+                    <p class="text-xs text-slate-500 mt-1">AIRT·培训·红队</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[340px]">
+                <div id="track-security" class="exec-detail fade-in">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">🏗️</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">AI 安全体系：全生命周期纵深防御</h3>
+                            <p class="text-sm text-slate-500">目标：在 AI 系统的每个层次建立独立的安全防护，单层突破不导致全局失守</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                            <div class="text-2xl mb-2">🏗️</div>
+                            <h4 class="font-bold text-slate-800 text-sm mb-2">安全架构设计</h4>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     纵深防御：网络隔离/ABAC/RBAC 访问控制
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     零信任：身份持续验证，微隔离策略
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     SDL 流程：需求评审/威胁建模/代码审计闭环
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                            <div class="text-2xl mb-2">🧠</div>
+                            <h4 class="font-bold text-slate-800 text-sm mb-2">模型安全防护</h4>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     防对抗攻击：对抗训练（CleverHans）
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     防模型窃取：频率限制/API 网关策略
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     防提示注入：Prompt 防火墙/LLM Guard
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     防数据投毒：数据血缘溯源与异常检测
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                            <div class="text-2xl mb-2">🗄️</div>
+                            <h4 class="font-bold text-slate-800 text-sm mb-2">数据安全管控</h4>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     分类分级：依据《数据安全法》建立标准
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     脱敏处理：结构化加密/非结构化 NER 替换
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     访问跨境：完整审计日志/敏感数据境内管控
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                            <div class="text-2xl mb-2">📱</div>
+                            <h4 class="font-bold text-slate-800 text-sm mb-2">应用安全加固</h4>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     API 安全：OAuth 2.0 鉴权/限流防刷
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     内容安全：敏感词过滤/生成内容机审人审
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     实时监控：集中日志/安全事件关联分析
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="track-xinchuang" class="exec-detail hidden">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">🇨🇳</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">信创推进：三阶段国产化替代路线图</h3>
+                            <p class="text-sm text-slate-500">目标：关键业务系统 AI 技术栈国产化率达 80%+，性能损失控制 ≤15%</p>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto rounded-xl border border-slate-200">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-slate-100">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-700">技术层级</th>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-700">国产化目标方案</th>
+                                    <th class="px-4 py-3 text-left font-bold text-slate-700">评估与适配要点</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-semibold text-sky-700 bg-slate-50">🖩 算力层（GPU替代）</td>
+                                    <td class="px-4 py-3">华为昇腾/海光 DCU/寒武纪 MLU</td>
+                                    <td class="px-4 py-3 text-slate-500 text-xs">重点评估算子库完整性、精度对齐、性能调优及驱动稳定性。</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-semibold text-sky-700 bg-slate-50">⚙️ 框架层（深度学习）</td>
+                                    <td class="px-4 py-3">MindSpore/PaddlePaddle/OneFlow</td>
+                                    <td class="px-4 py-3 text-slate-500 text-xs">依赖模型转换工具（ONNX）、API 兼容层开发，采取增量迁移策略。</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-semibold text-sky-700 bg-slate-50">☁️ 平台层（OS/DB/容器）</td>
+                                    <td class="px-4 py-3">
+                                        OS：麒麟/统信 UOS/欧拉
+                                        <br>
+                                        DB：达梦/人大金仓/OceanBase
+                                        <br>
+                                        容器：原生 K8s + 国产发行版
+                                    </td>
+                                    <td class="px-4 py-3 text-slate-500 text-xs">分层改造，DB 层改造影响最大，须充分评估 SQL 兼容性和迁移工具链。</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-semibold text-sky-700 bg-slate-50">🤖 模型层（大语言模型）</td>
+                                    <td class="px-4 py-3">文心一言/通义千问/混元大模型</td>
+                                    <td class="px-4 py-3 text-slate-500 text-xs">对比评估能力基准、上下文窗口、推理成本及私有化部署能力。</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-semibold text-sky-700 bg-slate-50">🔐 安全层（密码/认证）</td>
+                                    <td class="px-4 py-3">GM/T 系列国密算法/NSFOCUS/奇安信</td>
+                                    <td class="px-4 py-3 text-slate-500 text-xs">国密算法性能损耗评估，证书体系升级，密钥管理系统迁移规划。</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg text-sm">
+                        <strong class="text-amber-800">⚠️ 推进策略：</strong>
+                        <span class="text-amber-700"> Phase 1（非核心试点）→ Phase 2（一般业务迁移）→ Phase 3（核心业务替代）。不建议一次性全量迁移，分层逐步推进降低业务风险。</span>
+                    </div>
+                </div>
+                <div id="track-compliance" class="exec-detail hidden">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">📜</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">合规认证：三大核心合规体系</h3>
+                            <p class="text-sm text-slate-500">目标：通过所有适用的行业安全认证，建立持续合规机制而非一次性过审</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                            <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">🛡️ 等保 2.0（三级）</h4>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     技术合规：安全区域边界/入侵检测/安全审计/集中管控
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     管理合规：安全策略/安全建设/安全运维文档齐备
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     AI 附加项：算法可解释性/训练数据溯源证明
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     年度持续评估：测评机构复查 + 内部自查机制
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                            <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">🤖 生成式 AI 服务合规</h4>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     算法备案：《生成式 AI 管理办法》要求的备案材料准备
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     内容安全：有害内容过滤机制文档化
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     用户透明：AI 生成内容标识机制部署
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     培训数据合规：版权/个人信息使用合规证明
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
+                            <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">🔒 个人信息保护（PIPL）</h4>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     PIA（个人信息保护影响评估）制度化，高风险场景必做
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     数据最小化原则在 AI 训练数据中的实现证明
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     用户权利响应机制：查询/更正/删除/可携带权
+                                </li>
+                                <li class="check-item">
+                                    <span>▸</span>
+                                     跨境数据传输：安全评估/标准合同条款
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="track-org" class="exec-detail hidden">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">👥</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">组织与流程保障：安全能力长效运转机制</h3>
+                            <p class="text-sm text-slate-500">目标：安全不是项目，而是持续运转的组织能力——建立人才/流程/文化三位一体的保障体系</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">
+                                <span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>
+                                AI 安全应急响应小组（AIRT）
+                            </h4>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     7×24h 值班覆盖，P0 安全事件 15 分钟响应
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 安全事件分类响应 Playbook（提示注入/数据泄露/模型后门）
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     季度安全红队演练：主动发现安全盲点
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     漏洞披露流程：内部修复 + 负责任披露机制
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">
+                                <span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>
+                                安全文化与能力建设
+                            </h4>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     全员 AI 安全基础意识培训（年度必修）
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     开发人员 AI 安全编码专项培训（安全开发生命周期）
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 安全 Champion 计划：各业务线驻点安全联络人
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     安全绩效纳入 AI 项目评审标准（不通过安全检查不得上线）
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 执行路线 -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：AI安全技术体系建设五步推进图</h2>
+                <p class="text-slate-500 mt-2 pl-5">从安全基线建立到持续安全运营成熟，分五步系统化建立 AI 安全与信创能力。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"AI 安全底座不是业务成长的障碍，而是 AI 战略能够持续规模化的前提条件——安全能力决定可扩展性的上限。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const driverDetails = {
+            regulatory: {
+                title: '法规合规压力',
+                content: '《数据安全法》《个人信息保护法》《生成式 AI 管理暂行办法》《算法推荐管理规定》《深度合成服务管理规定》等一系列法规已形成强制合规要求——违规处罚上不封顶，且呈现快速升级趋势。主动合规比被动整改成本低 10 倍以上。'
+            },
+            technical: {
+                title: 'AI 新型安全威胁',
+                content: '提示注入攻击、模型后门植入、数据投毒、对抗样本、训练数据萃取、模型窃取——这些 AI 特有的攻击向量传统安全防护体系完全无法覆盖，需要专属的 AI 安全防护体系。'
+            },
+            strategic: {
+                title: '国家战略与自主可控',
+                content: '地缘政治风险使 AI 技术供应链安全成为战略优先级。国家关键信息基础设施强制信创要求、GPU 芯片出口限制带来的断供风险、国产大模型的技术成熟——三重因素共同推动信创成为战略必选项。'
+            }
+        };
+
+        new Chart(document.getElementById('driversChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['法规合规压力', 'AI新型安全威胁', '国家战略信创'],
+                datasets: [{
+                    data: [35, 30, 35],
+                    backgroundColor: ['#0369a1', '#dc2626', '#d97706'],
+                    borderWidth: 3,
+                    borderColor: '#fff',
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 11
+                            },
+                            boxWidth: 12
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` ${ctx.label}`
+                        }
+                    }
+                },
+                onClick: (e, els) => {
+                    if (els.length > 0) {
+                        const keys = ['regulatory', 'technical', 'strategic'];
+                        const k = keys[els[0].index];
+                        const d = driverDetails[k];
+                        document.getElementById('driver-title').textContent = d.title;
+                        document.getElementById('driver-content').textContent = d.content;
+                        document.getElementById('driver-detail').classList.add('fade-in');
+                    }
+                }
+            }
+        });
+
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: 'RT 为 AI 战略转型提供合规底座，为变革管理提供人员数据保护，为运营模式转换确保流程 AI 系统的安全合规，为技术路线迁移提供信创路线的安全评估。',
+                components: [{
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: 'AI 战略转型的可实施性在很大程度上取决于 RT 的安全合规状态——未通过安全认证的 AI 系统无法在特定行业上线，信创合规要求约束了技术选型边界。RT 是 AI 战略可执行空间的边界定义者。',
+                    core: true
+                }, {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: '变革过程中须充分考虑员工数据的采集和使用的合规性（如 AI 绩效考核系统的员工隐私保护）。RT 为变革管理中的人员数据处理提供合规框架，防止变革过程中引入数据安全风险。',
+                    core: false
+                }, {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: '运营流程 AI 化后，新运营模式中的数据流动、决策记录保存、系统访问控制等都须符合 RT 的安全合规要求。转换方案须在设计阶段就进行安全评审，避免上线后补救成本极高。',
+                    core: false
+                }, {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '技术路线迁移与信创推进高度重叠——迁移到新技术平台的同时需要评估国产替代方案。RT 为 CT 提供信创技术的安全评估标准，确保国产化替代方案在安全性上不低于原有技术栈。',
+                    core: true
+                }]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'RT 的安全合规底座是所有 AI 价值创造活动的可信基础——没有 RT 保障的 AI 系统产出的价值面临被叫停的合规风险。',
+                components: [{
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: 'AI 赋能场景（尤其是涉及用户数据的个性化场景）须通过 RT 的数据安全评估，确保数据使用合规。RT 为赋能场景提供"可信赋能"的合规背书，使 AI 赋能成果具备持续可交付性。',
+                    core: false
+                }, {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: '生成式 AI 等创新应用场景须完成算法备案和内容安全合规建设，RT 为创新场景提供合规准入评估。不合规的创新应用可能面临被迫下线的风险，使前期创新投入全部沉没。',
+                    core: false
+                }, {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: 'RT 须将安全合规状态纳入 AI 系统的可衡量指标体系——安全漏洞数/合规认证状态/数据跨境合规率等，让安全合规状态对管理层可见，支撑基于数据的安全决策。',
+                    core: false
+                }, {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: 'VT 的技术适用性评估须专项纳入安全合规维度——某些外部 AI 服务在功能上适用，但在数据安全和监管合规上不满足中国法律要求（如数据出境限制）。RT 为 VT 选型提供合规可行性输入。',
+                    core: true
+                }]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: 'RT 须有领导层的合规意志背书，须有治理委员会的安全政策审批，须依托 CoE 执行安全评估，须有安全专业人才支撑。',
+                components: [{
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '领导层须为"安全优先"原则提供明确背书——不通过安全评估不得上线须成为真实有效的组织规则，而非形式要求。高管的合规重视程度直接决定安全文化能否真正落地。',
+                    core: false
+                }, {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '治理委员会负责审批企业 AI 安全政策/信创路线图/年度安全投入预算，处理重大安全合规事件的最终决策，以及监管机构要求的高层级响应授权。',
+                    core: true
+                }, {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE 是 RT 安全评估的主要执行主体——在每个 AI 项目的关键节点执行安全门禁检查，维护安全基线和合规证据库，协调信创替代方案的技术评估工作。',
+                    core: true
+                }, {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: 'RT 需要掌握 AI 安全攻防（红队/渗透测试）、隐私保护技术（联邦学习/差分隐私）和信创技术栈的专业人才。安全人才的稀缺性是很多企业 RT 体系薄弱的直接原因。',
+                    core: true
+                }]
+            },
+            risk: {
+                title: '🛡️ 风险管控层（协同）',
+                desc: 'RT 是整个风险管控层的基础设施——提供 RS 战略合规防护、为 RG 提供安全底座、为 RO 提供运营安全保障。',
+                components: [{
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: '信创合规失败（如关键系统被认定为不符合国家安全要求）可能直接演变为 RS 层面的战略危机——业务被叫停、资质被撤销。RT 须定期向 RS 汇报信创合规进展和重大安全风险预警。',
+                    core: false
+                }, {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: 'RT 为 RG 提供安全基础设施（访问控制/加密/日志），RG 在此基础上叠加 AI 特有的风险控制（偏见/隐私/可解释）。两者是纵深防御体系的不同层次，须协同设计避免重复和遗漏。',
+                    core: true
+                }, {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: 'RO 须确保 RT 的安全机制（密钥轮换/权限最小化/加密传输）在运行态持续生效并可审计。RT 定期审查 RO 的安全控制执行状态，确保运营过程不产生合规漏洞。',
+                    core: true
+                }]
+            }
+        };
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        document.querySelectorAll('#exec-tabs .exec-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('#exec-tabs .exec-tab').forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.add('border-slate-200');
+                });
+                tab.classList.add('active');
+                tab.classList.remove('border-slate-200');
+                const target = tab.getAttribute('data-target');
+                document.querySelectorAll('.exec-detail').forEach(d => {
+                    d.classList.add('hidden');
+                    d.classList.remove('fade-in');
+                });
+                const panel = document.getElementById(target);
+                panel.classList.remove('hidden');
+                void panel.offsetWidth;
+                panel.classList.add('fade-in');
+            });
+        });
+
+        const roadmap = [
+        {
+            phase: '第一步',
+            title: '安全基线建立与合规差距评估',
+            desc: '完成 AI 系统安全现状全面评估，识别合规差距，制定安全基线标准，建立 AI 安全台账，形成优先级排序的整改计划。',
+            deliverable: '交付物：安全评估报告 · 合规差距分析 · 整改优先级计划'
+        },
+        {
+            phase: '第二步',
+            title: '核心安全体系与 SDL 落地',
+            desc: '完成 SDL 安全开发流程建立，部署 AI 系统核心安全防护（模型安全/数据安全/应用安全），建立 AI 安全应急响应小组。',
+            deliverable: '交付物：SDL 流程规范 · 安全防护方案 · AIRT 组建完成'
+        },
+        {
+            phase: '第三步',
+            title: '合规认证准备与信创试点',
+            desc: '推进等保 2.0 三级认证，完成生成式 AI 服务算法备案，在 1–2 个非核心场景启动信创替代试点，完成技术评估。',
+            deliverable: '交付物：等保认证通过证书 · 算法备案材料 · 信创试点评估报告'
+        },
+        {
+            phase: '第四步',
+            title: '信创规模化推进与持续安全运营',
+            desc: '扩大信创替代到一般业务场景，建立季度安全红队演练机制，完成供应链安全管理体系，AI SOC 上线运行。',
+            deliverable: '交付物：信创进度报告 · 红队演练报告 · AI SOC 上线 · 供应链安全体系'
+        },
+        {
+            phase: '第五步（持续进行）',
+            title: '成熟化运营与行业标准输出',
+            desc: '关键业务系统国产化率达 80%+，安全能力进入持续成熟化阶段，跟踪法规动态及时更新合规要求，输出行业可复用最佳实践。',
+            deliverable: '里程碑：国产化率 ≥80% · 年度安全成熟度评估 · 行业实践报告'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        roadmap.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === roadmap.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

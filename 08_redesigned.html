@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI适用性选择执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 340px;
+        max-height: 400px;
+    }
+
+    @media (min-width: 768px) {
+        .chart-container {
+            height: 380px;
+        }
+    }
+
+    .nav-link {
+        transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+        color: #0369a1;
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent;
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color: #fff;
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9;
+    }
+
+    .dim-tab {
+        transition: all 0.2s;
+    }
+
+    .dim-tab.active {
+        background-color: #0369a1;
+        color: white;
+        border-color: #0369a1;
+    }
+
+    .severity-btn {
+        transition: all 0.2s;
+    }
+
+    .severity-btn.active {
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        color: #0f172a;
+        font-weight: 600;
+    }
+
+    .roadmap-step {
+        transition: all 0.2s;
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .check-item:last-child {
+        border-bottom: none;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem;
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🎯</span>
+                    <span class="font-bold text-xl tracking-tight text-sky-800">【08】AI适用性选择</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-7">
+                    <a href="#overview" class="nav-link text-slate-600 font-medium">AI适用性概览</a>
+                    <a href="#why" class="nav-link text-slate-600 font-medium">为什么做</a>
+                    <a href="#objectives" class="nav-link text-slate-600 font-medium">任务目标</a>
+                    <a href="#framework" class="nav-link text-slate-600 font-medium">架构模型</a>
+                    <a href="#how" class="nav-link text-slate-600 font-medium">如何做</a>
+                    <a href="#roadmap" class="nav-link text-slate-600 font-medium">执行路线</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- ══ SECTION 1 · 评估概览 ══ -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI适用性选择执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+
+                                本方案面向董事会与高管层，聚焦 AI 投资决策的核心命题：
+                                
+                    <strong class="text-sky-700">在 AI 转型过程中避免盲目跟风，通过系统化的五维评估机制，确保 AI 战略、技术路线与应用场景真正契合企业实际能力和发展需求</strong>
+                    。
+                                适用性选择是 AI 投资的"守门人"，决定哪些项目值得推进、哪些须调整或暂停。
+                            
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🎯</div>
+                    <h3 class="font-bold text-slate-800 mb-1">避免战略脱节</h3>
+                    <p class="text-sm text-slate-600">确保 AI 战略真正服务于核心业务，基于发展阶段和资源禀赋制定规划，而非追热点。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🛡️</div>
+                    <h3 class="font-bold text-slate-800 mb-1">降低试错风险</h3>
+                    <p class="text-sm text-slate-600">在快速演进的技术市场中，选择匹配真实需求和团队能力的技术路线，减少沉没成本。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🚀</div>
+                    <h3 class="font-bold text-slate-800 mb-1">提高落地成功率</h3>
+                    <p class="text-sm text-slate-600">充分评估数据基础和业务价值，精准识别最有价值且具备推广潜力的应用切入点。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">评估维度数</span>
+                    <span class="text-4xl font-extrabold text-sky-800">5</span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">战略 · 运营 · 技术 · 价值 · 场景</p>
+                </div>
+            </div>
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">五维评估体系：从战略到场景全方位把关</h2>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">评估维度</th>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">核心问题</th>
+                                <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">不通过的典型信号</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">🎯 战略适用性</td>
+                                <td class="px-5 py-3 text-slate-500">AI是否真正服务于核心战略方向？</td>
+                                <td class="px-5 py-3 text-red-600 font-medium">项目无法与3年业务目标直接关联</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">⚙️ 运营适用性</td>
+                                <td class="px-5 py-3 text-slate-500">现有组织能否承载AI应用的推行？</td>
+                                <td class="px-5 py-3 text-red-600 font-medium">跨部门协作机制缺失，无法落地</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">💻 技术适用性</td>
+                                <td class="px-5 py-3 text-slate-500">技术方案是否匹配IT基建和团队能力？</td>
+                                <td class="px-5 py-3 text-red-600 font-medium">关键技术依赖不具备，人才缺口过大</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">💰 价值适用性</td>
+                                <td class="px-5 py-3 text-slate-500">AI投入的商业回报潜力是否清晰可验？</td>
+                                <td class="px-5 py-3 text-red-600 font-medium">ROI路径不清晰，价值无法量化验证</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">🔍 场景适用性</td>
+                                <td class="px-5 py-3 text-slate-500">具体落地场景的数据基础是否充分？</td>
+                                <td class="px-5 py-3 text-red-600 font-medium">数据质量不足 / 场景复制性差</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3 flex items-center gap-2">
+                        <span>🔬</span>
+                         本质特征提炼
+                    </h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>动态评估：</strong>
+                                适用性评估不是一次性门禁，而是随项目推进持续更新的动态判断机制。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>分级响应：</strong>
+                                评估结果按 60–80/40–60/&lt;40 三级设定不同应对策略，避免"一刀切"停项。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>多层协同：</strong>
+                                高管、业务和技术三层分别执行评估，避免单一视角的盲区。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>闭环沉淀：</strong>
+                                每次评估结果都沉淀为方法论和工具，持续提升下一轮评估的准确性。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <span>🏭</span>
+                         行业典型表现
+                    </h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>银行业（规避失败）：</strong>
+                                通过技术适用性评估，及时识别核心系统与AI平台的集成壁垒，规避了一个预算过亿的失败项目。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业（场景降级）：</strong>
+                                场景适用性评估发现数据质量不足，主动降级为"数据治理先行"方案，6 个月后再启动 AI 项目，成功率从历史 20% 提升至 75%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>零售业（快速复制）：</strong>
+                                综合评估体系帮助识别出 8 个适用性高分场景，批量推进节省了 60% 的立项论证时间。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>SaaS 企业（精准投入）：</strong>
+                                价值适用性评估帮助区分"高频低价值"与"低频高价值"场景，将 AI 预算集中在 ROI 最高的 3 个场景，产出翻倍。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 2 · 为什么做 ══ -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：六大战略价值</h2>
+                <p class="text-slate-500 mt-2 pl-5">AI 项目往往因脱离实际而失败。系统化适用性评估在投资前规避风险，确保资源有效投入。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🎯</span>
+                        <h3 class="font-bold text-red-800">避免战略与实际脱节</h3>
+                    </div>
+                    <p class="text-sm text-red-700">确保 AI 战略真正服务于核心业务，基于企业发展阶段和资源禀赋制定规划。战略脱节是最昂贵的错误——浪费的不只是预算，还有 12–18 个月的时间窗口。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🛡️</span>
+                        <h3 class="font-bold text-red-800">降低技术试错风险</h3>
+                    </div>
+                    <p class="text-sm text-red-700">在快速演进的技术市场中，选择匹配企业真实需求和团队能力的技术路线，减少沉没成本。技术适用性评估可识别 80% 的潜在集成失败风险。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🚀</span>
+                        <h3 class="font-bold text-red-800">提高场景落地成功率</h3>
+                    </div>
+                    <p class="text-sm text-red-700">充分评估场景的数据基础和业务价值，精准识别最有价值且具备推广潜力的 AI 应用切入点，将 AI 项目成功率从行业平均 30% 提升至 60%+。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🔄</span>
+                        <h3 class="font-bold text-red-800">确保运营模式匹配</h3>
+                    </div>
+                    <p class="text-sm text-red-700">评估现有组织结构和流程对 AI 应用的承载力，推动必要的内部管理变革。运营适用性低往往是 AI 项目"上线即僵尸"的根本原因。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💰</span>
+                        <h3 class="font-bold text-red-800">实现投入与价值平衡</h3>
+                    </div>
+                    <p class="text-sm text-red-700">评估预期价值潜力与实现路径，确保 AI 投入能够转化为实际 ROI。价值适用性评估帮助区分"高频低价值"与"低频高价值"场景，引导资源集中。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">📈</span>
+                        <h3 class="font-bold text-sky-800">建立持续学习迭代机制</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">
+                        "评估→实施→验证→优化"的闭环，通过反馈不断动态调整决策。
+                        <strong>每一次评估都是组织学习的机会，让下一次决策更精准。</strong>
+                    </p>
+                </div>
+            </div>
+            <!-- 雷达图 -->
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">示例：某智能客服项目五维评估雷达图</h3>
+                    <p class="text-sm text-slate-500 mb-5">分数越高代表该维度适用性越强。该项目在价值适用性（90分）和战略适用性（85分）表现优秀，但运营适用性（60分）存在明显短板，需优先提升。</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            <div>
+                                <span class="font-semibold text-sky-800 text-sm">战略适用性（85分）：</span>
+                                <span class="text-xs text-slate-500">与业务战略高度对齐，竞争差异化明显</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-amber-50 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+                            <div>
+                                <span class="font-semibold text-amber-800 text-sm">运营适用性（60分）：</span>
+                                <span class="text-xs text-slate-500">⚠️ 短板：跨部门协作机制需提前建立</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-slate-500 shrink-0"></span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">技术适用性（75分）：</span>
+                                <span class="text-xs text-slate-500">基础设施就绪，需补充 NLP 人才</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-sky-50 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-sky-600 shrink-0"></span>
+                            <div>
+                                <span class="font-semibold text-sky-800 text-sm">价值适用性（90分）：</span>
+                                <span class="text-xs text-slate-500">ROI清晰，客服成本节约路径验证充分</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-amber-50 rounded-lg">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+                            <div>
+                                <span class="font-semibold text-amber-800 text-sm">场景适用性（65分）：</span>
+                                <span class="text-xs text-slate-500">⚠️ 需先完成历史对话数据清洗与标注</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="dimensionRadarChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 3 · 任务目标 ══ -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：六大维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按适用性评估子主题分组，每组附可落地验收标准，供 AI 项目评审委员会与业务负责人对标使用。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🎯</span>
+                        <h3 class="font-bold text-slate-800">战略适用性评估</h3>
+                        <span class="ml-auto badge-core">入门门槛</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估 AI 战略与企业 3 年整体战略的对齐度（须 ≥ 70 分）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>分析企业发展阶段对 AI 转型的资源与文化支撑条件</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估行业竞争态势对 AI 应用时机与方向的影响</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>识别企业独特优势（数据/渠道/专业知识）与 AI 的结合点</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">⚙️</span>
+                        <h3 class="font-bold text-slate-800">运营适用性评估</h3>
+                        <span class="ml-auto badge-new">易忽视</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估现有运营模式对 AI 应用的承载能力（流程/人员/文化）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>分析组织结构和决策机制与 AI 应用需求的适配性</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估跨部门协作和数据共享的成熟度与意愿</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>制定运营模式转型的配套路径计划（变革管理需求）</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">💻</span>
+                        <h3 class="font-bold text-slate-800">技术适用性评估</h3>
+                        <span class="ml-auto badge-core">可行性关键</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估技术方案与业务需求的匹配度，识别过度设计风险</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>分析现有 IT 基础设施的支撑能力（算力/数据/接口）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估团队技术能力现状与关键人才缺口</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>制定技术能力提升与基础设施升级的补充计划</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">💰</span>
+                        <h3 class="font-bold text-slate-800">价值适用性评估</h3>
+                        <span class="ml-auto badge-core">ROI核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估 AI 应用的业务价值潜力（效率/收入/体验三维）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>分析投资回收周期和财务可行性（Payback Period ≤ X 月）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>识别价值实现的关键路径与核心假设，制定验证机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>确认可量化的价值度量指标体系（对接 VO 组件）</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔍</span>
+                        <h3 class="font-bold text-slate-800">场景适用性评估</h3>
+                        <span class="ml-auto badge-new">落地关键</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估场景的数据基础质量（量/质/时效性/标注情况）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>分析场景的业务价值量级和问题紧迫性</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估场景的技术可行性和实施复杂度</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>评估场景的推广潜力与跨业务线复制能力</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔧</span>
+                        <h3 class="font-bold text-slate-800">不适配应对机制</h3>
+                        <span class="ml-auto badge-core">风险兜底</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立分级响应机制（优化/调整/暂停三级，评分阈值清晰）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>制定不同维度短板的专项解决方案（战略/技术/场景分类）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立"评估→调整→再评估"的闭环机制，防止一次性评估</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>沉淀评估方法论和案例库，持续提升评估精准度</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 4 · 架构模型 ══ -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 08），按四层架构分组。点击左侧层级查看每个组件与 AI 适用性选择的协同关系。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[460px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04｜战略到底座</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07｜赋能、创新与度量</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11 · 12｜领导、治理与人才</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16｜全维度风险防控</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 5 · 如何做 ══ -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：五维评估详解 + 不适配应对策略</h2>
+                <p class="text-slate-500 mt-2 pl-5">点击评估维度标签查看该维度的详细任务矩阵；下方提供三级不适配应对策略，供评审后快速决策。</p>
+            </div>
+
+            <!-- 维度评估交互 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6">
+                <h3 class="font-bold text-slate-800 mb-5">核心五维评估矩阵（点击维度查看详细任务）</h3>
+                <div class="flex flex-wrap gap-2 mb-5" id="dim-tabs">
+                    <button class="dim-tab active px-4 py-2 rounded-lg border-2 text-sm font-medium focus:outline-none" data-dim="strategy">🎯 战略适用性</button>
+                    <button class="dim-tab px-4 py-2 rounded-lg border-2 border-slate-200 text-sm font-medium text-slate-600 focus:outline-none" data-dim="operation">⚙️ 运营适用性</button>
+                    <button class="dim-tab px-4 py-2 rounded-lg border-2 border-slate-200 text-sm font-medium text-slate-600 focus:outline-none" data-dim="tech">💻 技术适用性</button>
+                    <button class="dim-tab px-4 py-2 rounded-lg border-2 border-slate-200 text-sm font-medium text-slate-600 focus:outline-none" data-dim="value">💰 价值适用性</button>
+                    <button class="dim-tab px-4 py-2 rounded-lg border-2 border-slate-200 text-sm font-medium text-slate-600 focus:outline-none" data-dim="scenario">🔍 场景适用性</button>
+                    <button class="dim-tab px-4 py-2 rounded-lg border-2 border-slate-200 text-sm font-medium text-slate-600 focus:outline-none" data-dim="comprehensive">🔗 综合决策</button>
+                </div>
+                <div class="bg-sky-50 rounded-xl p-6 border border-sky-100 min-h-[200px] fade-in" id="dim-content"></div>
+            </div>
+
+            <!-- 不适配应对策略 -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 border-t-4 border-t-amber-400">
+                <h3 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <span class="text-amber-500 text-xl">⚠️</span>
+                     不适配情况分级应对策略
+                </h3>
+                <p class="text-sm text-slate-500 mb-5">当评估发现问题时，按不适配严重程度分级响应，确保项目风险可控而非一刀切终止。</p>
+                <div class="bg-slate-100 rounded-xl p-1 flex gap-1 mb-5">
+                    <button class="severity-btn active flex-1 py-3 text-sm font-medium rounded-lg focus:outline-none" data-severity="light">🟡 轻度不适配（60–80分）</button>
+                    <button class="severity-btn flex-1 py-3 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 focus:outline-none" data-severity="medium">🟠 中度不适配（40–60分）</button>
+                    <button class="severity-btn flex-1 py-3 text-sm font-medium rounded-lg text-slate-500 hover:text-slate-700 focus:outline-none" data-severity="heavy">🔴 重度不适配（&lt;40分）</button>
+                </div>
+                <div id="severity-content" class="p-6 bg-white border border-slate-200 rounded-xl min-h-[160px]"></div>
+                <div class="mt-6 pt-5 border-t border-slate-100">
+                    <h4 class="font-bold text-slate-700 mb-3 text-sm">特定维度解决方案快速索引</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="border border-slate-200 rounded-lg p-4 text-sm">
+                            <div class="font-bold text-slate-700 mb-2">🎯 战略调整</div>
+                            <ul class="list-disc pl-4 text-slate-600 space-y-1 text-xs">
+                                <li>降低目标激进程度，延长转型周期</li>
+                                <li>聚焦特定领域缩小范围</li>
+                                <li>先做能力储备再做战略扩张</li>
+                            </ul>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4 text-sm">
+                            <div class="font-bold text-slate-700 mb-2">💻 技术降级</div>
+                            <ul class="list-disc pl-4 text-slate-600 space-y-1 text-xs">
+                                <li>选择更成熟稳定的技术方案</li>
+                                <li>引入外部 SaaS/PaaS 降低门槛</li>
+                                <li>加大基础设施投入</li>
+                            </ul>
+                        </div>
+                        <div class="border border-slate-200 rounded-lg p-4 text-sm">
+                            <div class="font-bold text-slate-700 mb-2">🔍 场景更换</div>
+                            <ul class="list-disc pl-4 text-slate-600 space-y-1 text-xs">
+                                <li>简化场景聚焦核心痛点</li>
+                                <li>先补充数据基础再启动</li>
+                                <li>优化体验降低用户门槛</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 6 · 执行路线 ══ -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：适用性评估六步落地路径</h2>
+                <p class="text-slate-500 mt-2 pl-5">从框架建立到持续优化闭环，将适用性评估体系标准化为企业 AI 投资决策的制度性工具。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"最好的 AI 投资，是那些经过严格适用性评估后才做的投资——勇于说'不'比盲目追热点更需要智慧。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ── 雷达图 ──────────────────────────────────────────────────
+        new Chart(document.getElementById('dimensionRadarChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['战略适用性', '运营适用性', '技术适用性', '价值适用性', '场景适用性'],
+                datasets: [{
+                    label: '评估得分（满分100）',
+                    data: [85, 60, 75, 90, 65],
+                    backgroundColor: 'rgba(3,105,161,0.2)',
+                    borderColor: 'rgba(3,105,161,1)',
+                    pointBackgroundColor: 'rgba(3,105,161,1)',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            },
+                            color: '#475569'
+                        },
+                        ticks: {
+                            min: 0,
+                            max: 100,
+                            stepSize: 20,
+                            backdropColor: 'transparent',
+                            color: '#94a3b8'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // ── 架构模型 ────────────────────────────────────────────────
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: '适用性选择为战略转型提供"可行性过滤器"，为变革管理提供"准入资格"判断，为运营模式转换明确匹配条件，为技术路线迁移提供选型依据。',
+                components: [
+                {
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: 'VT的战略适用性评估，是检验AI投资是否真正服务于战略方向的第一道关卡。每个AI项目须能回答"如何支撑3年战略目标"，否则无论技术多成熟也应暂缓推进。',
+                    core: true
+                },
+                {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: '运营适用性评估的核心输出之一，是"变革管理需求强度"的判断——如果运营适用性低，则变革管理投入须相应增加。VT为CG提供变革干预的优先级决策依据。',
+                    core: false
+                },
+                {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: 'VT的运营适用性维度直接评估"现有运营模式能否承载AI应用"——低适用性意味着需要先进行运营模式转换，再推进AI部署，两者形成前置关系。',
+                    core: true
+                },
+                {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: 'VT的技术适用性评估是技术路线选择的重要输入——它确认企业当前的技术底座是否就绪，还是需要先完成技术路线迁移才能支撑目标AI场景。',
+                    core: true
+                }
+                ]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'VT适用性选择是所有价值创造活动的"前置质检"——确保被选中推进的AI项目在价值上可期、在场景上可行、在指标上可量化。',
+                components: [
+                {
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: '适用性评估确保每个被赋能的场景都经过了"价值适用性"和"场景适用性"的双重验证，避免将AI赋能资源浪费在不适合或价值低的场景上。',
+                    core: true
+                },
+                {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: 'VT为VG的场景筛选提供评估框架——创新试点候选场景须经过五维适用性评估，高分场景才进入孵化阶段，防止将创新资源投入不具备基础条件的场景。',
+                    core: true
+                },
+                {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: 'VT的价值适用性维度须与VO协同——判断"价值路径是否可量化"，是适用性评估的关键子问题。没有可量化指标路径的项目，价值适用性得分应偏低。',
+                    core: true
+                }
+                ]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: '适用性评估须有高管背书才能成为强制性门禁，须有治理委员会作为评审决策主体，须有CoE提供专业评估支持，须有人才支撑评估能力。',
+                components: [
+                {
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '高管层须为适用性评估门禁赋予"否决权"的权威性——如果高管可以绕过评估结果强推项目，评估体系将失去意义。领导力是评估体系有效性的前提保障。',
+                    core: false
+                },
+                {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: 'AI治理委员会是适用性评估的最终决策机构——审查评估结果，作出推进/调整/暂停的裁决，处理争议评分。委员会的权威性决定了评估能否真正影响资源分配。',
+                    core: true
+                },
+                {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE是评估的专业执行主体：维护评估框架工具、支持业务团队开展自评、汇总评估结果、提供改进建议，并持续更新评估标准和权重体系。',
+                    core: true
+                },
+                {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: '技术适用性评估需要懂AI工程的人才才能准确判断，人才适用性评估本身也是评估框架的重要维度。技术人才的就绪程度，是技术适用性评分的核心变量。',
+                    core: false
+                }
+                ]
+            },
+            risk: {
+                title: '🛡️ 风险管控层',
+                desc: 'VT适用性评估本质上就是一种前置风险管理——在项目启动前系统识别战略、运营、技术、价值和场景五个维度的风险并分级响应。',
+                components: [
+                {
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: '战略适用性评估直接对应战略风险管控——AI投资与战略方向偏差、赛道选错的风险，须通过战略适用性维度的严格评估来前置识别和规避。',
+                    core: true
+                },
+                {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: '适用性评估中的"技术适用性"和"场景适用性"维度，须纳入RG的AI本体风险评估视角——数据质量风险、模型偏见风险、黑箱决策风险应在选型阶段就被识别。',
+                    core: false
+                },
+                {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: '运营适用性评估的低分，往往预示着高运营风险——业务连续性、流程断层、人员抵制等运营风险，在适用性评估中须被量化并制定应对预案。',
+                    core: true
+                },
+                {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: '技术适用性评估须覆盖信创合规子维度——目标场景的技术方案是否满足信创要求、数据是否涉及跨境处理，应作为技术适用性评分的强制性评估项。',
+                    core: false
+                }
+                ]
+            }
+        };
+
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        // ── 维度评估详情 ────────────────────────────────────────────
+        const dimData = {
+            strategy: {
+                icon: '🎯',
+                title: '战略适用性',
+                desc: '确保AI战略方向与企业总体战略、行业环境相符，避免"技术先行、战略滞后"的脱节困境。',
+                tasks: ['评估AI战略与企业整体战略的对齐度（须通过高管层一致性确认）', '分析企业所处发展阶段（初创/成长/成熟）对AI转型的支撑条件', '评估行业特点和竞争态势对AI应用时机与方向的影响', '识别企业独特优势（数据/渠道/专业知识）与AI战略的结合点', '明确AI转型的优先级和节奏安排（什么先做、什么后做）']
+            },
+            operation: {
+                icon: '⚙️',
+                title: '运营适用性',
+                desc: '分析现有组织架构和业务流程是否能承载AI应用，识别需要变革的管理机制。',
+                tasks: ['评估现有运营模式对AI应用的承载能力（流程成熟度/数据流通度）', '分析组织结构和决策机制与AI应用需求的适配性', '识别需要调整的业务流程和管理机制，制定变革路线', '评估跨部门协作和数据共享的成熟度与意愿', '制定运营模式转型的路径和时间计划']
+            },
+            tech: {
+                icon: '💻',
+                title: '技术适用性',
+                desc: '确认技术方案是否匹配业务需求、IT基建和团队能力，识别技术瓶颈与人才缺口。',
+                tasks: ['评估技术方案与业务需求的匹配度（功能/性能/可维护性）', '分析现有IT基础设施的支撑能力（算力/数据接口/系统兼容性）', '评估团队技术能力和AI人才储备现状', '识别技术实施的关键依赖和潜在集成风险', '制定技术能力提升和基础设施升级的补充计划']
+            },
+            value: {
+                icon: '💰',
+                title: '价值适用性',
+                desc: '评估AI投入的商业回报潜力及财务可行性，确保价值路径清晰、可量化、可验证。',
+                tasks: ['评估AI应用的业务价值潜力（效率提升/成本节约/收入增长）', '分析投资回收周期和财务可行性（Payback Period是否可接受）', '识别价值实现的关键路径和核心假设，设计验证机制', '评估价值度量的可行性，确认指标体系（对接VO）', '制定价值实现的里程碑，建立"中途验证"节点']
+            },
+            scenario: {
+                icon: '🔍',
+                title: '场景适用性',
+                desc: '针对具体应用场景，评估其数据基础、落地条件和推广价值，确认场景的可行性与复制性。',
+                tasks: ['识别和筛选潜在的AI应用场景（价值 × 可行性二维矩阵排序）', '评估场景的数据基础（量/质/时效性/标注情况/安全合规）', '分析场景的业务价值量级和问题紧迫性', '评估场景的技术可行性和实施复杂度（API可用性/集成难度）', '评估场景的推广潜力和跨业务线复制能力']
+            },
+            comprehensive: {
+                icon: '🔗',
+                title: '综合决策与验证',
+                desc: '统筹各维度评估结果，建立持续的验证与优化闭环，将评估方法论转化为组织资产。',
+                tasks: ['建立五维综合评分机制（各维度权重配置与总分阈值）', '设计"快赢场景"（≥70分全维度）和"战略场景"（战略高分但其他须补短板）分类策略', '通过试点项目验证评估体系的预测准确性', '根据试点反馈更新评估标准和维度权重', '形成可复用的评估模板、案例库和知识沉淀机制']
+            }
+        };
+
+        function renderDim(key) {
+            const d = dimData[key];
+            let tHtml = d.tasks.map(t => `<li class="flex items-start gap-2 mb-2"><span class="text-sky-500 mt-0.5 shrink-0">✓</span><span class="text-slate-700 text-sm">${t}</span></li>`).join('');
+            document.getElementById('dim-content').innerHTML = `<div class="fade-in"><div class="flex items-center gap-3 mb-4"><span class="text-3xl">${d.icon}</span><h4 class="text-xl font-bold text-slate-800">${d.title}任务列表</h4></div><p class="text-slate-600 mb-4 text-sm">${d.desc}</p><ul>${tHtml}</ul></div>`;
+        }
+        document.querySelectorAll('#dim-tabs .dim-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#dim-tabs .dim-tab').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('border-slate-200', 'text-slate-600');
+                    b.classList.remove('text-white');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('border-slate-200', 'text-slate-600');
+                renderDim(btn.getAttribute('data-dim'));
+            });
+        });
+        renderDim('strategy');
+
+        // ── 不适配应对策略 ──────────────────────────────────────────
+        const severityData = {
+            light: {
+                title: '🟡 优化调整（评分 60–80 分）',
+                color: 'text-blue-700',
+                bg: 'bg-blue-50',
+                desc: '保持主体方向不变，进行局部针对性优化。项目可继续推进，但须制定明确的短板改善计划。',
+                actions: ['调整实施节奏和资源投入强度，避免一次性全量推进', '加强人员培训和能力建设，针对短板维度设定 3–6 个月改善窗口', '优化现有业务流程和跨部门协作机制，减少推行阻力', '建立月度进度检查，确认短板是否按计划改善']
+            },
+            medium: {
+                title: '🟠 方案调整（评分 40–60 分）',
+                color: 'text-amber-700',
+                bg: 'bg-amber-50',
+                desc: '核心架构须变动，需调整实施路径与期望值。项目暂缓，制定调整方案后重新评估。',
+                actions: ['重新评估并显著调整技术方案（降低复杂度或选择更成熟替代）', '降低应用场景复杂度，先聚焦核心子场景验证价值', '调整ROI预期，分阶段实施目标（6个月快赢，12个月战略）', '强力补充关键资源短板（人才引进/合作伙伴/数据治理优先项）']
+            },
+            heavy: {
+                title: '🔴 战略调整或暂停（评分 &lt;40 分）',
+                color: 'text-red-700',
+                bg: 'bg-red-50',
+                desc: '项目面临重大风险，须立即止损评估。暂停当前推进，启动全面复盘程序。',
+                actions: ['立即暂停当前项目，组织跨部门复盘会议（1周内完成）', '重新评估该AI方向的整体战略可行性，是否需要更换赛道', '建立更严格的试点机制（更小范围/更短周期/更低投入验证假设）', '必要时果断终止项目，释放资源给评分更高的机会，避免扩大沉没成本']
+            }
+        };
+
+        function renderSeverity(key) {
+            const d = severityData[key];
+            let aHtml = d.actions.map(a => `<li class="flex items-start gap-2 mb-3"><span class="${d.color} mt-0.5 font-bold text-lg shrink-0">▸</span><span class="text-slate-700 text-sm">${a}</span></li>`).join('');
+            document.getElementById('severity-content').innerHTML = `<div class="fade-in"><h4 class="text-lg font-bold ${d.color} mb-1">${d.title}</h4><p class="text-slate-500 text-sm mb-5">${d.desc}</p><div class="${d.bg} p-5 rounded-lg"><h5 class="font-semibold text-slate-800 mb-3 text-sm">核心调整措施：</h5><ul>${aHtml}</ul></div></div>`;
+        }
+        document.querySelectorAll('.severity-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.severity-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('text-slate-500');
+                    b.classList.remove('text-slate-800');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('text-slate-500');
+                renderSeverity(btn.getAttribute('data-severity'));
+            });
+        });
+        renderSeverity('light');
+
+        // ── Roadmap ─────────────────────────────────────────────────
+        const steps = [
+        {
+            phase: '第一步',
+            title: '建立适用性评估框架',
+            desc: '定义五个评估维度的标准、权重和门槛分值，设计评估问卷与评分表，明确评审委员会职责与决策规则。',
+            deliverable: '交付物：评估框架文档 · 评分表模板 · 评审委员会章程'
+        },
+        {
+            phase: '第二步',
+            title: '实施多层次评估',
+            desc: '高管层（战略评估）、业务/技术部门（战术评估）、一线人员（运营/场景评估）分层独立评分，再汇总形成综合评估报告。',
+            deliverable: '交付物：分层评估报告 · 综合评分汇总 · 短板识别清单'
+        },
+        {
+            phase: '第三步',
+            title: '开展试点验证',
+            desc: '选择 1–2 个综合评分 ≥70 分的场景，设定明确验证假设，采用敏捷方法快速部署，收集数据验证评估预测准确性。',
+            deliverable: '交付物：试点报告 · 假设验证结果 · 评估框架优化建议'
+        },
+        {
+            phase: '第四步',
+            title: '建立决策机制',
+            desc: '将适用性评估纳入 AI 项目立项强制流程，制定"推进/调整/暂停/终止"的标准化决策规则，定期召开评审会跟踪进展。',
+            deliverable: '交付物：决策规则手册 · 立项流程更新 · 季度评审议程'
+        },
+        {
+            phase: '第五步',
+            title: '应对不适配情况',
+            desc: '针对评估低分项目，按三级策略（优化/调整/暂停）快速执行应对方案，系统化寻求解决路径，不陷入"评估停滞"。',
+            deliverable: '交付物：不适配项目改善计划 · 快速响应 SOP · 案例记录'
+        },
+        {
+            phase: '第六步（持续进行）',
+            title: '持续优化评估体系',
+            desc: '每季度回顾评估体系的预测准确性，根据实施反馈更新权重，沉淀成功与失败案例，形成可复用的评估知识库。',
+            deliverable: '里程碑：评估框架版本迭代 · 案例库建立 · 评估能力全员培训'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        steps.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === steps.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

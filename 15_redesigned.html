@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI运营风险管理执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+        height: 300px;
+        max-height: 360px
+    }
+
+    .nav-link:hover {
+        color:#0369a1
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color:#fff
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9
+    }
+
+    .roadmap-step {
+        transition:all 0.2s
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12)
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom:1px solid #f1f5f9
+    }
+
+    .check-item:last-child {
+        border-bottom: none
+    }
+
+    .fade-in {
+        animation:fadeIn 0.3s ease
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform:translateY(6px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width:6px
+    }
+
+    ::-webkit-scrollbar-track {
+        background:#f1f5f9
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .step-btn {
+        transition: all 0.2s;
+        border-left: 4px solid transparent;
+        cursor: pointer
+    }
+
+    .step-btn.active {
+        background-color: #0f172a;
+        color: #fff;
+        border-left-color: #d97706
+    }
+
+    .step-btn:not(.active):hover {
+        background-color: #f1f5f9
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between h-16 items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">⚡</span>
+                <span class="font-bold text-xl tracking-tight text-sky-800">【15】AI运营风险管理</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#overview" class="nav-link text-slate-600 font-medium transition-colors">AI运营风险概览</a>
+                <a href="#why" class="nav-link text-slate-600 font-medium transition-colors">为什么做</a>
+                <a href="#objectives" class="nav-link text-slate-600 font-medium transition-colors">任务目标</a>
+                <a href="#framework" class="nav-link text-slate-600 font-medium transition-colors">架构模型</a>
+                <a href="#how" class="nav-link text-slate-600 font-medium transition-colors">如何做</a>
+                <a href="#roadmap" class="nav-link text-slate-600 font-medium transition-colors">执行路线</a>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- 概览 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI运营风险管理执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    本方案面向董事会与高管层，聚焦 AI 系统"上线后"的全程运行风险管控：
+                    <strong class="text-sky-700">确保 AI 能力在生产环境中持续、稳定地交付业务价值——通过 SRE/MLOps 式运行机制，将风险治理转化为可落地的 SLO、错误预算与发布门禁，坚决避免运营缺陷累积演变为重大业务中断或成本失控</strong>
+                    。
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">⏱️</div>
+                    <h3 class="font-bold text-slate-800 mb-1">稳定可用</h3>
+                    <p class="text-sm text-slate-600">SLA/SLO 持续达标，具备容灾与降级能力，关键 AI 服务可用性 ≥ 99.9%。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">👁️</div>
+                    <h3 class="font-bold text-slate-800 mb-1">可观测可追溯</h3>
+                    <p class="text-sm text-slate-600">指标、日志、链路追踪完整，便于快速定位问题根因与合规取证。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">💰</div>
+                    <h3 class="font-bold text-slate-800 mb-1">成本可控</h3>
+                    <p class="text-sm text-slate-600">算力、网络、人力成本可度量、可优化，防止 AI 运营成本失控。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">核心工具</span>
+                    <span class="text-2xl font-extrabold text-sky-800 leading-tight">
+                        SLO+
+                        <br>
+                        错误预算
+                    </span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">稳定性与交付速度的平衡约束</p>
+                </div>
+            </div>
+            <!-- RO vs RG vs RT -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">运营风险的职责边界：与其他风险管理单元的协同定位</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-sky-50 p-5 rounded-xl border-2 border-sky-400 relative">
+                        <div class="absolute top-3 right-3 text-xs bg-sky-600 text-white px-2 py-0.5 rounded font-bold">当前聚焦</div>
+                        <h3 class="font-bold text-sky-800 mb-1">RO：AI 运营风险</h3>
+                        <p class="text-xs font-semibold text-sky-600 mb-2">关注："AI 服务是否稳定交付"</p>
+                        <p class="text-sm text-sky-700">以生产运行与交付为中心。聚焦可用性/性能/容量/变更。承接 RG 的控制要求，固化到发布门禁与运行监控中；确保 RT 安全底座持续生效。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-700 mb-1">RG：AI 本体风险</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-2">关注："AI 是否合规可控"</p>
+                        <p class="text-sm text-slate-600">聚焦模型/数据/算法本身的缺陷与风险。提供给 RO 的：控制要求与门禁标准。RO 出问题时，RG 负责回溯"AI 本体根因"。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h3 class="font-bold text-slate-700 mb-1">RT：安全 & 信创</h3>
+                        <p class="text-xs font-semibold text-slate-500 mb-2">关注："技术底座安全合规"</p>
+                        <p class="text-sm text-slate-600">提供底层安全架构/访问控制/加密管理/信创合规。RO 负责在运行态确保 RT 的安全机制（密钥轮换/权限最小化）持续生效并可审计。</p>
+                    </div>
+                </div>
+                <div class="mt-4 bg-slate-800 text-white rounded-xl p-4 text-sm">
+                    <span class="font-bold text-red-300">⚠️ 风险升级预警：</span>
+                     RO 的长期 SLA 违约、成本失控或多次重大事故，可能直接上升为 
+                    <span class="font-semibold text-white">RS（战略风险）</span>
+                    ，引发声誉受损、业务中断与监管惩罚。
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3">🔬 本质特征提炼</h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>SLO 优先：</strong>
+                                不是"尽力而为"的稳定性，而是量化目标（如可用性 99.9%）驱动的工程纪律。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>错误预算机制：</strong>
+                                将稳定性与交付速度显式平衡——预算消耗后暂停发布，预算充足时加速。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>发布门禁：</strong>
+                                将 RG 的风险控制要求固化为自动化发布条件，不通过门禁不得上线。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3">🏭 行业典型表现</h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>互联网：</strong>
+                                建立 AI 服务 SLO 体系后，推荐系统 P99 延迟从 800ms 降至 120ms，GMV 因此提升 8%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>金融业：</strong>
+                                引入错误预算机制后，AI 风控系统发布频率提升 3 倍，同时重大故障率下降 65%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业：</strong>
+                                AI 质检系统建立模型漂移监控后，性能静默退化问题在造成批量次品之前被提前发现。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 为什么做 -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：五大运营风险核心驱动力</h2>
+                <p class="text-slate-500 mt-2 pl-5">AI 系统上线后的运营风险与传统 IT 系统有根本性不同，须建立专属的 RO 体系。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">📉</span>
+                        <h3 class="font-bold text-red-800">模型静默退化</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 模型不像传统软件那样"坏了才报错"——它会悄悄性能退化，持续输出错误决策，往往在造成大量业务损失后才被发现，且难以快速回滚。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💸</span>
+                        <h3 class="font-bold text-red-800">算力成本失控</h3>
+                    </div>
+                    <p class="text-sm text-red-700">大模型推理成本极高且难以预测，缺乏成本监控的 AI 服务可能在高并发期间产生数十倍的计算账单，成本管控失败会直接冲击 AI 项目的 ROI 基础。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🔗</span>
+                        <h3 class="font-bold text-red-800">依赖链断裂风险</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 服务依赖的上游数据管道、外部 API、向量库往往没有传统 IT 监控，链路断裂后 AI 系统可能继续"运行"但输出无效甚至有害结果，危害比宕机更隐蔽。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🚀</span>
+                        <h3 class="font-bold text-red-800">高频变更引入不稳定</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 时代模型更新比传统软件更频繁，每次模型/数据/提示词变更都可能引入非线性的行为变化，缺乏变更门禁会让生产系统持续处于不稳定状态。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚖️</span>
+                        <h3 class="font-bold text-red-800">合规证据链缺失</h3>
+                    </div>
+                    <p class="text-sm text-red-700">监管对 AI 系统的"可审计"要求日益严格，运营记录和决策日志须完整留存。日志缺失意味着无法应对监管调查，合规风险持续累积。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💡</span>
+                        <h3 class="font-bold text-sky-800">RO 的价值：可见性 → 可控性</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">RO 将"AI 黑盒运营"转化为"可量化指标驱动的工程纪律"——让每个 AI 服务的健康状态对所有相关方清晰可见，让每个风险都有自动响应预案。</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">实施运营风险前后：核心运营风险暴露度对比</h3>
+                    <p class="text-sm text-slate-500 mb-5">条形图对比了建立 RO 体系前后，五大核心运营风险维度的暴露度变化，直观展示 RO 的业务保护价值。</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <span class="text-xs text-slate-500 w-24 shrink-0">模型退化风险</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-sky-600 rounded-full" style="width:25%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-sky-700 w-20 text-right">降低75%</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <span class="text-xs text-slate-500 w-24 shrink-0">成本失控风险</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-sky-600 rounded-full" style="width:30%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-sky-700 w-20 text-right">降低70%</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <span class="text-xs text-slate-500 w-24 shrink-0">变更不稳定</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-sky-600 rounded-full" style="width:35%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-sky-700 w-20 text-right">降低65%</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <span class="text-xs text-slate-500 w-24 shrink-0">依赖链断裂</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-sky-600 rounded-full" style="width:20%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-sky-700 w-20 text-right">降低80%</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                            <span class="text-xs text-slate-500 w-24 shrink-0">合规证据缺失</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-amber-500 rounded-full" style="width:10%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-amber-700 w-20 text-right">基本消除</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="radarChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务目标 -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：五大能力维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按 RO 运营能力核心维度分组，每组附可量化验收标准。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📋</span>
+                        <h3 class="font-bold text-slate-800">服务目录与 SLO 体系</h3>
+                        <span class="ml-auto badge-core">基础优先</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 服务分级（Tier 0/1/2），定义"关键 AI 服务"范围</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>为每个服务定义 SLO（可用性/延迟/吞吐/错误率）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>设定错误预算（Error Budget）与消耗规则，形成发布约束</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>关键 AI 服务 SLO 达标率目标 ≥ 99.9%</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">👁️</span>
+                        <h3 class="font-bold text-slate-800">可观测性与监控体系</h3>
+                        <span class="ml-auto badge-core">核心能力</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>部署 AI 系统三层监控（基础设施/模型性能/业务影响）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立模型漂移监控（输入分布偏移/性能退化自动告警）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>完整链路追踪：从请求到模型推理到业务结果全程可追溯</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>告警分级：P0/P1/P2，不同级别响应时间和升级路径明确</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🚪</span>
+                        <h3 class="font-bold text-slate-800">发布门禁与变更管理</h3>
+                        <span class="ml-auto badge-new">质量保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立发布前检查清单（RG 评估通过/SLO 基线验证/回滚方案就绪）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>灰度发布策略（金丝雀发布/蓝绿切换），变更影响可控</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>变更触发规则：模型/数据/提示词/依赖变化须重新通过门禁</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>回滚 SLO：重大故障后 15 分钟内完成服务降级或回滚</span>
+                </div>
+                </ul>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                    <span class="text-xl">💰</span>
+                    <h3 class="font-bold text-slate-800">容量管理与成本控制</h3>
+                    <span class="ml-auto badge-new">成本保障</span>
+                </div>
+                <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>建立 AI 服务算力成本分摊和追踪体系</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>设定 Cost per Inference 目标值，超阈值自动告警</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>峰值容量规划：模型推理弹性扩容策略与上限设定</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>月度 AI 运营成本报告，向治理委员会汇报成本趋势</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm col-span-1 md:col-span-2 xl:col-span-1">
+                <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                    <span class="text-xl">🔄</span>
+                    <h3 class="font-bold text-slate-800">事件响应与持续改进</h3>
+                    <span class="ml-auto badge-core">闭环保障</span>
+                </div>
+                <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>建立 AI 事件分级（P0 全员响应/P1 值班响应/P2 次日处理）</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>每次 P0/P1 事件 48 小时内完成 RCA（根因分析）报告</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>季度游戏日（Game Day）：模拟故障场景验证响应能力</span>
+                    </li>
+                    <li class="check-item">
+                        <span class="text-sky-500">☐</span>
+                        <span>月度 SLO 回顾，识别系统性改进机会并追踪执行</span>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </section>
+
+        <!-- 架构模型 -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 15）。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1">01 · 02 · 03 · 04</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1">05 · 06 · 07 · 08</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1">09 · 10 · 11 · 12</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1">13 · 14 · 16</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- 如何做 -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：RO 11 步全链路执行引擎</h2>
+                <p class="text-slate-500 mt-2 pl-5">从服务目录与 SLO 定义到复盘改进，覆盖 AI 服务上线后运营管控全流程。点击步骤查看详情。</p>
+            </div>
+            <div class="flex flex-col lg:flex-row bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden" style="min-height:480px">
+                <div class="w-full lg:w-64 shrink-0 bg-slate-50 border-r border-slate-200 overflow-y-auto" id="step-menu" style="max-height:480px"></div>
+                <div class="flex-1 p-8 overflow-y-auto" id="step-detail" style="max-height:480px"></div>
+            </div>
+        </section>
+
+        <!-- 执行路线 -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：运营风险能力建设五步推进图</h2>
+                <p class="text-slate-500 mt-2 pl-5">从基础监控到全面运营风险管控体系，分五步系统化建立 AI 运营可靠性。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"AI 系统的价值不取决于它在实验室里的表现，而取决于它在生产环境中持续稳定运行的能力。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        new Chart(document.getElementById('radarChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['可观测性', 'SLO达标', '变更安全', '成本控制', '事件响应'],
+                datasets: [{
+                    label: '建立前（基线）',
+                    data: [30, 45, 35, 40, 25],
+                    backgroundColor: 'rgba(148,163,184,.15)',
+                    borderColor: '#94a3b8',
+                    borderWidth: 1.5,
+                    borderDash: [4, 4]
+                }, {
+                    label: '建立后（目标）',
+                    data: [85, 90, 82, 78, 88],
+                    backgroundColor: 'rgba(3,105,161,.15)',
+                    borderColor: '#0369a1',
+                    pointBackgroundColor: '#d97706',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        pointLabels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 12
+                            },
+                            color: '#1e293b'
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 11
+                            },
+                            boxWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: 'RO 须嵌入 AI 战略执行的全链条，为变革管理提供新流程上线的稳定性保障，为运营模式转换承接智能化运营的持续稳定运行，为技术路线迁移提供新平台的运营验证。',
+                components: [{
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: 'AI 战略的可信度在很大程度上依赖于生产环境的稳定交付。RO 通过量化 SLO 达标率和可用性指标，为战略转型提供可信的执行证明——让"AI 战略成效"不再是定性描述。',
+                    core: false
+                }, {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: '变革后的新流程往往依赖 AI 系统的稳定运行，RO 须为这些 AI 支撑的变革后流程提供持续可靠的服务保障。变更门禁确保 AI 系统升级不影响已完成的变革成果。',
+                    core: false
+                }, {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: 'AI 驱动的新运营模式的可持续性依赖于 AI 服务的稳定交付。RO 是运营模式转换的"持续保障层"——确保智能化的运营流程不因 AI 系统故障而回退到人工模式。',
+                    core: true
+                }, {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '新技术平台上线须经过 RO 的严格验证（SLO 基线达标/监控覆盖/变更门禁就绪），才能视为迁移成功。技术迁移的运营验证阶段是 RO 与 CT 最密集的协作节点。',
+                    core: true
+                }]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'RO 是 AI 价值可持续交付的运营保障——AI 系统只有在生产环境稳定运行，才能持续产生业务价值，指标追踪才有意义，创新场景才能规模化。',
+                components: [{
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: 'AI 赋能的业务价值能否持续兑现，取决于赋能 AI 系统的稳定性。RO 通过 SLO 体系确保赋能场景的 AI 服务不因故障或退化而使业务价值中断，是赋能价值可持续的运营基础。',
+                    core: true
+                }, {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: '创新应用从试点推广到规模化的过程中，需要 RO 建立可靠的生产环境支撑。缺乏 RO 保障的创新场景往往在规模化阶段因运营故障而被迫暂停，成功率大幅下降。',
+                    core: false
+                }, {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: 'RO 高度依赖 VO 的指标体系，将稳定性/成本转化为 SLO 与告警阈值。无度量指标体系就无法量化 AI 运营风险，无法建立成本控制机制，无法向管理层证明 RO 的投入价值。',
+                    core: true
+                }, {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: 'VT 的技术适用性评估须包含运营视角——某些技术方案功能满足，但在运营层面难以建立可靠的 SLO（如某外部大模型 API 无稳定性 SLA）。RO 为 VT 选型提供可运营性维度。',
+                    core: false
+                }]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: 'RO 须获得领导层和治理委员会的风险授权，依托 CoE 作为日常执行主体，需要具备 SRE/MLOps 专业能力的人才支撑。',
+                components: [{
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '领导层须明确授权 RO 的门禁权力——当 AI 服务不满足 SLO 时，RO 有权暂停发布或触发服务降级。没有高层背书，发布门禁在业务压力下会被频繁绕过，RO 机制失效。',
+                    core: false
+                }, {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '治理委员会负责关键 AI 服务的风险偏好设定（可接受的 SLO 目标/最大错误预算消耗），重大事件升级后的最终决策（如叫停某 AI 服务），以及 RO 年度预算审批。',
+                    core: true
+                }, {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE 是 RO 的日常执行主体——维护服务目录/监控看板/发布门禁，处理 P0/P1 事件，执行季度游戏日，产出 SLO 回顾报告。CoE 的 SRE/MLOps 能力决定 RO 的执行质量。',
+                    core: true
+                }, {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: 'RO 需要掌握 SRE（站点可靠性工程）和 MLOps 能力的专业人才。这类人才懂 AI 模型又懂生产运维，是当前市场最稀缺的复合型角色之一，须纳入 OT 专项培养计划。',
+                    core: true
+                }]
+            },
+            risk: {
+                title: '🛡️ 风险管控层（协同）',
+                desc: 'RO 与 RS（战略风险）、RG（AI 本体风险）和 RT（安全信创）形成分层协同——底层运营风险可向上穿透为战略风险，技术安全底座为运营可靠性提供基础保障。',
+                components: [{
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: 'RO 的长期 SLA 违约、成本失控或多次重大故障可能演变为 RS 层面的战略风险——引发声誉受损和监管惩罚。RO 须建立"运营风险升级预警"机制，在演变为战略危机前触发高层响应。',
+                    core: false
+                }, {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: 'RG 定义 AI 本体风险的控制要求（如模型偏见阈值/可解释性要求），RO 将这些要求固化到发布门禁和运营监控中。深度协同：RO 问题升级时，RG 负责回溯"AI 本体根因"。',
+                    core: true
+                }, {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: 'RT 提供安全基础设施（加密/访问控制/密钥管理），RO 负责确保这些安全机制在运行态持续生效并可审计。RO 须定期验证 RT 安全控制的有效性，将其纳入 SLO 评估范围。',
+                    core: true
+                }]
+            }
+        };
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        const steps = [
+        {
+            n: '00',
+            title: '明确服务目录与SLO',
+            sub: 'Service Catalog + SLO',
+            input: 'AI 系统清单/业务重要性/用户旅程与关键链路',
+            actions: ['建立服务分级（Tier 0/1/2…），定义"关键 AI 服务"范围', '为每个服务定义 SLO：可用性/延迟/吞吐/错误率/关键依赖可用性', '定义"错误预算"与消耗规则，形成稳定性与交付节奏的约束'],
+            output: 'AI 服务目录（分级）\nSLO 定义文档\n错误预算政策'
+        },
+        {
+            n: '01',
+            title: '建立可观测性基础',
+            sub: 'Observability',
+            input: 'SLO 定义/系统架构/依赖关系图',
+            actions: ['三层监控：基础设施（CPU/GPU/内存）/模型性能（延迟/准确率/漂移）/业务影响（转化/满意度）', '链路追踪：从用户请求到模型推理到业务结果全程可追溯', '集中日志：统一采集、结构化存储，满足审计留存要求'],
+            output: '监控看板（三层）\n链路追踪系统\n日志采集与归档方案'
+        },
+        {
+            n: '02',
+            title: '告警体系设计',
+            sub: 'Alerting',
+            input: 'SLO 定义/监控指标体系',
+            actions: ['分级告警：P0（全员立即响应）/P1（值班响应30分钟内）/P2（次日工作时间）', '告警质量：确保精确/可操作，避免告警疲劳（噪音率 < 5%）', '升级路径：每个告警明确的升级链和最终决策人'],
+            output: '告警规则配置\n升级路径文档\n On-call 轮值方案'
+        },
+        {
+            n: '03',
+            title: '发布门禁与变更管理',
+            sub: 'Release Gate',
+            input: 'RG 评估结果/SLO 基线/回滚方案',
+            actions: ['发布检查清单：RG 通过/SLO 基线达标/监控覆盖/回滚验证', '灰度策略：金丝雀（1%→10%→100%）/蓝绿切换/特性开关', '变更触发再评估：模型/数据/提示词/依赖变化须重新通过门禁'],
+            output: '发布门禁检查清单\n灰度发布规范\n变更触发规则'
+        },
+        {
+            n: '04',
+            title: '容灾与降级设计',
+            sub: 'Resilience',
+            input: '服务分级/SLO 要求/依赖关系图',
+            actions: ['关键依赖降级：当上游 API/数据管道故障时，AI 服务降级为规则/缓存模式', '熔断机制：异常错误率超阈值时自动熔断，防止级联故障', '同城/异地冗余：Tier 0 服务具备跨可用区部署与自动切换能力'],
+            output: '降级方案设计文档\n熔断策略配置\n容灾演练计划'
+        },
+        {
+            n: '05',
+            title: '成本监控与容量管理',
+            sub: 'Cost & Capacity',
+            input: 'AI 服务使用量/计费数据/业务增长预测',
+            actions: ['分摊体系：AI 运营成本按业务线/场景/模型分摊，可追溯到具体 AI 服务', 'Unit Cost 追踪：Cost per Inference 目标设定与自动告警', '容量规划：峰值容量预测与弹性扩容策略（弹性 GPU/预留实例平衡）'],
+            output: 'AI 成本分摊报告（月）\nUnit Cost 看板\n容量规划方案'
+        },
+        {
+            n: '06',
+            title: '事件响应流程',
+            sub: 'Incident Management',
+            input: '告警触发/用户投诉/监控异常',
+            actions: ['事件生命周期：发现→确认→响应→缓解→解决→复盘', '沟通机制：清晰的内外部沟通模板，P0 事件实时播报', '临时降级权限：值班工程师具备紧急降级或回滚的授权'],
+            output: '事件响应 Runbook\n事件日志（完整可审计）\n内外部沟通模板'
+        },
+        {
+            n: '07',
+            title: '根因分析（RCA）',
+            sub: 'Root Cause Analysis',
+            input: '事件日志/链路追踪/监控数据',
+            actions: ['5 Why 分析：每次 P0/P1 事件 48 小时内完成 RCA 报告', 'AI 本体根因分类：区分基础设施故障 vs AI 系统本体问题（交 RG 处理）', '系统性问题识别：相似事件归类，识别共同根因进行批量修复'],
+            output: 'RCA 报告（P0/P1 必做）\nAI 本体问题移交 RG 记录\n系统性问题改进计划'
+        },
+        {
+            n: '08',
+            title: '模型漂移监控与治理',
+            sub: 'Drift Monitoring',
+            input: '在线推理日志/离线数据/业务反馈',
+            actions: ['输入分布监控：实时检测输入特征分布与训练期的偏离程度', '输出质量监控：预测置信度分布/业务指标影响的持续追踪', '漂移响应规则：轻微漂移→告警，严重漂移→触发重新训练或回滚'],
+            output: '漂移监控看板\n漂移响应 SOP\n重训触发记录'
+        },
+        {
+            n: '09',
+            title: '游戏日与弹性验证',
+            sub: 'Game Day',
+            input: '降级方案/容灾设计/RCA 历史',
+            actions: ['季度游戏日：模拟真实故障场景（上游中断/模型超时/数据管道断裂）', '弹性验证：验证熔断/降级/自动恢复机制的实际生效情况', '复盘更新：基于演练发现的问题更新 Runbook 和改进计划'],
+            output: '游戏日演练报告\n弹性改进行动项\n更新后的 Runbook'
+        },
+        {
+            n: '10',
+            title: '月度复盘与持续改进',
+            sub: 'Monthly Review',
+            input: 'SLO 达标记录/错误预算消耗/成本数据/RCA 报告',
+            actions: ['SLO 回顾：过去一个月 SLO 达标率/错误预算消耗/超出原因分析', '成本优化：识别成本异常/优化机会，更新成本控制措施', '能力演进：基于复盘更新 SLO 目标/监控阈值/门禁标准'],
+            output: '月度 SLO 报告\n成本优化行动项\n下月 RO 改进计划'
+        }
+        ];
+
+        const menu = document.getElementById('step-menu');
+        const detail = document.getElementById('step-detail');
+        function showStep(idx) {
+            document.querySelectorAll('.step-btn').forEach((b, i) => {
+                b.classList.toggle('active', i === idx);
+            });
+            const s = steps[idx];
+            detail.innerHTML = `<div class="fade-in"><div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100"><span class="text-3xl font-black text-slate-200">${s.n}</span><div><h3 class="text-xl font-bold text-sky-800">${s.title}</h3><p class="text-xs text-slate-400 uppercase tracking-wider">${s.sub}</p></div></div><div class="space-y-4"><div class="bg-slate-50 p-4 rounded-lg border-l-4 border-slate-300"><h4 class="font-bold text-slate-700 text-sm mb-2">📥 输入</h4><p class="text-sm text-slate-600">${s.input}</p></div><div class="bg-amber-50 p-4 rounded-lg border-l-4 border-amber-400"><h4 class="font-bold text-amber-900 text-sm mb-2">⚙️ 关键动作</h4><ul class="space-y-1">${s.actions.map(a => `<li class="text-sm text-slate-600 flex items-start gap-2"><span class="text-amber-500 shrink-0 mt-0.5">▸</span>${a}</li>`).join('')}</ul></div><div class="bg-emerald-50 p-4 rounded-lg border-l-4 border-emerald-400"><h4 class="font-bold text-emerald-900 text-sm mb-2">📤 产出物</h4><p class="text-sm text-emerald-700 whitespace-pre-line font-medium">${s.output}</p></div></div></div>`;
+        }
+        steps.forEach((s, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'step-btn w-full text-left px-4 py-3 text-sm font-medium text-slate-700 border-b border-slate-100 focus:outline-none';
+            btn.innerHTML = `<div class="flex items-center gap-2"><span class="text-xs font-black text-slate-300 w-7">${s.n}</span><div><div class="font-bold text-slate-800 text-xs leading-tight">${s.title}</div><div class="text-xs text-slate-400 mt-0.5">${s.sub}</div></div></div>`;
+            btn.onclick = () => showStep(i);
+            menu.appendChild(btn);
+        });
+        showStep(0);
+
+        const roadmap = [
+        {
+            phase: '第一步',
+            title: '基础监控与服务目录建立',
+            desc: '完成 AI 服务分级和 SLO 定义，部署基础监控看板（三层：基础设施/模型/业务），完成关键服务的告警规则配置。',
+            deliverable: '交付物：AI 服务目录 · SLO 文档 · 监控看板 · 告警配置'
+        },
+        {
+            phase: '第二步',
+            title: '发布门禁与变更管控落地',
+            desc: '发布检查清单正式嵌入 CI/CD 流程，灰度发布策略落地，变更触发规则建立，完成首次灰度发布验证。',
+            deliverable: '交付物：发布门禁检查清单 · 灰度发布规范 · 变更触发规则'
+        },
+        {
+            phase: '第三步',
+            title: '事件响应与容灾能力建设',
+            desc: '建立分级事件响应流程，完成 Runbook 编写，设计并部署关键服务的降级和熔断机制，进行首次游戏日演练。',
+            deliverable: '交付物：事件响应 Runbook · 降级方案文档 · 首次游戏日报告'
+        },
+        {
+            phase: '第四步',
+            title: '成本管控与漂移监控完善',
+            desc: '建立 AI 运营成本分摊体系，部署模型漂移监控系统，完成月度 SLO 复盘机制制度化，输出首份季度运营健康报告。',
+            deliverable: '交付物：成本分摊报告 · 漂移监控看板 · 季度运营健康报告'
+        },
+        {
+            phase: '第五步（持续进行）',
+            title: '运营成熟化与持续优化',
+            desc: '定期游戏日（季度），基于复盘持续优化 SLO 目标和门禁标准，推动 RO 能力向全量 AI 服务覆盖，建立行业对标机制。',
+            deliverable: '里程碑：RO 覆盖率 ≥ 90% · 年度能力成熟度评估 · 游戏日制度化'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        roadmap.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === roadmap.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

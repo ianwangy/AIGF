@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI治理执行落地全案 - 企业内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0c1526;
+            --sky: #0369a1;
+            --sky-lt: #e0f2fe;
+            --amber: #d97706;
+            --amber-lt: #fef3c7;
+            --teal: #0f766e;
+            --teal-lt: #ccfbf1;
+            --rose: #be123c;
+            --rose-lt: #ffe4e6;
+            --violet: #6d28d9;
+            --violet-lt: #ede9fe;
+            --slate: #475569;
+            --bg: #f1f5f9;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--ink);
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+        /* ── Nav ── */
+        .nav-pill {
+            padding: 6px 16px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+            color: var(--slate); transition: all 0.2s; text-decoration: none; display: inline-block;
+        }
+        .nav-pill:hover { background: var(--sky-lt); color: var(--sky); }
+        .nav-pill.active { background: var(--sky); color: #fff; }
+
+        /* ── Hero ── */
+        .hero-bg {
+            background: linear-gradient(135deg, #0a1628 0%, #0d2240 40%, #0b3355 70%, #0c4068 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero-bg::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(3,105,161,0.35) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(15,118,110,0.2) 0%, transparent 50%),
+                        radial-gradient(ellipse at 65% 80%, rgba(109,40,217,0.15) 0%, transparent 50%);
+        }
+        .hero-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* ── Orbit ── */
+        .orbit-container { position: relative; width: 380px; height: 380px; flex-shrink: 0; }
+        .orbit-ring { position: absolute; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.13); }
+        .orbit-ring.r1 { inset: 10px; animation: spin 35s linear infinite; }
+        .orbit-ring.r2 { inset: 55px; animation: spin 22s linear infinite reverse; }
+        .orbit-center {
+            position: absolute; inset: 105px;
+            background: radial-gradient(circle, rgba(3,105,161,0.85), rgba(10,22,40,0.95));
+            border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 2px solid rgba(3,105,161,0.7);
+            box-shadow: 0 0 50px rgba(3,105,161,0.45), inset 0 0 30px rgba(3,105,161,0.2);
+        }
+        .orbit-node {
+            position: absolute; width: 78px; height: 78px; border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.68rem; text-align: center; cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid; backdrop-filter: blur(8px); z-index: 10; line-height: 1.25;
+        }
+        .orbit-node:hover { transform: scale(1.15); }
+        .orbit-node.n-top    { top:-12px; left:50%; margin-left:-39px; background:rgba(3,105,161,0.92); border-color:#7dd3fc; color:#fff; box-shadow:0 0 22px rgba(3,105,161,0.65); }
+        .orbit-node.n-right  { top:50%; right:-12px; margin-top:-39px; background:rgba(15,118,110,0.92); border-color:#5eead4; color:#fff; box-shadow:0 0 22px rgba(15,118,110,0.65); }
+        .orbit-node.n-bottom { bottom:-12px; left:50%; margin-left:-39px; background:rgba(109,40,217,0.92); border-color:#c4b5fd; color:#fff; box-shadow:0 0 22px rgba(109,40,217,0.65); }
+        .orbit-node.n-left   { top:50%; left:-12px; margin-top:-39px; background:rgba(190,18,60,0.92); border-color:#fda4af; color:#fff; box-shadow:0 0 22px rgba(190,18,60,0.65); }
+
+        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes pulse-glow {
+            0%,100%{box-shadow:0 0 0 0 rgba(3,105,161,0.45);}
+            50%{box-shadow:0 0 0 14px rgba(3,105,161,0);}
+        }
+        .pulse { animation: pulse-glow 2.8s ease-in-out infinite; }
+
+        /* ── Section title ── */
+        .stitle { display:flex; align-items:center; gap:12px; margin-bottom:1.5rem; }
+        .stitle-bar { width:5px; height:28px; border-radius:3px; flex-shrink:0; }
+
+        /* ── Phase badge ── */
+        .phase-badge { display:inline-block; padding:3px 14px; border-radius:999px; font-size:0.72rem; font-weight:700; letter-spacing:0.06em; }
+        .badge-sky    { background:#0369a1; color:#fff; }
+        .badge-teal   { background:#0f766e; color:#fff; }
+        .badge-violet { background:#6d28d9; color:#fff; }
+        .badge-rose   { background:#be123c; color:#fff; }
+
+        /* ── Cards ── */
+        .info-card { border-radius:18px; border:1px solid; overflow:hidden; transition:transform 0.2s,box-shadow 0.2s; }
+        .info-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px -8px rgba(0,0,0,0.13); }
+        .card-sky    { border-color:#bae6fd; background:linear-gradient(135deg,#f0f9ff,#e0f2fe); }
+        .card-teal   { border-color:#99f6e4; background:linear-gradient(135deg,#f0fdfa,#ccfbf1); }
+        .card-violet { border-color:#ddd6fe; background:linear-gradient(135deg,#f5f3ff,#ede9fe); }
+        .card-amber  { border-color:#fde68a; background:linear-gradient(135deg,#fffbeb,#fef3c7); }
+
+        /* ── Timeline ── */
+        .tl-item { position:relative; padding-left:2.5rem; }
+        .tl-item::before {
+            content:''; position:absolute; left:10px; top:0; bottom:-1.5rem; width:2px;
+            background:linear-gradient(to bottom, var(--sky), var(--teal));
+        }
+        .tl-item:last-child::before { display:none; }
+        .tl-dot { position:absolute; left:3px; top:6px; width:16px; height:16px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 2px var(--sky); }
+
+        /* ── Risk ── */
+        .risk-high   { background:#fee2e2; border-left:4px solid #ef4444; }
+        .risk-medium { background:#fef3c7; border-left:4px solid #f59e0b; }
+        .risk-low    { background:#dcfce7; border-left:4px solid #22c55e; }
+        .risk-info   { background:#dbeafe; border-left:4px solid #3b82f6; }
+
+        /* ── Animate on scroll ── */
+        .will-animate { opacity:0; transform:translateY(22px); transition:opacity 0.5s ease, transform 0.5s ease; }
+        .will-animate.visible { opacity:1; transform:translateY(0); }
+
+        @media (max-width:768px) {
+            .orbit-container { width:290px; height:290px; }
+            .orbit-center { inset:80px; }
+            .orbit-node { width:62px; height:62px; font-size:0.58rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-14 items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-700 to-teal-700 flex items-center justify-center">
+                    <span class="text-white text-xs font-black">FG</span>
+                </div>
+                <span class="font-black text-base tracking-tight text-slate-900">AI治理执行落地全案</span>
+                <span class="hidden md:inline-block text-xs bg-teal-100 text-teal-800 font-bold px-2 py-0.5 rounded-full">体系·规范·管控·优化</span>
+            </div>
+            <div class="hidden lg:flex items-center gap-1">
+                <a href="#hero"      class="nav-pill">方案总览</a>
+                <a href="#tizhi"     class="nav-pill">治理体系</a>
+                <a href="#guifan"    class="nav-pill">规范标准</a>
+                <a href="#guankong"  class="nav-pill">过程管控</a>
+                <a href="#youhua"    class="nav-pill">监督优化</a>
+                <a href="#summary"   class="nav-pill">战略结论</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+<!-- HERO -->
+<section id="hero" class="hero-bg py-16 px-4">
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="flex-1 text-white">
+                <div class="inline-flex items-center gap-2 mb-4 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-semibold tracking-widest uppercase">
+                    <span class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></span>
+                    企业人工智能治理落地与闭环管控体系全案
+                </div>
+                <h1 class="text-4xl lg:text-5xl font-black leading-tight mb-4">
+                    从顶层设计到<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-teal-300 to-emerald-300">持续优化的迭代治理</span>
+                </h1>
+                <p class="text-slate-300 text-base leading-relaxed mb-6 max-w-xl">
+                    本方案围绕<strong class="text-white">「体系 → 规范 → 管控 → 优化」四环迭代闭环</strong>，系统解答三个核心命题：如何将宏观治理原则转化为可操作规范；如何将治理管控嵌入AI全生命周期；以及如何建立监督机制持续评估与优化，助力企业构建真正的「治理型企业」。
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-sky-300">95%</div>
+                        <div class="text-xs text-slate-300 mt-1">企业尚未从AI中获得显著财务回报</div>
+                    </div>
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-teal-300">70%</div>
+                        <div class="text-xs text-slate-300 mt-1">AI变革失败源于组织与文化障碍</div>
+                    </div>
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-violet-300">6%</div>
+                        <div class="text-xs text-slate-300 mt-1">欧盟AI法案最高罚款达全球营收6%</div>
+                    </div>
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-rose-300">4层</div>
+                        <div class="text-xs text-slate-300 mt-1">AI TRiSM四层防御构建全面管控</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4-node orbit -->
+            <div class="orbit-container">
+                <div class="orbit-ring r1"></div>
+                <div class="orbit-ring r2"></div>
+                <div class="orbit-center pulse">
+                    <div class="text-white font-black text-xl leading-tight text-center">治理<br>闭环</div>
+                    <div class="text-sky-200 text-xs font-medium mt-1">PGCO</div>
+                </div>
+                <div class="orbit-node n-top"    onclick="scrollToSection('tizhi')"><div class="text-xl mb-0.5">🏛️</div><div>体系</div></div>
+                <div class="orbit-node n-right"  onclick="scrollToSection('guifan')"><div class="text-xl mb-0.5">📋</div><div>规范</div></div>
+                <div class="orbit-node n-bottom" onclick="scrollToSection('guankong')"><div class="text-xl mb-0.5">🔒</div><div>管控</div></div>
+                <div class="orbit-node n-left"   onclick="scrollToSection('youhua')"><div class="text-xl mb-0.5">🔄</div><div>优化</div></div>
+                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events:none;">
+                    <defs>
+                        <marker id="ah" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                            <path d="M0,0 L6,3 L0,6 Z" fill="rgba(255,255,255,0.5)"/>
+                        </marker>
+                    </defs>
+                    <path d="M 218 28 A 162 162 0 0 1 352 172" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ah)"/>
+                    <path d="M 352 208 A 162 162 0 0 1 212 352" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ah)"/>
+                    <path d="M 168 352 A 162 162 0 0 1 28 208" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ah)"/>
+                    <path d="M 28 172 A 162 162 0 0 1 168 28" stroke="rgba(125,211,252,0.45)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#ah)"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+<!-- ══ 体系 ══ -->
+<section id="tizhi" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-sky-600"></div>
+        <span class="phase-badge badge-sky text-sm px-4 py-1.5">🏛️ 体系</span>
+        <h2 class="text-2xl font-black text-slate-900">构建治理体系框架</h2>
+        <span class="text-sm text-slate-500">确立「谁来治理」与「治理的战略目标」</span>
+    </div>
+
+    <!-- 战略姿态 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">战略姿态选择：AI在企业中的定位</h3>
+        <p class="text-sm text-slate-500 mb-5">董事会与高管团队的首要任务：明确AI姿态决定了资源分配重点和预期竞争优势</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="info-card card-sky p-5 will-animate">
+                <div class="text-2xl mb-2">🚀</div>
+                <div class="font-black text-sky-800 text-sm mb-1">商业先锋</div>
+                <div class="text-xs text-sky-600 font-semibold mb-3">Business Pioneer</div>
+                <p class="text-xs text-sky-700 leading-relaxed">彻底重塑商业模式，大规模自研、顶尖人才招聘及并购AI初创企业，定义行业新标准，创造全新收入流。</p>
+            </div>
+            <div class="info-card card-teal p-5 will-animate">
+                <div class="text-2xl mb-2">⚙️</div>
+                <div class="font-black text-teal-800 text-sm mb-1">内部转型者</div>
+                <div class="text-xs text-teal-600 font-semibold mb-3">Internal Transformer</div>
+                <p class="text-xs text-teal-700 leading-relaxed">端到端优化全价值链运营，通过中台建设与全员AI素养提升，建立显著的成本护城河。</p>
+            </div>
+            <div class="info-card card-violet p-5 will-animate">
+                <div class="text-2xl mb-2">🔬</div>
+                <div class="font-black text-violet-800 text-sm mb-1">功能重塑者</div>
+                <div class="text-xs text-violet-600 font-semibold mb-3">Functional Reinventor</div>
+                <p class="text-xs text-violet-700 leading-relaxed">锁定特定高价值职能，部署领域专用大模型，在核心业务环节实现效率与质量突破。</p>
+            </div>
+            <div class="info-card card-amber p-5 will-animate">
+                <div class="text-2xl mb-2">💼</div>
+                <div class="font-black text-amber-800 text-sm mb-1">务实采纳者</div>
+                <div class="text-xs text-amber-600 font-semibold mb-3">Pragmatic Adopter</div>
+                <p class="text-xs text-amber-700 leading-relaxed">采购成熟SaaS服务，提升个人与团队生产力，保持行业标准同步，降低技术落后风险。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- OG委员会 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">AI治理委员会的核心职能</h3>
+            <p class="text-xs text-slate-500 mb-5">不仅是合规盾牌，更是战略加速器，通过跨职能视角解决多维度问题</p>
+            <div class="space-y-3">
+                <div class="flex gap-3 items-center p-3 bg-sky-50 border border-sky-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-sky-100 flex items-center justify-center flex-shrink-0"><span class="text-sky-700 font-black text-xs">CEO</span></div>
+                    <div><div class="font-bold text-slate-800 text-sm">主席（CEO / 执行董事）</div><div class="text-xs text-slate-500">设定AI治理基调，最终裁决权，打破跨部门协作壁垒</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-teal-50 border border-teal-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0"><span class="text-teal-700 font-black text-xs">CAIO</span></div>
+                    <div><div class="font-bold text-slate-800 text-sm">首席人工智能官（CAIO）</div><div class="text-xs text-slate-500">监督战略执行，缩小「意图—行动」差距</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-violet-50 border border-violet-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0"><span class="text-violet-700 font-black text-xs">CDO</span></div>
+                    <div><div class="font-bold text-slate-800 text-sm">首席数据官（CDO）</div><div class="text-xs text-slate-500">数据资产管理、数据溯源与伦理使用</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-rose-50 border border-rose-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0"><span class="text-rose-700 font-black text-xs">CRO</span></div>
+                    <div><div class="font-bold text-slate-800 text-sm">首席风险官（CRO）</div><div class="text-xs text-slate-500">建立AI风险清单，监控模型偏见与安全漏洞</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-amber-50 border border-amber-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"><span class="text-amber-700 font-black text-xs">CFO</span></div>
+                    <div><div class="font-bold text-slate-800 text-sm">首席财务官（CFO）</div><div class="text-xs text-slate-500">审批年度预算，建立AI专属ROI评估体系</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center flex-shrink-0"><span class="text-slate-600 font-black text-xs">CLO</span></div>
+                    <div><div class="font-bold text-slate-800 text-sm">首席法律官（CLO）</div><div class="text-xs text-slate-500">识别全球监管动态，保护知识产权</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 成熟度 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-5">治理成熟度评估矩阵</h3>
+            <div class="space-y-3">
+                <div class="risk-high rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-red-500 text-white text-xs font-black px-2 py-0.5 rounded">阶段1</span><span class="font-bold text-red-700 text-sm">被动反应型 Reactive</span></div>
+                    <div class="text-xs text-red-700">无统一政策 · 影子AI泛滥 · 孤岛式试点 · 缺乏基础设施支撑</div>
+                </div>
+                <div class="risk-medium rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-amber-500 text-white text-xs font-black px-2 py-0.5 rounded">阶段2</span><span class="font-bold text-amber-700 text-sm">风险知觉型 Risk-Informed</span></div>
+                    <div class="text-xs text-amber-700">初步AI政策 · 识别明显风险 · 核心数据初步整合 · 有云底座</div>
+                </div>
+                <div class="risk-low rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-green-500 text-white text-xs font-black px-2 py-0.5 rounded">阶段3</span><span class="font-bold text-green-700 text-sm">可重复型 Repeatable</span></div>
+                    <div class="text-xs text-green-700">AI委员会成立 · RACI职责明确 · 系统化风险评估 · 标准化MLOps</div>
+                </div>
+                <div class="risk-info rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-blue-600 text-white text-xs font-black px-2 py-0.5 rounded">阶段4 ★</span><span class="font-bold text-blue-700 text-sm">自适应型 Adaptive — 目标</span></div>
+                    <div class="text-xs text-blue-700">治理深度嵌入业务流 · 文化驱动 · 实时动态风险调整 · 零信任架构 · 自愈能力</div>
+                </div>
+                <div class="bg-sky-900 rounded-xl p-4 mt-2">
+                    <p class="text-xs text-sky-200 font-semibold mb-1">RACI 问责机制</p>
+                    <p class="text-xs text-sky-300 leading-relaxed">业务部门负责人作为AI系统的「所有者」，对结果及业务影响负有首要责任——而非将其推给技术团队。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 规范 ══ -->
+<section id="guifan" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-teal-600"></div>
+        <span class="phase-badge badge-teal text-sm px-4 py-1.5">📋 规范</span>
+        <h2 class="text-2xl font-black text-slate-900">制定治理规范标准</h2>
+        <span class="text-sm text-slate-500">将宏观治理原则转化为可操作执行准则</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">国际标准集成</h3>
+            <div class="space-y-4">
+                <div class="p-5 bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-200 rounded-xl">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-sky-700 text-white text-xs font-black px-2 py-1 rounded-lg">ISO 42001</span>
+                        <span class="text-sm font-bold text-sky-800">全球首个AI管理体系国际标准</span>
+                    </div>
+                    <p class="text-xs text-sky-700 leading-relaxed">要求企业从「上下文定义」、「领导力承诺」到「绩效评估」建立完整的PDCA循环，覆盖AI系统全生命周期治理。</p>
+                </div>
+                <div class="p-5 bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 rounded-xl">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="bg-teal-700 text-white text-xs font-black px-2 py-1 rounded-lg">NIST RMF</span>
+                        <span class="text-sm font-bold text-teal-800">人工智能风险管理框架</span>
+                    </div>
+                    <p class="text-xs text-teal-700 leading-relaxed">通过治理（Govern）、映射（Map）、测量（Measure）和管理（Manage）四大核心功能提供基于风险的管理方法。2025年更新版强化对生成式AI与LLM漏洞的深度防御。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">AI清单（AI-BOM）</h3>
+            <p class="text-xs text-slate-500 mb-4">机器可读的库存，列出构建和运行AI系统所用的每个组件，实现供应链透明度</p>
+            <div class="space-y-2">
+                <div class="flex gap-3 items-start p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <span class="text-lg flex-shrink-0">🤖</span>
+                    <div><div class="font-bold text-slate-700 text-sm">模型信息</div><div class="text-xs text-slate-500">基础模型、微调模型、版本号、部署上下文 → 实现模型溯源</div></div>
+                </div>
+                <div class="flex gap-3 items-start p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <span class="text-lg flex-shrink-0">💾</span>
+                    <div><div class="font-bold text-slate-700 text-sm">数据资产</div><div class="text-xs text-slate-500">训练集、验证集、实时推理数据源 → 审计数据合法性，监测泄露</div></div>
+                </div>
+                <div class="flex gap-3 items-start p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <span class="text-lg flex-shrink-0">📦</span>
+                    <div><div class="font-bold text-slate-700 text-sm">依赖项与库</div><div class="text-xs text-slate-500">ML框架（PyTorch/TensorFlow）、SDK、第三方包 → 防供应链污染</div></div>
+                </div>
+                <div class="flex gap-3 items-start p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <span class="text-lg flex-shrink-0">☁️</span>
+                    <div><div class="font-bold text-slate-700 text-sm">基础设施</div><div class="text-xs text-slate-500">计算资源、云区域、部署边界 → 监控算力成本，确保地理隔离合规</div></div>
+                </div>
+                <div class="flex gap-3 items-start p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                    <span class="text-lg flex-shrink-0">🔑</span>
+                    <div><div class="font-bold text-slate-700 text-sm">权限与身份</div><div class="text-xs text-slate-500">服务账号、角色、权限凭证 → 实施最小权限访问控制</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">生成式AI合规备案（中国境内）</h3>
+            <div class="space-y-3">
+                <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+                    <div class="font-bold text-red-700 text-sm mb-1">🔍 语料来源安全</div>
+                    <p class="text-xs text-red-700">对每个来源的训练数据进行抽样核验。违法不良信息占比<strong>超过5%</strong>则不应采集该来源。</p>
+                </div>
+                <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                    <div class="font-bold text-amber-700 text-sm mb-1">✏️ 标注规则规范</div>
+                    <p class="text-xs text-amber-700">功能性标注与安全性标注分离。安全性标注<strong>每条至少经1名审核人员</strong>通过，采取隔离存储。</p>
+                </div>
+                <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                    <div class="font-bold text-blue-700 text-sm mb-1">📝 备案流程双轨</div>
+                    <p class="text-xs text-blue-700"><strong>算法备案</strong>：通过互联网信息服务算法备案系统填报；<strong>上线备案</strong>：提交安全自评估报告。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-teal-800 to-teal-900 rounded-2xl p-8 text-white will-animate">
+            <h3 class="font-black text-white text-lg mb-2">模型卡（Model Cards）透明度规范</h3>
+            <p class="text-teal-200 text-sm mb-5">强制要求为每个生产环境的模型配置「身份证」，确保可理解性与可追溯性</p>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white/10 border border-white/20 rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-1">🎯</div>
+                    <div class="text-sm font-bold text-white">预期用途</div>
+                    <div class="text-xs text-teal-200 mt-1">适用场景与限制范围</div>
+                </div>
+                <div class="bg-white/10 border border-white/20 rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-1">⚠️</div>
+                    <div class="text-sm font-bold text-white">已知局限性</div>
+                    <div class="text-xs text-teal-200 mt-1">模型能力边界说明</div>
+                </div>
+                <div class="bg-white/10 border border-white/20 rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-1">📊</div>
+                    <div class="text-sm font-bold text-white">训练数据特征</div>
+                    <div class="text-xs text-teal-200 mt-1">数据分布与来源描述</div>
+                </div>
+                <div class="bg-white/10 border border-white/20 rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-1">📈</div>
+                    <div class="text-sm font-bold text-white">性能指标</div>
+                    <div class="text-xs text-teal-200 mt-1">评估集上的表现数据</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 管控 ══ -->
+<section id="guankong" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-violet-600"></div>
+        <span class="phase-badge badge-violet text-sm px-4 py-1.5">🔒 管控</span>
+        <h2 class="text-2xl font-black text-slate-900">实施过程管控</h2>
+        <span class="text-sm text-slate-500">将治理要求嵌入AI全生命周期每一个环节</span>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">创新应用分类管理体系</h3>
+        <p class="text-sm text-slate-500 mb-5">根据业务影响深度、技术成熟度及风险级别对AI应用进行科学分类，决定审批流程与治理强度</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl will-animate">
+                <div class="inline-block bg-slate-600 text-white text-xs font-black px-2 py-0.5 rounded mb-2">探索类</div>
+                <div class="font-bold text-slate-700 text-sm mb-2">Exploration</div>
+                <p class="text-xs text-slate-600 mb-3">跟踪前沿技术趋势，验证基础可行性。沙盒环境，不要求短期ROI。</p>
+                <div class="text-xs font-semibold text-slate-500">KPI: PoC验证率 · 专利申请数</div>
+            </div>
+            <div class="p-5 bg-sky-50 border border-sky-200 rounded-xl will-animate">
+                <div class="inline-block bg-sky-600 text-white text-xs font-black px-2 py-0.5 rounded mb-2">试点类</div>
+                <div class="font-bold text-sky-700 text-sm mb-2">Pilot / MVP</div>
+                <p class="text-xs text-sky-700 mb-3">针对业务痛点进行最小可行性验证，敏捷迭代，快速纠偏，设立明确终止条件。</p>
+                <div class="text-xs font-semibold text-sky-500">KPI: 初始ROI · 用户满意度</div>
+            </div>
+            <div class="p-5 bg-teal-50 border border-teal-200 rounded-xl will-animate">
+                <div class="inline-block bg-teal-600 text-white text-xs font-black px-2 py-0.5 rounded mb-2">推广类</div>
+                <div class="font-bold text-teal-700 text-sm mb-2">Scale-up</div>
+                <p class="text-xs text-teal-700 mb-3">将成功试点跨场景复制。标准化治理，强化合规审计，侧重数据通用性。</p>
+                <div class="text-xs font-semibold text-teal-500">KPI: 部署覆盖率 · 边际成本</div>
+            </div>
+            <div class="p-5 bg-violet-50 border border-violet-200 rounded-xl will-animate">
+                <div class="inline-block bg-violet-600 text-white text-xs font-black px-2 py-0.5 rounded mb-2">规模化类</div>
+                <div class="font-bold text-violet-700 text-sm mb-2">Enterprise</div>
+                <p class="text-xs text-violet-700 mb-3">融入核心生产系统，重构业务链路。严格安全/伦理审计，高管直接负责。</p>
+                <div class="text-xs font-semibold text-violet-500">KPI: 全局利润贡献 · 品牌信任</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">AI TRiSM 四层防御体系</h3>
+            <p class="text-xs text-slate-500 mb-5">Gartner 提出的信任、风险与安全管理框架，从治理到基础设施形成纵深防御</p>
+            <div class="space-y-3">
+                <div class="flex gap-4 p-4 bg-sky-50 border border-sky-200 rounded-xl items-start">
+                    <div class="w-8 h-8 rounded-full bg-sky-600 flex items-center justify-center text-white font-black text-sm flex-shrink-0">1</div>
+                    <div><div class="font-bold text-sky-800 text-sm mb-1">🏛️ AI治理层</div><div class="text-xs text-sky-700">统一策略引擎，确保所有API调用和模型活动符合企业预设的伦理与安全标准。</div></div>
+                </div>
+                <div class="flex gap-4 p-4 bg-teal-50 border border-teal-200 rounded-xl items-start">
+                    <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white font-black text-sm flex-shrink-0">2</div>
+                    <div><div class="font-bold text-teal-800 text-sm mb-1">⚡ 运行时检查与强制执行</div><div class="text-xs text-teal-700">在模型运行过程中实施动态监控，实时拦截有害输出、偏见内容或违规指令。</div></div>
+                </div>
+                <div class="flex gap-4 p-4 bg-violet-50 border border-violet-200 rounded-xl items-start">
+                    <div class="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center text-white font-black text-sm flex-shrink-0">3</div>
+                    <div><div class="font-bold text-violet-800 text-sm mb-1">🗄️ 信息治理层</div><div class="text-xs text-violet-700">针对RAG信息获取场景，实施精确数据分类和权限控制，防止内部敏感信息通过提示词意外泄露。</div></div>
+                </div>
+                <div class="flex gap-4 p-4 bg-rose-50 border border-rose-200 rounded-xl items-start">
+                    <div class="w-8 h-8 rounded-full bg-rose-600 flex items-center justify-center text-white font-black text-sm flex-shrink-0">4</div>
+                    <div><div class="font-bold text-rose-800 text-sm mb-1">🛡️ 基础设施安全层</div><div class="text-xs text-rose-700">采用零信任架构保护模型资产和算力节点，防范底层算力和存储设施的物理或网络攻击。</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">代理式AI（Agentic AI）管控</h3>
+            <p class="text-xs text-slate-500 mb-4">2026年后智能体普及，管控难度呈指数级增加。参照新加坡《Agentic AI治理框架》执行。</p>
+            <div class="space-y-3 mb-4">
+                <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                    <div class="flex items-center gap-2 mb-1"><span class="text-lg">🎯</span><span class="font-bold text-amber-800 text-sm">事前定界 Assess and Bound</span></div>
+                    <p class="text-xs text-amber-700">部署前对智能体权力（访问数据和工具的范围）设置限制，定界风险边界。</p>
+                </div>
+                <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+                    <div class="flex items-center gap-2 mb-1"><span class="text-lg">👤</span><span class="font-bold text-blue-800 text-sm">有意义的人工问责</span></div>
+                    <p class="text-xs text-blue-700">定义关键检查节点，在这些节点上必须获得人工批准才能继续执行后续动作。</p>
+                </div>
+                <div class="p-4 bg-teal-50 border border-teal-200 rounded-xl">
+                    <div class="flex items-center gap-2 mb-1"><span class="text-lg">⚖️</span><span class="font-bold text-teal-800 text-sm">自主权预算 Autonomy Budgets</span></div>
+                    <p class="text-xs text-teal-700">定义绝对禁止执行的操作。当不确定性分值高于阈值时，强制触发「人工审核」。</p>
+                </div>
+            </div>
+            <div class="bg-slate-800 rounded-xl p-4">
+                <p class="text-xs text-slate-300 font-semibold mb-1">📋 分级审批投资关口评分体系</p>
+                <p class="text-xs text-slate-400 leading-relaxed">任务关键度（25%）· 隐私敏感度（20%）· 自主决策权（20%）· 合规复杂性（15%）· 数据成熟度（20%）。高风险/低回报项目执行「立即关停」策略。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 优化 ══ -->
+<section id="youhua" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-rose-600"></div>
+        <span class="phase-badge badge-rose text-sm px-4 py-1.5">🔄 优化</span>
+        <h2 class="text-2xl font-black text-slate-900">监督审计与持续优化</h2>
+        <span class="text-sm text-slate-500">建立闭环评估机制，推动治理体系自我进化</span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-5">五维AI治理审计体系</h3>
+            <div class="space-y-3">
+                <div class="flex items-start gap-3 p-3 bg-sky-50 border border-sky-100 rounded-xl">
+                    <span class="w-2 h-2 rounded-full bg-sky-500 mt-1.5 flex-shrink-0"></span>
+                    <div class="flex-1"><div class="font-semibold text-slate-700 text-sm">基础设施审计</div><div class="text-xs text-slate-500">IaC扫描主动识别风险 · 云配置事前规则审计</div></div>
+                    <span class="bg-sky-100 text-sky-700 text-xs font-semibold px-2 py-0.5 rounded flex-shrink-0">实时</span>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-amber-50 border border-amber-100 rounded-xl">
+                    <span class="w-2 h-2 rounded-full bg-amber-500 mt-1.5 flex-shrink-0"></span>
+                    <div class="flex-1"><div class="font-semibold text-slate-700 text-sm">数据合规审计</div><div class="text-xs text-slate-500">数据来源合法性证明 · 跨境传输脱敏与加密</div></div>
+                    <span class="bg-amber-100 text-amber-700 text-xs font-semibold px-2 py-0.5 rounded flex-shrink-0">每季度</span>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-teal-50 border border-teal-100 rounded-xl">
+                    <span class="w-2 h-2 rounded-full bg-teal-500 mt-1.5 flex-shrink-0"></span>
+                    <div class="flex-1"><div class="font-semibold text-slate-700 text-sm">模型性能审计</div><div class="text-xs text-slate-500">监控模型漂移（Drift）与幻觉率 · 「金标准」对比测试</div></div>
+                    <span class="bg-teal-100 text-teal-700 text-xs font-semibold px-2 py-0.5 rounded flex-shrink-0">持续</span>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-violet-50 border border-violet-100 rounded-xl">
+                    <span class="w-2 h-2 rounded-full bg-violet-500 mt-1.5 flex-shrink-0"></span>
+                    <div class="flex-1"><div class="font-semibold text-slate-700 text-sm">权限与访问审计</div><div class="text-xs text-slate-500">最小权限原则遵循 · 未授权敏感数据访问检测</div></div>
+                    <span class="bg-violet-100 text-violet-700 text-xs font-semibold px-2 py-0.5 rounded flex-shrink-0">每季度</span>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-rose-50 border border-rose-100 rounded-xl">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 mt-1.5 flex-shrink-0"></span>
+                    <div class="flex-1"><div class="font-semibold text-slate-700 text-sm">算法备案审计</div><div class="text-xs text-slate-500">生成式AI服务已在相关部门备案 · 算法描述与实际一致</div></div>
+                    <span class="bg-rose-100 text-rose-700 text-xs font-semibold px-2 py-0.5 rounded flex-shrink-0">半年度</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">AI事件响应（IR）剧本</h3>
+            <div class="space-y-4">
+                <div class="tl-item pb-4">
+                    <div class="tl-dot" style="background:#0369a1;"></div>
+                    <div class="bg-sky-50 border border-sky-200 rounded-xl p-4">
+                        <div class="flex items-center gap-2 mb-1"><span class="bg-sky-600 text-white text-xs font-bold px-2 py-0.5 rounded">1小时内</span><span class="font-bold text-sky-800 text-sm">检测与分类</span></div>
+                        <p class="text-xs text-sky-700">监控系统识别漂移，将事件分类为<strong>SEV0（存在性威胁）→ SEV3（轻微问题）</strong>。</p>
+                    </div>
+                </div>
+                <div class="tl-item pb-4">
+                    <div class="tl-dot" style="background:#d97706;"></div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                        <div class="flex items-center gap-2 mb-1"><span class="bg-amber-600 text-white text-xs font-bold px-2 py-0.5 rounded">立即执行</span><span class="font-bold text-amber-800 text-sm">立即遏制</span></div>
+                        <p class="text-xs text-amber-700">授权系统所有者切断服务，保留提示词日志、推理步骤和模型状态，确保取证完整性。</p>
+                    </div>
+                </div>
+                <div class="tl-item pb-4">
+                    <div class="tl-dot" style="background:#6d28d9;"></div>
+                    <div class="bg-violet-50 border border-violet-200 rounded-xl p-4">
+                        <div class="flex items-center gap-2 mb-1"><span class="bg-violet-600 text-white text-xs font-bold px-2 py-0.5 rounded">10天内</span><span class="font-bold text-violet-800 text-sm">根因分析</span></div>
+                        <p class="text-xs text-violet-700">AI工程师+数据官+合规团队联合调查：训练数据偏差 · 提示词注入攻击 · 人机交互失效？</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot" style="background:#0f766e;"></div>
+                    <div class="bg-teal-50 border border-teal-200 rounded-xl p-4">
+                        <div class="flex items-center gap-2 mb-1"><span class="bg-teal-600 text-white text-xs font-bold px-2 py-0.5 rounded">持续</span><span class="font-bold text-teal-800 text-sm">修复与强化</span></div>
+                        <p class="text-xs text-teal-700">更正不准确信息、撤销受影响决策、重新训练模型或更新安全策略。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">KRI / KPI 对冲监控</h3>
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 mb-4">
+                <p class="text-xs text-rose-700 italic font-medium">「当一个指标成为目标时，它就不再是一个好的指标。」—— Goodhart 定律</p>
+                <p class="text-xs text-rose-600 mt-1">过度追求效率KPI可能牺牲合规KRI，需双线并行监控。</p>
+            </div>
+            <div class="space-y-3">
+                <div class="p-4 bg-green-50 border border-green-200 rounded-xl">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-green-600 text-white text-xs font-black px-2 py-0.5 rounded">KPI</span><span class="font-bold text-green-700 text-sm">关键绩效指标</span></div>
+                    <p class="text-xs text-green-700">客户转化率 · 流程耗时缩减 · 自动化比例提升</p>
+                </div>
+                <div class="flex justify-center text-2xl text-slate-300">⇅</div>
+                <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-red-600 text-white text-xs font-black px-2 py-0.5 rounded">KRI</span><span class="font-bold text-red-700 text-sm">关键风险指标</span></div>
+                    <p class="text-xs text-red-700">虚假承诺/误导信息产生率 · 数据泄露尝试次数</p>
+                </div>
+                <div class="bg-slate-800 rounded-xl p-4 text-center">
+                    <p class="text-xs text-white font-semibold">⚖️ 对冲原则</p>
+                    <p class="text-xs text-slate-300 mt-1">KRI 超过警戒线时，即使 KPI 达标，该应用也被视为<span class="text-red-300 font-bold">治理失败</span>。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-5">六维绩效评价模型</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="p-4 bg-green-50 border border-green-200 rounded-xl">
+                    <div class="text-lg mb-1">💰</div>
+                    <div class="font-black text-green-800 text-xs mb-1">财务影响</div>
+                    <div class="text-xs text-green-600">AI驱动收入增长率、新业务贡献率</div>
+                </div>
+                <div class="p-4 bg-sky-50 border border-sky-200 rounded-xl">
+                    <div class="text-lg mb-1">⚙️</div>
+                    <div class="font-black text-sky-800 text-xs mb-1">运营效率</div>
+                    <div class="text-xs text-sky-600">流程循环时间缩减、错误率下降</div>
+                </div>
+                <div class="p-4 bg-violet-50 border border-violet-200 rounded-xl">
+                    <div class="text-lg mb-1">😊</div>
+                    <div class="font-black text-violet-800 text-xs mb-1">客户体验</div>
+                    <div class="text-xs text-violet-600">NPS、CSAT、投诉解决速度</div>
+                </div>
+                <div class="p-4 bg-teal-50 border border-teal-200 rounded-xl">
+                    <div class="text-lg mb-1">🤖</div>
+                    <div class="font-black text-teal-800 text-xs mb-1">模型表现</div>
+                    <div class="text-xs text-teal-600">准确率、F1分数、接地响应%</div>
+                </div>
+                <div class="p-4 bg-rose-50 border border-rose-200 rounded-xl">
+                    <div class="text-lg mb-1">💡</div>
+                    <div class="font-black text-rose-800 text-xs mb-1">创新容量</div>
+                    <div class="text-xs text-rose-600">新功能发布频次、技能达标率</div>
+                </div>
+                <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                    <div class="text-lg mb-1">📉</div>
+                    <div class="font-black text-amber-800 text-xs mb-1">经济效率</div>
+                    <div class="text-xs text-amber-600">AI平准化成本（LCOAI）</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADKAR -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">ADKAR 文化变革管理</h3>
+        <p class="text-sm text-slate-500 mb-5">AI变革最深层的挑战不在于代码，而在于人心。以好奇心取代恐惧，系统化克服员工抵触。</p>
+        <div class="flex flex-col md:flex-row items-stretch gap-2">
+            <div class="flex-1 bg-sky-50 border border-sky-200 rounded-2xl p-5 text-center">
+                <div class="w-10 h-10 rounded-full bg-sky-600 flex items-center justify-center mx-auto mb-2"><span class="text-white font-black">A</span></div>
+                <div class="font-black text-sky-800 text-sm mb-1">认知</div>
+                <div class="text-xs text-sky-600 font-semibold mb-2">Awareness</div>
+                <p class="text-xs text-sky-700">展示AI转型必要性，透明化沟通技术趋势</p>
+            </div>
+            <div class="flex items-center justify-center text-slate-300 text-2xl hidden md:flex">→</div>
+            <div class="flex-1 bg-teal-50 border border-teal-200 rounded-2xl p-5 text-center">
+                <div class="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center mx-auto mb-2"><span class="text-white font-black">D</span></div>
+                <div class="font-black text-teal-800 text-sm mb-1">欲望</div>
+                <div class="text-xs text-teal-600 font-semibold mb-2">Desire</div>
+                <p class="text-xs text-teal-700">领导层示范，强调AI赋能创意工作，激发参与</p>
+            </div>
+            <div class="flex items-center justify-center text-slate-300 text-2xl hidden md:flex">→</div>
+            <div class="flex-1 bg-violet-50 border border-violet-200 rounded-2xl p-5 text-center">
+                <div class="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center mx-auto mb-2"><span class="text-white font-black">K</span></div>
+                <div class="font-black text-violet-800 text-sm mb-1">知识</div>
+                <div class="text-xs text-violet-600 font-semibold mb-2">Knowledge</div>
+                <p class="text-xs text-violet-700">分阶段角色化培训，建立在线学习资源库</p>
+            </div>
+            <div class="flex items-center justify-center text-slate-300 text-2xl hidden md:flex">→</div>
+            <div class="flex-1 bg-amber-50 border border-amber-200 rounded-2xl p-5 text-center">
+                <div class="w-10 h-10 rounded-full bg-amber-600 flex items-center justify-center mx-auto mb-2"><span class="text-white font-black">A</span></div>
+                <div class="font-black text-amber-800 text-sm mb-1">能力</div>
+                <div class="text-xs text-amber-600 font-semibold mb-2">Ability</div>
+                <p class="text-xs text-amber-700">导师制、实操训练营、低风险实验沙盒</p>
+            </div>
+            <div class="flex items-center justify-center text-slate-300 text-2xl hidden md:flex">→</div>
+            <div class="flex-1 bg-rose-50 border border-rose-200 rounded-2xl p-5 text-center">
+                <div class="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center mx-auto mb-2"><span class="text-white font-black">R</span></div>
+                <div class="font-black text-rose-800 text-sm mb-1">强化</div>
+                <div class="text-xs text-rose-600 font-semibold mb-2">Reinforcement</div>
+                <p class="text-xs text-rose-700">公开认可早期采用者，将AI贡献纳入绩效考核</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 战略结论 ══ -->
+<section id="summary" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-gradient-to-b from-sky-600 to-rose-600"></div>
+        <h2 class="text-2xl font-black text-slate-900">以治理换取战略确定性</h2>
+    </div>
+
+    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 mb-6 will-animate">
+        <h3 class="font-black text-white mb-6 text-center text-lg">治理红利的四大体现</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white/8 border border-white/15 rounded-2xl p-5">
+                <div class="text-2xl mb-3">⚡</div>
+                <div class="font-black text-sm text-sky-300 mb-1">监管适应速度</div>
+                <p class="text-xs text-slate-300 leading-relaxed">体系化治理使企业快速响应全球监管动态，降低合规迟滞成本。</p>
+            </div>
+            <div class="bg-white/8 border border-white/15 rounded-2xl p-5">
+                <div class="text-2xl mb-3">🤝</div>
+                <div class="font-black text-sm text-teal-300 mb-1">公众信任度</div>
+                <p class="text-xs text-slate-300 leading-relaxed">透明的模型卡与AI-BOM，完善的事件响应机制，提升各方信任。</p>
+            </div>
+            <div class="bg-white/8 border border-white/15 rounded-2xl p-5">
+                <div class="text-2xl mb-3">⚖️</div>
+                <div class="font-black text-sm text-amber-300 mb-1">法律纠纷成本</div>
+                <p class="text-xs text-slate-300 leading-relaxed">主动合规与完整审计留存，大幅降低监管处罚与侵权诉讼风险。</p>
+            </div>
+            <div class="bg-white/8 border border-white/15 rounded-2xl p-5">
+                <div class="text-2xl mb-3">🧭</div>
+                <div class="font-black text-sm text-rose-300 mb-1">战略清醒度</div>
+                <p class="text-xs text-slate-300 leading-relaxed">在大规模决策自动化时代，确保企业保持对AI系统的有效控制。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+        <h3 class="font-black text-slate-800 mb-6 text-center">治理执行迭代闭环：体系 → 规范 → 管控 → 优化</h3>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0">
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-sky-100 to-sky-200 border-2 border-sky-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-sky-700 font-black text-xl">体系</div>
+                    <div class="text-sky-600 text-xs font-bold mt-0.5">OG委员会</div>
+                    <div class="text-sky-500 text-xs mt-0.5">RACI矩阵</div>
+                </div>
+            </div>
+            <div class="text-3xl text-slate-300 rotate-90 md:rotate-0 mx-2">→</div>
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-teal-100 to-teal-200 border-2 border-teal-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-teal-700 font-black text-xl">规范</div>
+                    <div class="text-teal-600 text-xs font-bold mt-0.5">ISO/NIST</div>
+                    <div class="text-teal-500 text-xs mt-0.5">AI-BOM</div>
+                </div>
+            </div>
+            <div class="text-3xl text-slate-300 rotate-90 md:rotate-0 mx-2">→</div>
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-violet-100 to-violet-200 border-2 border-violet-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-violet-700 font-black text-xl">管控</div>
+                    <div class="text-violet-600 text-xs font-bold mt-0.5">VG分类</div>
+                    <div class="text-violet-500 text-xs mt-0.5">TRiSM防御</div>
+                </div>
+            </div>
+            <div class="text-3xl text-slate-300 rotate-90 md:rotate-0 mx-2">→</div>
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-rose-100 to-rose-200 border-2 border-rose-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-rose-700 font-black text-xl">优化</div>
+                    <div class="text-rose-600 text-xs font-bold mt-0.5">六维KPI</div>
+                    <div class="text-rose-500 text-xs mt-0.5">ADKAR</div>
+                </div>
+            </div>
+            <div class="text-3xl text-sky-300 rotate-90 md:rotate-0 mx-2 opacity-60">↩</div>
+            <div class="text-xs text-slate-400 hidden md:block">持续迭代</div>
+        </div>
+        <p class="text-center text-sm text-slate-500 mt-6 max-w-2xl mx-auto">
+            企业的核心挑战不在于是否投入AI，而在于如何构建一个能持续产生、验证并规模化价值的<strong class="text-slate-800">「治理型企业」</strong>。只有将尖端算法与严谨治理逻辑相结合的企业，才能真正实现从技术跟随者向时代领航者的跨越。
+        </p>
+    </div>
+</section>
+
+</main>
+
+<footer class="bg-slate-900 text-slate-400 py-6 px-4 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+        <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded bg-gradient-to-br from-sky-600 to-teal-600 flex items-center justify-center">
+                <span class="text-white text-xs font-black">FG</span>
+            </div>
+            <span class="text-sm font-semibold">AI治理执行落地建议方案</span>
+        </div>
+        <div class="text-xs text-slate-500">企业AI治理 · 体系 → 规范 → 管控 → 优化 · 迭代闭环</div>
+    </div>
+</footer>
+
+<script>
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const sections = ['hero','tizhi','guifan','guankong','youhua','summary'];
+const navLinks = document.querySelectorAll('.nav-pill');
+const sectionObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const id = e.target.id;
+            navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+        }
+    });
+}, { threshold: 0.25 });
+sections.forEach(s => { const el = document.getElementById(s); if (el) sectionObs.observe(el); });
+
+const animObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); animObs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.will-animate').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 65}ms`;
+    animObs.observe(el);
+});
+</script>
+</body>
+</html>

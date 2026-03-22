@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI运营执行落地建议方案 - 企业内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0c1526;
+            --sky: #0369a1;
+            --sky-lt: #e0f2fe;
+            --amber: #d97706;
+            --amber-lt: #fef3c7;
+            --teal: #0f766e;
+            --teal-lt: #ccfbf1;
+            --rose: #be123c;
+            --rose-lt: #ffe4e6;
+            --violet: #6d28d9;
+            --violet-lt: #ede9fe;
+            --slate: #475569;
+            --bg: #f1f5f9;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--ink);
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+        /* ── Nav ── */
+        .nav-pill {
+            padding: 6px 16px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+            color: var(--slate); transition: all 0.2s; text-decoration: none; display: inline-block;
+        }
+        .nav-pill:hover { background: var(--sky-lt); color: var(--sky); }
+        .nav-pill.active { background: var(--sky); color: #fff; }
+
+        /* ── Hero ── */
+        .hero-bg {
+            background: linear-gradient(135deg, #0a1628 0%, #0d2240 40%, #0b3355 70%, #0c4068 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero-bg::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(3,105,161,0.35) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(15,118,110,0.2) 0%, transparent 50%),
+                        radial-gradient(ellipse at 65% 80%, rgba(109,40,217,0.15) 0%, transparent 50%);
+        }
+        .hero-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* ── Orbit ── */
+        .orbit-container { position: relative; width: 380px; height: 380px; flex-shrink: 0; }
+        .orbit-ring { position: absolute; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.13); }
+        .orbit-ring.r1 { inset: 10px; animation: spin 35s linear infinite; }
+        .orbit-ring.r2 { inset: 55px; animation: spin 22s linear infinite reverse; }
+        .orbit-center {
+            position: absolute; inset: 105px;
+            background: radial-gradient(circle, rgba(3,105,161,0.85), rgba(10,22,40,0.95));
+            border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 2px solid rgba(3,105,161,0.7);
+            box-shadow: 0 0 50px rgba(3,105,161,0.45), inset 0 0 30px rgba(3,105,161,0.2);
+        }
+        .orbit-node {
+            position: absolute; width: 78px; height: 78px; border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.68rem; text-align: center; cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid; backdrop-filter: blur(8px); z-index: 10; line-height: 1.25;
+        }
+        .orbit-node:hover { transform: scale(1.15); }
+        .orbit-node.n-top    { top:-12px; left:50%; margin-left:-39px; background:rgba(3,105,161,0.92); border-color:#7dd3fc; color:#fff; box-shadow:0 0 22px rgba(3,105,161,0.65); }
+        .orbit-node.n-right  { top:50%; right:-12px; margin-top:-39px; background:rgba(15,118,110,0.92); border-color:#5eead4; color:#fff; box-shadow:0 0 22px rgba(15,118,110,0.65); }
+        .orbit-node.n-bottom { bottom:-12px; left:50%; margin-left:-39px; background:rgba(109,40,217,0.92); border-color:#c4b5fd; color:#fff; box-shadow:0 0 22px rgba(109,40,217,0.65); }
+        .orbit-node.n-left   { top:50%; left:-12px; margin-top:-39px; background:rgba(190,18,60,0.92); border-color:#fda4af; color:#fff; box-shadow:0 0 22px rgba(190,18,60,0.65); }
+
+        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes pulse-glow {
+            0%,100%{box-shadow:0 0 0 0 rgba(3,105,161,0.45);}
+            50%{box-shadow:0 0 0 14px rgba(3,105,161,0);}
+        }
+        .pulse { animation: pulse-glow 2.8s ease-in-out infinite; }
+
+        /* ── Section title ── */
+        .stitle { display:flex; align-items:center; gap:12px; margin-bottom:1.5rem; flex-wrap:wrap; }
+        .stitle-bar { width:5px; height:28px; border-radius:3px; flex-shrink:0; }
+
+        /* ── Phase badge ── */
+        .phase-badge { display:inline-block; padding:3px 14px; border-radius:999px; font-size:0.72rem; font-weight:700; letter-spacing:0.06em; }
+        .badge-sky    { background:#0369a1; color:#fff; }
+        .badge-teal   { background:#0f766e; color:#fff; }
+        .badge-violet { background:#6d28d9; color:#fff; }
+        .badge-rose   { background:#be123c; color:#fff; }
+        .badge-amber  { background:#d97706; color:#fff; }
+
+        /* ── Cards ── */
+        .info-card { border-radius:18px; border:1px solid; overflow:hidden; transition:transform 0.2s,box-shadow 0.2s; }
+        .info-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px -8px rgba(0,0,0,0.13); }
+        .card-sky    { border-color:#bae6fd; background:linear-gradient(135deg,#f0f9ff,#e0f2fe); }
+        .card-teal   { border-color:#99f6e4; background:linear-gradient(135deg,#f0fdfa,#ccfbf1); }
+        .card-violet { border-color:#ddd6fe; background:linear-gradient(135deg,#f5f3ff,#ede9fe); }
+        .card-amber  { border-color:#fde68a; background:linear-gradient(135deg,#fffbeb,#fef3c7); }
+        .card-rose   { border-color:#fecaca; background:linear-gradient(135deg,#fff1f2,#ffe4e6); }
+
+        /* ── Timeline ── */
+        .tl-item { position:relative; padding-left:2.5rem; }
+        .tl-item::before {
+            content:''; position:absolute; left:10px; top:0; bottom:-1.5rem; width:2px;
+            background:linear-gradient(to bottom, var(--sky), var(--teal));
+        }
+        .tl-item:last-child::before { display:none; }
+        .tl-dot { position:absolute; left:3px; top:6px; width:16px; height:16px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 0 2px var(--sky); }
+
+        /* ── Risk ── */
+        .risk-high   { background:#fee2e2; border-left:4px solid #ef4444; }
+        .risk-medium { background:#fef3c7; border-left:4px solid #f59e0b; }
+        .risk-low    { background:#dcfce7; border-left:4px solid #22c55e; }
+        .risk-info   { background:#dbeafe; border-left:4px solid #3b82f6; }
+
+        /* ── Table ── */
+        .data-table { width:100%; border-collapse:collapse; font-size:0.8rem; }
+        .data-table th { background:#f8fafc; color:#475569; font-weight:700; padding:10px 12px; text-align:left; border-bottom:2px solid #e2e8f0; }
+        .data-table td { padding:10px 12px; border-bottom:1px solid #f1f5f9; color:#334155; }
+        .data-table tr:hover td { background:#f8fafc; }
+
+        /* ── Animate on scroll ── */
+        .will-animate { opacity:0; transform:translateY(22px); transition:opacity 0.5s ease, transform 0.5s ease; }
+        .will-animate.visible { opacity:1; transform:translateY(0); }
+
+        @media (max-width:768px) {
+            .orbit-container { width:290px; height:290px; }
+            .orbit-center { inset:80px; }
+            .orbit-node { width:62px; height:62px; font-size:0.58rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-14 items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-700 to-violet-700 flex items-center justify-center">
+                    <span class="text-white text-xs font-black">FO</span>
+                </div>
+                <span class="font-black text-base tracking-tight text-slate-900">AI运营执行落地方案</span>
+                <span class="hidden md:inline-block text-xs bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded-full">机会·研发·部署·维护</span>
+            </div>
+            <div class="hidden lg:flex items-center gap-1">
+                <a href="#hero"    class="nav-pill">方案总览</a>
+                <a href="#zhili"   class="nav-pill">机会发现</a>
+                <a href="#yanfa"   class="nav-pill">研发阶段</a>
+                <a href="#bushu"   class="nav-pill">部署阶段</a>
+                <a href="#weihu"   class="nav-pill">维护阶段</a>
+                <a href="#roadmap" class="nav-pill">落地路线图</a>
+                <a href="#summary" class="nav-pill">战略结论</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+<!-- HERO -->
+<section id="hero" class="hero-bg py-16 px-4">
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="flex-1 text-white">
+                <div class="inline-flex items-center gap-2 mb-4 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs font-semibold tracking-widest uppercase">
+                    <span class="w-2 h-2 bg-sky-400 rounded-full animate-pulse"></span>
+                    企业人工智能运营管控与落地执行体系全生命周期方案
+                </div>
+                <h1 class="text-4xl lg:text-5xl font-black leading-tight mb-4">
+                    从实验探索到<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-violet-300 to-teal-300">智能体化运营的范式迁移</span>
+                </h1>
+                <p class="text-slate-300 text-base leading-relaxed mb-6 max-w-xl">
+                    本方案围绕<strong class="text-white">「机会 → 研发 → 部署 → 维护」四环迭代闭环</strong>，将企业从传统人工驱动型运营升级为智能、敏捷且由数据高度驱动的现代运营范式，构建真正的「企业即代码」运营体系。
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-sky-300">50%</div>
+                        <div class="text-xs text-slate-300 mt-1">AI转型领跑者三年收入增长高于同行</div>
+                    </div>
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-rose-300">95%</div>
+                        <div class="text-xs text-slate-300 mt-1">项目未能在预定时间内实现商业回报</div>
+                    </div>
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-teal-300">10%</div>
+                        <div class="text-xs text-slate-300 mt-1">设立CAIO后AI投资回报率平均提升</div>
+                    </div>
+                    <div class="bg-white/8 border border-white/15 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-black text-violet-300">70%</div>
+                        <div class="text-xs text-slate-300 mt-1">资源应投入人才与流程转型</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4-node orbit -->
+            <div class="orbit-container">
+                <div class="orbit-ring r1"></div>
+                <div class="orbit-ring r2"></div>
+                <div class="orbit-center pulse">
+                    <div class="text-white font-black text-xl leading-tight text-center">运营<br>闭环</div>
+                    <div class="text-sky-200 text-xs font-medium mt-1">GDMD</div>
+                </div>
+                <div class="orbit-node n-top"    onclick="scrollToSection('zhili')"><div class="text-xl mb-0.5">🎯</div><div>机会<br></div></div>
+                <div class="orbit-node n-right"  onclick="scrollToSection('yanfa')"><div class="text-xl mb-0.5">🔬</div><div>研发<br></div></div>
+                <div class="orbit-node n-bottom" onclick="scrollToSection('bushu')"><div class="text-xl mb-0.5">🚀</div><div>部署<br></div></div>
+                <div class="orbit-node n-left"   onclick="scrollToSection('weihu')"><div class="text-xl mb-0.5">🔄</div><div>维护<br></div></div>
+                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 380 380" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events:none;">
+                    <defs>
+                        <marker id="ah" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                            <path d="M0,0 L6,3 L0,6 Z" fill="rgba(255,255,255,0.5)"/>
+                        </marker>
+                    </defs>
+                    <path d="M 218 28 A 162 162 0 0 1 352 172" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ah)"/>
+                    <path d="M 352 208 A 162 162 0 0 1 212 352" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ah)"/>
+                    <path d="M 168 352 A 162 162 0 0 1 28 208" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ah)"/>
+                    <path d="M 28 172 A 162 162 0 0 1 168 28" stroke="rgba(125,211,252,0.45)" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#ah)"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+<!-- ══ 第一章：治理机会 ══ -->
+<section id="zhili" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-sky-600"></div>
+        <h2 class="text-2xl font-black text-slate-900">机会：战略引领与智能化场景精准识别</h2>
+        <span class="text-sm text-slate-500">确立「谁来领导」与「聚焦哪些机会」</span>
+    </div>
+
+    <!-- CAIO + 模式 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <!-- CAIO职责 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">首席人工智能官（CAIO）权力图谱</h3>
+            <p class="text-xs text-slate-500 mb-5">CAIO是组织的「粘合剂」，将技术潜力、业务愿景与风险控制紧密结合，直接向CEO或董事会报告</p>
+            <div class="space-y-3">
+                <div class="flex gap-3 items-center p-3 bg-sky-50 border border-sky-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-sky-100 flex items-center justify-center flex-shrink-0 text-sky-700 font-black text-xs">CAIO</div>
+                    <div><div class="font-bold text-slate-800 text-sm">AI战略规划与组合决策</div><div class="text-xs text-slate-500">Accountable — 统筹全局，拥有最终决策权</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-violet-50 border border-violet-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-violet-100 flex items-center justify-center flex-shrink-0 text-violet-700 font-black text-xs">CIO</div>
+                    <div><div class="font-bold text-slate-800 text-sm">基础设施与算力保障</div><div class="text-xs text-slate-500">Responsible — 负责技术底座建设与维护</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-teal-50 border border-teal-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-teal-100 flex items-center justify-center flex-shrink-0 text-teal-700 font-black text-xs">CDO</div>
+                    <div><div class="font-bold text-slate-800 text-sm">数据治理与质量管理</div><div class="text-xs text-slate-500">Accountable — 数据资产全生命周期管理</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-rose-50 border border-rose-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 text-rose-700 font-black text-xs">CTO</div>
+                    <div><div class="font-bold text-slate-800 text-sm">AI伦理框架与合规审计</div><div class="text-xs text-slate-500">Informed — 保障技术合规与架构安全</div></div>
+                </div>
+                <div class="flex gap-3 items-center p-3 bg-amber-50 border border-amber-100 rounded-xl">
+                    <div class="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0 text-amber-700 font-black text-xs">CHRO</div>
+                    <div><div class="font-bold text-slate-800 text-sm">AI素养培训与文化建设</div><div class="text-xs text-slate-500">Accountable — 推动全员AI能力升级</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 运营模式 -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">运营模式选择：中心辐射型的必然性</h3>
+            <p class="text-xs text-slate-500 mb-5">追求全组织规模化落地的成熟企业首选 Hub-and-Spoke 混合模式</p>
+            <div class="space-y-4">
+                <div class="risk-info rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-blue-500 text-white text-xs font-black px-2 py-0.5 rounded">中心化</span><span class="font-bold text-blue-700 text-sm">Centralized</span></div>
+                    <div class="text-xs text-blue-700">决策权与执行团队完全集中于中央CoE · 标准高度统一 · 适合AI发展初期或强监管行业</div>
+                </div>
+                <div class="risk-medium rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-amber-500 text-white text-xs font-black px-2 py-0.5 rounded">去中心化</span><span class="font-bold text-amber-700 text-sm">Decentralized</span></div>
+                    <div class="text-xs text-amber-700">各业务部门独立拥有预算与团队 · 响应极快 · 适合极度敏捷的初创型组织</div>
+                </div>
+                <div class="risk-low rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-1"><span class="bg-green-600 text-white text-xs font-black px-2 py-0.5 rounded">★ 推荐</span><span class="font-bold text-green-700 text-sm">中心辐射型 Hub-and-Spoke</span></div>
+                    <div class="text-xs text-green-700">中央Hub负责标准与治理 · Spoke负责本地执行 · 兼顾规模化效率与本地灵活性 · 适合追求全组织规模化落地的成熟企业</div>
+                </div>
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200 mt-2">
+                    <div class="font-bold text-slate-800 text-sm mb-1">中央卓越中心（CoE）核心职能</div>
+                    <div class="text-xs text-slate-600 space-y-1">
+                        <div>· 建立参考架构，定义平台标准</div>
+                        <div>· 管理共享资源池（GPU算力 / LLM Token配额）</div>
+                        <div>· 提供标准化的「AI用例画布」</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 场景发现 + 优先矩阵 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">场景发现机制：五步闭环流程</h3>
+        <p class="text-xs text-slate-500 mb-6">通过 AI Discovery Workshop 将业务挑战转化为机遇</p>
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3">
+            <div class="info-card card-sky p-4 text-center will-animate">
+                <div class="w-8 h-8 rounded-full bg-sky-600 text-white font-black flex items-center justify-center mx-auto mb-2 text-sm">1</div>
+                <div class="font-black text-sky-800 text-xs mb-1">工作流痛点测绘</div>
+                <p class="text-xs text-sky-700">深入一线识别重复性高、容错率低或决策耗时长的环节</p>
+            </div>
+            <div class="info-card card-teal p-4 text-center will-animate">
+                <div class="w-8 h-8 rounded-full bg-teal-600 text-white font-black flex items-center justify-center mx-auto mb-2 text-sm">2</div>
+                <div class="font-black text-teal-800 text-xs mb-1">AI独有价值评估</div>
+                <p class="text-xs text-teal-700">审视AI是否能提供预测性分析或自然语言交互等溢价能力</p>
+            </div>
+            <div class="info-card card-violet p-4 text-center will-animate">
+                <div class="w-8 h-8 rounded-full bg-violet-600 text-white font-black flex items-center justify-center mx-auto mb-2 text-sm">3</div>
+                <div class="font-black text-violet-800 text-xs mb-1">数据就绪性审计</div>
+                <p class="text-xs text-violet-700">评估数据质量与偏见风险，确保数据可用性</p>
+            </div>
+            <div class="info-card card-amber p-4 text-center will-animate">
+                <div class="w-8 h-8 rounded-full bg-amber-600 text-white font-black flex items-center justify-center mx-auto mb-2 text-sm">4</div>
+                <div class="font-black text-amber-800 text-xs mb-1">MVP原型验证</div>
+                <p class="text-xs text-amber-700">通过低代码工具构建最小可行性产品，快速验证</p>
+            </div>
+            <div class="info-card card-rose p-4 text-center will-animate">
+                <div class="w-8 h-8 rounded-full bg-rose-600 text-white font-black flex items-center justify-center mx-auto mb-2 text-sm">5</div>
+                <div class="font-black text-rose-800 text-xs mb-1">ROI动态预测</div>
+                <p class="text-xs text-rose-700">量化财务合理性与业务紧迫性，建立评估基准</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 优先级矩阵 + 北极星指标 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">价值 vs. 可行性优先级矩阵</h3>
+            <div class="space-y-3">
+                <div class="flex gap-3 p-3 bg-green-50 border border-green-200 rounded-xl items-start">
+                    <div class="w-3 h-3 rounded-full bg-green-500 mt-0.5 flex-shrink-0"></div>
+                    <div><div class="font-bold text-green-800 text-sm">快速赢家</div><div class="text-xs text-green-700">立即投入资源，作为年度标杆 · 关键指标：流程耗时减少、错误率降低</div></div>
+                </div>
+                <div class="flex gap-3 p-3 bg-sky-50 border border-sky-200 rounded-xl items-start">
+                    <div class="w-3 h-3 rounded-full bg-sky-500 mt-0.5 flex-shrink-0"></div>
+                    <div><div class="font-bold text-sky-800 text-sm">战略投注</div><div class="text-xs text-sky-700">设定里程碑，分批投入，长期孵化 · 关键指标：市场份额增长、新业务模式贡献</div></div>
+                </div>
+                <div class="flex gap-3 p-3 bg-amber-50 border border-amber-200 rounded-xl items-start">
+                    <div class="w-3 h-3 rounded-full bg-amber-500 mt-0.5 flex-shrink-0"></div>
+                    <div><div class="font-bold text-amber-800 text-sm">基础优化</div><div class="text-xs text-amber-700">采用外购成品软件，快速分发 · 关键指标：员工工时节省（FTEs）</div></div>
+                </div>
+                <div class="flex gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl items-start">
+                    <div class="w-3 h-3 rounded-full bg-slate-400 mt-0.5 flex-shrink-0"></div>
+                    <div><div class="font-bold text-slate-800 text-sm">分心项</div><div class="text-xs text-slate-600">坚决剔除，避免浪费昂贵资源 · 价值低、可行性低的项目应立即终止</div></div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">北极星指标体系：锚定长期愿景</h3>
+            <div class="space-y-3">
+                <div class="flex items-center gap-4 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center flex-shrink-0 text-lg">💰</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-slate-800 text-sm">AI归属EBIT占比</div>
+                        <div class="text-xs text-slate-500">衡量AI对底线利润的实质性拉动</div>
+                    </div>
+                    <div class="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-1 rounded-lg">盈利</div>
+                </div>
+                <div class="flex items-center gap-4 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center flex-shrink-0 text-lg">📈</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-slate-800 text-sm">创新应用市场渗透率</div>
+                        <div class="text-xs text-slate-500">评估AI在增强产品吸引力方面的成效</div>
+                    </div>
+                    <div class="text-xs font-bold text-teal-600 bg-teal-50 px-2 py-1 rounded-lg">增长</div>
+                </div>
+                <div class="flex items-center gap-4 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center flex-shrink-0 text-lg">⚡</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-slate-800 text-sm">综合人效提升率</div>
+                        <div class="text-xs text-slate-500">衡量AI如何释放人力进行高价值活动</div>
+                    </div>
+                    <div class="text-xs font-bold text-violet-600 bg-violet-50 px-2 py-1 rounded-lg">组织</div>
+                </div>
+                <div class="flex items-center gap-4 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center flex-shrink-0 text-lg">🧭</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-slate-800 text-sm">决策加速指数</div>
+                        <div class="text-xs text-slate-500">评估AI在缩短「洞察到行动」周期的表现</div>
+                    </div>
+                    <div class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-lg">敏捷</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 第二章：研发阶段 ══ -->
+<section id="yanfa" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-teal-600"></div>
+        <h2 class="text-2xl font-black text-slate-900">研发：构建高可靠技术底座与敏捷工程能力</h2>
+        <span class="text-sm text-slate-500">决定AI应用的技术上限与成本结构</span>
+    </div>
+
+    <!-- 数据治理 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">数据治理：从「资源」到「资产」的质变</h3>
+        <p class="text-xs text-slate-500 mb-5">零信任数据治理视角下，Gartner预测未来50%的组织将采用严格的验证和标记机制</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="info-card card-sky p-5 will-animate">
+                <div class="text-2xl mb-2">🔒</div>
+                <div class="font-black text-sky-800 text-sm mb-1">零信任数据治理</div>
+                <p class="text-xs text-sky-700 leading-relaxed">防止未经证实的AI数据污染模型，避免「模型塌陷」风险。执行严格验证和标记机制。</p>
+            </div>
+            <div class="info-card card-teal p-5 will-animate">
+                <div class="text-2xl mb-2">🤖</div>
+                <div class="font-black text-teal-800 text-sm mb-1">主动元数据管理</div>
+                <p class="text-xs text-teal-700 leading-relaxed">利用AI自动发现、分类和标注敏感数据（PII），实现自动化合规管理和质量监控。</p>
+            </div>
+            <div class="info-card card-violet p-5 will-animate">
+                <div class="text-2xl mb-2">📋</div>
+                <div class="font-black text-violet-800 text-sm mb-1">工程化标注规范</div>
+                <p class="text-xs text-violet-700 leading-relaxed">标注岗位与审核岗位物理分离，安全性标注执行「逐条审核」制度，数据作为审计资产管理。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MLOps成熟度 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">MLOps成熟度路线图：从手工到智能体化</h3>
+        <p class="text-xs text-slate-500 mb-6">构建标准化的模型研发与运营体系，避免碎片化项目</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="relative">
+                <div class="risk-high rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-2"><span class="bg-red-500 text-white text-xs font-black px-2 py-0.5 rounded">阶段1</span></div>
+                    <div class="font-bold text-red-700 text-sm mb-1">手工阶段 Manual</div>
+                    <div class="text-xs text-red-700 leading-relaxed">孤岛工作 · 本地脚本 · 手动部署 · 缺乏版本控制</div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="risk-medium rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-2"><span class="bg-amber-500 text-white text-xs font-black px-2 py-0.5 rounded">阶段2</span></div>
+                    <div class="font-bold text-amber-700 text-sm mb-1">可重复阶段 Repeatable</div>
+                    <div class="text-xs text-amber-700 leading-relaxed">Git代码控制 · DVC数据版本 · 模型与代码分离</div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="risk-low rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-2"><span class="bg-green-500 text-white text-xs font-black px-2 py-0.5 rounded">阶段3</span></div>
+                    <div class="font-bold text-green-700 text-sm mb-1">可靠阶段 Reliable</div>
+                    <div class="text-xs text-green-700 leading-relaxed">完整CI/CD/CT管道 · 实时监控模型漂移 · 自动触发重训练</div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="risk-info rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-2"><span class="bg-blue-500 text-white text-xs font-black px-2 py-0.5 rounded">阶段4</span></div>
+                    <div class="font-bold text-blue-700 text-sm mb-1">智能体化 Agentic</div>
+                    <div class="text-xs text-blue-700 leading-relaxed">模型自进化 · 治理合规内嵌代码 · 反馈闭环自优化</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FinOps + 负责任AI -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">AI FinOps：算力成本精细化建模</h3>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead><tr><th>成本维度</th><th>包含项</th><th>优化策略</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold text-sky-700">初期部署</td>
+                            <td>软件许可、定制开发、基础数仓建设</td>
+                            <td>预留15-20%应急缓冲区</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-teal-700">年度运维</td>
+                            <td>云算力账单、模型调优、安全补丁</td>
+                            <td>弹性算力调度，云端与本地切换</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-violet-700">人才变革</td>
+                            <td>技能培训、高薪AI架构师聘用</td>
+                            <td>分层人才图谱，内培为主外引为辅</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 p-3 bg-sky-50 border border-sky-100 rounded-xl">
+                <div class="font-bold text-sky-800 text-sm mb-1">引入AI产出平准化成本（LCOAI）</div>
+                <div class="text-xs text-sky-700">计算模型生命周期内单位有用产出的成本，帮助企业在「自研」与「API调用」间做出最优商业决策</div>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">负责任AI办公室：治理前置机制</h3>
+            <div class="space-y-3">
+                <div class="p-3 bg-violet-50 border border-violet-100 rounded-xl">
+                    <div class="font-bold text-violet-800 text-sm mb-1">🔍 AI影响评估（AIIA）</div>
+                    <div class="text-xs text-violet-700">针对高风险系统（影响个人信贷、招聘、法律地位），执行强制性影响评估，科技伦理委员会在模型设计之初参与评审</div>
+                </div>
+                <div class="p-3 bg-teal-50 border border-teal-100 rounded-xl">
+                    <div class="font-bold text-teal-800 text-sm mb-1">⚖️ 算法公平性三要素</div>
+                    <div class="text-xs text-teal-700">公平性 · 透明度 · 可解释性 — 三项原则必须在设计阶段嵌入，而非上线后修补</div>
+                </div>
+                <div class="p-3 bg-sky-50 border border-sky-100 rounded-xl">
+                    <div class="font-bold text-sky-800 text-sm mb-1">📄 合规防御证据链</div>
+                    <div class="text-xs text-sky-700">所有关于算法安全、伦理审查的决策均需有会议纪要和专家意见支持，形成完整的合规防御证据链</div>
+                </div>
+                <div class="p-3 bg-amber-50 border border-amber-100 rounded-xl">
+                    <div class="font-bold text-amber-800 text-sm mb-1">🛡️ Build vs. Buy 决策框架</div>
+                    <div class="text-xs text-amber-700">核心护城河能力（核心算法、独特数据集）坚持自主研发；通用能力优先采用顶尖厂商成熟API</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 第三章：部署阶段 ══ -->
+<section id="bushu" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-violet-600"></div>
+        <h2 class="text-2xl font-black text-slate-900">部署：合规准入、流程重构与企业即代码</h2>
+        <span class="text-sm text-slate-500">模型从实验室进入真实生产系统的跨越</span>
+    </div>
+
+    <!-- 算法备案 + 内容安全 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">算法备案与安全评估：合规「入场券」</h3>
+            <p class="text-xs text-slate-500 mb-4">在中国监管语境下，部署不仅涉及技术上线，更涉及行政备案与内容安全的动态管控</p>
+            <div class="space-y-3">
+                <div class="flex gap-3 p-3 bg-sky-50 border border-sky-100 rounded-xl items-start">
+                    <span class="text-lg">📋</span>
+                    <div>
+                        <div class="font-bold text-sky-800 text-sm">算法自评估报告</div>
+                        <div class="text-xs text-sky-700">真实反映算法在防止歧视、反沉迷及干预信息呈现方面的具体技术措施</div>
+                    </div>
+                </div>
+                <div class="flex gap-3 p-3 bg-violet-50 border border-violet-100 rounded-xl items-start">
+                    <span class="text-lg">🔐</span>
+                    <div>
+                        <div class="font-bold text-violet-800 text-sm">舆论属性应用安全评估</div>
+                        <div class="text-xs text-violet-700">具有「舆论属性」或「社会动员能力」的应用，须提交防攻击、防伪造、防篡改技术方案</div>
+                    </div>
+                </div>
+                <div class="flex gap-3 p-3 bg-teal-50 border border-teal-100 rounded-xl items-start">
+                    <span class="text-lg">🏷️</span>
+                    <div>
+                        <div class="font-bold text-teal-800 text-sm">上线显性化要求</div>
+                        <div class="text-xs text-teal-700">已上线生成式AI应用须在显著位置公示模型名称、备案号或上线编号，确保透明度</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-2">内容安全管控三层体系</h3>
+            <p class="text-xs text-slate-500 mb-4">从生成前预防到生成后追溯的动态管控</p>
+            <div class="space-y-3">
+                <div class="flex gap-3 p-3 bg-rose-50 border border-rose-100 rounded-xl items-start">
+                    <div class="w-7 h-7 rounded-full bg-rose-500 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">1</div>
+                    <div>
+                        <div class="font-bold text-rose-800 text-sm">价值观校准（Alignment）</div>
+                        <div class="text-xs text-rose-700">通过RLHF将社会主义核心价值观内嵌于模型参数中</div>
+                    </div>
+                </div>
+                <div class="flex gap-3 p-3 bg-amber-50 border border-amber-100 rounded-xl items-start">
+                    <div class="w-7 h-7 rounded-full bg-amber-500 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">2</div>
+                    <div>
+                        <div class="font-bold text-amber-800 text-sm">实时拦截与报告</div>
+                        <div class="text-xs text-amber-700">推理阶段部署高敏感关键词过滤，24小时内向属地网信部门报告</div>
+                    </div>
+                </div>
+                <div class="flex gap-3 p-3 bg-teal-50 border border-teal-100 rounded-xl items-start">
+                    <div class="w-7 h-7 rounded-full bg-teal-500 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">3</div>
+                    <div>
+                        <div class="font-bold text-teal-800 text-sm">深度合成标识</div>
+                        <div class="text-xs text-teal-700">对生成内容进行鲁棒性标识（水印/元数据），截图或压缩后仍可溯源</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 企业即代码 + 智能代理团队 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">企业即代码（Enterprise as Code）：运营逻辑的代码化</h3>
+        <p class="text-xs text-slate-500 mb-5">将员工头脑中零散的、非正式的运营经验转化为显性的、可编程的逻辑代码</p>
+        <div class="overflow-x-auto">
+            <table class="data-table">
+                <thead>
+                    <tr><th>维度</th><th>传统模式：直觉与习惯</th><th>未来模式：企业即代码</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-semibold">逻辑载体</td>
+                        <td class="text-slate-500">员工经验、纸质手册</td>
+                        <td class="text-teal-700 font-medium">结构化逻辑、自动化框架、AI代理系统</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">透明度</td>
+                        <td class="text-slate-500">黑盒运作，难以审计</td>
+                        <td class="text-teal-700 font-medium">完全透明，可测试、可模拟、可优化</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">进化速度</td>
+                        <td class="text-slate-500">依赖人员培训与文化缓慢更替</td>
+                        <td class="text-teal-700 font-medium">毫秒级迭代，通过代码更新立即生效</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">协作效率</td>
+                        <td class="text-slate-500">频繁的会议沟通与协调成本</td>
+                        <td class="text-teal-700 font-medium">人机协同，逻辑一致性确保无缝衔接</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">智能代理团队（Agentic Teams）的组织重塑</h3>
+        <p class="text-xs text-slate-500 mb-5">麦肯锡预测，未来的组织将演变为由「智能代理团队」构成的扁平化网络</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="info-card card-sky p-5">
+                <div class="text-2xl mb-2">👥</div>
+                <div class="font-black text-sky-800 text-sm mb-1">跨学科小团队构成</div>
+                <p class="text-xs text-sky-700">产品经理 + 数据科学家 + 运营专家，共同监督和指导底层AI代理工作流</p>
+            </div>
+            <div class="info-card card-teal p-5">
+                <div class="text-2xl mb-2">🎯</div>
+                <div class="font-black text-teal-800 text-sm mb-1">结果导向而非岗位导向</div>
+                <p class="text-xs text-teal-700">高度自治的决策权下放，减少行政审批，实现「成本与增长的脱钩」</p>
+            </div>
+            <div class="info-card card-violet p-5">
+                <div class="text-2xl mb-2">📊</div>
+                <div class="font-black text-violet-800 text-sm mb-1">指数级业务增长</div>
+                <p class="text-xs text-violet-700">在不显著增加人力成本的情况下，通过算法和算力扩展实现业务的指数级增长</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 第四章：维护阶段 ══ -->
+<section id="weihu" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-amber-600"></div>
+        <h2 class="text-2xl font-black text-slate-900">维护：量化治理、健康监控与持续进化的闭环</h2>
+        <span class="text-sm text-slate-500">基于量化指标的动态优化，而非消极的「修理」</span>
+    </div>
+
+    <!-- 运营指标 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-2">运营层指标：系统健康度与工业化韧性</h3>
+        <p class="text-xs text-slate-500 mb-5">运营指标的恶化通常是业务故障的先导，需建立「指标驱动的熔断机制」</p>
+        <div class="overflow-x-auto">
+            <table class="data-table">
+                <thead><tr><th>维度</th><th>关键指标</th><th>预警逻辑</th><th>技术路径</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><span class="inline-block bg-sky-100 text-sky-700 font-bold px-2 py-0.5 rounded text-xs">响应性</span></td>
+                        <td class="font-medium">系统推理延迟 (Latency)</td>
+                        <td class="text-amber-700">超过基线20%或P99 &gt; 2s触发告警</td>
+                        <td class="text-slate-500">资源弹性伸缩</td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-block bg-teal-100 text-teal-700 font-bold px-2 py-0.5 rounded text-xs">可靠性</span></td>
+                        <td class="font-medium">推理成功率 (Uptime)</td>
+                        <td class="text-amber-700">低于99.9%时触发SLA审查</td>
+                        <td class="text-slate-500">冗余备份与自动重试</td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-block bg-violet-100 text-violet-700 font-bold px-2 py-0.5 rounded text-xs">有效性</span></td>
+                        <td class="font-medium">特征漂移指标 (PSI)</td>
+                        <td class="text-amber-700">预测分布偏离超过0.1提示重训练</td>
+                        <td class="text-slate-500">自动化漂移检测工具</td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-block bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded text-xs">数据质量</span></td>
+                        <td class="font-medium">数据完整性得分</td>
+                        <td class="text-amber-700">缺失值比例超过5%时拦截输入</td>
+                        <td class="text-slate-500">实时数据校验闸门</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- KRI库 + 闭环反馈 -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">AI运营关键风险指标（KRI）库</h3>
+            <div class="space-y-2">
+                <div class="flex items-center gap-3 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-2 h-2 rounded-full bg-rose-500 flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-xs">内容安全 · 异常内容拦截率 (AIR)</div>
+                        <div class="text-xs text-slate-500">24小时内拦截率突降20%预示策略失效</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-2 h-2 rounded-full bg-amber-500 flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-xs">法律合规 · 算法备案过期/未覆盖率</div>
+                        <div class="text-xs text-slate-500">目标值恒定为0%；一旦未备案上线，强制关停</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-2 h-2 rounded-full bg-sky-500 flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-xs">技术鲁棒性 · 对抗性样本攻击成功率</div>
+                        <div class="text-xs text-slate-500">周期性渗透测试中，成功率需低于0.5%</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-2 h-2 rounded-full bg-violet-500 flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-xs">用户隐私 · 越权访问敏感数据频次</div>
+                        <div class="text-xs text-slate-500">超越API调用基准线的行为触发审计告警</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition">
+                    <div class="w-2 h-2 rounded-full bg-teal-500 flex-shrink-0"></div>
+                    <div class="flex-1">
+                        <div class="font-bold text-slate-800 text-xs">伦理治理 · 歧视性输出反馈量 (DRF)</div>
+                        <div class="text-xs text-slate-500">每万次交互中歧视性投诉超过5件触发优化</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">从维护回到机会识别的闭环反馈</h3>
+            <div class="space-y-4">
+                <div class="flex gap-3 p-4 bg-sky-50 border border-sky-100 rounded-xl">
+                    <span class="text-2xl">⚠️</span>
+                    <div>
+                        <div class="font-bold text-sky-800 text-sm mb-1">异常触发新机会</div>
+                        <div class="text-xs text-sky-700">若某AI用例连续两个季度ROI不达标，治理委员会启动项目中止评估或技术方案重塑</div>
+                    </div>
+                </div>
+                <div class="flex gap-3 p-4 bg-teal-50 border border-teal-100 rounded-xl">
+                    <span class="text-2xl">📦</span>
+                    <div>
+                        <div class="font-bold text-teal-800 text-sm mb-1">成功用例横向复制</div>
+                        <div class="text-xs text-teal-700">CoE将高采纳率、利润拉动显著的用例总结为标准化「AI组件库」，供其他业务线调用</div>
+                    </div>
+                </div>
+                <div class="flex gap-3 p-4 bg-violet-50 border border-violet-100 rounded-xl">
+                    <span class="text-2xl">🔄</span>
+                    <div>
+                        <div class="font-bold text-violet-800 text-sm mb-1">自进化组织的PDCA环</div>
+                        <div class="text-xs text-violet-700">Plan（设定目标）→ Do（自动化采集）→ Check（看板偏差分析）→ Act（调整资源或模型配置）</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kill Switch -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-4">动态干预机制：「死信开关」与优雅降级</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="info-card card-rose p-5">
+                <div class="text-2xl mb-2">⛔</div>
+                <div class="font-black text-rose-800 text-sm mb-1">死信开关（Kill Switch）</div>
+                <p class="text-xs text-rose-700">检测到异常行为时自动触发，防止AI失控造成社会或商业损失</p>
+            </div>
+            <div class="info-card card-amber p-5">
+                <div class="text-2xl mb-2">🔀</div>
+                <div class="font-black text-amber-800 text-sm mb-1">优雅降级策略</div>
+                <p class="text-xs text-amber-700">模型漂移超阈值或置信度过低时，自动切换回传统规则系统</p>
+            </div>
+            <div class="info-card card-sky p-5">
+                <div class="text-2xl mb-2">👤</div>
+                <div class="font-black text-sky-800 text-sm mb-1">Human-in-the-Loop</div>
+                <p class="text-xs text-sky-700">核心指标突破临界值时，系统自动切换到人工干预模式确保安全</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 第五章：落地路线图 ══ -->
+<section id="roadmap" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-gradient-to-b from-sky-600 to-violet-600"></div>
+        <h2 class="text-2xl font-black text-slate-900">落地执行路线图：分阶段实操方案</h2>
+        <span class="text-sm text-slate-500">通过短期「快赢」建立信心，持续推进长期基座建设</span>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+        <div class="space-y-8">
+            <!-- Phase 1 -->
+            <div class="tl-item will-animate">
+                <div class="tl-dot bg-sky-500"></div>
+                <div class="bg-gradient-to-br from-sky-50 to-sky-100 border border-sky-200 rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center gap-3 mb-3">
+                        <span class="phase-badge badge-sky">第一阶段</span>
+                        <span class="font-black text-sky-800 text-lg">战略对齐与基础就绪</span>
+                        <span class="text-xs text-sky-600 font-semibold bg-sky-200 px-3 py-1 rounded-full"></span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <div class="font-bold text-sky-700 text-xs mb-2">📌 核心任务</div>
+                            <ul class="text-xs text-sky-700 space-y-1">
+                                <li>· 任命CAIO，组建跨职能治理委员会</li>
+                                <li>· 发布企业级AI使用政策和道德准则</li>
+                                <li>· 完成初始数据资产盘点，打破数据孤岛</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sky-700 text-xs mb-2">✅ 关键输出</div>
+                            <ul class="text-xs text-sky-700 space-y-1">
+                                <li>· AI转型蓝图获董事会正式通过</li>
+                                <li>· 确立首批2-3个高ROI潜力初步用例</li>
+                                <li>· （如：智能客服或自动化对账）</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-sky-700 text-xs mb-2">🛡️ 治理要点</div>
+                            <ul class="text-xs text-sky-700 space-y-1">
+                                <li>· 重点「止损与清障」</li>
+                                <li>· 识别并停止高风险低回报</li>
+                                <li>· 终止「影子AI」项目</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="tl-item will-animate">
+                <div class="tl-dot bg-teal-500"></div>
+                <div class="bg-gradient-to-br from-teal-50 to-teal-100 border border-teal-200 rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center gap-3 mb-3">
+                        <span class="phase-badge badge-teal">第二阶段</span>
+                        <span class="font-black text-teal-800 text-lg">试点突围与平台搭建</span>
+                        <span class="text-xs text-teal-600 font-semibold bg-teal-200 px-3 py-1 rounded-full"></span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <div class="font-bold text-teal-700 text-xs mb-2">📌 核心任务</div>
+                            <ul class="text-xs text-teal-700 space-y-1">
+                                <li>· 启动试点PoC，受控环境测试性能</li>
+                                <li>· 部署基础MLOps流水线</li>
+                                <li>· 开展全员AI意识培训</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-teal-700 text-xs mb-2">✅ 关键输出</div>
+                            <ul class="text-xs text-teal-700 space-y-1">
+                                <li>· 首批试点项目产生可衡量经济收益</li>
+                                <li>· 人力节省20%+目标验证</li>
+                                <li>· 产出企业级优先级矩阵</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-teal-700 text-xs mb-2">🎯 变革管理</div>
+                            <ul class="text-xs text-teal-700 space-y-1">
+                                <li>· ADKAR模型推进觉察阶段</li>
+                                <li>· 建立渴望（Desire）动员机制</li>
+                                <li>· 破解员工「被取代」的恐惧</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="tl-item will-animate">
+                <div class="tl-dot bg-violet-500"></div>
+                <div class="bg-gradient-to-br from-violet-50 to-violet-100 border border-violet-200 rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center gap-3 mb-3">
+                        <span class="phase-badge badge-violet">第三阶段</span>
+                        <span class="font-black text-violet-800 text-lg">规模化扩展与流程重构</span>
+                        <span class="text-xs text-violet-600 font-semibold bg-violet-200 px-3 py-1 rounded-full"></span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <div class="font-bold text-violet-700 text-xs mb-2">📌 核心任务</div>
+                            <ul class="text-xs text-violet-700 space-y-1">
+                                <li>· 将试点模型推广至全业务线</li>
+                                <li>· 建立AI组件库</li>
+                                <li>· 「企业即代码」试点落地</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-violet-700 text-xs mb-2">✅ 关键输出</div>
+                            <ul class="text-xs text-violet-700 space-y-1">
+                                <li>· 核心指标（OEE、客户留存率）结构性改善</li>
+                                <li>· AI能力跨部门复用实现</li>
+                                <li>· 人机协作正式纳入绩效考核</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-violet-700 text-xs mb-2">⚙️ 工程化深度</div>
+                            <ul class="text-xs text-violet-700 space-y-1">
+                                <li>· MLOps管道自动化深化</li>
+                                <li>· 数据平台一体化</li>
+                                <li>· 治理逻辑「代码化」实时监控</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="tl-item will-animate">
+                <div class="tl-dot bg-rose-500"></div>
+                <div class="bg-gradient-to-br from-rose-50 to-rose-100 border border-rose-200 rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center gap-3 mb-3">
+                        <span class="phase-badge badge-rose">第四阶段</span>
+                        <span class="font-black text-rose-800 text-lg">持续优化与文化固化</span>
+                        <span class="text-xs text-rose-600 font-semibold bg-rose-200 px-3 py-1 rounded-full"></span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <div class="font-bold text-rose-700 text-xs mb-2">📌 核心任务</div>
+                            <ul class="text-xs text-rose-700 space-y-1">
+                                <li>· 建立闭环AI监测与迭代系统</li>
+                                <li>· 探索AI驱动的新商业模式</li>
+                                <li>· 形成「AI优先」的企业文化</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-rose-700 text-xs mb-2">✅ 关键输出</div>
+                            <ul class="text-xs text-rose-700 space-y-1">
+                                <li>· 企业在行业内树立智能标杆地位</li>
+                                <li>· 实现业绩指数级增长</li>
+                                <li>· 完成全普及AI副驾驶工具</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="font-bold text-rose-700 text-xs mb-2">🚀 新商业模式</div>
+                            <ul class="text-xs text-rose-700 space-y-1">
+                                <li>· 探索订阅制商业模式</li>
+                                <li>· 如「预测性维护作为服务」</li>
+                                <li>· 创新压力转化为全员自觉行为</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══ 第六/七/八章整合：变革与风险 ══ -->
+<section id="summary" class="scroll-mt-20">
+    <div class="stitle">
+        <div class="stitle-bar bg-gradient-to-b from-teal-600 to-rose-600"></div>
+        <h2 class="text-2xl font-black text-slate-900">变革管理、风险治理与财务工程</h2>
+        <span class="text-sm text-slate-500">10-20-70法则 · ADKAR模型 · 70-20-10资源配置</span>
+    </div>
+
+    <!-- 10-20-70 + ADKAR -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">10-20-70法则：资源分配黄金比例</h3>
+            <p class="text-xs text-slate-500 mb-4">AI转型成功的核心在于人，过度向技术倾斜极易陷入「试点陷阱」</p>
+            <div class="flex items-end gap-2 mb-4">
+                <div class="flex flex-col items-center">
+                    <div class="w-16 bg-sky-500 rounded-t-lg text-white text-xs font-black flex items-center justify-center" style="height:24px">10%</div>
+                    <div class="text-xs text-center text-slate-600 mt-1 font-medium">技术</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 bg-teal-500 rounded-t-lg text-white text-xs font-black flex items-center justify-center" style="height:48px">20%</div>
+                    <div class="text-xs text-center text-slate-600 mt-1 font-medium">数据</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-20 bg-violet-600 rounded-t-lg text-white text-xs font-black flex items-center justify-center" style="height:120px">70%</div>
+                    <div class="text-xs text-center text-slate-600 mt-1 font-medium">人才&流程</div>
+                </div>
+            </div>
+            <div class="text-xs text-slate-500 bg-slate-50 p-3 rounded-xl">
+                将AI定位为「能力倍增器」：<strong class="text-slate-800">员工不会输给AI，但会输给那些掌握了AI的人</strong>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+            <h3 class="font-black text-slate-900 text-lg mb-4">ADKAR变革管理模型</h3>
+            <div class="space-y-2">
+                <div class="flex items-center gap-3 p-3 bg-sky-50 border border-sky-100 rounded-xl">
+                    <div class="w-8 h-8 rounded-full bg-sky-600 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">A</div>
+                    <div><div class="font-bold text-sky-800 text-sm">觉察 Awareness</div><div class="text-xs text-sky-700">透明沟通转换的必然性，打破信息不对称</div></div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-teal-50 border border-teal-100 rounded-xl">
+                    <div class="w-8 h-8 rounded-full bg-teal-600 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">D</div>
+                    <div><div class="font-bold text-teal-800 text-sm">渴望 Desire</div><div class="text-xs text-teal-700">将AI应用与个人成长、减压挂钩，激发动力</div></div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-violet-50 border border-violet-100 rounded-xl">
+                    <div class="w-8 h-8 rounded-full bg-violet-600 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">K</div>
+                    <div><div class="font-bold text-violet-800 text-sm">知识 Knowledge</div><div class="text-xs text-violet-700">分阶段角色化培训，建立在线学习资源库</div></div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-amber-50 border border-amber-100 rounded-xl">
+                    <div class="w-8 h-8 rounded-full bg-amber-600 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">A</div>
+                    <div><div class="font-bold text-amber-800 text-sm">能力 Ability</div><div class="text-xs text-amber-700">导师制、实操训练营、低风险实验沙盒</div></div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-rose-50 border border-rose-100 rounded-xl">
+                    <div class="w-8 h-8 rounded-full bg-rose-600 text-white font-black flex items-center justify-center flex-shrink-0 text-xs">R</div>
+                    <div><div class="font-bold text-rose-800 text-sm">巩固 Reinforcement</div><div class="text-xs text-rose-700">公开认可早期采用者，将AI贡献纳入绩效考核</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 70-20-10资源配置 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 will-animate">
+        <h3 class="font-black text-slate-900 text-lg mb-4">70-20-10资源配置：动态平衡AI项目组合</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="info-card card-sky p-5">
+                <div class="text-3xl font-black text-sky-600 mb-2">70%</div>
+                <div class="font-black text-sky-800 text-sm mb-1">核心增量项目</div>
+                <p class="text-xs text-sky-700">专注于现有流程的自动化与效率提升，提供稳定的红利，快速实现财务可见性</p>
+            </div>
+            <div class="info-card card-teal p-5">
+                <div class="text-3xl font-black text-teal-600 mb-2">20%</div>
+                <div class="font-black text-teal-800 text-sm mb-1">相邻扩张项目</div>
+                <p class="text-xs text-teal-700">探索跨部门复制潜力，利用成功模型赋能新领域，拓展价值边界</p>
+            </div>
+            <div class="info-card card-violet p-5">
+                <div class="text-3xl font-black text-violet-600 mb-2">10%</div>
+                <div class="font-black text-violet-800 text-sm mb-1">颠覆性项目</div>
+                <p class="text-xs text-violet-700">短期ROI不明显，但关注技术专利、知识积累及新商业模式的孵化，构建未来壁垒</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最终闭环图 -->
+    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-8 mb-6 will-animate">
+        <h3 class="font-black text-white mb-6 text-center text-lg">致董事会与高管层的三项行动建议</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white/8 border border-white/15 rounded-2xl p-5">
+                <div class="text-2xl mb-3">⏳</div>
+                <div class="font-black text-sm text-sky-300 mb-1">保持战略耐心与持续投入</div>
+                <p class="text-xs text-slate-300 leading-relaxed">AI转型不是交钥匙工程，长期的复利效应决定生死。必须确保预算连续性，并容忍探索中的适度失败。</p>
+            </div>
+            <div class="bg-white/8 border border-white/15 rounded-2xl p-5">
+                <div class="text-2xl mb-3">⚖️</div>
+                <div class="font-black text-sm text-teal-300 mb-1">强化治理与伦理基石</div>
+                <p class="text-xs text-slate-300 leading-relaxed">信任是AI应用的最后防线。追求效率的同时绝不跨越法律底线，通过量化指标建立负责任的治理体系。</p>
+            </div>
+            <div class="bg-white/8 border border-white/15 rounded-2xl p-5">
+                <div class="text-2xl mb-3">🌱</div>
+                <div class="font-black text-sm text-violet-300 mb-1">亲自推动文化变革</div>
+                <p class="text-xs text-slate-300 leading-relaxed">高管的态度决定变革成败。身体力行倡导数字化思维，将AI素养作为各级领导力评估的核心维度。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最终循环 -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 will-animate">
+        <h3 class="font-black text-slate-800 mb-6 text-center">运营执行迭代闭环：机会 → 研发 → 部署 → 维护</h3>
+        <div class="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-0">
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-sky-100 to-sky-200 border-2 border-sky-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-sky-700 font-black text-sm leading-tight">机会<br></div>
+                    <div class="text-sky-600 text-xs font-bold mt-0.5">CAIO+CoE</div>
+                    <div class="text-sky-500 text-xs mt-0.5">场景发现</div>
+                </div>
+            </div>
+            <div class="text-3xl text-slate-300 rotate-90 md:rotate-0 mx-2">→</div>
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-teal-100 to-teal-200 border-2 border-teal-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-teal-700 font-black text-sm leading-tight">研发<br></div>
+                    <div class="text-teal-600 text-xs font-bold mt-0.5">MLOps</div>
+                    <div class="text-teal-500 text-xs mt-0.5">FinOps</div>
+                </div>
+            </div>
+            <div class="text-3xl text-slate-300 rotate-90 md:rotate-0 mx-2">→</div>
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-violet-100 to-violet-200 border-2 border-violet-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-violet-700 font-black text-sm leading-tight">部署<br></div>
+                    <div class="text-violet-600 text-xs font-bold mt-0.5">合规备案</div>
+                    <div class="text-violet-500 text-xs mt-0.5">企业即代码</div>
+                </div>
+            </div>
+            <div class="text-3xl text-slate-300 rotate-90 md:rotate-0 mx-2">→</div>
+            <div class="flex flex-col items-center">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-rose-100 to-rose-200 border-2 border-rose-400 flex flex-col items-center justify-center text-center shadow-lg">
+                    <div class="text-rose-700 font-black text-sm leading-tight">维护<br></div>
+                    <div class="text-rose-600 text-xs font-bold mt-0.5">KRI监控</div>
+                    <div class="text-rose-500 text-xs mt-0.5">PDCA环</div>
+                </div>
+            </div>
+            <div class="text-3xl text-sky-300 rotate-90 md:rotate-0 mx-2 opacity-60">↩</div>
+            <div class="text-xs text-slate-400 hidden md:block">持续迭代</div>
+        </div>
+        <p class="text-center text-sm text-slate-500 mt-6 max-w-2xl mx-auto">
+            通过建立分层指标、自动化采集管道、动态决策规则以及「企业即代码」的运营逻辑，企业将能在这场决定命运的转换中锚定增长，实现真正的<strong class="text-slate-800">长青发展</strong>。
+        </p>
+    </div>
+</section>
+
+</main>
+
+<footer class="bg-slate-900 text-slate-400 py-6 px-4 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+        <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded bg-gradient-to-br from-sky-600 to-violet-600 flex items-center justify-center">
+                <span class="text-white text-xs font-black">FO</span>
+            </div>
+            <span class="text-sm font-semibold">AI运营执行落地建议方案</span>
+        </div>
+        <div class="text-xs text-slate-500">企业AI运营 · 机会 → 研发 → 部署 → 维护 · 全生命周期迭代闭环</div>
+    </div>
+</footer>
+
+<script>
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+const sections = ['hero','zhili','yanfa','bushu','weihu','roadmap','summary'];
+const navLinks = document.querySelectorAll('.nav-pill');
+const sectionObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const id = e.target.id;
+            navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+        }
+    });
+}, { threshold: 0.2 });
+sections.forEach(s => { const el = document.getElementById(s); if (el) sectionObs.observe(el); });
+
+const animObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); animObs.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.will-animate').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 65}ms`;
+    animObs.observe(el);
+});
+</script>
+</body>
+</html>

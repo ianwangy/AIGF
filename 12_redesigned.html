@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI技术人才准备执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 520px;
+        margin: auto;
+        height: 320px;
+        max-height: 380px
+    }
+
+    .nav-link:hover {
+        color: #0369a1
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color: #fff
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9
+    }
+
+    .roadmap-step {
+        transition: all 0.2s
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12)
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9
+    }
+
+    .check-item:last-child {
+        border-bottom: none
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform:translateY(6px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width:6px
+    }
+
+    ::-webkit-scrollbar-track {
+        background:#f1f5f9
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: .7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600
+    }
+
+    .exec-tab {
+        transition: all 0.3s
+    }
+
+    .exec-tab:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, .12);
+        border-color: #0369a1
+    }
+
+    .exec-tab.active {
+        background-color: #e0f2fe;
+        border-color: #0369a1
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🎓</span>
+                    <span class="font-bold text-xl tracking-tight text-sky-800">【12】AI技术人才准备</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#overview" class="nav-link text-slate-600 font-medium transition-colors">AI人才概览</a>
+                    <a href="#why" class="nav-link text-slate-600 font-medium transition-colors">为什么做</a>
+                    <a href="#objectives" class="nav-link text-slate-600 font-medium transition-colors">任务目标</a>
+                    <a href="#framework" class="nav-link text-slate-600 font-medium transition-colors">架构模型</a>
+                    <a href="#how" class="nav-link text-slate-600 font-medium transition-colors">如何做</a>
+                    <a href="#roadmap" class="nav-link text-slate-600 font-medium transition-colors">执行路线</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- 概览 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI技术人才准备执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    本方案面向董事会与高管层，聚焦 AI 战略能否落地的人才命题：
+                    <strong class="text-sky-700">技术人才是企业 AI 转型的核心支撑——面对激烈的市场竞争与技术迭代，被动招聘已无法满足需求，必须通过系统化人才战略建立组织的 AI 执行能力</strong>
+                    。
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🧲</div>
+                    <h3 class="font-bold text-slate-800 mb-1">主动吸引</h3>
+                    <p class="text-sm text-slate-600">从被动招聘走向主动生态布局，通过雇主品牌和愿景吸引顶尖 AI 人才。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🌱</div>
+                    <h3 class="font-bold text-slate-800 mb-1">内部培育</h3>
+                    <p class="text-sm text-slate-600">建立分层培训体系，将现有技术人员转化为 AI 能力复合型人才。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🤝</div>
+                    <h3 class="font-bold text-slate-800 mb-1">生态合作</h3>
+                    <p class="text-sm text-slate-600">与高校、研究机构和外部供应商建立深度合作，补充内部能力不足。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">战略目标</span>
+                    <span class="text-2xl font-extrabold text-sky-800 leading-tight">
+                        3年
+                        <br>
+                        全覆盖
+                    </span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">AI 全生命周期人才体系</p>
+                </div>
+            </div>
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">与"被动招聘"模式的本质区别</h2>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">维度</th>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">被动招聘模式</th>
+                                <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">系统化人才战略（本方案）</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">供给来源</td>
+                                <td class="px-5 py-3 text-slate-500">依赖外部市场招募，被动等待候选人</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">内培 + 外引 + 生态合作三路并进，主动创造供给</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">人才结构</td>
+                                <td class="px-5 py-3 text-slate-500">单一技术人才，缺乏业务复合能力</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">技术 + 业务复合型人才，覆盖 AI 全生命周期</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">留存机制</td>
+                                <td class="px-5 py-3 text-slate-500">依赖薪酬竞争，人才流失率高</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">技术愿景 + 成长路径 + 激励体系，系统性留存</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">能力提升</td>
+                                <td class="px-5 py-3 text-slate-500">依赖个人自主学习，无体系支撑</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">分层培训体系 + 项目实战 + 知识社区持续赋能</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">生态建设</td>
+                                <td class="px-5 py-3 text-slate-500">封闭内部，缺乏外部技术网络</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">高校合作 + 研究机构 + 开源社区，建立外部影响力</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3">🔬 本质特征提炼</h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>战略性投入：</strong>
+                                人才是 AI 战略从规划到落地全过程的决定性因素，须视为最高优先级的战略性资本而非成本。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>复合能力需求：</strong>
+                                懂 AI 技术 + 懂业务场景的复合型人才是最稀缺资源，须系统性培育而非单纯外招。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>持续学习机制：</strong>
+                                AI 技术更新极快，须建立组织级持续学习能力，而非一次性培训。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>生态思维：</strong>
+                                人才不只来自内部，须将高校/开源社区/合作伙伴纳入人才生态，扩大供给来源。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3">🏭 行业典型表现</h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>互联网头部：</strong>
+                                建立 AI 人才学院后，算法工程师内部晋升比例从 20% 升至 55%，人才流失率下降 40%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>金融业：</strong>
+                                高校合作项目年均输送 30 名实习生，转正率 60%，招聘成本比外部市场降低 65%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业：</strong>
+                                内部"AI 转型"培训计划 12 个月覆盖 200 名工程师，外部招聘需求降低 35%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>SaaS 企业：</strong>
+                                设立 AI 人才专项薪酬后，核心算法团队流失率从 28% 降至 9%，节省猎头费用 200 万+。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 为什么做 -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：四大核心驱动力</h2>
+                <p class="text-slate-500 mt-2 pl-5">AI 人才市场长期供不应求，主动布局不是优化选项，而是生存必要条件。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚡</span>
+                        <h3 class="font-bold text-red-800">技术能力缺口与快速迭代</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 转型需要全新能力，现有人才储备不足。AI 技术每 6 个月迭代一代，须建立持续学习机制，否则人才会持续面临"能力过期"风险，企业将陷入永远追赶的困境。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🏆</span>
+                        <h3 class="font-bold text-red-800">市场竞争与主动布局</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 人才市场长期供不应求，薪资溢价高达 30–50%。纯靠市场竞争招募的策略成本极高且不可持续——必须化被动招聘为主动生态布局，才能获得可持续的竞争优势。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🧬</span>
+                        <h3 class="font-bold text-red-800">业务技术融合与文化转型</h3>
+                    </div>
+                    <p class="text-sm text-red-700">单纯的技术人员不够，需要懂业务的复合人才。技术团队的 AI 化将带动全组织的创新文化——人才战略不只是解决岗位空缺，更是推动文化变革的重要杠杆。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💡</span>
+                        <h3 class="font-bold text-sky-800">人才是 AI 战略的决定性因素</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">
+                        再好的 AI 战略没有能执行的人才，都只是停留在 PPT 上。人才投资的回报率是所有 AI 投资中最高且最持久的——
+                        <strong>人才密度决定 AI 战略的天花板</strong>
+                        。
+                    </p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">组织 AI 能力：现状 vs 目标</h3>
+                    <p class="text-sm text-slate-500 mb-5">通过系统化人才战略，弥补现状与目标之间的差距，在五大维度实现能力的跃升。</p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                            <span class="text-xs text-slate-500 w-20 shrink-0 text-right">算法能力</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-sky-600 rounded-full" style="width:56%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-sky-700 w-20">45→80</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                            <span class="text-xs text-slate-500 w-20 shrink-0 text-right">工程能力</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-sky-600 rounded-full" style="width:71%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-sky-700 w-20">60→85</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                            <span class="text-xs text-slate-500 w-20 shrink-0 text-right">业务融合</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-amber-500 rounded-full" style="width:53%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-amber-700 w-20">40→75</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                            <span class="text-xs text-slate-500 w-20 shrink-0 text-right">合规安全</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-sky-600 rounded-full" style="width:63%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-sky-700 w-20">50→80</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50">
+                            <span class="text-xs text-slate-500 w-20 shrink-0 text-right">创新文化</span>
+                            <div class="flex-1 h-2 bg-slate-200 rounded-full">
+                                <div class="h-2 bg-amber-500 rounded-full" style="width:50%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-amber-700 w-20">35→70</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="radarChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务目标 -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：五大维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">将宏观人才战略分解为五个维度的具体量化要求，每组附可追踪的 KPI 验收标准。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📐</span>
+                        <h3 class="font-bold text-slate-800">人才规模与结构</h3>
+                        <span class="ml-auto badge-core">战略对齐</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 人才地图（现状 vs 目标），3 年期人才补充计划明确</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>覆盖 AI 全生命周期岗位（算法/工程/运营/合规），各岗位缺口可量化</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>核心技术岗位（CAIO/ML工程/数据科学）填充率达到 80% 以上</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>业务 + 技术复合型人才比例达到团队总数 30% 以上</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🌱</span>
+                        <h3 class="font-bold text-slate-800">能力建设与培训</h3>
+                        <span class="ml-auto badge-core">能力核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立分层培训体系（全员基础 / 业务骨干 / 技术精英三层）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>全员 AI 基础素养培训覆盖率 ≥ 80%（12 个月内完成）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>关键技术岗位认证率（行业/内部认证）≥ 60%</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立内部 AI 知识社区（CoP），月活用户 ≥ 200 人</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🎯</span>
+                        <h3 class="font-bold text-slate-800">招聘效能提升</h3>
+                        <span class="ml-auto badge-new">效率目标</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>关键 AI 岗位平均招聘周期 ≤ 45 天（行业平均 90 天）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立与 3 所以上高校的实习合作，年均输送实习生 ≥ 20 人</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>实习生转正率 ≥ 50%，实现低成本高质量人才获取</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>内部推荐比例提升至 30%+，提升招聘质量与文化契合度</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔒</span>
+                        <h3 class="font-bold text-slate-800">人才留存与激励</h3>
+                        <span class="ml-auto badge-core">留存保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>核心 AI 人才年度流失率控制在 10% 以内（行业平均 20%+）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 人才专项薪酬体系和期权/股权激励方案</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>设立明确 AI 人才晋升通道（技术序列 + 管理序列双通道）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>年度员工满意度调查中 AI 团队满意度 ≥ 80%</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm col-span-1 md:col-span-2 xl:col-span-1">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🌐</span>
+                        <h3 class="font-bold text-slate-800">生态合作与文化建设</h3>
+                        <span class="ml-auto badge-new">长效保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>与 3+ 所高校签署战略合作协议，建立稳定人才输送管道</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>与 AI 技术供应商建立深度合作，借助外部力量补充能力短板</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立"AI 创新奖"和"技术布道师"文化激励机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>年度技术分享/黑客松活动 ≥ 4 次，激发创新活力</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 架构模型 -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 12）。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07 · 08</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- 如何做 -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：四大人才战略执行模块</h2>
+                <p class="text-slate-500 mt-2 pl-5">覆盖人才获取、能力建设、留存激励和生态合作四个核心执行方向，点击模块展开详情。</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5" id="exec-tabs">
+                <div class="exec-tab active bg-white border-2 rounded-xl p-5 cursor-pointer text-center" data-target="track-acquire">
+                    <div class="text-3xl mb-2">🧲</div>
+                    <h3 class="font-bold text-slate-800 text-sm">人才获取</h3>
+                    <p class="text-xs text-slate-500 mt-1">招聘 · 高校 · 生态</p>
+                </div>
+                <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-build">
+                    <div class="text-3xl mb-2">🌱</div>
+                    <h3 class="font-bold text-slate-800 text-sm">能力建设</h3>
+                    <p class="text-xs text-slate-500 mt-1">培训 · 认证 · 实战</p>
+                </div>
+                <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-retain">
+                    <div class="text-3xl mb-2">🔒</div>
+                    <h3 class="font-bold text-slate-800 text-sm">留存激励</h3>
+                    <p class="text-xs text-slate-500 mt-1">薪酬 · 晋升 · 文化</p>
+                </div>
+                <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-ecosystem">
+                    <div class="text-3xl mb-2">🌐</div>
+                    <h3 class="font-bold text-slate-800 text-sm">生态合作</h3>
+                    <p class="text-xs text-slate-500 mt-1">高校 · 机构 · 品牌</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[320px]">
+                <div id="track-acquire" class="exec-detail fade-in">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">🧲</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">人才获取：三路并进策略</h3>
+                            <p class="text-sm text-slate-500">目标：从被动招募走向主动生态布局，多元渠道保障人才供给</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-3 text-sm">🔍 外部精准招募</h4>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     关键岗位（CAIO/算法/MLOps）直接猎头，缩短招聘周期 ≤45天
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     建立 AI 人才专项薪酬体系，薪资竞争力达市场 P75 以上
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     内部推荐激励，目标占招聘总量 30%+
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-3 text-sm">🎓 高校生态布局</h4>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     签约 3+ 所 AI 领域强校，建立稳定实习通道
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     联合开设课程、提供数据集，建立学术合作关系
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     定向培养计划：签约优秀毕业生提前锁定人才
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-3 text-sm">🌱 内部转化培育</h4>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     识别内部有潜力的技术人员，提供 AI 转型培训路径
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     建立"AI 新手村"计划，6 个月系统培养 AI 工程能力
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     内转成功率目标 ≥ 60%，成本仅为外部招聘 30%
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="track-build" class="exec-detail hidden">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">🌱</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">能力建设：分层培训体系</h3>
+                            <p class="text-sm text-slate-500">目标：建立可持续的组织 AI 能力，让每个人都能在 AI 时代保持竞争力</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-700 mb-2 text-sm">🌍 全员基础层</h4>
+                            <p class="text-xs text-slate-500 mb-3">目标：全员覆盖率 ≥ 80%</p>
+                            <ul class="space-y-1 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 基础认知与应用工具培训
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     部门场景下的 AI 辅助工作实践
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 伦理与数据安全合规意识
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-sky-50 p-5 rounded-xl border border-sky-200">
+                            <h4 class="font-bold text-sky-700 mb-2 text-sm">💼 业务骨干层</h4>
+                            <p class="text-xs text-slate-500 mb-3">目标：覆盖业务骨干 ≥ 50%</p>
+                            <ul class="space-y-1 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 项目需求定义与评估方法
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     Prompt 工程与 RAG 应用实践
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 价值度量与 ROI 分析
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 p-5 rounded-xl border border-amber-200">
+                            <h4 class="font-bold text-amber-700 mb-2 text-sm">🚀 技术精英层</h4>
+                            <p class="text-xs text-slate-500 mb-3">目标：认证率 ≥ 60%</p>
+                            <ul class="space-y-1 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     大模型微调与 RAG 系统开发
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     MLOps 平台建设与运维
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 系统架构设计与优化
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-5 bg-slate-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                        <strong class="text-slate-700">💡 关键原则：</strong>
+                        <span class="text-slate-600">培训须与实战结合——理论学习 30%，项目实战 70%。每次培训后须有明确的"学以致用"任务，否则培训效果将迅速衰减。</span>
+                    </div>
+                </div>
+                <div id="track-retain" class="exec-detail hidden">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">🔒</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">留存激励：系统性人才保留机制</h3>
+                            <p class="text-sm text-slate-500">目标：核心 AI 人才流失率控制在 10% 以内</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">
+                                <span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>
+                                薪酬与财务激励
+                            </h4>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     AI 专项薪酬体系，薪资竞争力达市场 P75 以上
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     期权/限制性股票激励，绑定核心人才 3–4 年
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     技术专利奖励，成果与个人收益直接挂钩
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     年度竞争力薪酬调研，每年至少 1 次市场对标
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">
+                                <span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>
+                                成长与文化激励
+                            </h4>
+                            <ul class="space-y-2 text-sm text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     双通道晋升路径（技术专家 + 管理方向），打破"千军万马过独木桥"
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     "AI 布道师"荣誉体系，公开表彰技术影响力
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     学术发表支持（论文发表奖励/会议演讲资助）
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     20% 自由探索时间，允许追求前沿技术兴趣
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="track-ecosystem" class="exec-detail hidden">
+                    <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                        <span class="text-2xl">🌐</span>
+                        <div>
+                            <h3 class="text-xl font-bold text-sky-800">生态合作：建立外部人才网络</h3>
+                            <p class="text-sm text-slate-500">目标：将高校/研究机构/开源社区纳入企业人才生态，扩大供给来源并建立行业影响力</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-700 mb-3 text-sm">🎓 高校合作</h4>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     签约 AI 领域强校，建立实习和定向培养通道
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     联合开设课程，企业工程师担任客座讲师
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     提供真实业务数据集，联合开展应用研究
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-700 mb-3 text-sm">🔬 研究机构合作</h4>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     联合研发项目，探索前沿 AI 技术应用可能
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     专家顾问团：邀请学术界专家担任技术顾问
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     共同申请科研基金，降低前沿探索成本
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-700 mb-3 text-sm">🌍 雇主品牌建设</h4>
+                            <ul class="space-y-2 text-xs text-slate-600">
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     参加/主办 AI 技术峰会，展示工程实力
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     开源贡献计划，在 AI 社区建立技术声誉
+                                </li>
+                                <li class="check-item">
+                                    <span class="text-slate-400">▸</span>
+                                     技术博客/白皮书发布，输出行业影响力
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 执行路线 -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：人才战略三年推进图</h2>
+                <p class="text-slate-500 mt-2 pl-5">从基础建设到生态成熟，分五步系统化建立企业 AI 人才体系。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"人才密度决定 AI 战略的天花板——投资 AI 技术不如投资能驾驭 AI 的人。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        new Chart(document.getElementById('radarChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['算法能力', '工程能力', '业务融合', '合规安全', '创新文化'],
+                datasets: [{
+                    label: '当前状态',
+                    data: [45, 60, 40, 50, 35],
+                    backgroundColor: 'rgba(148,163,184,0.2)',
+                    borderColor: '#94a3b8',
+                    borderWidth: 1.5,
+                    borderDash: [4, 4]
+                }, {
+                    label: '目标状态',
+                    data: [80, 85, 75, 80, 70],
+                    backgroundColor: 'rgba(3,105,161,0.15)',
+                    borderColor: '#0369a1',
+                    pointBackgroundColor: '#d97706',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        pointLabels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 12
+                            },
+                            color: '#1e293b'
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 11
+                            },
+                            boxWidth: 12
+                        }
+                    }
+                }
+            }
+        });
+
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: '人才战略须与 AI 战略转型方向对齐，配合变革管理推动人才文化转变，支撑运营模式转换所需的新型人才能力，并随技术路线迁移同步升级人才技能要求。',
+                components: [{
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: 'AI 战略转型定义了企业 AI 方向和场景优先级，从而决定了需要什么类型、数量和能力水平的人才。人才战略须与战略路线图动态对齐，确保人才供给与战略需求同步。',
+                    core: true
+                }, {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: 'AI 转型要求现有员工的思维模式和工作方式发生根本性转变。人才战略与变革管理须紧密协同——培训计划、文化激励、领导力示范共同形成推动人才适应变革的合力。',
+                    core: true
+                }, {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: 'AI 驱动的运营模式转换需要大量具备"AI + 业务"复合能力的人才。运营模式转换的成功，在很大程度上取决于是否有足够多的人才能够驾驭新的智能化工作方式。',
+                    core: false
+                }, {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '技术路线迁移（如向云原生/MLOps 迁移）伴随着巨大的技术人才需求变化。须提前规划培训和招聘，确保在技术平台升级时有足够多的人才能够有效使用新平台。',
+                    core: false
+                }]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'AI 人才是所有价值创造活动的执行主体——没有人才，赋能无从落地，创新无法孵化，指标无人追踪，适用性评估也缺乏专业能力。',
+                components: [{
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: 'AI 赋能的质量和深度取决于执行人才的能力——既能理解 AI 技术，又能把握业务痛点的复合型人才，是 AI 赋能从"有意义的试点"走向"可规模化落地"的决定性因素。',
+                    core: true
+                }, {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: '创新孵化需要既有技术洞察力又有业务创造力的人才。敏捷小队的成员素质直接决定创新速度和成果质量——人才是创新应用模式最重要的生产要素。',
+                    core: true
+                }, {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: '建立和维护 AI 价值度量体系需要兼具数据分析、AI 工程和业务理解的复合型人才。人才能力不足是企业无法建立有效指标体系的最常见根本原因之一。',
+                    core: false
+                }, {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: '技术适用性评估需要专业的 AI 技术人才（评估技术方案）和业务人才（判断业务场景适配性）共同参与，人才配置是适用性评估质量的重要保障。',
+                    core: false
+                }]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: '领导层须为人才战略提供资源背书，治理委员会审批人才战略规划，AI 运营团队是人才的主要使用方，三者共同构成人才体系的组织支撑。',
+                components: [{
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '领导层的 AI 素养和个人示范对人才的吸引和保留有直接影响——顶尖 AI 人才更愿意加入有"懂技术的领导"的企业，高管的 AI 文化信号是强大的人才磁石。',
+                    core: true
+                }, {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '治理委员会审批人才战略规划和关键岗位的预算，确保人才投入与 AI 战略优先级对齐；同时监督人才建设的进展，在资源紧张时为人才投资的优先级提供决策背书。',
+                    core: true
+                }, {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE 是 AI 人才的主要使用方，同时也是内部人才培育的核心平台——通过项目实战培养复合型 AI 人才，沉淀方法论降低新人上手成本，向其他部门输出 AI 素养。',
+                    core: true
+                }]
+            },
+            risk: {
+                title: '🛡️ 风险管控层',
+                desc: '人才战略本身也存在战略风险（方向判断失误）和运营风险（人才意外流失），须纳入企业 AI 风险管控体系统一管理。',
+                components: [{
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: '人才方向押注错误是 AI 人才战略的最大战略风险——如大量培养某项不成熟技术的人才，或错误判断人才需求规模。须通过定期的人才战略回顾和市场动态追踪来降低此风险。',
+                    core: false
+                }, {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: 'AI 风险管理需要具备可解释性、安全评估和合规审查能力的专业人才。人才能力不足将直接导致 AI 风险管控体系形同虚设，因为无人能有效执行风险评估标准。',
+                    core: true
+                }, {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: '核心 AI 人才的意外流失是重大 AI 运营风险——关键模型可能因人才流失而无法维护，核心知识可能随人才离职而流失。须建立关键岗位人才备份和知识沉淀机制。',
+                    core: true
+                }, {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: '信创合规对人才有特殊要求——需要熟悉国产技术栈的工程人才。须在人才战略中专门规划信创能力人才的培育和引进路径，确保合规转型有人才支撑。',
+                    core: false
+                }]
+            }
+        };
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        document.querySelectorAll('#exec-tabs .exec-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('#exec-tabs .exec-tab').forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.add('border-slate-200');
+                });
+                tab.classList.add('active');
+                tab.classList.remove('border-slate-200');
+                const target = tab.getAttribute('data-target');
+                document.querySelectorAll('.exec-detail').forEach(d => {
+                    d.classList.add('hidden');
+                    d.classList.remove('fade-in');
+                });
+                const panel = document.getElementById(target);
+                panel.classList.remove('hidden');
+                void panel.offsetWidth;
+                panel.classList.add('fade-in');
+            });
+        });
+
+        const steps = [{
+            phase: '第一步',
+            title: '现状诊断与战略规划',
+            desc: '完成 AI 人才现状盘点，建立人才地图，明确各岗位缺口，制定 3 年期人才战略规划，获得高管层和治理委员会审批。',
+            deliverable: '交付物：AI 人才地图 · 缺口分析报告 · 3年人才战略'
+        }, {
+            phase: '第二步',
+            title: '核心人才获取与培训体系建立',
+            desc: '启动关键岗位招聘（CAIO/MLOps/算法），签约 1–2 所高校建立实习通道，同时发布分层培训体系方案并完成首批全员基础培训。',
+            deliverable: '交付物：核心岗位入职 · 高校合作协议 · 培训体系方案'
+        }, {
+            phase: '第三步',
+            title: '能力验证与规模复制',
+            desc: '完成首批关键岗位技术认证，业务骨干培训覆盖率达 50%，建立内部 AI 知识社区，将成功培训经验标准化为可规模复制的方法论。',
+            deliverable: '交付物：认证率报告 · 知识社区上线 · 培训方法论手册'
+        }, {
+            phase: '第四步',
+            title: '留存机制完善与生态建设',
+            desc: '完成 AI 专项薪酬体系和双通道晋升制度的建立，核心人才流失率控制在 10% 以内；深化高校合作，建立研究机构联合研发项目。',
+            deliverable: '交付物：薪酬体系方案 · 晋升通道文档 · 年度流失率报告'
+        }, {
+            phase: '第五步（持续进行）',
+            title: '生态成熟与行业影响力',
+            desc: '建立可持续人才生态：实习生转正率稳定 ≥50%，开源贡献和技术发布建立行业品牌，全员 AI 素养覆盖率 ≥80%，成为行业 AI 人才标杆企业。',
+            deliverable: '里程碑：行业人才品牌 · 全员覆盖率 ≥80% · 生态成熟度报告'
+        }];
+        const container = document.getElementById('roadmap-container');
+        steps.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === steps.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

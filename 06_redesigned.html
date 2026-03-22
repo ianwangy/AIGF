@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI创新应用模式执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 300px;
+        max-height: 380px;
+    }
+
+    @media (min-width: 768px) {
+        .chart-container {
+            height: 340px;
+        }
+    }
+
+    .nav-link {
+        transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+        color: #0369a1;
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent;
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color: #fff;
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9;
+    }
+
+    .exec-tab {
+        transition: all 0.3s;
+    }
+
+    .exec-tab:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+        border-color: #0369a1;
+    }
+
+    .exec-tab.active {
+        background-color: #e0f2fe;
+        border-color: #0369a1;
+    }
+
+    .phase-card {
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+    .phase-card:hover {
+        border-color: #0369a1;
+        background-color: #f0f9ff;
+    }
+
+    .phase-card.active {
+        border-color: #0369a1;
+        background-color: #e0f2fe;
+    }
+
+    .roadmap-step {
+        transition: all 0.2s;
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .check-item:last-child {
+        border-bottom: none;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem;
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🚀</span>
+                    <span class="font-bold text-xl tracking-tight text-sky-800">【06】AI创新应用模式</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-7">
+                    <a href="#overview" class="nav-link text-slate-600 font-medium">AI创新概览</a>
+                    <a href="#why" class="nav-link text-slate-600 font-medium">为什么做</a>
+                    <a href="#objectives" class="nav-link text-slate-600 font-medium">任务目标</a>
+                    <a href="#framework" class="nav-link text-slate-600 font-medium">架构模型</a>
+                    <a href="#how" class="nav-link text-slate-600 font-medium">如何做</a>
+                    <a href="#roadmap" class="nav-link text-slate-600 font-medium">执行路线</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- ══ SECTION 1 · 创新概览 ══ -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI创新应用模式执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+
+                                本方案面向董事会与高管层，聚焦 AI 创新落地的核心命题：
+                                
+                    <strong class="text-sky-700">建立"探索→孵化→验证→推广"的敏捷创新机制，跨越从单点试点到规模化落地的鸿沟，实现"平台能力 + 场景应用"双轮驱动</strong>
+                    。
+                            
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">⚡</div>
+                    <h3 class="font-bold text-slate-800 mb-1">应对不确定性</h3>
+                    <p class="text-sm text-slate-600">建立敏捷机制，通过快速试点验证场景价值，避免"为AI而AI"的技术秀。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🌉</div>
+                    <h3 class="font-bold text-slate-800 mb-1">跨越规模化鸿沟</h3>
+                    <p class="text-sm text-slate-600">敏捷小队打破部门壁垒，将成功经验标准化，显著降低推广复制成本。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">∞</div>
+                    <h3 class="font-bold text-slate-800 mb-1">持续创新生态</h3>
+                    <p class="text-sm text-slate-600">整合内外资源，形成"内部孵化+外部引入+联合创新"的平台化运营生态。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">创新预算占比</span>
+                    <span class="text-4xl font-extrabold text-sky-800">
+                        10–20
+                        <span class="text-2xl">%</span>
+                    </span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">AI总预算中用于创新孵化的专项预算</p>
+                </div>
+            </div>
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">与"项目制 AI 交付"的本质区别</h2>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase w-28">维度</th>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">传统项目制交付</th>
+                                <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">AI创新应用模式（本方案）</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">决策节奏</td>
+                                <td class="px-5 py-3 text-slate-500">立项评审周期长（月级），错失时间窗口</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">2 周内完成立项评审，快速决策、容错前行</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">创新来源</td>
+                                <td class="px-5 py-3 text-slate-500">自上而下指派，缺乏业务侧主动参与</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">全员创意征集 + 外部标杆引入，多元来源</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">验证方式</td>
+                                <td class="px-5 py-3 text-slate-500">全量开发后上线，失败成本极高</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">MVP + A/B 测试 + 种子用户共创，低成本验证</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">成果复用</td>
+                                <td class="px-5 py-3 text-slate-500">各项目独立交付，经验无法沉淀复用</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">提炼可复制模式，API 化封装，一次开发多场景复用</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">生态建设</td>
+                                <td class="px-5 py-3 text-slate-500">封闭式内部执行，无外部资源整合</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">内外协同：供应商 + 高校 + 开源社区联合创新</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3 flex items-center gap-2">
+                        <span>🔬</span>
+                         本质特征提炼
+                    </h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>分类治理：</strong>
+                                将应用划分为探索类、试点类、推广类、规模化类，不同类别不同资源配置与决策标准。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>敏捷小队：</strong>
+                                跨职能组合（产品+开发+数据+业务），2–4 周迭代，聚焦核心功能快速交付 MVP。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>Go/No-Go 节点：</strong>
+                                每个试点设定明确成功指标，数据说话，防止"僵尸项目"消耗资源。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>模式沉淀：</strong>
+                                每个成功场景提炼实施手册+模板库，降低下一个场景的推广门槛。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <span>🏭</span>
+                         行业典型表现
+                    </h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>互联网：</strong>
+                                建立 AI 创新孵化器后，从创意到上线周期从 6 个月压缩至 6 周，创新吞吐量提升 5 倍。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>金融业：</strong>
+                                通过敏捷小队机制，智能风控 MVP 在 4 周内上线，首年节省人工复核成本超 20%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业：</strong>
+                                可复制模式库建立后，AI 质检场景跨产线复制仅需 2 周，推广成本下降 70%+。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>零售业：</strong>
+                                全员创意征集活动识别出 3 个月内可落地的"快赢"场景 12 个，3 个月内完成试点并推广。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 2 · 为什么做 ══ -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：三大战略必要性</h2>
+                <p class="text-slate-500 mt-2 pl-5">传统瀑布式开发已无法适应大模型时代每月一迭代的演进速度，以下三大驱动力使全新治理模式不可或缺。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚡</span>
+                        <h3 class="font-bold text-red-800">技术不确定性倒逼敏捷</h3>
+                    </div>
+                    <p class="text-sm text-red-700">大模型每 3–6 个月迭代一代，场景价值必须通过快速实践验证，而非在会议室里讨论。传统立项周期长达数月，意味着每次都在追赶已过时的技术。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🌉</span>
+                        <h3 class="font-bold text-red-800">单点成功无法自动规模化</h3>
+                    </div>
+                    <p class="text-sm text-red-700">70% 的企业 AI 试点停留在"实验室"阶段，无法复制到更多场景。根本原因是缺乏标准化的模式沉淀机制——每次推广都要"从零开始"，成本无法下降。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">∞</span>
+                        <h3 class="font-bold text-sky-800">持续创新能力是护城河</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">AI 竞争已从"拥有模型"演进为"持续创新的组织能力"。建立创新生态的先行者，将在每一轮技术迭代中持续扩大优势，形成竞争对手难以追赶的创新飞轮。</p>
+                </div>
+            </div>
+            
+                
+            </div>
+        </section>
+
+        <!-- ══ SECTION 3 · 任务目标 ══ -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：五大核心任务柱 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按创新管理子主题分组，每组附可落地验收标准，供创新孵化团队与业务负责人对标自查。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">⚙️</span>
+                        <h3 class="font-bold text-slate-800">建立创新治理体系</h3>
+                        <span class="ml-auto badge-core">基础优先</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 创新应用分类体系（探索/试点/推广/规模化）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>成立创新评审委员会，2 周内完成立项评审</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立全生命周期管理机制与资源池管理制度</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>设立容错机制，允许试点失败、鼓励快速复盘</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔍</span>
+                        <h3 class="font-bold text-slate-800">探索多元化场景</h3>
+                        <span class="ml-auto badge-new">持续进行</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>组织全员创意征集，识别 ≥20 个候选高频场景</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>筛选首批 3–5 个试点场景（快赢 + 战略场景分层）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>跟踪外部标杆，评估外部应用模式本企业适用性</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 技术雷达与预研小组（多模态/Agent 等）</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🚀</span>
+                        <h3 class="font-bold text-slate-800">建立敏捷试点机制</h3>
+                        <span class="ml-auto badge-core">核心执行</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>组建跨职能敏捷小队，实现 2–4 周迭代节奏</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>使用低代码 / 低门槛工具快速开发 MVP</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>邀请 10–30 名种子用户共创，实施 A/B 测试</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>设定清晰成功指标，执行 Go/No-Go 节点决策</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📦</span>
+                        <h3 class="font-bold text-slate-800">形成可复制模式</h3>
+                        <span class="ml-auto badge-core">价值放大</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>提炼 ≥3 个可复制应用模式，编写实施手册</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>将能力服务化与 API 化，"一次开发、多场景复用"</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立代码 / 流程 / 文档等模板库，降低复用门槛</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立版本管理与低效应用退役闭环机制</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🌱</span>
+                        <h3 class="font-bold text-slate-800">构建创新应用生态</h3>
+                        <span class="ml-auto badge-new">长效保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立跨部门 AI 创新联盟，设立奖金 / 晋升激励</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>与 AI 供应商、高校、开源社区建立战略合作</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>组织创新挑战赛 / 黑客松，每年至少举办 2 次</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>形成"人人都是创新者"的全员参与文化体系</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">📏</span>
+                        <h3 class="font-bold text-slate-800">价值度量与治理</h3>
+                        <span class="ml-auto badge-core">决策依据</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立创新投资 ROI 评估体系（短期效率 + 长期壁垒）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>月度复盘机制：所有活跃试点的进度与关键指标</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立创新成果对外发布机制，提升组织品牌</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期评估并淘汰低效应用，释放资源给新机会</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 4 · 架构模型 ══ -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 06），按四层架构分组。点击左侧层级查看每个组件与 AI 创新应用模式的协同关系。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[460px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04｜战略到底座</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 07 · 08｜赋能、度量与选型</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11 · 12｜领导、治理与人才</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16｜全维度风险防控</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 5 · 如何做 ══ -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：六阶段创新执行详解</h2>
+                <p class="text-slate-500 mt-2 pl-5">点击下方阶段卡片，查看每个阶段的核心任务与关键交付物。</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-5" id="phase-cards">
+                <div class="phase-card active bg-white border-2 rounded-xl p-4 text-center" onclick="showPhase(0,this)">
+                    <div class="text-xs font-bold text-slate-400 mb-1">阶段 1</div>
+                    <div class="font-bold text-slate-800 text-sm">机制建设</div>
+                    <div class="text-xs text-slate-400 mt-1">启动</div>
+                </div>
+                <div class="phase-card bg-white border-2 border-slate-200 rounded-xl p-4 text-center" onclick="showPhase(1,this)">
+                    <div class="text-xs font-bold text-slate-400 mb-1">阶段 2</div>
+                    <div class="font-bold text-slate-800 text-sm">场景探索</div>
+                    <div class="text-xs text-slate-400 mt-1"></div>
+                </div>
+                <div class="phase-card bg-white border-2 border-slate-200 rounded-xl p-4 text-center" onclick="showPhase(2,this)">
+                    <div class="text-xs font-bold text-slate-400 mb-1">阶段 3</div>
+                    <div class="font-bold text-slate-800 text-sm">敏捷试点</div>
+                    <div class="text-xs text-slate-400 mt-1"></div>
+                </div>
+                <div class="phase-card bg-white border-2 border-slate-200 rounded-xl p-4 text-center" onclick="showPhase(3,this)">
+                    <div class="text-xs font-bold text-slate-400 mb-1">阶段 4</div>
+                    <div class="font-bold text-slate-800 text-sm">模式沉淀</div>
+                    <div class="text-xs text-slate-400 mt-1">试点后</div>
+                </div>
+                <div class="phase-card bg-white border-2 border-slate-200 rounded-xl p-4 text-center" onclick="showPhase(4,this)">
+                    <div class="text-xs font-bold text-slate-400 mb-1">阶段 5</div>
+                    <div class="font-bold text-slate-800 text-sm">规模推广</div>
+                    <div class="text-xs text-slate-400 mt-1"></div>
+                </div>
+                <div class="phase-card bg-white border-2 border-slate-200 rounded-xl p-4 text-center" onclick="showPhase(5,this)">
+                    <div class="text-xs font-bold text-slate-400 mb-1">阶段 6</div>
+                    <div class="font-bold text-slate-800 text-sm">持续创新</div>
+                    <div class="text-xs text-slate-400 mt-1">永续进行</div>
+                </div>
+            </div>
+            <div class="bg-slate-800 text-white p-8 rounded-2xl relative overflow-hidden" id="phase-detail">
+                <div class="absolute top-0 right-0 p-6 opacity-10 text-8xl leading-none" id="phase-icon">⚙️</div>
+                <h3 class="text-xl font-bold mb-4 flex items-center gap-3" id="phase-title">
+                    <span class="bg-sky-600 text-white text-xs px-3 py-1 rounded-full"></span>
+                     机制建设
+                </h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-sky-300 font-bold mb-3 pb-2 border-b border-slate-700" id="phase-col1-title">体系与标准设计</h4>
+                        <ul class="space-y-2 text-slate-300 text-sm" id="phase-col1"></ul>
+                    </div>
+                    <div>
+                        <h4 class="text-sky-300 font-bold mb-3 pb-2 border-b border-slate-700" id="phase-col2-title">组织与资源准备</h4>
+                        <ul class="space-y-2 text-slate-300 text-sm" id="phase-col2"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 6 · 执行路线 ══ -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：六阶段推进时间轴</h2>
+                <p class="text-slate-500 mt-2 pl-5">从机制建设到持续创新，12–18 个月的完整推进路径，各阶段明确里程碑与核心交付物。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"创新不是一次性项目，而是组织的持续能力——当每个人都是创新者，AI 将成为企业最持久的竞争优势。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+
+        
+
+        // ── 架构模型 ────────────────────────────────────────────────
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: 'AI创新应用模式是AI战略的实验与探索引擎，须与战略方向对齐，并依赖变革管理确保组织接受、运营模式承接创新成果、技术路线提供孵化底座。',
+                components: [
+                {
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: '创新应用模式是AI战略转型的探索层——为战略方向提供持续的实验验证，将战略意图转化为可落地的场景试点，形成战略-执行的双向反馈。',
+                    core: true
+                },
+                {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: '创新意味着变化，每一个成功的创新应用都需要变革管理确保新流程、新工具被业务团队真正接受。变革管理是创新从"实验室"走向"生产"的关键桥梁。',
+                    core: true
+                },
+                {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: '创新应用模式孵化的成果，最终须由运营模式转换承接落地。成功的创新场景会推动运营流程改变，两者形成"创新驱动运营，运营验证创新"的互补关系。',
+                    core: false
+                },
+                {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '敏捷试点和MVP开发依赖于就绪的技术基础设施——云原生弹性算力、AI能力中台、MLOps体系。技术路线迁移为创新孵化提供低摩擦的技术环境。',
+                    core: false
+                }
+                ]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'AI创新应用模式是VS赋能的具体实现路径，须通过VO可量化指标验证价值，并依托VT适用性选择确保每个创新场景在技术和业务上双向适配。',
+                components: [
+                {
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: '创新应用模式是VS价值赋能的具体落地机制——通过有组织的创新探索，发现AI赋能业务的新场景和新路径，将赋能能力不断向新的业务领域延伸。',
+                    core: true
+                },
+                {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: '每个创新试点的价值须通过量化指标验证：ROI、效率提升、NPS改善、采用率……VO提供创新投资的价值证明机制，也是Go/No-Go节点决策的客观依据。',
+                    core: true
+                },
+                {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: '在场景筛选和技术方案选型阶段，VT的适用性评估框架（战略/运营/技术/价值/场景五维）为创新评审委员会提供结构化的决策依据，避免"拍脑袋"选场景。',
+                    core: true
+                }
+                ]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: 'AI创新需要高层的战略信号与资源背书、治理委员会的优先级裁决、专职CoE团队的孵化执行，以及具备AI创新能力的人才储备。',
+                components: [
+                {
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '高层对创新失败的容忍态度，是企业能否形成真正创新文化的最强信号。高管主动参与创意征集和颁奖，比任何制度都更能激励全员参与创新。',
+                    core: true
+                },
+                {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '负责创新应用的立项审批、资源优先级裁决和重大Go/No-Go决策。治理委员会是防止创新资源被"僵尸项目"占据的关键守门机制。',
+                    core: true
+                },
+                {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE是创新孵化的日常执行主体：管理创新应用的全生命周期、支持敏捷小队组建、沉淀模式库、推动跨部门复制推广。',
+                    core: true
+                },
+                {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: '创新应用开发需要掌握AI工程化能力（Prompt工程/RAG/微调）的复合型人才。须系统性培育"懂技术+懂业务"的创新型人才，是创新速度的决定性变量。',
+                    core: false
+                }
+                ]
+            },
+            risk: {
+                title: '🛡️ 风险管控层',
+                desc: 'AI创新在带来价值的同时引入了新型风险：创新方向押注错误、新应用的AI本体风险、高频试点带来的运营风险，以及每个新场景的合规要求。',
+                components: [
+                {
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: '创新赛道押注错误（如过早押注某项不成熟技术）是VG最大的战略风险。须通过技术雷达预研和多场景并行验证策略来分散赌注，避免all-in单一方向。',
+                    core: false
+                },
+                {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: '每个创新应用都须经过AI风险评估（偏见、幻觉、隐私……）方可上线。创新评审委员会须将RG评估纳入立项标准，而非等问题暴露后再补救。',
+                    core: true
+                },
+                {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: '敏捷试点节奏快、上线频繁，带来模型漂移、系统不稳定等运营风险。须建立轻量级的运营监控机制，对试点应用实施基本的SLA保障。',
+                    core: false
+                },
+                {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: '每个创新场景在实验和上线阶段均须满足数据安全和信创合规要求。创新不是合规免责的理由——需将安全评审纳入试点启动的前置条件。',
+                    core: false
+                }
+                ]
+            }
+        };
+
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        // ── Phase Detail ────────────────────────────────────────────
+        const phaseData = [
+        {
+            title: '机制建设',
+            time: '启动',
+            icon: '⚙️',
+            c1t: '体系与标准设计',
+            c1: ['制定AI创新应用管理办法（立项、试点、推广、退出全流程）', '建立含业务、技术、财务的三维评审委员会', '设计涵盖ROI与风险的评估框架，建立容错机制'],
+            c2t: '组织与资源准备',
+            c2: ['组建专职或虚拟孵化团队（CoE核心成员）', '设立专项预算（占AI总预算10–20%）', '建立开发测试沙盒环境与外部合作渠道']
+        },
+        {
+            title: '场景探索',
+            time: '',
+            icon: '🔍',
+            c1t: '全方位挖掘',
+            c1: ['组织全员创意征集，建立创意库（目标50+条）', '开展业务部门访谈，识别核心痛点', '组织业务技术联合工作坊，产出候选场景清单'],
+            c2t: '筛选与准备',
+            c2: ['识别"快赢"场景与"战略"场景，分层排序', '评估技术可行性，筛选首批3–5个试点', '组建产品、开发、数据、业务四合一敏捷小队']
+        },
+        {
+            title: '敏捷试点',
+            time: '',
+            icon: '🚀',
+            c1t: 'MVP快速迭代',
+            c1: ['2–4周迭代周期，聚焦核心功能交付', '使用低代码平台或API加速验证效率', '业务技术联合响应，"小步快跑，快速验证"'],
+            c2t: '测试与评估',
+            c2: ['邀请10–30名种子用户共创与A/B测试', '实时监控业务与技术双维度指标', '月度复盘，执行Go/No-Go节点决策']
+        },
+        {
+            title: '模式沉淀',
+            time: '试点后',
+            icon: '📦',
+            c1t: '经验提炼',
+            c1: ['总结技术选型、实施步骤等关键要素', '编写应用模式手册与风险清单', '建立代码、流程、文档等可复用模板库'],
+            c2t: '服务化封装',
+            c2: ['将能力封装为可复用API与微服务', '建立目录与使用指南，实现版本管理', '举办内部分享会，降低跨团队复用门槛']
+        },
+        {
+            title: '规模化推广',
+            time: '',
+            icon: '📈',
+            c1t: '跨部门复制',
+            c1: ['制定目标明确的推广时间表与资源分配计划', '组织成功案例分享会，提供落地咨询辅导', '形成"中心孵化，全员应用"的双层架构'],
+            c2t: '治理与优化',
+            c2: ['灰度发布策略，基于反馈持续迭代优化', '定期评估应用效果，淘汰低效长尾应用', '总结推广方法论，为下一轮创新提供基准']
+        },
+        {
+            title: '持续创新',
+            time: '持续进行',
+            icon: '∞',
+            c1t: '全员创新文化',
+            c1: ['设立奖金、晋升等创新激励机制，公开表彰', '定期举办创新挑战赛与黑客松（年均2次+）', '鼓励试错，让"尝试并失败"成为被尊重的行为'],
+            c2t: '前沿技术布局',
+            c2: ['建立技术雷达，预研前沿多模态 / 智能体技术', '深度参与开源社区，贡献与反哺', '形成"研究→实验→应用"无尽迭代闭环']
+        }
+        ];
+
+        function showPhase(idx, el) {
+            document.querySelectorAll('#phase-cards .phase-card').forEach(c => {
+                c.classList.remove('active');
+                c.classList.add('border-slate-200');
+            });
+            el.classList.add('active');
+            el.classList.remove('border-slate-200');
+            const d = phaseData[idx];
+            document.getElementById('phase-icon').textContent = d.icon;
+            document.getElementById('phase-title').innerHTML = `<span class="bg-sky-600 text-white text-xs px-3 py-1 rounded-full">${d.time}</span> ${d.title}`;
+            document.getElementById('phase-col1-title').textContent = d.c1t;
+            document.getElementById('phase-col1').innerHTML = d.c1.map(i => `<li class="flex items-start gap-2"><span class="text-sky-400 shrink-0 mt-0.5">▸</span>${i}</li>`).join('');
+            document.getElementById('phase-col2-title').textContent = d.c2t;
+            document.getElementById('phase-col2').innerHTML = d.c2.map(i => `<li class="flex items-start gap-2"><span class="text-sky-400 shrink-0 mt-0.5">▸</span>${i}</li>`).join('');
+        }
+        window.showPhase = showPhase;
+        showPhase(0, document.querySelector('#phase-cards .phase-card'));
+
+        // ── Roadmap ─────────────────────────────────────────────────
+        const steps = [
+        {
+            phase: '第一阶段（启动）',
+            title: '机制建设与组织准备',
+            desc: '制定AI创新管理办法，成立评审委员会，建立分类治理体系，组建孵化团队，划拨专项预算，搭建沙盒环境。',
+            deliverable: '交付物：创新管理办法 · 评审委员会章程 · 专项预算方案'
+        },
+        {
+            phase: '第二阶段',
+            title: '场景探索与立项决策',
+            desc: '全员创意征集，业务访谈与工作坊，筛选首批3–5个试点场景，组建敏捷小队，明确每个试点的成功标准与资源配置。',
+            deliverable: '交付物：创意库（50+）· 试点场景清单 · 敏捷小队组建方案'
+        },
+        {
+            phase: '第三阶段',
+            title: '敏捷试点与快速验证',
+            desc: '2–4周迭代周期，MVP策略快速开发，种子用户共创，A/B测试，实时指标监控，月度复盘并执行Go/No-Go节点决策。',
+            deliverable: '交付物：试点报告 · 量化验证数据 · Go/No-Go决策记录'
+        },
+        {
+            phase: '第四阶段（试点后）',
+            title: '模式沉淀与能力封装',
+            desc: '提炼≥3个可复制应用模式，编写实施手册，建立代码/流程模板库，完成服务化与API化封装，发布内部知识库。',
+            deliverable: '交付物：应用模式手册 · 模板库 · API服务目录'
+        },
+        {
+            phase: '第五阶段',
+            title: '规模化推广与生态建设',
+            desc: '制定推广计划，组织成功案例分享，形成中心孵化+全员应用双层架构，建立AI创新联盟，对接供应商/高校资源。',
+            deliverable: '交付物：推广计划 · 分享会记录 · 外部合作协议'
+        },
+        {
+            phase: '第六阶段（持续进行）',
+            title: '持续创新与文化固化',
+            desc: '设立创新激励机制，举办挑战赛，建立技术雷达预研体系，将"创新"纳入绩效考核，形成可持续的创新组织文化。',
+            deliverable: '里程碑：年度创新报告 · 激励发放记录 · 下一轮创新规划'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        steps.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === steps.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

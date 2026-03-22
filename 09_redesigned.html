@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI领导者与倡导者执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 320px;
+        max-height: 380px;
+    }
+
+    .nav-link:hover {
+        color: #0369a1;
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent;
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color: #fff;
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9;
+    }
+
+    .roadmap-step {
+        transition: all 0.2s;
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .check-item:last-child {
+        border-bottom: none;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem;
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+
+    .role-btn {
+        transition: all 0.2s;
+    }
+
+    .role-btn.active {
+        background-color: #0f172a;
+        color: white;
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">👑</span>
+                    <span class="font-bold text-xl tracking-tight text-sky-800">【09】AI领导者与倡导者</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#overview" class="nav-link text-slate-600 font-medium transition-colors">AI领导者概览</a>
+                    <a href="#why" class="nav-link text-slate-600 font-medium transition-colors">为什么做</a>
+                    <a href="#objectives" class="nav-link text-slate-600 font-medium transition-colors">任务目标</a>
+                    <a href="#framework" class="nav-link text-slate-600 font-medium transition-colors">架构模型</a>
+                    <a href="#how" class="nav-link text-slate-600 font-medium transition-colors">如何做</a>
+                    <a href="#roadmap" class="nav-link text-slate-600 font-medium transition-colors">执行路线</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- 概览 -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI领导者与倡导者执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    本方案面向董事会与高管层，聚焦 AI 治理体系中权重最高的角色命题：
+                    <strong class="text-sky-700">没有强有力的高层领导，AI 转型极易沦为技术部门的孤立实验——领导层是 AI 成败的最关键变量</strong>
+                    。通常由 CEO、CTO、CDO 等担任，是战略制定、资源调配、文化塑造和对外代表的最高责任人。
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🧭</div>
+                    <h3 class="font-bold text-slate-800 mb-1">最高决策者</h3>
+                    <p class="text-sm text-slate-600">CEO/CTO/CDO 担任，拥有战略最终决策权与跨部门资源调动权。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">📣</div>
+                    <h3 class="font-bold text-slate-800 mb-1">愿景传播者</h3>
+                    <p class="text-sm text-slate-600">向内凝聚组织共识，向外代表企业 AI 形象，建立行业影响力。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🛡️</div>
+                    <h3 class="font-bold text-slate-800 mb-1">文化塑造者</h3>
+                    <p class="text-sm text-slate-600">以身作则使用 AI 工具，塑造试错文化，承担 AI 风险的最终责任。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">组织定位</span>
+                    <span class="text-3xl font-extrabold text-sky-800">最顶层</span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">AI 治理体系的最高驱动力</p>
+                </div>
+            </div>
+            <!-- 双重角色 -->
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">双重角色：对内领导者 vs 对外倡导者</h2>
+                <div class="flex gap-2 mb-5">
+                    <button class="role-btn active px-6 py-2 rounded-lg border-2 text-sm font-bold focus:outline-none" id="btn-leader" onclick="switchRole('leader')">🧭 对内：领导者</button>
+                    <button class="role-btn px-6 py-2 rounded-lg border-2 border-slate-200 text-sm font-medium text-slate-600 focus:outline-none" id="btn-advocate" onclick="switchRole('advocate')">📣 对外：倡导者</button>
+                </div>
+                <div id="content-leader" class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-in">
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">🧭</div>
+                        <h4 class="font-bold text-slate-800 mb-1">战略制定者</h4>
+                        <p class="text-sm text-slate-600">确定 AI 转型的方向、整体目标和实施路径，形成明确的战略意志。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">⚖️</div>
+                        <h4 class="font-bold text-slate-800 mb-1">决策者</h4>
+                        <p class="text-sm text-slate-600">审批重大技术路线、资源投入规模和关键合作伙伴选择。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">⚙️</div>
+                        <h4 class="font-bold text-slate-800 mb-1">资源协调与障碍扫除</h4>
+                        <p class="text-sm text-slate-600">确保充足预算和人力支持，解决跨部门冲突，打破组织壁垒。</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <div class="text-2xl mb-2">🛡️</div>
+                        <h4 class="font-bold text-slate-800 mb-1">文化建设与风险承担</h4>
+                        <p class="text-sm text-slate-600">以身作则使用 AI 工具，塑造试错文化；对 AI 战略风险承担最终责任。</p>
+                    </div>
+                </div>
+                <div id="content-advocate" class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-in hidden">
+                    <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                        <div class="text-2xl mb-2">📣</div>
+                        <h4 class="font-bold text-slate-800 mb-1">愿景传播与品牌代言</h4>
+                        <p class="text-sm text-slate-600">向董事会、员工、客户传达 AI 价值；在行业活动和媒体中代表企业 AI 形象。</p>
+                    </div>
+                    <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                        <div class="text-2xl mb-2">🌐</div>
+                        <h4 class="font-bold text-slate-800 mb-1">生态构建者</h4>
+                        <p class="text-sm text-slate-600">建立与高校、研究机构、顶尖技术供应商的深度合作网络。</p>
+                    </div>
+                    <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                        <div class="text-2xl mb-2">🧲</div>
+                        <h4 class="font-bold text-slate-800 mb-1">人才吸引者</h4>
+                        <p class="text-sm text-slate-600">通过高管个人影响力和企业宏大愿景，吸引顶尖 AI 人才加入。</p>
+                    </div>
+                    <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                        <div class="text-2xl mb-2">📏</div>
+                        <h4 class="font-bold text-slate-800 mb-1">标准制定者</h4>
+                        <p class="text-sm text-slate-600">参与行业 AI 标准、规范和伦理框架的讨论与制定，建立行业影响力。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3 flex items-center gap-2">
+                        <span>🔬</span>
+                         本质特征提炼
+                    </h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>决策权威性：</strong>
+                                拥有战略最终决策权与否决权，能跨部门调动资源，是唯一能真正"拍板"的角色。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>影响全局性：</strong>
+                                高管的战略判断决定成败，重视程度影响全员态度，行为示范塑造组织文化。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>责任终极性：</strong>
+                                向董事会负责 AI 战略成效，向公众/监管负责 AI 风险，向企业未来负责竞争力。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <span>🏭</span>
+                         行业典型表现
+                    </h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>互联网：</strong>
+                                CEO 亲自主导 AI 战略并公开发声，AI 投资优先级快速提升至公司 OKR 第一位。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>金融业：</strong>
+                                CTO 担任 AI 倡导者在行业峰会发声后，高端 AI 人才入职率提升 40%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业：</strong>
+                                CEO 率先使用 AI 辅助决策工具，中层管理者 3 个月内跟进使用率从 12% 升至 67%。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>反面案例：</strong>
+                                AI 项目定位为"IT 的事"，高管不参与，3 年数千万投入无一项目规模化。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 为什么做 -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：高层推动的战略必要性</h2>
+                <p class="text-slate-500 mt-2 pl-5">AI 转型不是技术项目，而是组织变革——只有高层介入才能克服企业的系统性惯性。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🧱</span>
+                        <h3 class="font-bold text-red-800">打破组织惯性与资源壁垒</h3>
+                    </div>
+                    <p class="text-sm text-red-700">企业长期形成的流程和思维模式难以自发改变。AI 转型涉及业务模式根本变革，必遭阻力。只有高层支持才能克服惯性，跨部门资源协调也需要高层权威确保优先级。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🏆</span>
+                        <h3 class="font-bold text-red-800">应对外部压力与行业竞争</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 已成竞争关键变量，需抢占先机。高管须向董事会/股东证明长期战略价值，争取耐心资本；同时满足数据隐私、算法公平等日益严格的监管合规要求。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🧬</span>
+                        <h3 class="font-bold text-red-800">建立组织信心与学习文化</h3>
+                    </div>
+                    <p class="text-sm text-red-700">员工对 AI 的担忧（被替代、不会用）需要高层以身作则来消解。领导者使用 AI、公开表彰 AI 成果、允许合理失败——这些行为是组织文化转变最强的驱动信号。</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">高管角色关键特征画像</h3>
+                    <p class="text-sm text-slate-500 mb-5">此角色必须具备极高的决策权威性、全局影响力和终极责任担当，区别于企业中任何其他管理岗位。</p>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-lg">
+                            <span class="font-bold text-sky-700 w-6 shrink-0 text-center">①</span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">决策权威性（最高权重）：</span>
+                                <p class="text-xs text-slate-500 mt-0.5">拥有战略最终决策权与否决权，能调动跨部门资源。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-lg">
+                            <span class="font-bold text-sky-700 w-6 shrink-0 text-center">②</span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">影响全局性（高权重）：</span>
+                                <p class="text-xs text-slate-500 mt-0.5">战略判断决定成败，重视程度影响全员态度，行为示范塑造文化。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-lg">
+                            <span class="font-bold text-sky-700 w-6 shrink-0 text-center">③</span>
+                            <div>
+                                <span class="font-semibold text-slate-700 text-sm">责任终极性（最高权重）：</span>
+                                <p class="text-xs text-slate-500 mt-0.5">对成败向董事会负责，对风险向公众/监管负责，对企业未来负责。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="radarChart">
+                    </canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务目标 -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：四大维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按职责主题分组，每组附可落地验收标准，供领导层及其幕僚团队对标自查。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🧭</span>
+                        <h3 class="font-bold text-slate-800">领导架构与愿景沟通</h3>
+                        <span class="ml-auto badge-core">最高优先</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>明确最高决策者（CEO/CTO/CDO）并公开宣布其 AI 领导职责</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>任命 AI 首席倡导者，建立幕僚团队提供决策支持</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>发布企业 AI 战略愿景声明，并在全员大会上亲自传达</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立与治理委员会、运营团队的定期汇报机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>针对员工/董事会/客户制定差异化沟通策略与频率</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">⚖️</span>
+                        <h3 class="font-bold text-slate-800">资源保障与重大决策</h3>
+                        <span class="ml-auto badge-core">战略核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>向董事会汇报 AI 战略规划，获得预算与资源承诺</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立董事会层面的 AI 进展定期汇报机制（季度）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>审批关键技术路线选择与核心供应商决策</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>协调跨部门资源调配，破除部门利益冲突</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>识别战略层面风险，承担 AI 风险管理的最终责任</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🧬</span>
+                        <h3 class="font-bold text-slate-800">文化建设与能力提升</h3>
+                        <span class="ml-auto badge-new">文化驱动</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>领导者率先使用 AI 工具并公开分享使用体验</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>将 AI 创新纳入绩效考核，设立 AI 创新奖项</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>允许 AI 项目的合理失败，公开表彰试错学习精神</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>参加高管 AI 培训，邀请外部专家研讨，参观标杆企业</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>领导者亲自参与关键 AI 项目决策，理解能力与边界</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🌐</span>
+                        <h3 class="font-bold text-slate-800">外部倡导与生态建设</h3>
+                        <span class="ml-auto badge-new">长效保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>在行业论坛或媒体分享企业 AI 实践，发布白皮书</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立与高校、研究机构的战略合作与人才输送机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>参与行业 AI 标准与伦理框架的制定，建立行业影响力</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>通过个人品牌与企业愿景吸引顶尖 AI 人才</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>推动 AI 转型成为企业核心竞争力，形成可持续创新机制</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 架构模型 -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 09）。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07 · 08</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">10 · 11 · 12</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- 如何做 -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：四阶段实施路径</h2>
+                <p class="text-slate-500 mt-2 pl-5">从架构确立到生态延伸，四个阶段循序渐进，每阶段有明确的核心行动。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-sky-700 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">1</span>
+                        <div>
+                            <h4 class="font-bold text-sky-800">架构确立与认知构建</h4>
+                            <p class="text-xs text-slate-400"></p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             明确最高决策者角色并公开宣布，配备幕僚团队
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             建立汇报与问责机制，启动高管 AI 培训计划
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             建立学术顾问团，领导者参与关键项目决策
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">2</span>
+                        <div>
+                            <h4 class="font-bold text-sky-800">战略沟通与资源保障</h4>
+                            <p class="text-xs text-slate-400"></p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             制定差异化沟通策略，全员大会传达愿景
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             向董事会争取长线资源支持，审批 AI 项目预算
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             参与重大决策（技术路线、核心供应商选择）
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-indigo-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">3</span>
+                        <div>
+                            <h4 class="font-bold text-sky-800">解决阻力与推动文化变革</h4>
+                            <p class="text-xs text-slate-400"></p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             协调部门利益冲突，打破组织流程和架构壁垒
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             以身作则使用 AI 工具，给予公开支持
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             将 AI 纳入考核，设立创新奖，塑造试错文化
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold shrink-0">4</span>
+                        <div>
+                            <h4 class="font-bold text-sky-800">建立外部网络与行业影响力</h4>
+                            <p class="text-xs text-slate-400">持续</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             在行业会议/媒体发声，塑造领军品牌
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             与高校/研究机构/供应商建立深度战略合作
+                        </li>
+                        <li class="check-item">
+                            <span class="text-slate-400">▸</span>
+                             参与行业标准制定，建立长期核心竞争力
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 执行路线 -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：领导力建设四阶段推进图</h2>
+                <p class="text-slate-500 mt-2 pl-5">从架构确立到持续生态建设，明确每阶段的时间节点与核心交付物。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"AI 转型的最大风险不是技术选错，而是高层不领导——领导力是 AI 成败的第一变量。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        window.switchRole = function(role) {
+            const isLeader = role === 'leader';
+            document.getElementById('content-leader').classList.toggle('hidden', !isLeader);
+            document.getElementById('content-advocate').classList.toggle('hidden', isLeader);
+            ['btn-leader', 'btn-advocate'].forEach(id => {
+                const btn = document.getElementById(id);
+                const active = (id === 'btn-leader') === isLeader;
+                btn.classList.toggle('active', active);
+                btn.classList.toggle('border-slate-200', !active);
+            });
+        };
+
+        new Chart(document.getElementById('radarChart').getContext('2d'), {
+            type: 'radar',
+            data: {
+                labels: ['决策权威性', '影响全局性', '责任终极性'],
+                datasets: [{
+                    label: '能力与要求权重',
+                    data: [100, 95, 100],
+                    backgroundColor: 'rgba(3,105,161,0.2)',
+                    borderColor: '#0369a1',
+                    pointBackgroundColor: '#d97706',
+                    pointBorderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(0,0,0,0.1)'
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        },
+                        pointLabels: {
+                            font: {
+                                family: "'Noto Sans SC',sans-serif",
+                                size: 14,
+                                weight: 'bold'
+                            },
+                            color: '#1e293b'
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                            max: 100
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: '领导者是 AI 战略的首要制定者和最终背书人，变革管理、运营模式转换和技术路线迁移都须获得高层的驱动与资源保障。',
+                components: [
+                {
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: '领导者是 AI 战略的首要制定者，所有重大战略决策必须由领导层批准和推动。领导者的战略愿景直接决定 AI 转型的方向与成败。',
+                    core: true
+                },
+                {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: '领导者是变革的发起者和主要推动力，通过以身作则、文化塑造和激励机制克服组织惯性。变革管理的成功很大程度上取决于领导者的决心和持续投入。',
+                    core: true
+                },
+                {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: '运营模式转换涉及根本性的流程重构，必须有领导层明确授权和资源支持，才能克服中层阻力，实现从人工到智能化的真正转变。',
+                    core: false
+                },
+                {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '重大技术路线选择属于战略决策范畴，须由领导层亲自审批，避免技术部门在信息不对称下做出不符合战略方向的选择。',
+                    core: false
+                }
+                ]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: '领导者需要理解 AI 如何驱动业务价值，并通过可量化指标向董事会证明 AI 投资回报，同时为创新探索提供文化空间。',
+                components: [
+                {
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: '领导者需理解 AI 如何驱动业务价值并对外传播赋能案例。领导者对 AI 价值的认知深度直接影响组织对 AI 投入的信心与资源配置优先级。',
+                    core: true
+                },
+                {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: '领导者须为 AI 创新提供战略空间和容错环境——允许失败、奖励探索，是创新应用模式得以成立的文化前提。',
+                    core: false
+                },
+                {
+                    id: '07',
+                    name: 'VO-可衡量的指标',
+                    detail: '领导者向董事会汇报 AI 价值时，须依赖可量化的业务指标而非定性描述。指标体系既是对外沟通工具，也是领导者内部决策依据。',
+                    core: true
+                },
+                {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: '技术路线的适用性评估需要领导层做出最终裁决，特别是在不同部门对同一技术方案存在争议时，高层的裁定权至关重要。',
+                    core: false
+                }
+                ]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: '领导者通常担任治理委员会主席，委员会的权威性来自领导层的参与；运营团队和人才体系须在领导层的持续支持下运转。',
+                components: [
+                {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: '领导者通常担任治理委员会主席，治理委员会是领导者行使 AI 治理职责的主要平台，委员会的决策权威来自领导者的授权与参与。',
+                    core: true
+                },
+                {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'AI 运营团队的职能边界和资源配置须由领导层明确授权。领导层对 CoE 的支持力度，直接决定其推动跨部门协作的实际能力。',
+                    core: false
+                },
+                {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: '领导者推动人才战略制定和雇主品牌建设，通过个人示范和组织激励（愿景、创新文化）吸引和保留顶尖 AI 人才，是人才磁石的关键角色。',
+                    core: true
+                }
+                ]
+            },
+            risk: {
+                title: '🛡️ 风险管控层',
+                desc: '领导层是战略风险的最终责任人，对 AI 引发的道德、合规、声誉等高层风险承担最终问责，重大风险须升级至领导层处理。',
+                components: [
+                {
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: '战略风险的最终责任人是领导者——重大战略方向押注错误、技术路线判断失误，最终都由领导层向董事会承担责任，须建立领导层参与的战略风险审议机制。',
+                    core: true
+                },
+                {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: 'AI 系统引发的算法偏见、数据隐私等高层风险，在产生重大影响时须升级至领导层处理，因为这些风险往往涉及企业声誉和监管关系的最高层级决策。',
+                    core: false
+                },
+                {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: '重大 AI 系统故障（大规模宕机、数据泄露等）需要领导层直接参与应对，因为此类事件往往需要高层公开声明和跨部门资源动员。',
+                    core: false
+                },
+                {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: '信创合规路线选择和国家安全合规决策属于高层战略事项，须在领导层主导下完成，不能仅委托技术团队决定。',
+                    core: false
+                }
+                ]
+            }
+        };
+
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        const steps = [
+        {
+            phase: '第一阶段',
+            title: '架构确立与认知构建',
+            desc: '明确最高决策者角色并公开宣布，配备幕僚团队，建立汇报与问责机制，启动高管 AI 培训计划，建立学术顾问团。',
+            deliverable: '交付物：领导力架构声明 · 高管培训计划 · 顾问团名单'
+        },
+        {
+            phase: '第二阶段',
+            title: '战略沟通与资源保障',
+            desc: '制定差异化沟通策略，在全员大会传达 AI 愿景，向董事会争取长线资源支持，审批 AI 项目预算，参与重大技术路线决策。',
+            deliverable: '交付物：AI 战略愿景声明 · 董事会汇报材料 · 预算审批记录'
+        },
+        {
+            phase: '第三阶段',
+            title: '解决阻力与推动文化变革',
+            desc: '协调部门利益冲突，打破组织壁垒，以身作则使用 AI 工具，将 AI 纳入考核体系，设立创新奖，塑造试错文化。',
+            deliverable: '交付物：冲突解决记录 · AI 考核方案 · 创新奖励制度'
+        },
+        {
+            phase: '第四阶段（持续）',
+            title: '建立外部网络与行业影响力',
+            desc: '在行业会议媒体发声，与高校/研究机构建立合作，通过个人品牌吸引顶尖 AI 人才，参与行业标准制定。',
+            deliverable: '里程碑：合作协议签署 · 行业演讲记录 · 顶尖人才入职'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        steps.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === steps.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

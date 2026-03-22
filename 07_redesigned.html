@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI可衡量指标执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+    body {
+        font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+    }
+
+    .chart-container {
+        position: relative;
+        width: 100%;
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 280px;
+        max-height: 340px;
+    }
+
+    @media (min-width: 768px) {
+        .chart-container {
+            height: 320px;
+        }
+    }
+
+    .nav-link {
+        transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+        color: #0369a1;
+    }
+
+    .fw-tab {
+        transition: all 0.2s;
+        border-left: 4px solid transparent;
+    }
+
+    .fw-tab.active {
+        border-left-color: #d97706;
+        background-color: #0f172a;
+        color: #fff;
+    }
+
+    .fw-tab:not(.active):hover {
+        background-color: #f1f5f9;
+    }
+
+    .exec-tab {
+        transition: all 0.3s;
+    }
+
+    .exec-tab:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+        border-color: #0369a1;
+    }
+
+    .exec-tab.active {
+        background-color: #e0f2fe;
+        border-color: #0369a1;
+    }
+
+    .layer-btn {
+        transition: all 0.2s;
+    }
+
+    .layer-btn.active {
+        background-color: #0f172a;
+        color: white;
+        border-color: #0f172a;
+    }
+
+    .roadmap-step {
+        transition: all 0.2s;
+    }
+
+    .roadmap-step:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+    }
+
+    .check-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .check-item:last-child {
+        border-bottom: none;
+    }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+
+    .section-title {
+        border-left: 4px solid #0369a1;
+        padding-left: 1rem;
+    }
+
+    .badge-core {
+        background: #fef3c7;
+        color: #92400e;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+
+    .badge-new {
+        background: #dcfce7;
+        color: #166534;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 9999px;
+        font-weight: 600;
+    }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">📏</span>
+                    <span class="font-bold text-xl tracking-tight text-sky-800">【07】AI可衡量指标</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-7">
+                    <a href="#overview" class="nav-link text-slate-600 font-medium">AI指标概览</a>
+                    <a href="#why" class="nav-link text-slate-600 font-medium">为什么做</a>
+                    <a href="#objectives" class="nav-link text-slate-600 font-medium">任务目标</a>
+                    <a href="#framework" class="nav-link text-slate-600 font-medium">架构模型</a>
+                    <a href="#how" class="nav-link text-slate-600 font-medium">如何做</a>
+                    <a href="#roadmap" class="nav-link text-slate-600 font-medium">执行路线</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <!-- ══ SECTION 1 · 指标概览 ══ -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+            <div class="max-w-4xl mb-8">
+                <h1 class="text-3xl font-extrabold text-slate-900 mb-3">AI可衡量指标执行方案</h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+
+                                本方案面向董事会与高管层，聚焦 AI 转型价值证明的核心命题：
+                                
+                    <strong class="text-sky-700">将 AI 转型从"技术实验"转化为可用数据追踪、评估和驱动的"核心业务引擎"</strong>
+                    。
+                                可衡量的指标体系是 AI 投资的价值证明机制，也是持续优化与治理决策的唯一客观依据。
+                            
+                </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">📈</div>
+                    <h3 class="font-bold text-slate-800 mb-1">证明投入价值</h3>
+                    <p class="text-sm text-slate-600">量化 ROI，向管理层展示 AI 对业务的具体贡献，避免因无法证明效果导致预算削减。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🛡️</div>
+                    <h3 class="font-bold text-slate-800 mb-1">验证治理有效性</h3>
+                    <p class="text-sm text-slate-600">通过监控性能、公平性与安全性，确保 AI 系统在生产运行中符合既定治理要求。</p>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                    <div class="text-2xl mb-2">🧠</div>
+                    <h3 class="font-bold text-slate-800 mb-1">支持数据驱动决策</h3>
+                    <p class="text-sm text-slate-600">摒弃凭直觉做决策，为技术选型、资源分配、战略调整提供客观的数据支撑。</p>
+                </div>
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-200 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-1">核心原则</span>
+                    <span class="text-2xl font-extrabold text-sky-800 leading-tight">SMART</span>
+                    <p class="text-sm text-sky-700 font-medium mt-1">具体 · 可量化 · 可实现 · 相关 · 时限</p>
+                </div>
+            </div>
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">四层指标体系架构：从战略到风险全覆盖</h2>
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="min-w-full divide-y divide-slate-200 text-sm">
+                        <thead>
+                            <tr>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase w-28">指标层级</th>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">关注问题</th>
+                                <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">典型指标</th>
+                                <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">决策频率</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">🎯 战略层</td>
+                                <td class="px-5 py-3 text-slate-500">AI对整体业务目标的影响</td>
+                                <td class="px-5 py-3 text-slate-500">AI贡献收入占比、核心流程效率提升%</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">季度审视，调整AI整体投资方向</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">📊 战术层</td>
+                                <td class="px-5 py-3 text-slate-500">具体AI项目的效能与落地</td>
+                                <td class="px-5 py-3 text-slate-500">模型准确率(F1)、员工采纳率、项目ROI回收周期</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">月度评估，决定项目增资/优化/叫停</td>
+                            </tr>
+                            <tr>
+                                <td class="px-5 py-3 font-medium text-slate-700">⚙️ 运营层</td>
+                                <td class="px-5 py-3 text-slate-500">AI系统实时运行健康度</td>
+                                <td class="px-5 py-3 text-slate-500">API响应延迟(ms)、系统可用性(SLA%)、推理成本</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">日常自动监控，异常触发立即介入</td>
+                            </tr>
+                            <tr class="bg-slate-50/50">
+                                <td class="px-5 py-3 font-medium text-slate-700">🛡️ 风险层</td>
+                                <td class="px-5 py-3 text-slate-500">AI系统潜在负面影响</td>
+                                <td class="px-5 py-3 text-slate-500">合规触发事件数、偏见检测指标、严重投诉率</td>
+                                <td class="px-5 py-3 font-semibold text-sky-700">实时监控+定期审计，触碰红线即熔断</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+                    <h3 class="font-bold text-sky-900 mb-3 flex items-center gap-2">
+                        <span>🔬</span>
+                         本质特征提炼
+                    </h3>
+                    <ul class="space-y-2 text-sm text-sky-800">
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>北极星指标：</strong>
+                                选取 3–5 个直接反映 AI 战略意图的核心指标，作为整体方向的唯一校准锚点。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>分频决策机制：</strong>
+                                不同层级的指标配置不同的监控频率和决策触发机制，避免噪音淹没信号。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>SSOT（单一真相来源）：</strong>
+                                指标看板须成为治理委员会决策会议的官方输入，而非参考资料。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>PDCA 闭环：</strong>
+                                设定基准→监控数据→发现差距→优化迭代，形成持续学习型组织的核心机制。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <span>🏭</span>
+                         行业典型表现
+                    </h3>
+                    <ul class="space-y-2 text-sm text-amber-800">
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>电商平台：</strong>
+                                建立 AI 推荐指标体系后，通过 A/B 测试驱动模型迭代，GMV 贡献率从 5% 提升至 18%（6 个月）。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>银行业：</strong>
+                                引入模型偏见检测指标后，贷款审批的群体差异指标下降 40%，同时通过率与坏账率双向优化。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>制造业：</strong>
+                                运营层 SLA 指标体系建立后，AI 质检系统可用性从 87% 提升至 99.5%，停机损失大幅下降。
+                            </span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-amber-600 font-bold mt-0.5">▸</span>
+                            <span>
+                                <strong>SaaS 企业：</strong>
+                                AI 功能采纳率指标纳入产品团队 OKR 后，AI 功能 DAU 从 15% 提升至 78%（9 个月）。
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 2 · 为什么做 ══ -->
+        <section id="why" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：六大战略驱动力</h2>
+                <p class="text-slate-500 mt-2 pl-5">没有可衡量的指标，AI 投资将成为"黑盒"——以下六大驱动力说明指标体系为何是 AI 治理的基础设施。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💰</span>
+                        <h3 class="font-bold text-red-800">避免预算黑洞</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 投资动辄数百万甚至千万，缺乏量化 ROI 指标，管理层无法判断钱是否花值了。下一轮预算申请将面临信任危机，甚至导致整个 AI 项目被叫停。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">⚠️</span>
+                        <h3 class="font-bold text-red-800">风险无法早期预警</h3>
+                    </div>
+                    <p class="text-sm text-red-700">模型漂移、算法偏见、系统性能下降——这些问题在没有监控指标的情况下往往在造成重大损失后才被发现。风险指标是 AI 系统的"生命体征监测仪"。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🎯</span>
+                        <h3 class="font-bold text-red-800">决策依赖直觉而非数据</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 项目的增资、叫停、技术路线调整——这些关键决策如果没有指标支撑，将退化为部门博弈和主观判断，导致资源错配。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🔄</span>
+                        <h3 class="font-bold text-red-800">无法持续优化迭代</h3>
+                    </div>
+                    <p class="text-sm text-red-700">AI 模型需要持续训练和优化，但没有量化反馈，团队无法知道"哪个方向的优化最有价值"。指标是 AI 系统持续进化的导航仪。</p>
+                </div>
+                <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">🤝</span>
+                        <h3 class="font-bold text-red-800">内外信任危机</h3>
+                    </div>
+                    <p class="text-sm text-red-700">监管机构、客户、员工对 AI 的信任，需要透明的指标来建立。无法展示 AI 系统表现的企业，将面临监管询问和用户抵制的双重压力。</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="text-xl">💡</span>
+                        <h3 class="font-bold text-sky-800">指标体系是战略资产</h3>
+                    </div>
+                    <p class="text-sm text-sky-700">完善的 AI 指标体系本身就是竞争优势——它使企业能够比竞争对手更快速、更准确地迭代 AI 能力，实现"数据驱动的进化飞轮"。</p>
+                </div>
+            </div>
+            <!-- Dashboard Simulation -->
+            <div class="bg-white rounded-2xl shadow-sm p-8">
+                <h3 class="text-xl font-bold text-slate-800 mb-2">高管决策驾驶舱模拟</h3>
+                <p class="text-sm text-slate-500 mb-6">以下四个图表模拟了四层指标体系的典型看板视图，将抽象指标转化为直观决策依据。</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-slate-800">战略层：AI贡献收入占比</h4>
+                            <span class="text-xs font-semibold px-2 py-1 bg-sky-100 text-sky-800 rounded">北极星指标</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="strategicChart">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-slate-800">战术层：模型效能与员工采纳率</h4>
+                            <span class="text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-600 rounded">月度跟踪</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="tacticalChart">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-slate-800">运营层：API响应延迟监控 (ms)</h4>
+                            <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-800 rounded">实时监控</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="operationalChart">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-bold text-slate-800">风险层：异常事件类型分布</h4>
+                            <span class="text-xs font-semibold px-2 py-1 bg-amber-100 text-amber-800 rounded">预警指标</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="riskChart">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 3 · 任务目标 ══ -->
+        <section id="objectives" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：六大维度 Checklist</h2>
+                <p class="text-slate-500 mt-2 pl-5">按指标体系建设子主题分组，每组附可落地验收标准，供 AI 项目团队与数据分析团队对标自查。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🎯</span>
+                        <h3 class="font-bold text-slate-800">指标体系设计</h3>
+                        <span class="ml-auto badge-core">基础优先</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定义 3–5 个 AI 战略层北极星指标（如 AI 收入贡献率）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立四层指标体系（战略/战术/运营/风险）完整框架</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>为每个指标建立标准卡片（名称/公式/数据源/阈值/责任人）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>确认所有核心指标符合 SMART 原则并通过三方对齐</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">💾</span>
+                        <h3 class="font-bold text-slate-800">数据采集能力</h3>
+                        <span class="ml-auto badge-core">技术基础</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 应用前的业务基线数据，作为对比基准</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>完成全链路埋点：业务系统 + AI 日志 + 用户反馈</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>搭建统一 AI 指标监控平台，替代手工拼凑报表</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>设置关键风险指标的自动预警阈值（红/黄/绿灯）</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">⚙️</span>
+                        <h3 class="font-bold text-slate-800">监控流程建立</h3>
+                        <span class="ml-auto badge-new">运营保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>分频监控制度：运营层秒级预警 / 战术层周度复盘 / 战略层季度审视</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立异常响应 SOP：触碰阈值→通知→响应→根因分析</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>具备向下钻取能力，可从指标偏离定位到具体根因</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立模型漂移与数据分布偏移的自动检测机制</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔗</span>
+                        <h3 class="font-bold text-slate-800">决策关联机制</h3>
+                        <span class="ml-auto badge-core">价值核心</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>指标看板成为 AI 治理委员会的官方决策依据（SSOT）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立基于指标的 AI 投资增资/缩减/叫停规则集</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>技术路线调整须有运营层性能数据支撑，而非主观判断</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>将关键 AI 使用指标纳入业务团队 KPI/OKR 考核体系</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🛡️</span>
+                        <h3 class="font-bold text-slate-800">风险与合规指标</h3>
+                        <span class="ml-auto badge-core">合规保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立算法偏见检测指标（不同群体间错误率差异）</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>合规事件触发数监控，满足监管"可执法接口"要求</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>建立 AI 相关用户严重投诉率追踪与响应机制</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期输出 AI 透明度报告，面向内外部利益相关者</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+                    <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                        <span class="text-xl">🔄</span>
+                        <h3 class="font-bold text-slate-800">数据文化与持续优化</h3>
+                        <span class="ml-auto badge-new">长效保障</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-slate-700">
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>定期全员发布《AI 效能洞察报告》，打破信息壁垒</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>通过 2 个以上 AI 试点验证指标体系合理性后正式推广</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>PDCA 闭环制度化：月度复盘 + 季度指标框架迭代</span>
+                        </li>
+                        <li class="check-item">
+                            <span class="text-sky-500">☐</span>
+                            <span>形成 AI 指标分析能力培训体系，覆盖全业务线</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 4 · 架构模型 ══ -->
+        <section id="framework" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+                <p class="text-slate-500 mt-2 pl-5">
+                    覆盖 01–16 全部组件（除本组件自身 07），按四层架构分组。点击左侧层级查看每个组件与可衡量指标体系的协同关系。
+                    <span class="badge-core mx-1">核心枢纽</span>
+                     为直接关联的执行支点。
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[460px]">
+                <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+                    <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                        <div class="font-bold">⚙️ 战略实施层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03 · 04｜战略到底座</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                        <div class="font-bold">💎 价值创造层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 08｜赋能、创新与选型</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                        <div class="font-bold">🏢 组织支撑层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11 · 12｜领导、治理与人才</div>
+                    </button>
+                    <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                        <div class="font-bold">🛡️ 风险管控层</div>
+                        <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16｜全维度风险防控</div>
+                    </button>
+                </div>
+                <div class="flex-1 p-8" id="fw-content"></div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 5 · 如何做 ══ -->
+        <section id="how" class="scroll-mt-20">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：四层指标体系深度解析</h2>
+                <p class="text-slate-500 mt-2 pl-5">点击左侧层级按钮，查看该层指标的定义、典型指标卡与决策闭环机制。</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="w-full md:w-56 shrink-0 flex flex-col gap-3">
+                        <button class="layer-btn active text-left p-4 rounded-xl font-bold border border-slate-200 flex justify-between items-center focus:outline-none" data-layer="strategic">
+                            战略层 
+                            <span class="text-xs font-normal opacity-70">业务影响</span>
+                        </button>
+                        <button class="layer-btn text-left p-4 rounded-xl font-bold border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 flex justify-between items-center focus:outline-none" data-layer="tactical">
+                            战术层 
+                            <span class="text-xs font-normal opacity-70">项目效能</span>
+                        </button>
+                        <button class="layer-btn text-left p-4 rounded-xl font-bold border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 flex justify-between items-center focus:outline-none" data-layer="operational">
+                            运营层 
+                            <span class="text-xs font-normal opacity-70">系统健康度</span>
+                        </button>
+                        <button class="layer-btn text-left p-4 rounded-xl font-bold border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 flex justify-between items-center focus:outline-none" data-layer="risk">
+                            风险层 
+                            <span class="text-xs font-normal opacity-70">合规与安全</span>
+                        </button>
+                    </div>
+                    <div class="flex-1 bg-slate-50 p-6 rounded-xl border border-slate-200 min-h-[280px] fade-in" id="layer-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══ SECTION 6 · 执行路线 ══ -->
+        <section id="roadmap" class="scroll-mt-20 pb-8">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：指标体系五步落地路径</h2>
+                <p class="text-slate-500 mt-2 pl-5">从框架设计到数据文化建设的闭环执行方案，每步有明确任务与验收标准。</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+                <div class="space-y-6" id="roadmap-container"></div>
+            </div>
+        </section>
+
+    </main>
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="mb-2 text-slate-300 font-medium">"你无法管理你无法衡量的事物——AI 指标体系是将 AI 从实验转化为业务引擎的关键基础设施。"</p>
+            <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ── 四个 Dashboard 图表 ──────────────────────────────────────
+        Chart.defaults.font.family = "'Noto Sans SC', sans-serif";
+        new Chart(document.getElementById('strategicChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4(预估)'],
+                datasets: [{
+                    label: '总收入(千万)',
+                    data: [120, 135, 142, 160],
+                    backgroundColor: '#e2e8f0',
+                    borderRadius: 4
+                }, {
+                    label: 'AI直接贡献占比(%)',
+                    data: [5, 8, 12, 18],
+                    type: 'line',
+                    borderColor: '#0369a1',
+                    backgroundColor: '#0369a1',
+                    borderWidth: 3,
+                    pointRadius: 5,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: '总收入'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        beginAtZero: true,
+                        max: 25,
+                        grid: {
+                            drawOnChartArea: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'AI贡献%'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+        new Chart(document.getElementById('tacticalChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                datasets: [{
+                    label: '模型准确率(F1)',
+                    data: [0.75, 0.82, 0.85, 0.84, 0.88, 0.91],
+                    borderColor: '#0284c7',
+                    tension: 0.3
+                }, {
+                    label: '员工采纳率(%)',
+                    data: [15, 20, 45, 52, 60, 78],
+                    borderColor: '#ea580c',
+                    tension: 0.3,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        min: 0.6,
+                        max: 1.0,
+                        title: {
+                            display: true,
+                            text: '准确率'
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        min: 0,
+                        max: 100,
+                        grid: {
+                            drawOnChartArea: false
+                        },
+                        title: {
+                            display: true,
+                            text: '采纳率%'
+                        }
+                    }
+                }
+            }
+        });
+        new Chart(document.getElementById('operationalChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+                datasets: [{
+                    label: 'API响应延迟(ms)',
+                    data: [120, 115, 250, 480, 220, 180, 130],
+                    borderColor: '#8b5cf6',
+                    backgroundColor: 'rgba(139,92,246,0.1)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'SLA阈值(500ms)',
+                    data: [500, 500, 500, 500, 500, 500, 500],
+                    borderColor: '#ef4444',
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 600
+                    }
+                }
+            }
+        });
+        new Chart(document.getElementById('riskChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: ['数据隐私违规尝试', '模型输出偏见', 'Prompt注入攻击', '越权调用'],
+                datasets: [{
+                    data: [45, 25, 20, 10],
+                    backgroundColor: ['#d97706', '#b45309', '#78350f', '#fbbf24'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // ── 架构模型 ────────────────────────────────────────────────
+        const fwData = {
+            strategy: {
+                title: '⚙️ 战略实施层',
+                desc: '可衡量指标为战略转型提供价值证明，为变革管理提供效果评估依据，为运营模式转换提供效率量化支撑，为技术路线迁移提供性能数据决策基础。',
+                components: [
+                {
+                    id: '01',
+                    name: 'CS-AI战略转型',
+                    detail: 'VO指标体系是AI战略目标的量化表达——每个战略意图都须转化为可追踪的北极星指标。反过来，指标数据是战略校准的核心输入，确保战略方向与实际结果保持对齐。',
+                    core: true
+                },
+                {
+                    id: '02',
+                    name: 'CG-AI变革管理',
+                    detail: 'AI变革的成效须通过指标量化：员工采纳率、培训覆盖率、行为改变度……这些指标为变革管理团队提供干预时机判断，也是变革成功的客观证明。',
+                    core: true
+                },
+                {
+                    id: '03',
+                    name: 'CO-运营模式转换',
+                    detail: '运营模式转换的效果（效率提升%、成本节约额、处理时效）须通过运营层与战术层指标量化验证。VO为CO提供转换效果的量化证明，支撑持续优化决策。',
+                    core: true
+                },
+                {
+                    id: '04',
+                    name: 'CT-技术路线迁移',
+                    detail: '技术路线的选择和迁移时机，须以性能指标（延迟/可用性/成本）为客观依据。指标数据替代技术团队的主观判断，提高架构决策的质量和可解释性。',
+                    core: false
+                }
+                ]
+            },
+            value: {
+                title: '💎 价值创造层',
+                desc: 'VO可衡量指标是价值创造层所有组件价值实现的量化验证工具——赋能效果、创新成果、场景适用性，都须通过指标才能被管理层看见和相信。',
+                components: [
+                {
+                    id: '05',
+                    name: 'VS-AI驱动和赋能',
+                    detail: 'AI赋能的实际效果（降本比例、效率提升、NPS改善）须通过VO指标量化追踪。指标是"AI赋能了"和"AI真正改变了业务结果"之间的关键区别证明。',
+                    core: true
+                },
+                {
+                    id: '06',
+                    name: 'VG-AI创新应用模式',
+                    detail: '每个创新试点的Go/No-Go决策依赖VO提供的量化验证数据。创新指标（MVP采用率、价值验证周期、可复制性评分）使创新决策从主观判断转向数据驱动。',
+                    core: true
+                },
+                {
+                    id: '08',
+                    name: 'VT-适用性选择',
+                    detail: 'VT的适用性评估中，"价值适用性"维度须通过VO指标框架来量化（ROI潜力、价值实现路径可验证性）。两者共同确保AI投资在技术上可行、在价值上可量化。',
+                    core: false
+                }
+                ]
+            },
+            org: {
+                title: '🏢 组织支撑层',
+                desc: '指标体系须有高管支持才能成为决策的"官方真相来源"，须有治理委员会将其制度化，须有运营团队日常维护，须有技术人才支撑数据平台建设。',
+                components: [
+                {
+                    id: '09',
+                    name: 'OS-领导与倡导者',
+                    detail: '高管层须推动指标看板成为所有AI投资决策的强制输入——这需要领导力来打破"看感觉"的决策文化。高管在会议中引用指标数据，是最强的文化信号。',
+                    core: true
+                },
+                {
+                    id: '10',
+                    name: 'OG-AI治理委员会',
+                    detail: 'AI治理委员会是VO指标最重要的消费者——季度AI价值审视、项目增资/叫停决策、风险阈值设定，都须以指标看板为唯一官方依据（SSOT）。',
+                    core: true
+                },
+                {
+                    id: '11',
+                    name: 'OO-AI运营团队(CoE)',
+                    detail: 'CoE是指标体系的日常维护者：负责监控看板运营、异常预警响应、指标定义更新、数据质量保障。指标体系的质量直接取决于运营团队的专业程度。',
+                    core: true
+                },
+                {
+                    id: '12',
+                    name: 'OT-技术人才准备',
+                    detail: '数据工程师、MLOps工程师是指标数据采集与平台建设的核心人才。指标体系的技术可行性和实时性，取决于数据工程能力的就绪程度。',
+                    core: false
+                }
+                ]
+            },
+            risk: {
+                title: '🛡️ 风险管控层',
+                desc: 'VO风险层指标直接支撑AI风险管理的全生命周期——从合规触发事件数到模型偏见检测，再到运营风险监控，指标是风险管控从"感知"到"量化"的核心工具。',
+                components: [
+                {
+                    id: '13',
+                    name: 'RS-战略风险',
+                    detail: 'AI战略方向偏差的早期识别，依赖战略层指标（AI投资ROI趋势、市场份额变化）的持续追踪。指标使战略风险从"事后复盘"升级为"实时感知与纠偏"。',
+                    core: false
+                },
+                {
+                    id: '14',
+                    name: 'RG-AI风险管理',
+                    detail: 'RG的核心工作就是建立和监控风险层指标——算法偏见检测值、合规触发事件数、模型输出质量评分。指标将不可见的AI风险转化为可量化的管控阈值。',
+                    core: true
+                },
+                {
+                    id: '15',
+                    name: 'RO-AI运营风险',
+                    detail: '运营层指标（API延迟、可用性SLA、错误率）是RO的实时传感器。设定明确的红线阈值和自动熔断机制，是防止运营风险演化为业务事故的关键。',
+                    core: true
+                },
+                {
+                    id: '16',
+                    name: 'RT-安全与信创',
+                    detail: '安全合规指标（数据跨境传输事件数、等保合规检查通过率）须纳入VO体系，确保信创合规要求以可量化的方式被追踪和报告，满足监管的可审计需求。',
+                    core: false
+                }
+                ]
+            }
+        };
+
+        function renderFw(key) {
+            const d = fwData[key];
+            let html = `<div class="fade-in"><h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3><p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p><div class="grid grid-cols-1 gap-4">`;
+            d.components.forEach(c => {
+                html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}"><div class="flex items-center gap-2 mb-1"><span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span><span class="font-bold text-slate-800 text-sm">${c.name}</span>${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}</div><p class="text-sm text-slate-600">${c.detail}</p></div>`;
+            });
+            html += '</div></div>';
+            document.getElementById('fw-content').innerHTML = html;
+        }
+        document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderFw(btn.getAttribute('data-key'));
+            });
+        });
+        renderFw('strategy');
+
+        // ── 四层指标详情 ────────────────────────────────────────────
+        const layerData = {
+            strategic: {
+                icon: '🎯',
+                title: '战略层指标（Strategic Level）',
+                color: 'text-sky-700',
+                desc: '衡量AI对企业整体业务目标的影响。核心在于将技术成果转化为财务或市场语言，让董事会能够读懂 AI 的价值。',
+                metrics: ['<strong>收入影响：</strong>AI贡献的收入或利润占比（%），作为"北极星指标"', '<strong>效率提升：</strong>AI驱动的核心业务流程效率提升百分比，量化运营成本节约', '<strong>创新指标：</strong>AI创新应用数量、新AI服务营收贡献、市场反馈评分'],
+                action: '季度董事会审视，用于调整 AI 总体投资方向和战略资源分配优先级。'
+            },
+            tactical: {
+                icon: '📊',
+                title: '战术层指标（Tactical Level）',
+                color: 'text-blue-700',
+                desc: '衡量具体AI项目或产品的效能与落地情况，是连接高层战略目标与底层技术运营的桥梁。',
+                metrics: ['<strong>模型效能：</strong>业务端准确率、召回率或 F1 分数，反映模型质量', '<strong>业务采纳：</strong>AI应用在目标用户中的采纳率（DAU/MAU）和使用频率', '<strong>财务回报：</strong>单个 AI 项目的投资回收周期（Payback Period）和累计ROI'],
+                action: '月度项目组评估，决定具体项目的增资、优化、收缩或叫停。'
+            },
+            operational: {
+                icon: '⚙️',
+                title: '运营层指标（Operational Level）',
+                color: 'text-purple-700',
+                desc: '衡量AI系统在生产环境中的实时运行状况，由 IT 和 MLOps 团队直接负责日常运维。',
+                metrics: ['<strong>系统健康：</strong>模型API响应时间（ms）、整体可用性（SLA%）、错误率', '<strong>数据与模型：</strong>模型漂移检测（数据分布偏移度）、数据完整性评分', '<strong>成本效率：</strong>单次推理成本（Cost per inference）、算力资源利用率'],
+                action: '日常机器自动监控，设定异常阈值，触发预警后按 SOP 立即介入维护。'
+            },
+            risk: {
+                icon: '🛡️',
+                title: '风险层指标（Risk Level）',
+                color: 'text-amber-600',
+                desc: '衡量AI系统带来的潜在负面影响和合规水位，防止技术问题演化为业务或法律危机。',
+                metrics: ['<strong>合规与安全：</strong>触发合规事件数、安全漏洞拦截量、数据跨境传输异常次数', '<strong>道德与偏见：</strong>模型输出偏见检测值（不同群体间错误率差异 ≤ X%）', '<strong>用户反馈：</strong>AI 引发的严重投诉率、用户信任度调查评分'],
+                action: '实时监控与月度/季度审计结合，触碰红线指标立即熔断 AI 系统。'
+            }
+        };
+
+        function renderLayer(key) {
+            const d = layerData[key];
+            let mHtml = d.metrics.map(m => `<li class="flex items-start gap-2 mb-2"><span class="${d.color} mt-0.5 font-bold">✓</span><span>${m}</span></li>`).join('');
+            document.getElementById('layer-content').innerHTML = `<div class="fade-in"><div class="flex items-center gap-3 mb-4"><span class="text-4xl">${d.icon}</span><h3 class="text-xl font-bold text-slate-800">${d.title}</h3></div><p class="text-slate-600 mb-5 pb-4 border-b border-slate-200">${d.desc}</p><h4 class="font-bold text-slate-700 mb-3">典型指标卡片包含：</h4><ul class="text-slate-700">${mHtml}</ul><div class="bg-white p-4 rounded-lg border-l-4 border-sky-500 shadow-sm text-sm mt-4"><strong class="text-slate-800">决策闭环机制：</strong><span class="text-slate-600"> ${d.action}</span></div></div>`;
+        }
+
+        document.querySelectorAll('.layer-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.layer-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.classList.add('bg-slate-50', 'hover:bg-slate-100', 'text-slate-700');
+                    b.classList.remove('text-white');
+                });
+                btn.classList.add('active');
+                btn.classList.remove('bg-slate-50', 'hover:bg-slate-100', 'text-slate-700');
+                renderLayer(btn.getAttribute('data-layer'));
+            });
+        });
+        renderLayer('strategic');
+
+        // ── Roadmap ─────────────────────────────────────────────────
+        const steps = [
+        {
+            phase: '第一步',
+            title: '设计AI指标体系框架',
+            desc: '明确四层指标分层（战略/战术/运营/风险），定义 3–5 个北极星指标，建立标准指标卡片模板，确保所有核心指标符合 SMART 原则。',
+            deliverable: '交付物：指标体系框架文档 · 北极星指标卡片集 · 责任人矩阵'
+        },
+        {
+            phase: '第二步',
+            title: '构建数据采集能力',
+            desc: '收集 AI 应用前的业务基线数据，完成业务系统+AI日志+用户反馈的全链路埋点，搭建统一 AI 指标监控平台初步版本。',
+            deliverable: '交付物：基线数据报告 · 埋点方案 · 监控平台 MVP'
+        },
+        {
+            phase: '第三步',
+            title: '实施指标监控流程',
+            desc: '建立分频监控制度（秒级/周度/月度/季度），设定红黄绿灯机制，完成异常响应 SOP，部署模型漂移自动检测。',
+            deliverable: '交付物：监控 SOP · 预警阈值配置 · 应急响应手册'
+        },
+        {
+            phase: '第四步',
+            title: '将指标与决策关联',
+            desc: '指标看板成为治理委员会的官方 SSOT，建立基于指标的增资/优化/叫停规则集，将关键 AI 使用指标纳入相关团队 KPI。',
+            deliverable: '交付物：决策规则集 · KPI挂钩方案 · 季度审视议程模板'
+        },
+        {
+            phase: '第五步',
+            title: '培养数据文化与持续优化',
+            desc: '定期发布《AI 效能洞察报告》，通过 PDCA 闭环持续优化指标框架，开展跨部门 AI 指标分析能力培训，形成数据驱动的学习型组织。',
+            deliverable: '里程碑：效能报告发布 · 指标体系版本迭代 · 全员培训覆盖率 ≥80%'
+        }
+        ];
+        const container = document.getElementById('roadmap-container');
+        steps.forEach((s, i) => {
+            const isEven = i % 2 === 0,
+                isLast = i === steps.length - 1;
+            container.innerHTML += `<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group"><div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 ${isLast ? 'border-amber-500' : 'border-sky-700'} rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold ${isLast ? 'text-amber-700' : 'text-sky-800'} z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div><div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}"><div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border ${isLast ? 'border-amber-200' : 'border-slate-100'}"><span class="inline-block px-2.5 py-1 bg-sky-100 text-sky-800 text-xs font-bold rounded-full mb-2">${s.phase}</span><h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4><p class="text-slate-600 text-sm leading-relaxed mb-2">${s.desc}</p><p class="text-xs text-slate-400 font-medium">${s.deliverable}</p></div></div><div class="hidden md:block md:w-5/12"></div></div>`;
+        });
+    });
+    </script>
+</body>
+</html>

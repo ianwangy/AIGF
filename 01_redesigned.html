@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI战略转型执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .chart-container { position: relative; width: 100%; max-width: 680px; margin-left: auto; margin-right: auto; height: 340px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        /* Nav active */
+        .nav-link { transition: color 0.2s; }
+        .nav-link:hover { color: #0369a1; }
+
+        /* Framework tabs */
+        .fw-tab { transition: all 0.2s; border-left: 4px solid transparent; }
+        .fw-tab.active { border-left-color: #d97706; background-color: #0f172a; color: #fff; }
+        .fw-tab:not(.active):hover { background-color: #f1f5f9; }
+
+        /* Execution tabs */
+        .exec-tab { transition: all 0.3s; }
+        .exec-tab:hover { transform: translateY(-4px); box-shadow: 0 8px 20px -4px rgba(0,0,0,0.12); border-color: #0369a1; }
+        .exec-tab.active { background-color: #e0f2fe; border-color: #0369a1; }
+
+        /* Roadmap step */
+        .roadmap-step { transition: all 0.2s; }
+        .roadmap-step:hover { transform: translateY(-3px); box-shadow: 0 8px 20px -4px rgba(0,0,0,0.12); }
+
+        /* Checklist */
+        .check-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+        .check-item:last-child { border-bottom: none; }
+
+        /* Fade animation */
+        .fade-in { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Section accent border */
+        .section-title { border-left: 4px solid #0369a1; padding-left: 1rem; }
+
+        /* Tag badge */
+        .badge-core { background:#fef3c7; color:#92400e; font-size:0.7rem; padding:2px 8px; border-radius:9999px; font-weight:600; }
+        .badge-new { background:#dcfce7; color:#166534; font-size:0.7rem; padding:2px 8px; border-radius:9999px; font-weight:600; }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">📊</span>
+                <span class="font-bold text-xl tracking-tight text-sky-800">【01】AI战略转型</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#overview"   class="nav-link text-slate-600 font-medium">战略概览</a>
+                <a href="#why"        class="nav-link text-slate-600 font-medium">为什么做</a>
+                <a href="#objectives" class="nav-link text-slate-600 font-medium">任务目标</a>
+                <a href="#framework"  class="nav-link text-slate-600 font-medium">架构模型</a>
+                <a href="#how"        class="nav-link text-slate-600 font-medium">如何做</a>
+                <a href="#roadmap"    class="nav-link text-slate-600 font-medium">执行路线</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+<!-- ═══════════════════ SECTION 1 · 战略概览（描述模块） ═══════════════════ -->
+<section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+    <div class="max-w-4xl mb-8">
+        <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI战略转型执行方案</h1>
+        <p class="text-lg text-slate-600 leading-relaxed">
+            本方案面向董事会与高管层，旨在将"AI战略"从概念落地为可执行的组织行动纲领。
+            核心命题是：<strong class="text-sky-700">在AI快速发展的不确定性中建立确定性锚点，将组织改造成"战略执行机器"</strong>。
+        </p>
+    </div>
+
+    <!-- 四象限速览 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">🎯</div>
+            <h3 class="font-bold text-slate-800 mb-1">核心命题</h3>
+            <p class="text-sm text-slate-600">对齐业务目标，消除战略缺位带来的投资布朗运动，构建技术–市场双维决策锚。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">⚡</div>
+            <h3 class="font-bold text-slate-800 mb-1">动态能力</h3>
+            <p class="text-sm text-slate-600">以敏捷迭代替代静态规划，通过战略期权配置法持续响应技术与市场变化。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">🛡️</div>
+            <h3 class="font-bold text-slate-800 mb-1">系统风控</h3>
+            <p class="text-sm text-slate-600">覆盖战略风险、运营风险、合规与信创安全，构建企业级AI治理闭环。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">🧬</div>
+            <h3 class="font-bold text-slate-800 mb-1">本质特征</h3>
+            <p class="text-sm text-slate-600">战略性、系统性、持续性。不是孤立的技术项目，而是对组织基因的改写。</p>
+        </div>
+    </div>
+
+    <!-- 对比表格：传统AI投资 vs 有战略指导的AI转型 -->
+    <div class="mb-6">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">与"无战略AI投资"的本质区别</h2>
+        <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full divide-y divide-slate-200 text-sm">
+                <thead>
+                    <tr>
+                        <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">维度</th>
+                        <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">无战略的AI投资</th>
+                        <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">AI战略转型（本方案）</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-100">
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">决策依据</td>
+                        <td class="px-5 py-3 text-slate-500">追热点、参照竞品</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">技术–业务双维评估矩阵，数据驱动</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">资源配置</td>
+                        <td class="px-5 py-3 text-slate-500">分散、均摊，无技术壁垒</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">80/20非对称投入，生态位锁定</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">组织响应</td>
+                        <td class="px-5 py-3 text-slate-500">项目制，临时团队，难持续</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">16组件治理架构，人才持续重塑</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">风险应对</td>
+                        <td class="px-5 py-3 text-slate-500">被动响应、合规事后补救</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">全生命周期治理，门禁式上线管控</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">价值回报</td>
+                        <td class="px-5 py-3 text-slate-500">ROI极低，浪费技术转化率</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">可衡量指标体系，持续拉大竞争差距</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">变革深度</td>
+                        <td class="px-5 py-3 text-slate-500">工具替换，局部优化</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">战略层–运营层–文化层的系统性重构</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 本质特征提炼 + 行业典型表现 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+            <h3 class="font-bold text-sky-900 mb-3 flex items-center gap-2"><span>🔬</span> 本质特征提炼</h3>
+            <ul class="space-y-2 text-sm text-sky-800">
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>战略先行：</strong>技术投资须与企业3–5年业务目标严格对齐，拒绝"炫技"驱动。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>敏捷迭代：</strong>战略不是静态蓝图，而是持续校准的传感器系统，高频更新。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>生态位锁定：</strong>从工具应用走向系统性重构，形成场景数据闭环的深度绑定效应。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>治理内嵌：</strong>伦理、合规、风险管控不是事后补丁，而是架构的内生组件。</span></li>
+            </ul>
+        </div>
+        <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+            <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2"><span>🏭</span> 行业典型表现</h3>
+            <ul class="space-y-2 text-sm text-amber-800">
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>制造业：</strong>从人工排产到智能调度，预测性维护减少计划外停机 40%+。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>金融业：</strong>从产品推销到AI驱动的智能投顾，客户资产配置精准度大幅提升。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>零售业：</strong>从统一促销到千人千面推荐，转化率与复购率显著改善。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>服务业：</strong>AI客服承接 70%+ 标准咨询，人工聚焦高价值复杂问题。</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ SECTION 2 · 为什么做 ═══════════════════ -->
+<section id="why" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：战略缺位的代价</h2>
+        <p class="text-slate-500 mt-2 pl-5">从数据与趋势两个维度，量化"不作为"的真实成本。</p>
+    </div>
+
+    <!-- 要点列表（先列要点，再展开） -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">🚫</span>
+                <h3 class="font-bold text-red-800">投资布朗运动</h3>
+            </div>
+            <p class="text-sm text-red-700">盲目追逐热点，缺乏技术壁垒，ROI不足有战略企业的 <strong>25%</strong>。资源分散形成"万金油"团队，无法实现深度突破。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">📉</span>
+                <h3 class="font-bold text-red-800">生态位失利</h3>
+            </div>
+            <p class="text-sm text-red-700">场景数据闭环缺失，导致算法能力代差拉大。竞争对手每迭代一次，追赶成本呈指数级增长。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">⚖️</span>
+                <h3 class="font-bold text-red-800">合规成本激增</h3>
+            </div>
+            <p class="text-sm text-red-700">欧盟AI法案、国内数据安全法规趋严，被动合规面临强制召回或高额罚款风险，合规成本节约潜力达 <strong>42%</strong>。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">👥</span>
+                <h3 class="font-bold text-red-800">人才战争溃败</h3>
+            </div>
+            <p class="text-sm text-red-700">无清晰战略无法吸引顶尖AI人才，被迫溢价挖角而留存率极低。有战略企业人才留存率领先 <strong>55个百分点</strong>。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">🏗️</span>
+                <h3 class="font-bold text-red-800">组织发育畸形</h3>
+            </div>
+            <p class="text-sm text-red-700">技术团队与业务团队各自为战，形成新型数据孤岛。AI项目成功率低于 30%，无法形成可复制的组织能力。</p>
+        </div>
+        <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">💡</span>
+                <h3 class="font-bold text-sky-800">转型红利窗口期</h3>
+            </div>
+            <p class="text-sm text-sky-700">先行者的数据飞轮与生态壁垒一旦成型，追赶者所需成本将以数量级扩大。当下是最低成本建立竞争优势的关键窗口。</p>
+        </div>
+    </div>
+
+    <!-- 图表 -->
+    <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 mb-3">有/无战略指导的AI投资效能量化对比</h3>
+            <p class="text-slate-500 text-sm mb-4">行业研究数据显示，战略驱动的AI投入在四大关键指标上全面领先，差距随时间加速扩大。</p>
+            <div class="space-y-3 mt-4">
+                <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-lg">
+                    <span class="text-sky-600 font-bold">→</span>
+                    <div>
+                        <span class="font-semibold text-sky-800 text-sm">黄金法则一：非对称投入</span>
+                        <p class="text-xs text-slate-600 mt-0.5">80% 资源投入定义行业标准路径，20% 布局前沿探索。</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-lg">
+                    <span class="text-sky-600 font-bold">→</span>
+                    <div>
+                        <span class="font-semibold text-sky-800 text-sm">黄金法则二：敏捷战略迭代</span>
+                        <p class="text-xs text-slate-600 mt-0.5">运用技术–市场双维评估矩阵，高频校准战略方向。</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-lg">
+                    <span class="text-sky-600 font-bold">→</span>
+                    <div>
+                        <span class="font-semibold text-sky-800 text-sm">黄金法则三：生态位锁定</span>
+                        <p class="text-xs text-slate-600 mt-0.5">从工具应用走向系统性重构，建立数据闭环绑定效应。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="imperativeChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ SECTION 3 · 任务目标（结构化 Checklist） ═══════════════════ -->
+<section id="objectives" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：六大维度 Checklist</h2>
+        <p class="text-slate-500 mt-2 pl-5">按子主题分组，每组配有可落地的验收标准，供各项目组对标自查。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+        <!-- 效率 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">⚡</span>
+                <h3 class="font-bold text-slate-800">效率提升</h3>
+                <span class="ml-auto badge-core">运营核心</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>识别并自动化 ≥3 条重复性、规则化核心流程</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>RPA/AI客服上线，人工处理量降低 ≥30%</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立可量化的运营成本节约 KPI 基线</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>供应链/生产环节的 AI 调度覆盖率 ≥50%</span></li>
+            </ul>
+        </div>
+
+        <!-- 决策 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🧠</span>
+                <h3 class="font-bold text-slate-800">决策智能化</h3>
+                <span class="ml-auto badge-core">战略核心</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立技术–市场双维评估矩阵，每季度评估一次</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>高管决策层具备 AI 数据报告解读能力</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>核心业务线引入 AI 辅助决策工具（至少一项）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立 AI 投资 ROI 追踪看板，实现决策可溯源</span></li>
+            </ul>
+        </div>
+
+        <!-- 体验 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">😊</span>
+                <h3 class="font-bold text-slate-800">客户体验</h3>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>客户画像系统上线，完成全量活跃用户标签化</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>个性化推荐引擎覆盖核心交互场景（≥1 个）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>AI 客服实现 7×24h 覆盖，首响时间 &lt;30s</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>客户满意度 (NPS/CSAT) 有可量化的提升目标</span></li>
+            </ul>
+        </div>
+
+        <!-- 竞争力 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🏆</span>
+                <h3 class="font-bold text-slate-800">竞争力建设</h3>
+                <span class="ml-auto badge-core">战略核心</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>完成 AI 竞争格局分析，标定行业生态位</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>在 1-2 个核心场景形成专有数据或算法壁垒</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>制定AI人才引进与培育计划，关键岗位填充率目标明确</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>每半年对标竞品，更新技术雷达评估报告</span></li>
+            </ul>
+        </div>
+
+        <!-- 增长 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">📈</span>
+                <h3 class="font-bold text-slate-800">业务增长</h3>
+                <span class="ml-auto badge-new">价值驱动</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>发现并立项 ≥1 个 AI 驱动的新营收模式</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>现有产品/服务完成 AI 能力增强版本迭代</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立 AI 项目价值评估机制（成本、收入、效率三维）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>识别可订阅化/数据化的潜在收入流</span></li>
+            </ul>
+        </div>
+
+        <!-- 灵活性 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🔄</span>
+                <h3 class="font-bold text-slate-800">组织灵活性</h3>
+                <span class="ml-auto badge-new">组织保障</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>AI 治理委员会成立，决策机制与例会制度建立</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>跨部门 AI 运营团队（CoE）落地，角色明确</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>全员 AI 基础能力培训覆盖率 ≥80%</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>战略复盘节奏制度化（季度/半年度），可快速调向</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 雷达图：六大转型阻力 -->
+    <div class="mt-8 bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 mb-3">典型企业的转型阻力地貌</h3>
+            <p class="text-sm text-slate-500 mb-5">六大难点维度雷达扫描，帮助决策层识别本企业的关键瓶颈，优先分配资源。分值越高代表当前阻力越大。</p>
+            <div class="space-y-3">
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0">01</span><div><span class="font-semibold text-slate-700 text-sm">技术认知与战略</span><p class="text-xs text-slate-500">底层技术认知不足，方向在"全面"与"局部"间摇摆，ROI难量化。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0">02</span><div><span class="font-semibold text-slate-700 text-sm">组织与文化</span><p class="text-xs text-slate-500">科层制僵化阻碍敏捷；员工担忧被替代；管理层不信任"黑箱"算法。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0">03</span><div><span class="font-semibold text-slate-700 text-sm">数据与基础设施</span><p class="text-xs text-slate-500">系统孤岛导致数据割裂；传统架构算力不足，云原生改造周期长。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0">04</span><div><span class="font-semibold text-slate-700 text-sm">治理复杂性</span><p class="text-xs text-slate-500">伦理、偏见、数据隐私监管趋严；静态制度无法应对模型动态漂移。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0">05</span><div><span class="font-semibold text-slate-700 text-sm">资源与能力</span><p class="text-xs text-slate-500">AI×业务复合人才严重断层；高投入长周期与短期业绩考核存在矛盾。</p></div></div>
+                <div class="flex items-start gap-3"><span class="font-bold text-slate-400 w-5 text-right shrink-0">06</span><div><span class="font-semibold text-slate-700 text-sm">生态协同</span><p class="text-xs text-slate-500">封闭运营难以开展产学研合作；行业标准缺失导致重复建设风险。</p></div></div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="challengesChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ SECTION 4 · 架构模型 ═══════════════════ -->
+<section id="framework" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+        <p class="text-slate-500 mt-2 pl-5">点击左侧层级，查看各组件的定位与管理要点。带 <span class="badge-core mx-1">核心枢纽</span> 标注的组件为直接关联的战略执行支点。</p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[440px]">
+        <!-- Left nav -->
+        <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+            <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="implementation">
+                <div class="font-bold">⚙️ 战略实施层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">机制、运营与技术底座落地</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                <div class="font-bold">💎 价值创造层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">驱动业务、创新模式与指标度量</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="organization">
+                <div class="font-bold">🏢 组织支撑层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">高管推动、委员会治理与人才</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                <div class="font-bold">🛡️ 风险管控层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">战略风险、安全与信创合规</div>
+            </button>
+        </div>
+        <!-- Right content -->
+        <div class="flex-1 p-8" id="fw-content">
+            <!-- JS renders here -->
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ SECTION 5 · 如何做（最佳实践） ═══════════════════ -->
+<section id="how" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：四大业务主题最佳实践</h2>
+        <p class="text-slate-500 mt-2 pl-5">按业务主题分块，每块再细分子实践，读者可按需取用。点击模块卡片展开详情。</p>
+    </div>
+
+    <!-- Tab cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5" id="exec-tabs">
+        <div class="exec-tab active bg-white border-2 rounded-xl p-5 cursor-pointer text-center" data-target="track-process">
+            <div class="text-3xl mb-2">⚙️</div>
+            <h3 class="font-bold text-slate-800 text-sm">流程重构</h3>
+            <p class="text-xs text-slate-500 mt-1">自动化 · 智能调度</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-experience">
+            <div class="text-3xl mb-2">👤</div>
+            <h3 class="font-bold text-slate-800 text-sm">客户体验</h3>
+            <p class="text-xs text-slate-500 mt-1">个性化 · 智能交互</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-tech">
+            <div class="text-3xl mb-2">💻</div>
+            <h3 class="font-bold text-slate-800 text-sm">技术基础</h3>
+            <p class="text-xs text-slate-500 mt-1">数据 · 平台 · 架构</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-model">
+            <div class="text-3xl mb-2">💡</div>
+            <h3 class="font-bold text-slate-800 text-sm">新业务模式</h3>
+            <p class="text-xs text-slate-500 mt-1">产品创新 · 价值链</p>
+        </div>
+    </div>
+
+    <!-- Content panel -->
+    <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[320px]" id="exec-content">
+
+        <div id="track-process" class="exec-detail fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">⚙️</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">流程重构</h3>
+                    <p class="text-sm text-slate-500">目标：用AI自动化高频低价值操作，释放人力用于判断与创新</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>流程自动化</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 识别可自动化的重复性、规则化任务（数据录入、单据审核等）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 部署 RPA 处理 ERP/CRM 数据录入与跨系统同步</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 智能客服系统替代 70%+ 标准咨询，人工聚焦高价值场景</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 自动化营销流程、订单处理与财务对账闭环</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>供应链与生产优化</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> AI 需求预测，将库存水位偏差率降低 30%+</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 智能调度系统优化物流路由与配送时效</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 预测性维护模型接入设备传感器，提前预警故障</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 智能质检视觉系统替代人工抽检，提升检测覆盖率</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-slate-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                    <strong class="text-slate-700">💼 典型行业表现：</strong>
+                    <span class="text-slate-600">制造业从人工排产到 AI 智能调度，产能利用率提升 15-25%；服务业智能机器人承接 70%+ 咨询量，客服成本下降 40%+。</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="track-experience" class="exec-detail hidden fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">👤</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">客户体验升级</h3>
+                    <p class="text-sm text-slate-500">目标：从"千人一面"走向"千人千面"，实现全渠道个性化</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>个性化服务</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 建立实时客户画像与行为分析系统（含标签体系）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 个性化推荐引擎覆盖商品、内容、服务三类场景</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 智能营销自动化平台（触发式 + 生命周期式）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 基于 AI 的定制化产品/服务方案生成能力</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>智能交互</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 部署 AI 对话机器人，实现 7×24h 服务能力</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 全渠道（APP/Web/微信/400）服务整合统一</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 智能问答知识库，自动覆盖 80%+ 标准问题</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 引入语音/图像多模态交互，降低用户操作成本</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-slate-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                    <strong class="text-slate-700">💼 典型行业表现：</strong>
+                    <span class="text-slate-600">零售业从统一促销到千人千面推荐，GMV 转化率提升 20-35%；金融业从产品推销到 AI 投顾，客户资产留存率显著改善。</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="track-tech" class="exec-detail hidden fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">💻</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">技术基础建设</h3>
+                    <p class="text-sm text-slate-500">目标：打通数据底座，构建可扩展的 AI 工程化能力平台</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>数据基础设施</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 建立统一数据治理体系与元数据管理</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 完善数据采集、清洗、存储 Pipeline</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 打破孤岛，实现跨域数据互通</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 数据安全分级与隐私合规（PIPL/GDPR）</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>AI 平台与工具链</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 搭建企业级 MLOps 平台（训练/部署/监控）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 引入 Prompt 工程与 RAG 能力框架</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 建立模型版本控制与回滚机制</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 集成主流云端 AI API（国内外信创兼容）</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>IT 架构现代化</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 推进云原生与微服务架构演进</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 建立企业 API 网关，支撑 AI 高并发</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 核心系统技术债清理计划（分阶段）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 容灾与业务连续性保障（AI 系统专项）</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-3 bg-slate-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                    <strong class="text-slate-700">⚠️ 关键风险：</strong>
+                    <span class="text-slate-600">技术底座不牢固是 AI 项目失败的首要原因。数据质量优先于模型复杂度——脏数据喂出的精妙模型，业务价值为零。</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="track-model" class="exec-detail hidden fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">💡</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">新业务模式探索</h3>
+                    <p class="text-sm text-slate-500">目标：发掘新营收模式，融入 AI 时代产业链重构</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>产品与服务创新</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 基于 AI 能力开发差异化新产品/增值服务</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 从产品一次性销售转向服务订阅 + 数据智能模式</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 对外提供数据洞察与行业智能分析服务</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 探索平台化、生态化商业模式（双边/多边市场）</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>价值链重构</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 用 AI 重评价值链各环节的增值潜力与改造机会</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 与上下游伙伴共建 AI 智能供应链生态</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 开放 API 与数据接口，形成平台外溢价值</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 探索基于 AI 的 B2B2C 新型合作模式</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-lg text-sm">
+                    <strong class="text-amber-800">🚀 战略目标：</strong>
+                    <span class="text-amber-700">新业务模式探索须与核心业务形成协同，避免"为创新而创新"。建议设立独立的创新孵化预算（10-20%），在受控环境中快速验证，再决定规模化。</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══════════════════ SECTION 6 · 九步执行路线图 ═══════════════════ -->
+<section id="roadmap" class="scroll-mt-20 pb-8">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">九步执行路线图</h2>
+        <p class="text-slate-500 mt-2 pl-5">将宏观战略分解为 9 个可执行、可迭代步骤，确保 AI 转型与业务目标深度对齐。</p>
+    </div>
+
+    <div class="relative">
+        <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+        <div class="space-y-6" id="roadmap-container"></div>
+    </div>
+</section>
+
+</main>
+
+<footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <p class="mb-2 text-slate-300 font-medium">"真正的AI战略高手，是在快速变化中展现战略定力——不是预测未来，而是塑造未来。"</p>
+        <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ── Chart 1: Bar Chart ──────────────────────────────────────
+    new Chart(document.getElementById('imperativeChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['投资ROI', '人才留存率', '合规成本节约', '技术转化率'],
+            datasets: [
+                {
+                    label: '具备清晰AI战略',
+                    data: [100, 85, 42, 75],
+                    backgroundColor: 'rgba(3, 105, 161, 0.85)',
+                    borderRadius: 4
+                },
+                {
+                    label: '无战略指导',
+                    data: [25, 30, -10, 15],
+                    backgroundColor: 'rgba(185, 28, 28, 0.7)',
+                    borderRadius: 4
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    title: { display: true, text: '相对基准表现 (%)' }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%`
+                    }
+                }
+            }
+        }
+    });
+
+    // ── Chart 2: Radar ──────────────────────────────────────────
+    new Chart(document.getElementById('challengesChart').getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: [
+                ['技术认知', '与战略'],
+                ['组织架构', '与文化'],
+                ['数据与', '基础设施'],
+                ['治理体系', '复杂性'],
+                ['资源能力', '局限'],
+                ['生态协同', '障碍']
+            ],
+            datasets: [{
+                label: '传统企业转型阻力指数',
+                data: [8, 9, 8.5, 7.5, 9, 7],
+                backgroundColor: 'rgba(3, 105, 161, 0.15)',
+                borderColor: '#0369a1',
+                pointBackgroundColor: '#d97706',
+                pointBorderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0,0,0,0.08)' },
+                    grid: { color: 'rgba(0,0,0,0.08)' },
+                    pointLabels: { font: { size: 12 }, color: '#475569' },
+                    ticks: { beginAtZero: true, max: 10, stepSize: 2, display: false }
+                }
+            },
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+
+    // ── Framework Tabs ──────────────────────────────────────────
+    const frameworkData = {
+        implementation: {
+            title: '⚙️ 战略实施层',
+            desc: '将宏大愿景转化为具体动作，确保组织具备执行战略的机制基础。',
+            components: [
+                { id: '02', name: 'CG-AI变革管理', detail: '配套的变革管理机制，打破员工抵触与跨部门壁垒，确保组织有效执行战略目标。', core: true },
+                { id: '03', name: 'CO-运营模式转换', detail: '打破传统科层制，通过运营模式的结构性重构与转换来支撑AI战略落地（本方案核心）。', core: false },
+                { id: '04', name: 'CT-技术路线迁移', detail: '清理技术债，规划清晰的云原生与AI基座演进路线，提供可扩展的技术底座。', core: false }
+            ]
+        },
+        value: {
+            title: '💎 价值创造层',
+            desc: '聚焦业务产出，解决"为什么做"的问题，明确AI的投资回报点。',
+            components: [
+                { id: '05', name: 'VS-AI驱动和赋能', detail: '明确AI如何解决具体业务痛点，赋能核心流程链条，从降本增效到创造新价值。', core: true },
+                { id: '06', name: 'VG-AI创新应用模式', detail: '不仅优化现有流程，更要探索重构商业模式的新应用场景与新收入来源。', core: false },
+                { id: '07', name: 'VO-可衡量的指标', detail: '建立客观、可追踪的ROI与战略执行效果跟踪指标体系，支撑投资决策。', core: true },
+                { id: '08', name: 'VT-适用性选择', detail: '基于高价值、低复杂度原则，精选最适合企业现状的技术方案，避免技术过度设计。', core: false }
+            ]
+        },
+        organization: {
+            title: '🏢 组织支撑层',
+            desc: '建立决策、推行与执行主体，为人机协作的未来做好人才储备。',
+            components: [
+                { id: '09', name: 'OS-领导与倡导者', detail: '高层亲自挂帅推动，化解跨部门阻力，为AI战略提供持续的资源背书与信号。', core: true },
+                { id: '10', name: 'OG-AI治理委员会', detail: '设立统筹协调与重大决策的最高审批机构，负责资源优先级裁定与风险决策。', core: true },
+                { id: '11', name: 'OO-AI运营团队(CoE)', detail: '跨职能的敏捷执行团队，负责AI能力的日常推广、迭代与组织能力积累。', core: false },
+                { id: '12', name: 'OT-技术人才准备', detail: '弥合人才断层，构建内部培训（全员基础 + 专项精英）与外部引进相结合的体系。', core: false }
+            ]
+        },
+        risk: {
+            title: '🛡️ 风险管控层',
+            desc: '守住底线，应对AI通用性带来的高昂治理成本与指数级合规风险。',
+            components: [
+                { id: '13', name: 'RS-战略风险', detail: '识别并应对技术路线错误判断或痛失机会窗口的风险，建立战略期权应对机制。', core: true },
+                { id: '14', name: 'RG-AI风险管理', detail: '针对算法偏见、数据隐私、模型黑箱与对抗攻击建立系统管理机制（全生命周期）。', core: false },
+                { id: '15', name: 'RO-AI运营风险', detail: '监控模型漂移、系统宕机等日常运行风险，建立告警与快速响应 SLA。', core: false },
+                { id: '16', name: 'RT-安全与信创', detail: '确保基础设施与数据的绝对安全，满足国内数据安全法、信创合规与等保要求。', core: false }
+            ]
+        }
+    };
+
+    function renderFramework(key) {
+        const d = frameworkData[key];
+        let html = `
+            <div class="fade-in">
+                <h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3>
+                <p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p>
+                <div class="grid grid-cols-1 gap-4">`;
+        d.components.forEach(c => {
+            html += `
+                <div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span>
+                        <span class="font-bold text-slate-800 text-sm">${c.name}</span>
+                        ${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}
+                    </div>
+                    <p class="text-sm text-slate-600">${c.detail}</p>
+                </div>`;
+        });
+        html += '</div></div>';
+        document.getElementById('fw-content').innerHTML = html;
+    }
+
+    document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderFramework(btn.getAttribute('data-key'));
+        });
+    });
+    renderFramework('implementation');
+
+    // ── Execution Tabs ──────────────────────────────────────────
+    document.querySelectorAll('#exec-tabs .exec-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('#exec-tabs .exec-tab').forEach(t => {
+                t.classList.remove('active');
+                t.classList.add('border-slate-200');
+            });
+            tab.classList.add('active');
+            tab.classList.remove('border-slate-200');
+
+            const target = tab.getAttribute('data-target');
+            document.querySelectorAll('.exec-detail').forEach(d => {
+                d.classList.add('hidden');
+                d.classList.remove('fade-in');
+            });
+            const panel = document.getElementById(target);
+            panel.classList.remove('hidden');
+            void panel.offsetWidth;
+            panel.classList.add('fade-in');
+        });
+    });
+
+    // ── Roadmap ─────────────────────────────────────────────────
+    const steps = [
+        { title: '分析AI发展趋势', desc: '构建技术雷达监测系统，持续追踪芯片、框架、算法及行业应用演进趋势。' },
+        { title: '评估AI对企业的影响', desc: '应用技术–市场双维评估矩阵，判断AI可能重构的价值链核心环节。' },
+        { title: '重评外部与自身', desc: '盘点技术债、组织架构短板、数据质量与生态壁垒，精准标定自身定位。' },
+        { title: '定义企业发展目标', desc: '确立在不确定性中的确定性锚点，明确AI在本企业的战略定位（工具优化 vs 模式重构）。' },
+        { title: '与业务发展对齐', desc: '优先切入高价值、低复杂度的业务痛点，避免"炫技"式技术布朗运动。' },
+        { title: '制定可扩展路线图', desc: '采用战略期权配置法（70% 基础 + 20% 潜力 + 10% 颠覆），保持敏捷迭代节奏。' },
+        { title: '融入数字化转型', desc: '打通历史系统孤岛，结合云原生改造，实现数据底座贯通与能力共享。' },
+        { title: '纳入战略与愿景', desc: '将AI上升为企业顶层战略，改造组织基因，培育创新容错文化。' },
+        { title: '战略发布与推广', desc: '跨部门AI中心 (CoE) 主导推动，配以全员技能重塑计划，建立动态监控与评估反馈环。' }
+    ];
+
+    const container = document.getElementById('roadmap-container');
+    steps.forEach((s, i) => {
+        const isEven = i % 2 === 0;
+        container.innerHTML += `
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                <div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 border-sky-700 rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold text-sky-800 z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">
+                    ${i + 1}
+                </div>
+                <div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}">
+                    <div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">${s.desc}</p>
+                    </div>
+                </div>
+                <div class="hidden md:block md:w-5/12"></div>
+            </div>`;
+    });
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI技术路线迁移执行方案 - 董事会内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', 'Segoe UI', sans-serif; background-color: #f8fafc; color: #0f172a; }
+        .chart-container { position: relative; width: 100%; max-width: 680px; margin-left: auto; margin-right: auto; height: 340px; max-height: 400px; }
+        .chart-container-sm { position: relative; width: 100%; max-width: 340px; margin-left: auto; margin-right: auto; height: 260px; }
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+
+        .nav-link { transition: color 0.2s; }
+        .nav-link:hover { color: #0369a1; }
+
+        /* Framework tabs */
+        .fw-tab { transition: all 0.2s; border-left: 4px solid transparent; }
+        .fw-tab.active { border-left-color: #d97706; background-color: #0f172a; color: #fff; }
+        .fw-tab:not(.active):hover { background-color: #f1f5f9; }
+
+        /* Exec tabs */
+        .exec-tab { transition: all 0.3s; }
+        .exec-tab:hover { transform: translateY(-4px); box-shadow: 0 8px 20px -4px rgba(0,0,0,0.12); border-color: #0369a1; }
+        .exec-tab.active { background-color: #e0f2fe; border-color: #0369a1; }
+
+        /* Strategy toggle buttons */
+        .strat-btn { transition: all 0.2s; }
+        .strat-btn.active { background-color: #0f172a; color: #fff; }
+
+        .roadmap-step { transition: all 0.2s; }
+        .roadmap-step:hover { transform: translateY(-3px); box-shadow: 0 8px 20px -4px rgba(0,0,0,0.12); }
+
+        .check-item { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+        .check-item:last-child { border-bottom: none; }
+
+        .fade-in { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .section-title { border-left: 4px solid #0369a1; padding-left: 1rem; }
+        .badge-core { background:#fef3c7; color:#92400e; font-size:0.7rem; padding:2px 8px; border-radius:9999px; font-weight:600; }
+        .badge-new  { background:#dcfce7; color:#166534; font-size:0.7rem; padding:2px 8px; border-radius:9999px; font-weight:600; }
+
+        /* Code block */
+        .code-block { background:#0f172a; color:#4ade80; font-family: 'Courier New', monospace; font-size: 0.75rem; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; line-height: 1.6; }
+        .code-comment { color: #64748b; }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+<!-- ═══ NAV ═══ -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl">🔧</span>
+                <span class="font-bold text-xl tracking-tight text-sky-800">【04】AI技术路线迁移</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-7">
+                <a href="#overview"   class="nav-link text-slate-600 font-medium">技术迁移概览</a>
+                <a href="#why"        class="nav-link text-slate-600 font-medium">为什么做</a>
+                <a href="#objectives" class="nav-link text-slate-600 font-medium">任务目标</a>
+                <a href="#framework"  class="nav-link text-slate-600 font-medium">架构模型</a>
+                <a href="#how"        class="nav-link text-slate-600 font-medium">如何做</a>
+                <a href="#roadmap"    class="nav-link text-slate-600 font-medium">执行路线</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 · 迁移概览
+════════════════════════════════════════════════════════ -->
+<section id="overview" class="bg-white rounded-2xl shadow-sm p-8 border-t-4 border-sky-700 scroll-mt-20">
+    <div class="max-w-4xl mb-8">
+        <h1 class="text-3xl font-extrabold text-slate-900 mb-3">企业AI技术路线迁移执行方案</h1>
+        <p class="text-lg text-slate-600 leading-relaxed">
+            本方案面向董事会与高管层，聚焦企业 AI 转型的技术根基命题：
+            <strong class="text-sky-700">跨越"技术债"鸿沟，从传统 IOE 竖井架构向 AI 原生、数据驱动的现代化体系演进</strong>。
+            技术路线迁移不是 IT 部门的内部事务，而是决定 AI 战略能否落地的基础设施战略。
+        </p>
+    </div>
+
+    <!-- 四象限速览 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">🧱</div>
+            <h3 class="font-bold text-slate-800 mb-1">核心命题</h3>
+            <p class="text-sm text-slate-600">传统 IOE 架构是 AI 落地的根本障碍。技术迁移是让 AI 战略真正跑起来的先决条件。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">☁️</div>
+            <h3 class="font-bold text-slate-800 mb-1">架构方向</h3>
+            <p class="text-sm text-slate-600">云原生 + 湖仓一体 + 混合云协同，构建弹性、可扩展、AI-Ready 的基础设施底座。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">⚙️</div>
+            <h3 class="font-bold text-slate-800 mb-1">能力获取</h3>
+            <p class="text-sm text-slate-600">Buy / Boost / Build 三路并进策略，根据场景价值与战略定位灵活组合，形成差异化壁垒。</p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+            <div class="text-2xl mb-2">🛡️</div>
+            <h3 class="font-bold text-slate-800 mb-1">本质特征</h3>
+            <p class="text-sm text-slate-600">技术迁移是持续演进而非一次性工程，须将合规治理与可解释性能力内嵌于架构基因。</p>
+        </div>
+    </div>
+
+    <!-- 对比表格：传统架构 vs AI原生架构 -->
+    <div class="mb-6">
+        <h2 class="text-xl font-bold text-slate-800 mb-4 section-title">从传统架构到 AI 原生架构：本质差异</h2>
+        <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full divide-y divide-slate-200 text-sm">
+                <thead>
+                    <tr>
+                        <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase w-32">比较维度</th>
+                        <th class="px-5 py-3 bg-slate-100 text-left text-xs font-semibold text-slate-500 uppercase">传统 IOE 架构</th>
+                        <th class="px-5 py-3 bg-sky-50 text-left text-xs font-bold text-sky-800 uppercase">AI 原生现代化架构（本方案）</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-100">
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">数据处理</td>
+                        <td class="px-5 py-3 text-slate-500">结构化 SQL 为主，无法处理非结构化数据</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">湖仓一体 + 向量数据库，80% 非结构化数据可利用</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">弹性扩展</td>
+                        <td class="px-5 py-3 text-slate-500">固定容量，扩容周期长，成本高昂</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">云原生弹性调度，秒级扩缩容，CapEx 转 OpEx</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">AI 支撑</td>
+                        <td class="px-5 py-3 text-slate-500">无 GPU 资源，无模型训练/推理能力</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">GPU/TPU 集群 + MLOps/LLMOps 全流程支撑</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">合规治理</td>
+                        <td class="px-5 py-3 text-slate-500">事后审计，被动合规，黑盒不可解释</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">工程级合规内嵌，可解释性审计（LIME/SHAP）常态化</td>
+                    </tr>
+                    <tr>
+                        <td class="px-5 py-3 font-medium text-slate-700">供应商依赖</td>
+                        <td class="px-5 py-3 text-slate-500">严重锁定于特定厂商（Oracle/IBM/EMC）</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">容器化 + K8s 解耦，多云 / 信创灵活切换</td>
+                    </tr>
+                    <tr class="bg-slate-50/50">
+                        <td class="px-5 py-3 font-medium text-slate-700">迭代速度</td>
+                        <td class="px-5 py-3 text-slate-500">变更周期以月计，发布风险高</td>
+                        <td class="px-5 py-3 font-semibold text-sky-700">CI/CD/CT 持续交付，模型版本管理，快速回滚</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 本质特征 + 行业典型表现 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-sky-50 p-5 rounded-xl border border-sky-100">
+            <h3 class="font-bold text-sky-900 mb-3 flex items-center gap-2"><span>🔬</span> 本质特征提炼</h3>
+            <ul class="space-y-2 text-sm text-sky-800">
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>基础设施即战略：</strong>技术架构的选择直接决定未来 AI 能力的天花板，是企业 AI 竞争力的物质基础。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>数据质量优先：</strong>"垃圾进，垃圾出"——数据治理的优先级应高于模型选型。数据底座决定模型上限。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>分层迁移原则：</strong>技术债不能一次性清零，须按业务优先级分阶段演进，保障业务连续性。</span></li>
+                <li class="check-item"><span class="text-sky-600 font-bold mt-0.5">▸</span><span><strong>合规内嵌设计：</strong>数据安全、模型可解释性、信创合规须在架构设计阶段嵌入，而非上线后补救。</span></li>
+            </ul>
+        </div>
+        <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+            <h3 class="font-bold text-amber-900 mb-3 flex items-center gap-2"><span>🏭</span> 行业典型表现</h3>
+            <ul class="space-y-2 text-sm text-amber-800">
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>金融业：</strong>完成湖仓迁移后，实时风控模型延迟从分钟级压缩至毫秒级，欺诈识别准确率显著提升。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>制造业：</strong>工业边缘推理部署后，设备故障预测响应时间 &lt;50ms，非计划停机率下降 40%+。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>零售业：</strong>向量数据库驱动的语义搜索上线后，搜索转化率提升 25%，商品推荐精度大幅改善。</span></li>
+                <li class="check-item"><span class="text-amber-600 font-bold mt-0.5">▸</span><span><strong>互联网：</strong>LLMOps 平台建立后，新模型从训练到生产上线周期从 3 个月压缩至 2 周。</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 · 为什么做
+════════════════════════════════════════════════════════ -->
+<section id="why" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">为什么做：迁移的战略必要性</h2>
+        <p class="text-slate-500 mt-2 pl-5">企业正处于大数据转型与大模型 AI 技术爆发的叠加期——传统架构已无法承载 AI 时代的业务创新需求。</p>
+    </div>
+
+    <!-- 要点卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xl">🧱</span><h3 class="font-bold text-red-800">技术债的桎梏</h3></div>
+            <p class="text-sm text-red-700">传统竖井式 IOE 架构缺乏弹性，历史权宜之计累积的技术债已形成系统性枷锁。每增加一个 AI 应用，与遗留系统的集成成本呈指数增长，最终导致"AI 做了，但跑不起来"。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xl">🗃️</span><h3 class="font-bold text-red-800">数据无法驱动 AI</h3></div>
+            <p class="text-sm text-red-700">企业 80% 以上的数据是非结构化的（文档 / 音视频 / 日志），而传统 SQL 架构只能处理结构化数据。数据资产无法被 AI 利用，等同于让模型"巧妇难为无米之炊"。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xl">⚡</span><h3 class="font-bold text-red-800">算力基础设施缺位</h3></div>
+            <p class="text-sm text-red-700">大模型训练与推理需要 GPU/TPU 集群，传统架构无此能力。没有弹性算力基础设施，企业只能"买服务"而无法"建能力"，永远处于技术链的下游。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xl">🔒</span><h3 class="font-bold text-red-800">供应商锁定与合规风险</h3></div>
+            <p class="text-sm text-red-700">IOE 体系的深度锁定导致议价权丧失，替换成本极高。同时，AI 应用的数据跨境、模型决策可解释性等合规要求，传统架构无内生满足能力。</p>
+        </div>
+        <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xl">🐢</span><h3 class="font-bold text-red-800">迭代速度无法匹配 AI 节奏</h3></div>
+            <p class="text-sm text-red-700">AI 技术每 6 个月迭代一代，而传统架构的变更周期以月计。系统发布风险导致组织不敢频繁更新，企业将持续落后于技术前沿，错失每一轮能力窗口。</p>
+        </div>
+        <div class="bg-sky-50 border border-sky-100 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><span class="text-xl">💡</span><h3 class="font-bold text-sky-800">现代化架构的战略红利</h3></div>
+            <p class="text-sm text-sky-700">完成技术路线迁移的企业，将获得弹性算力、数据全利用、快速迭代的三重优势。<strong>技术底座的现代化是所有 AI 战略的先决条件，也是最持久的竞争壁垒。</strong></p>
+        </div>
+    </div>
+
+    <!-- AI能力获取三路径对比雷达图 -->
+    <div class="bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 mb-3">AI 能力获取三路径：Buy / Boost / Build</h3>
+            <p class="text-sm text-slate-500 mb-5">三种路径在上线速度、成本结构、差异化能力上有根本性差异。大多数企业应采用组合策略而非单一路径。</p>
+            <div class="space-y-3">
+                <div class="flex items-start gap-3 p-3 bg-sky-50 rounded-lg border border-sky-100">
+                    <span class="text-lg shrink-0">🛒</span>
+                    <div><span class="font-bold text-sky-800 text-sm">Buy（购买 SaaS）</span><p class="text-xs text-slate-600 mt-0.5">适用非核心场景。上线最快，但面临平庸化陷阱与供应商锁定，无差异化壁垒。</p></div>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-amber-50 rounded-lg border border-amber-100">
+                    <span class="text-lg shrink-0">🚀</span>
+                    <div><span class="font-bold text-amber-800 text-sm">Boost（增强 RAG）</span><p class="text-xs text-slate-600 mt-0.5">当前最佳平衡点。用基础大模型注入私有数据，掌握数据主权，成本可控，防止幻觉。</p></div>
+                </div>
+                <div class="flex items-start gap-3 p-3 bg-purple-50 rounded-lg border border-purple-100">
+                    <span class="text-lg shrink-0">🛠️</span>
+                    <div><span class="font-bold text-purple-800 text-sm">Build（自主构建）</span><p class="text-xs text-slate-600 mt-0.5">核心竞争场景。完全掌控 IP，建立最高壁垒，但初期资本投入高、周期长（≥9 个月）。</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="strategyRadarChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 · 任务目标（六维 Checklist）
+════════════════════════════════════════════════════════ -->
+<section id="objectives" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">任务目标：六大维度 Checklist</h2>
+        <p class="text-slate-500 mt-2 pl-5">按技术迁移子主题分组，每组附可落地验收标准，供架构委员会与项目团队对标自查。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+        <!-- 基础设施现代化 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">☁️</span>
+                <h3 class="font-bold text-slate-800">基础设施现代化</h3>
+                <span class="ml-auto badge-core">优先级P0</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立混合云架构，实现计算资源弹性调配（峰谷差 ≥3x）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>完成容器化与 Kubernetes 编排系统部署，覆盖核心应用</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>部署 AI 专用算力基础设施（GPU/TPU 集群），满足训练需求</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>完成现有技术债务评估报告，制定分阶段消减计划</span></li>
+            </ul>
+        </div>
+
+        <!-- 数据底座建设 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🗄️</span>
+                <h3 class="font-bold text-slate-800">数据底座建设</h3>
+                <span class="ml-auto badge-core">优先级P0</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>部署企业级湖仓一体（Lakehouse）平台，统一数据访问层</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立向量数据库，支撑非结构化数据语义检索（RAG 基础）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>实施数据脱敏与去噪清洗流程（消除 ROT 数据）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>打通主要业务系统数据孤岛，建立统一元数据目录</span></li>
+            </ul>
+        </div>
+
+        <!-- AI 平台能力 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🤖</span>
+                <h3 class="font-bold text-slate-800">AI 平台能力</h3>
+                <span class="ml-auto badge-new">优先级P1</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>引入或自建大模型平台，完成主流基础模型接入</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立微调与 Prompt 工程平台（RAG / PEFT 能力就绪）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>MLOps / LLMOps 体系落地，实现模型自动化部署与监控</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立 Prompt 版本控制与向量知识库实时刷新机制</span></li>
+            </ul>
+        </div>
+
+        <!-- 合规与安全 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🛡️</span>
+                <h3 class="font-bold text-slate-800">合规与安全</h3>
+                <span class="ml-auto badge-core">优先级P0</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>落实《网络数据安全管理条例》等工程合规审查流程</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立模型可解释性审计系统（集成 LIME / SHAP 工具）</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>防数据投毒 + 输出安全过滤层 + 供应链安全追踪就绪</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>完成信创合规评估，关键系统具备国产替代方案</span></li>
+            </ul>
+        </div>
+
+        <!-- 迁移策略执行 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">🗺️</span>
+                <h3 class="font-bold text-slate-800">迁移策略执行</h3>
+                <span class="ml-auto badge-new">优先级P1</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>完成 Buy / Boost / Build 三路径的场景分类与优先级排序</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>核心业务场景完成 AI 能力获取路径决策并立项</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>制定供应商解锁路线图，降低单一厂商依赖度</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>关键系统迁移期间的业务连续性保障方案完成评审</span></li>
+            </ul>
+        </div>
+
+        <!-- 组织与人才 -->
+        <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+            <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
+                <span class="text-xl">👥</span>
+                <h3 class="font-bold text-slate-800">组织与人才</h3>
+                <span class="ml-auto badge-new">优先级P1</span>
+            </div>
+            <ul class="space-y-2 text-sm text-slate-700">
+                <li class="check-item"><span class="text-sky-500">☐</span><span>AI 架构委员会成立，负责技术路线决策与标准制定</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>完成云原生 / MLOps 核心人才引进或外部合作布局</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>技术团队完成新架构体系（K8s/云原生）培训认证</span></li>
+                <li class="check-item"><span class="text-sky-500">☐</span><span>建立技术债消减与架构演进的长效 Review 机制（季度）</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 数据形态分布图 -->
+    <div class="mt-8 bg-white rounded-2xl shadow-sm p-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+            <h3 class="text-xl font-bold text-slate-800 mb-3">企业数据形态：为何传统架构已不够用</h3>
+            <p class="text-sm text-slate-500 mb-5">预测到 2025 年，企业 80% 以上的数据将是非结构化的——而传统 SQL 架构对此几乎无能为力。向量数据库的战略意义正在于此。</p>
+            <div class="space-y-3">
+                <div class="p-4 bg-sky-50 rounded-xl border border-sky-100">
+                    <h4 class="font-bold text-sky-800 text-sm mb-1">非结构化数据（80%）</h4>
+                    <p class="text-xs text-slate-600">文档、邮件、音视频、客服录音、产品图片、日志……这些数据包含最丰富的业务洞察，但传统数据库无法检索与利用。</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-700 text-sm mb-1">结构化数据（20%）</h4>
+                    <p class="text-xs text-slate-600">交易记录、财务数据、CRM 数据……传统架构擅长的领域，但仅靠这 20% 无法构建真正的 AI 竞争优势。</p>
+                </div>
+                <div class="p-3 bg-amber-50 rounded-lg border border-amber-100 text-xs text-amber-800">
+                    <strong>核心结论：</strong> 不建立向量数据库与湖仓一体能力，企业将持续浪费 80% 的数据资产，AI 模型也将因缺乏领域知识而反复产生幻觉。
+                </div>
+            </div>
+        </div>
+        <div class="chart-container-sm mx-auto">
+            <canvas id="dataTypeChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4 · 架构模型（四层全组件）
+════════════════════════════════════════════════════════ -->
+<section id="framework" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">架构模型：四层 16 组件治理体系</h2>
+        <p class="text-slate-500 mt-2 pl-5">覆盖 01–16 全部组件（除本组件自身 04），按四层架构分组。点击左侧层级查看每个组件与技术路线迁移的协同关系。<span class="badge-core mx-1">核心枢纽</span> 为直接关联的执行支点。</p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-0 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden min-h-[460px]">
+        <div class="w-full md:w-72 shrink-0 border-r border-slate-100" id="fw-tabs">
+            <button class="fw-tab active w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="strategy">
+                <div class="font-bold">⚙️ 战略实施层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">01 · 02 · 03｜战略、变革与运营支撑</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="value">
+                <div class="font-bold">💎 价值创造层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">05 · 06 · 07 · 08｜赋能、创新与选型</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 border-b border-slate-100 focus:outline-none" data-key="org">
+                <div class="font-bold">🏢 组织支撑层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">09 · 10 · 11 · 12｜领导、治理与人才</div>
+            </button>
+            <button class="fw-tab w-full text-left px-6 py-5 focus:outline-none" data-key="risk">
+                <div class="font-bold">🛡️ 风险管控层</div>
+                <div class="text-xs text-slate-400 mt-1 font-normal">13 · 14 · 15 · 16｜战略、AI与运营风险</div>
+            </button>
+        </div>
+        <div class="flex-1 p-8" id="fw-content"></div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 5 · 如何做（三大技术基石）
+════════════════════════════════════════════════════════ -->
+<section id="how" class="scroll-mt-20">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">如何做：三大技术基石 + 能力获取策略</h2>
+        <p class="text-slate-500 mt-2 pl-5">技术路线迁移的四个核心实践模块，覆盖数据底座、基础设施、运营治理与 AI 能力获取策略。点击模块展开详情。</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5" id="exec-tabs">
+        <div class="exec-tab active bg-white border-2 rounded-xl p-5 cursor-pointer text-center" data-target="track-data">
+            <div class="text-3xl mb-2">📊</div>
+            <h3 class="font-bold text-slate-800 text-sm">数据底座</h3>
+            <p class="text-xs text-slate-500 mt-1">湖仓 · 向量 · 治理</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-infra">
+            <div class="text-3xl mb-2">☁️</div>
+            <h3 class="font-bold text-slate-800 text-sm">基础设施</h3>
+            <p class="text-xs text-slate-500 mt-1">混合云 · K8s · 算力</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-ops">
+            <div class="text-3xl mb-2">⚙️</div>
+            <h3 class="font-bold text-slate-800 text-sm">运营治理</h3>
+            <p class="text-xs text-slate-500 mt-1">MLOps · 合规 · 审计</p>
+        </div>
+        <div class="exec-tab bg-white border-2 border-slate-200 rounded-xl p-5 cursor-pointer text-center" data-target="track-strategy">
+            <div class="text-3xl mb-2">🎯</div>
+            <h3 class="font-bold text-slate-800 text-sm">能力获取策略</h3>
+            <p class="text-xs text-slate-500 mt-1">Buy · Boost · Build</p>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm p-8 min-h-[360px]" id="exec-content">
+
+        <!-- 数据底座 -->
+        <div id="track-data" class="exec-detail fade-in">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">📊</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">数据底座：从关系型到 AI 原生湖仓</h3>
+                    <p class="text-sm text-slate-500">目标：让 100% 的企业数据（包括非结构化）可被 AI 有效利用</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>湖仓一体（Lakehouse）</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 融合数据湖的低成本存储与数据仓库的高性能查询能力</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 支持结构化 + 半结构化 + 非结构化数据统一管理</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 建立统一数据目录与元数据管理，消除数据孤岛</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 迁移前必须清理历史 ROT 数据（冗余/过时/无效）</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>向量数据库（AI 的新大脑）</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 将非结构化数据向量化（Embedding），支持毫秒级语义搜索</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 是实现 RAG（检索增强生成）的核心基础设施</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 集成 PII 脱敏流程，防止模型幻觉与隐私合规风险</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 支持知识库实时刷新，确保模型回答与业务现状同步</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2 bg-slate-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                    <strong class="text-slate-700">⚠️ 关键原则：</strong>
+                    <span class="text-slate-600">数据质量优先于模型选型。"垃圾进，垃圾出"——花费 80% 时间在数据治理上，比花费 80% 时间调试模型更有价值。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 基础设施 -->
+        <div id="track-infra" class="exec-detail hidden">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">☁️</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">基础设施：云-边-端协同拓扑</h3>
+                    <p class="text-sm text-slate-500">目标：构建弹性算力底座，实现训练与推理的成本与性能最优平衡</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-5">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 border-l-4 border-l-blue-500">
+                    <h4 class="font-bold text-slate-800 mb-2">☁️ 公有云（训练与弹性爆发）</h4>
+                    <p class="text-sm text-slate-600 mb-3">将 CapEx 转化为 OpEx。处理大规模模型训练与突发高并发推理，提供无可比拟的弹性缩放能力。</p>
+                    <ul class="space-y-1 text-xs text-slate-500">
+                        <li class="check-item"><span class="text-slate-400">▸</span> GPU/TPU 集群按需调用，训练成本可控</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 峰值算力弹性扩容，无需预置冗余硬件</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 border-l-4 border-l-green-500">
+                    <h4 class="font-bold text-slate-800 mb-2">🏭 私有云 / 边缘（常态推理与隐私）</h4>
+                    <p class="text-sm text-slate-600 mb-3">保障数据不出域，规避跨境合规风险。实现亚秒级甚至 50ms 内的实时响应（如工业控制场景）。</p>
+                    <ul class="space-y-1 text-xs text-slate-500">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 敏感数据在企业边界内处理，合规无忧</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 低延迟推理满足实时业务需求</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-sky-50 border border-sky-100 p-4 rounded-xl flex items-start gap-4">
+                <span class="text-2xl shrink-0">🚢</span>
+                <div>
+                    <h4 class="font-bold text-sky-800 mb-1">架构基建：Kubernetes 与容器化</h4>
+                    <p class="text-sm text-sky-700">通过 K8s 实现工作负载编排，"一次构建，到处运行"，解耦底层硬件，彻底降低对单一供应商的依赖。同时建立 CI/CD 流水线，实现基础设施即代码（IaC）。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 运营治理 -->
+        <div id="track-ops" class="exec-detail hidden">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">⚙️</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">运营治理：MLOps → LLMOps 全链路</h3>
+                    <p class="text-sm text-slate-500">目标：解决"实验室可用，生产不可用"的工程化鸿沟</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>MLOps / LLMOps 核心能力</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> <strong>CI/CD/CT：</strong>持续集成、持续部署、持续训练（应对数据漂移）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> <strong>模型版本管理：</strong>确保每次训练可复现，支持快速回滚</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> <strong>Prompt 版本控制：</strong>LLM 专项，追踪提示词变更对输出的影响</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> <strong>特征平台：</strong>保证离线训练与在线推理的特征一致性</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2"><span class="w-1.5 h-5 bg-sky-500 rounded-full inline-block"></span>合规红线与可解释性</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li class="check-item"><span class="text-slate-400">▸</span> 数据安全三层防护：防投毒 + 供应链追踪 + 输出过滤</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 引入 LIME / SHAP 可解释性工具，满足监管"可执法接口"</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 生成内容合规性过滤层（CSAM / 有害内容拦截）</li>
+                        <li class="check-item"><span class="text-slate-400">▸</span> 模型上线前完成安全审计，形成可审计的证据链</li>
+                    </ul>
+                </div>
+                <div class="md:col-span-2">
+                    <div class="code-block">
+                        <span class="text-slate-400">// LIME 算法局部核函数——模型可解释性的数学基础</span><br>
+                        π_x(z) = exp(- D(x, z)² / σ²)<br>
+                        <span class="code-comment">/* 通过局部采样，将黑盒模型决策转化为可理解的因子解释 */</span><br>
+                        <span class="code-comment">/* 监管要求："AI 做了什么决定" → "AI 为什么做此决定" */</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 能力获取策略 -->
+        <div id="track-strategy" class="exec-detail hidden">
+            <div class="flex items-center gap-3 mb-5 pb-3 border-b border-slate-100">
+                <span class="text-2xl">🎯</span>
+                <div>
+                    <h3 class="text-xl font-bold text-sky-800">AI 能力获取：Buy / Boost / Build 实践指南</h3>
+                    <p class="text-sm text-slate-500">三路径不是非此即彼，而是根据场景战略价值灵活组合的决策框架</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+                <div class="bg-sky-50 rounded-xl border border-sky-200 p-5">
+                    <div class="flex items-center gap-2 mb-3"><span class="text-xl">🛒</span><h4 class="font-bold text-sky-800">Buy（购买 SaaS）</h4></div>
+                    <div class="space-y-2 text-xs">
+                        <div class="bg-white p-2 rounded border border-sky-100"><span class="font-bold text-green-700">✔ 优势：</span><span class="text-slate-600">上线极快（数周），初期资金投入极低，无需组建 AI 团队。</span></div>
+                        <div class="bg-white p-2 rounded border border-sky-100"><span class="font-bold text-red-700">✘ 挑战：</span><span class="text-slate-600">平庸化陷阱，无差异化壁垒，供应商锁定，长期 API 成本高。</span></div>
+                        <div class="bg-white p-2 rounded border border-sky-100"><span class="font-bold text-blue-700">▶ 适用：</span><span class="text-slate-600">通用办公自动化、基础代码辅助、非核心客服。</span></div>
+                    </div>
+                </div>
+                <div class="bg-amber-50 rounded-xl border border-amber-200 p-5 ring-2 ring-amber-300">
+                    <div class="flex items-center gap-2 mb-2"><span class="text-xl">🚀</span><h4 class="font-bold text-amber-800">Boost（增强 RAG）</h4><span class="ml-auto badge-core">推荐路径</span></div>
+                    <div class="space-y-2 text-xs">
+                        <div class="bg-white p-2 rounded border border-amber-100"><span class="font-bold text-green-700">✔ 优势：</span><span class="text-slate-600">避免昂贵全量重训，极大降低成本。注入私有数据掌握主权，防止幻觉。</span></div>
+                        <div class="bg-white p-2 rounded border border-amber-100"><span class="font-bold text-red-700">✘ 挑战：</span><span class="text-slate-600">需搭建向量化数据管道和 LLMOps 基础体系，有一定技术门槛。</span></div>
+                        <div class="bg-white p-2 rounded border border-amber-100"><span class="font-bold text-blue-700">▶ 适用：</span><span class="text-slate-600">企业知识库问答、智能客服、业务流程辅助。</span></div>
+                    </div>
+                </div>
+                <div class="bg-purple-50 rounded-xl border border-purple-200 p-5">
+                    <div class="flex items-center gap-2 mb-3"><span class="text-xl">🛠️</span><h4 class="font-bold text-purple-800">Build（自主构建）</h4></div>
+                    <div class="space-y-2 text-xs">
+                        <div class="bg-white p-2 rounded border border-purple-100"><span class="font-bold text-green-700">✔ 优势：</span><span class="text-slate-600">完全掌控核心 IP，建立最高行业壁垒，长期 API 成本最低。</span></div>
+                        <div class="bg-white p-2 rounded border border-purple-100"><span class="font-bold text-red-700">✘ 挑战：</span><span class="text-slate-600">初期 CapEx 极高，需顶尖 AI 人才，周期漫长（≥9 个月）。</span></div>
+                        <div class="bg-white p-2 rounded border border-purple-100"><span class="font-bold text-blue-700">▶ 适用：</span><span class="text-slate-600">核心风控引擎、垂直行业专用大模型、精密工艺优化。</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-slate-50 border-l-4 border-sky-500 p-4 rounded-lg text-sm">
+                <strong class="text-slate-700">🎯 决策建议：</strong>
+                <span class="text-slate-600">大多数企业的最优策略是 <strong>70% Boost + 20% Buy + 10% Build</strong>。Boost 路径平衡了成本、速度与差异化，是当前技术成熟度与企业能力下的最佳起点。</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 6 · 执行路线
+════════════════════════════════════════════════════════ -->
+<section id="roadmap" class="scroll-mt-20 pb-8">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-slate-900 section-title">执行路线：技术路线迁移八步推进图</h2>
+        <p class="text-slate-500 mt-2 pl-5">将架构现代化拆解为 8 个可执行步骤，遵循"先底座、后平台、再业务"的分层演进原则，确保业务连续性与迁移进度两不误。</p>
+    </div>
+
+    <div class="relative">
+        <div class="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2 rounded"></div>
+        <div class="space-y-6" id="roadmap-container"></div>
+    </div>
+</section>
+
+</main>
+
+<footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm mt-8">
+    <div class="max-w-4xl mx-auto px-4">
+        <p class="mb-2 text-slate-300 font-medium">"技术架构的高度，决定了 AI 战略的天花板——先把底座建好，再谈智能未来。"</p>
+        <p class="text-slate-500">内部机密材料 · 供董事会与执行委员会战略决策参考 · 请妥善保管</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ── 雷达图：三路径对比 ─────────────────────────────────────
+    new Chart(document.getElementById('strategyRadarChart').getContext('2d'), {
+        type: 'radar',
+        data: {
+            labels: ['上线速度', '初期成本投入', '长期运营成本', '业务差异化能力', '技术难度门槛'],
+            datasets: [
+                {
+                    label: '购买 Buy/SaaS',
+                    data: [9, 2, 7, 2, 1],
+                    backgroundColor: 'rgba(3, 105, 161, 0.15)',
+                    borderColor: '#0369a1',
+                    pointBackgroundColor: '#0369a1',
+                    borderWidth: 2
+                },
+                {
+                    label: '增强 Boost/RAG',
+                    data: [6, 5, 5, 7, 5],
+                    backgroundColor: 'rgba(217, 119, 6, 0.15)',
+                    borderColor: '#d97706',
+                    pointBackgroundColor: '#d97706',
+                    borderWidth: 2
+                },
+                {
+                    label: '构建 Build',
+                    data: [2, 9, 3, 9, 9],
+                    backgroundColor: 'rgba(124, 58, 237, 0.15)',
+                    borderColor: '#7c3aed',
+                    pointBackgroundColor: '#7c3aed',
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0,0,0,0.07)' },
+                    grid: { color: 'rgba(0,0,0,0.07)' },
+                    pointLabels: { font: { family: "'Noto Sans SC', sans-serif", size: 11 }, color: '#475569' },
+                    ticks: { display: false, min: 0, max: 10 }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => {
+                            const labels = ['极低/极慢', '较低/较慢', '中等', '较高/较快', '极高/极快'];
+                            const idx = Math.min(4, Math.floor(ctx.parsed.r / 2));
+                            return ` ${ctx.dataset.label}: ${labels[idx]}`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // ── 甜甜圈图：数据形态 ────────────────────────────────────
+    new Chart(document.getElementById('dataTypeChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['非结构化数据（音视频/文档/日志等）', '结构化数据（SQL/传统业务数据）'],
+            datasets: [{
+                data: [80, 20],
+                backgroundColor: ['#0369a1', '#cbd5e1'],
+                borderWidth: 0,
+                hoverOffset: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '68%',
+            plugins: {
+                legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: "'Noto Sans SC', sans-serif", size: 11 } } },
+                tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}%` } }
+            }
+        }
+    });
+
+    // ── 架构模型数据（01–16，不含自身 04）─────────────────────
+    const frameworkData = {
+        strategy: {
+            title: '⚙️ 战略实施层',
+            desc: '技术路线迁移是 AI 战略的基础设施层，须与战略方向对齐，并通过变革管理确保组织适应，同时支撑运营模式转换的技术需求。',
+            components: [
+                { id:'01', name:'CS-AI战略转型',
+                  detail:'技术路线迁移是 AI 战略落地的基础设施前提。战略层面的 AI 定位（工具优化 vs 模式重构）直接决定技术架构选型的深度与投入规模，是本组件的战略上游。', core:true },
+                { id:'02', name:'CG-AI变革管理',
+                  detail:'技术迁移必然带来研发流程、工具链和工作方式的根本性变化，变革管理负责处理技术团队与业务团队的适应阻力，确保迁移成果被组织真正接受。', core:true },
+                { id:'03', name:'CO-运营模式转换',
+                  detail:'AI 驱动的运营模式转换依赖于现代化技术底座的就绪。数据底座、算力基础设施与 MLOps 能力，是运营智能化得以实现的物质前提。', core:true }
+            ]
+        },
+        value: {
+            title: '💎 价值创造层',
+            desc: '技术路线迁移本身不创造业务价值，但它是所有业务价值得以实现的基础。本层定义了迁移如何直接支撑业务赋能、创新应用与可量化的价值回报。',
+            components: [
+                { id:'05', name:'VS-AI驱动和赋能',
+                  detail:'现代化技术底座是 AI 赋能业务流程的先决条件。湖仓一体与向量数据库使企业私有数据真正可被大模型利用，从根本上提升 AI 赋能的深度与覆盖范围。', core:true },
+                { id:'06', name:'VG-AI创新应用模式',
+                  detail:'新型商业模式（如数据服务化、AI 订阅产品）的实现依赖于弹性的云原生架构与成熟的 LLMOps 体系。技术底座的现代化程度决定创新模式的可能性边界。', core:false },
+                { id:'07', name:'VO-可衡量的指标',
+                  detail:'技术迁移须建立可追踪的价值指标：架构现代化率、AI 应用上线周期、模型推理延迟、数据利用率等，形成迁移投入的量化价值证明。', core:true },
+                { id:'08', name:'VT-适用性选择',
+                  detail:'基于高价值低复杂度原则选择 AI 技术方案（Buy/Boost/Build），技术路线迁移须为每种获取路径提供匹配的基础设施支撑，避免架构成为瓶颈。', core:true }
+            ]
+        },
+        org: {
+            title: '🏢 组织支撑层',
+            desc: '技术路线迁移需要高层战略背书、跨部门的架构委员会协调、专业技术团队执行，以及系统性的人才能力升级。',
+            components: [
+                { id:'09', name:'OS-领导与倡导者',
+                  detail:'技术路线迁移往往面临"现状偏见"——业务部门不愿配合数据治理，IT 团队抵制新工具链。高管的持续背书与资源保障是克服惰性、推动迁移的关键信号。', core:true },
+                { id:'10', name:'OG-AI治理委员会',
+                  detail:'负责技术路线关键决策（如云厂商选型、信创路线、混合云策略），协调业务部门与技术团队的优先级冲突，是迁移项目的最高裁决机构。', core:true },
+                { id:'11', name:'OO-AI运营团队(CoE)',
+                  detail:'技术路线迁移的日常推进主体：负责架构标准制定、迁移项目管理、跨系统集成协调与迁移进度追踪。是从架构蓝图到工程落地的核心执行力量。', core:false },
+                { id:'12', name:'OT-技术人才准备',
+                  detail:'云原生、MLOps、数据工程等关键技术能力是迁移成功的人才前提。须制定系统性的人才引进 + 内部培训计划，避免因能力断层导致迁移项目停滞。', core:true }
+            ]
+        },
+        risk: {
+            title: '🛡️ 风险管控层',
+            desc: '技术路线迁移是企业级高风险工程，涉及业务连续性、数据安全、技术路线赌注和新型 AI 运营风险等多维度挑战。',
+            components: [
+                { id:'13', name:'RS-战略风险',
+                  detail:'技术选型押错赛道是迁移最高风险：云厂商倒闭、开源协议变更、技术路线被淘汰。须通过多云策略、开放标准（Kubernetes/OpenAPI）和定期战略评审来对冲。', core:true },
+                { id:'14', name:'RG-AI风险管理',
+                  detail:'新架构引入的 AI 系统带来模型偏见、黑盒决策与数据污染风险。可解释性工具（LIME/SHAP）与模型上线前审查门禁，是 RG 在迁移阶段的核心工作内容。', core:false },
+                { id:'15', name:'RO-AI运营风险',
+                  detail:'迁移期间的最直接风险：新旧系统并行冲突、服务中断、数据迁移丢失。须建立灰度发布 + 快速回滚机制，并设置业务连续性 SLA 保障措施。', core:true },
+                { id:'16', name:'RT-安全与信创',
+                  detail:'技术迁移须同步完成信创合规路径规划（国产操作系统/数据库/中间件），满足等保 2.0 与数据安全法要求，确保每个新架构组件在监管框架内合规运行。', core:true }
+            ]
+        }
+    };
+
+    function renderFramework(key) {
+        const d = frameworkData[key];
+        let html = `<div class="fade-in">
+            <h3 class="text-xl font-bold text-slate-900 mb-1">${d.title}</h3>
+            <p class="text-slate-500 text-sm mb-6 pb-4 border-b border-slate-100">${d.desc}</p>
+            <div class="grid grid-cols-1 gap-4">`;
+        d.components.forEach(c => {
+            html += `<div class="p-4 rounded-xl border ${c.core ? 'border-amber-200 bg-amber-50/50' : 'border-slate-200 bg-slate-50'}">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-slate-800 text-white text-xs px-2 py-0.5 rounded font-mono">[${c.id}]</span>
+                    <span class="font-bold text-slate-800 text-sm">${c.name}</span>
+                    ${c.core ? '<span class="badge-core ml-auto">核心枢纽</span>' : ''}
+                </div>
+                <p class="text-sm text-slate-600">${c.detail}</p>
+            </div>`;
+        });
+        html += '</div></div>';
+        document.getElementById('fw-content').innerHTML = html;
+    }
+
+    document.querySelectorAll('#fw-tabs .fw-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#fw-tabs .fw-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderFramework(btn.getAttribute('data-key'));
+        });
+    });
+    renderFramework('strategy');
+
+    // ── 执行模块 Tab 切换 ──────────────────────────────────────
+    document.querySelectorAll('#exec-tabs .exec-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('#exec-tabs .exec-tab').forEach(t => {
+                t.classList.remove('active');
+                t.classList.add('border-slate-200');
+            });
+            tab.classList.add('active');
+            tab.classList.remove('border-slate-200');
+            const target = tab.getAttribute('data-target');
+            document.querySelectorAll('.exec-detail').forEach(d => {
+                d.classList.add('hidden');
+                d.classList.remove('fade-in');
+            });
+            const panel = document.getElementById(target);
+            panel.classList.remove('hidden');
+            void panel.offsetWidth;
+            panel.classList.add('fade-in');
+        });
+    });
+
+    // ── Roadmap ─────────────────────────────────────────────────
+    const steps = [
+        {
+            title: '技术债务全面盘点',
+            desc: '对现有 IOE 架构进行系统性评估：识别技术债热点、量化迁移成本、评估业务连续性风险，形成优先级排序的迁移清单。'
+        },
+        {
+            title: '数据治理先行',
+            desc: '在基础设施迁移前，优先完成数据质量治理：清理 ROT 数据、建立元数据目录、规范数据分类分级，为 Lakehouse 迁移做好数据准备。'
+        },
+        {
+            title: '混合云架构设计与部署',
+            desc: '完成云-边-端协同拓扑设计，选定云厂商与信创路线，部署 Kubernetes 编排体系，建立 CI/CD 流水线与基础设施即代码（IaC）能力。'
+        },
+        {
+            title: '湖仓一体平台建设',
+            desc: '部署 Lakehouse 平台，打通核心业务系统数据接入，建立向量数据库，完成 PII 脱敏流程，实现结构化与非结构化数据统一管理。'
+        },
+        {
+            title: 'AI 平台与 MLOps 建设',
+            desc: '搭建企业级大模型平台，建立 RAG/微调能力框架，完成 MLOps/LLMOps 流水线，实现模型训练、版本管理、部署与监控的全自动化。'
+        },
+        {
+            title: '核心业务场景迁移验证',
+            desc: '在 1–2 个高价值业务场景完成新架构下的 AI 应用 POC，验证技术路线可行性与业务价值，积累可复制的迁移方法论。'
+        },
+        {
+            title: '合规审计与安全加固',
+            desc: '完成数据安全合规评估（PIPL / 等保 2.0 / 信创）、模型可解释性审计（LIME/SHAP 集成）、AI 系统安全测试，建立持续合规监控机制。'
+        },
+        {
+            title: '全面推广与持续演进',
+            desc: '将迁移经验系统化形成架构标准，推广至全业务系统，建立技术架构定期 Review 机制（季度），确保架构演进与 AI 技术迭代同步跟进。'
+        }
+    ];
+
+    const container = document.getElementById('roadmap-container');
+    steps.forEach((s, i) => {
+        const isEven = i % 2 === 0;
+        container.innerHTML += `
+            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                <div class="absolute left-5 md:left-1/2 w-9 h-9 bg-white border-4 border-sky-700 rounded-full -translate-x-1/2 flex items-center justify-center text-xs font-bold text-sky-800 z-10 group-hover:scale-110 transition-transform group-hover:bg-amber-50 group-hover:border-amber-500 shadow-md">${i + 1}</div>
+                <div class="w-full pl-14 pr-4 md:w-5/12 ${isEven ? 'md:pr-14 md:pl-0 md:text-right' : 'md:pl-14 md:pr-0 text-left'}">
+                    <div class="roadmap-step p-5 bg-white rounded-xl shadow-sm border border-slate-100">
+                        <h4 class="font-bold text-sky-800 mb-2 text-base">${s.title}</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">${s.desc}</p>
+                    </div>
+                </div>
+                <div class="hidden md:block md:w-5/12"></div>
+            </div>`;
+    });
+
+});
+</script>
+</body>
+</html>

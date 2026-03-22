@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI治理框架 AIGF · 企业内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --col-c: #6b7280;   /* 变革 - gray */
+            --col-v: #0ea5e9;   /* 价值 - sky */
+            --col-o: #f59e0b;   /* 组织 - amber */
+            --col-r: #f97316;   /* 风险 - orange */
+            --col-f: #22c55e;   /* 执行 - green */
+            --row-s: #1e40af;   /* 战略 - blue-800 */
+            --row-g: #1d4ed8;   /* 治理 - blue-700 */
+            --row-o: #1e3a8a;   /* 运营 - blue-900 */
+            --row-t: #1e3a8a;   /* 技术 - blue-950 */
+        }
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: #f8fafc; color: #0f172a; }
+
+        /* ── Hero ── */
+        .hero-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0369a1 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 20% 80%, rgba(14,165,233,0.15) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(30,64,175,0.2) 0%, transparent 50%);
+        }
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* ── Nav ── */
+        .nav-link { transition: color 0.2s; }
+        .nav-link:hover { color: #0369a1; }
+
+        /* ── Matrix card ── */
+        .matrix-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px 16px;
+            border: 1.5px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+            overflow: hidden;
+        }
+        .matrix-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--accent);
+            transition: height 0.25s;
+        }
+        .matrix-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -8px rgba(0,0,0,0.15);
+            border-color: transparent;
+        }
+        .matrix-card:hover::before { height: 6px; }
+        .matrix-card .card-num {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            opacity: 0.5;
+            margin-bottom: 4px;
+        }
+        .matrix-card .card-icon { font-size: 2rem; margin-bottom: 8px; }
+        .matrix-card .card-title { font-size: 0.92rem; font-weight: 700; color: #1e293b; line-height: 1.4; }
+        .matrix-card .card-sub { font-size: 0.75rem; color: #64748b; margin-top: 4px; line-height: 1.4; }
+        .matrix-card .card-arrow {
+            position: absolute;
+            bottom: 12px; right: 14px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .matrix-card:hover .card-arrow { opacity: 1; transform: translateX(4px); }
+
+        /* Row label */
+        .row-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 800;
+            gap: 2px;
+        }
+
+        /* Col label */
+        .col-label {
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 8px 4px;
+            border-radius: 8px;
+        }
+
+        /* Fulfillment column - special cycle cards */
+        .cycle-card {
+            background: #f0fdf4;
+            border: 1.5px solid #bbf7d0;
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .cycle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -6px rgba(34,197,94,0.2);
+            border-color: #22c55e;
+        }
+
+        /* Stat card */
+        .stat-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 28px 24px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        /* Scroll fade */
+        .fade-in { animation: fadeIn 0.5s ease both; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+        /* Tooltip */
+        .tooltip { position: relative; }
+        .tooltip-text {
+            visibility: hidden;
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f172a;
+            color: #fff;
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 100;
+        }
+        .tooltip:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+        /* Section divider */
+        .section-title { border-left: 4px solid #0369a1; padding-left: 1rem; }
+
+        /* Tag badge */
+        .badge { font-size:0.7rem; padding:2px 8px; border-radius:9999px; font-weight:600; }
+        .badge-s { background:#dbeafe; color:#1e40af; }
+        .badge-g { background:#e0f2fe; color:#0369a1; }
+        .badge-o { background:#fef3c7; color:#92400e; }
+        .badge-t { background:#f1f5f9; color:#475569; }
+
+        /* Mobile nav */
+        #mobile-menu { display: none; }
+        #mobile-menu.open { display: block; }
+    </style>
+</head>
+<body class="antialiased scroll-smooth">
+
+<!-- ═══════════════════ NAV ═══════════════════ -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-sky-700 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-black text-sm">AI</span>
+                </div>
+                <span class="font-black text-lg tracking-tight text-slate-900">企业AI治理框架</span>
+                <span class="hidden sm:inline-block text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-200 px-2 py-0.5 rounded-full">AIGF V1.0</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#hero"        class="nav-link text-slate-600 font-medium text-sm">首页</a>
+                <a href="#about"       class="nav-link text-slate-600 font-medium text-sm">框架概述</a>
+                <a href="#matrix"      class="nav-link text-slate-600 font-medium text-sm">内容矩阵</a>
+                <a href="#dimensions"  class="nav-link text-slate-600 font-medium text-sm">五大维度</a>
+                <a href="#levels"      class="nav-link text-slate-600 font-medium text-sm">四个层级</a>
+                <a href="#howto"       class="nav-link text-slate-600 font-medium text-sm">使用指南</a>
+            </div>
+            <button id="menu-btn" class="md:hidden flex items-center text-slate-600 p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden bg-white border-t border-slate-100 px-4 pb-4 space-y-2">
+        <a href="#hero"        class="block py-2 text-slate-600 font-medium text-sm">首页</a>
+        <a href="#about"       class="block py-2 text-slate-600 font-medium text-sm">框架概述</a>
+        <a href="#matrix"      class="block py-2 text-slate-600 font-medium text-sm">内容矩阵</a>
+        <a href="#dimensions"  class="block py-2 text-slate-600 font-medium text-sm">五大维度</a>
+        <a href="#levels"      class="block py-2 text-slate-600 font-medium text-sm">四个层级</a>
+        <a href="#howto"       class="block py-2 text-slate-600 font-medium text-sm">使用指南</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="hero" class="hero-bg text-white scroll-mt-16">
+    <div class="hero-grid"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <div class="max-w-3xl">
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-xs font-bold bg-sky-500/20 border border-sky-400/30 text-sky-200 px-3 py-1 rounded-full tracking-wider">企业内参 · AI决策参考</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
+                企业AI治理<br>
+                <span class="text-sky-400">全景框架</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-300 leading-relaxed mb-8 max-w-2xl">
+                AIGF（AI Governance Framework）是一套面向企业高管与董事会的<strong class="text-white">AI战略落地方法论</strong>，覆盖<strong class="text-sky-300">变革·价值·组织·风险·执行</strong>五大维度，贯穿战略、治理、运营、技术四个层级，通过各领域的执行方案助力企业从"AI概念"迈向"AI实力"。
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#matrix" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-400 text-white font-bold px-6 py-3 rounded-xl transition-all hover:-translate-y-0.5 shadow-lg shadow-sky-900/30">
+                    进入内容矩阵 →
+                </a>
+                <a href="#about" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl transition-all border border-white/20">
+                    了解框架
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/15">
+                <div class="text-3xl font-black text-sky-300">20</div>
+                <div class="text-sm text-slate-300 mt-1">专项执行方案</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/15">
+                <div class="text-3xl font-black text-sky-300">4×5</div>
+                <div class="text-sm text-slate-300 mt-1">层级×维度矩阵</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/15">
+                <div class="text-3xl font-black text-sky-300">全栈</div>
+                <div class="text-sm text-slate-300 mt-1">战略到技术全覆盖</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/15">
+                <div class="text-3xl font-black text-sky-300">可执行</div>
+                <div class="text-sm text-slate-300 mt-1">落地导向设计</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-16">
+    <div class="mb-10">
+        <h2 class="section-title text-2xl font-extrabold text-slate-900 mb-3">框架概述</h2>
+        <p class="text-slate-500 max-w-2xl">AIGF 的设计哲学：将复杂的AI战略问题分解为可操作的执行模块，每一个模块对应企业转型路径中的关键节点。</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4">
+                <span class="text-2xl">🧭</span>
+            </div>
+            <h3 class="font-bold text-lg text-slate-900 mb-2">问题导向</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">每份方案均回答"为什么做、做什么、怎么做"三个核心问题，直击高管决策痛点，避免停留在概念层面。</p>
+        </div>
+        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm">
+            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4">
+                <span class="text-2xl">🗂️</span>
+            </div>
+            <h3 class="font-bold text-lg text-slate-900 mb-2">结构化视角</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">4×5 矩阵将战略层、治理层、运营层、技术层与变革、价值、组织、风险、执行五维有机交织，形成系统化的认知地图。</p>
+        </div>
+        <div class="bg-white rounded-2xl p-7 border border-slate-200 shadow-sm">
+            <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4">
+                <span class="text-2xl">⚙️</span>
+            </div>
+            <h3 class="font-bold text-lg text-slate-900 mb-2">落地执行</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">每份内参均配有路线图、评估工具、关键指标与检查清单，可直接用于企业AI治理委员会的议题决策。</p>
+        </div>
+    </div>
+
+    <!-- SGOT row -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-blue-800 text-white rounded-2xl p-6">
+            <div class="font-black text-3xl mb-1">S</div>
+            <div class="font-bold text-lg mb-2">战略层</div>
+            <p class="text-blue-200 text-sm">确立AI在企业战略地图中的坐标，对齐业务目标，制定路线图。</p>
+            <div class="mt-3 text-xs text-blue-300">Strategy</div>
+        </div>
+        <div class="bg-sky-700 text-white rounded-2xl p-6">
+            <div class="font-black text-3xl mb-1">G</div>
+            <div class="font-bold text-lg mb-2">治理层</div>
+            <p class="text-sky-200 text-sm">构建AI治理体系，建立规范机制，实现风险可管可控。</p>
+            <div class="mt-3 text-xs text-sky-300">Government</div>
+        </div>
+        <div class="bg-slate-700 text-white rounded-2xl p-6">
+            <div class="font-black text-3xl mb-1">O</div>
+            <div class="font-bold text-lg mb-2">运营层</div>
+            <p class="text-slate-300 text-sm">将AI能力嵌入日常运营，驱动业务模式与团队能力双升。</p>
+            <div class="mt-3 text-xs text-slate-400">Operation</div>
+        </div>
+        <div class="bg-slate-900 text-white rounded-2xl p-6">
+            <div class="font-black text-3xl mb-1">T</div>
+            <div class="font-bold text-lg mb-2">技术层</div>
+            <p class="text-slate-400 text-sm">规划技术路线迁移、人才体系与安全信创合规路径。</p>
+            <div class="mt-3 text-xs text-slate-500">Technology</div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ MATRIX ═══════════════════ -->
+<section id="matrix" class="bg-slate-50 py-16 scroll-mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10">
+            <h2 class="section-title text-2xl font-extrabold text-slate-900 mb-3">内容矩阵</h2>
+            <p class="text-slate-500 max-w-2xl">点击任意卡片，即可进入对应的执行方案详情页。每份方案均覆盖背景分析、核心目标、执行路径与评估机制。</p>
+        </div>
+
+        <!-- Column headers -->
+        <div class="overflow-x-auto">
+        <div class="min-w-[900px]">
+
+        <!-- Header row -->
+        <div class="grid grid-cols-[100px_1fr_1fr_1fr_1fr_1fr] gap-3 mb-3">
+            <div></div>
+            <div class="col-label bg-slate-200 text-slate-700">
+                <div class="text-lg font-black">C</div>
+                <div class="font-semibold">变革</div>
+                <div class="text-xs font-normal text-slate-500 mt-0.5">Change</div>
+            </div>
+            <div class="col-label bg-sky-100 text-sky-800">
+                <div class="text-lg font-black">V</div>
+                <div class="font-semibold">价值</div>
+                <div class="text-xs font-normal text-sky-500 mt-0.5">Value</div>
+            </div>
+            <div class="col-label bg-amber-100 text-amber-800">
+                <div class="text-lg font-black">O</div>
+                <div class="font-semibold">组织</div>
+                <div class="text-xs font-normal text-amber-500 mt-0.5">Organization</div>
+            </div>
+            <div class="col-label bg-orange-100 text-orange-800">
+                <div class="text-lg font-black">R</div>
+                <div class="font-semibold">风险</div>
+                <div class="text-xs font-normal text-orange-500 mt-0.5">Risk</div>
+            </div>
+            <div class="col-label bg-green-100 text-green-800">
+                <div class="text-lg font-black">F</div>
+                <div class="font-semibold">执行</div>
+                <div class="text-xs font-normal text-green-500 mt-0.5">Fulfillment</div>
+            </div>
+        </div>
+
+        <!-- ── ROW: 战略 S ── -->
+        <div class="grid grid-cols-[100px_1fr_1fr_1fr_1fr_1fr] gap-3 mb-3 items-stretch">
+            <div class="row-label bg-blue-800 py-6 px-3">
+                <div class="text-2xl font-black">S</div>
+                <div class="font-bold text-sm">战略</div>
+                <div class="text-xs text-blue-300 mt-1">Strategy</div>
+            </div>
+            <!-- S-C -->
+            <div class="matrix-card" style="--accent:#6b7280;" onclick="openPage('01_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">01</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#f1f5f9;color:#6b7280;padding:2px 7px;border-radius:6px;">CS</span></div>
+                <div class="card-icon">🗺️</div>
+                <div class="card-title">AI战略转型</div>
+                <div class="card-sub">AI战略落地为可执行的组织行动纲领</div>
+                <div class="card-arrow text-slate-400">→</div>
+            </div>
+            <!-- S-V -->
+            <div class="matrix-card" style="--accent:#0ea5e9;" onclick="openPage('05_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">05</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:6px;">VS</span></div>
+                <div class="card-icon">⚡</div>
+                <div class="card-title">AI驱动和赋能</div>
+                <div class="card-sub">AI如何为业务单元创造可量化价值</div>
+                <div class="card-arrow text-sky-400">→</div>
+            </div>
+            <!-- S-O -->
+            <div class="matrix-card" style="--accent:#f59e0b;" onclick="openPage('09_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">09</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fef9c3;color:#92400e;padding:2px 7px;border-radius:6px;">OS</span></div>
+                <div class="card-icon">👥</div>
+                <div class="card-title">领导&倡导者</div>
+                <div class="card-sub">识别、培养和激活AI变革的关键人</div>
+                <div class="card-arrow text-amber-400">→</div>
+            </div>
+            <!-- S-R -->
+            <div class="matrix-card" style="--accent:#f97316;" onclick="openPage('13_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">13</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fff7ed;color:#c2410c;padding:2px 7px;border-radius:6px;">RS</span></div>
+                <div class="card-icon">⚠️</div>
+                <div class="card-title">战略风险</div>
+                <div class="card-sub">AI战略层面的识别、评估与应对机制</div>
+                <div class="card-arrow text-orange-400">→</div>
+            </div>
+            <!-- S-F -->
+            <div class="cycle-card" onclick="openPage('17_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;color:#16a34a;">17 · 战略执行闭环</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:6px;">FS</span></div>
+                <div class="text-2xl mb-2">🔄</div>
+                <div class="text-sm font-bold text-slate-800">战略执行落地</div>
+                <div class="text-xs text-slate-500 mt-1">目标→评估→对齐→路线图</div>
+            </div>
+        </div>
+
+        <!-- ── ROW: 治理 G ── -->
+        <div class="grid grid-cols-[100px_1fr_1fr_1fr_1fr_1fr] gap-3 mb-3 items-stretch">
+            <div class="row-label bg-sky-700 py-6 px-3">
+                <div class="text-2xl font-black">G</div>
+                <div class="font-bold text-sm">治理</div>
+                <div class="text-xs text-sky-300 mt-1">Government</div>
+            </div>
+            <!-- G-C -->
+            <div class="matrix-card" style="--accent:#6b7280;" onclick="openPage('02_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">02</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#f1f5f9;color:#6b7280;padding:2px 7px;border-radius:6px;">CG</span></div>
+                <div class="card-icon">🔧</div>
+                <div class="card-title">AI变革管理</div>
+                <div class="card-sub">组织级AI变革的推进、阻力化解与文化重塑</div>
+                <div class="card-arrow text-slate-400">→</div>
+            </div>
+            <!-- G-V -->
+            <div class="matrix-card" style="--accent:#0ea5e9;" onclick="openPage('06_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">06</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:6px;">VG</span></div>
+                <div class="card-icon">💡</div>
+                <div class="card-title">AI创新应用模式</div>
+                <div class="card-sub">企业AI创新从实验到规模化的路径设计</div>
+                <div class="card-arrow text-sky-400">→</div>
+            </div>
+            <!-- G-O -->
+            <div class="matrix-card" style="--accent:#f59e0b;" onclick="openPage('10_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">10</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fef9c3;color:#92400e;padding:2px 7px;border-radius:6px;">OG</span></div>
+                <div class="card-icon">🏛️</div>
+                <div class="card-title">AI治理委员会</div>
+                <div class="card-sub">AI治理委员会的设立、职责与运作机制</div>
+                <div class="card-arrow text-amber-400">→</div>
+            </div>
+            <!-- G-R -->
+            <div class="matrix-card" style="--accent:#f97316;" onclick="openPage('14_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">14</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fff7ed;color:#c2410c;padding:2px 7px;border-radius:6px;">RG</span></div>
+                <div class="card-icon">🛡️</div>
+                <div class="card-title">AI风险管理</div>
+                <div class="card-sub">治理层AI风险的识别、分类与动态管控</div>
+                <div class="card-arrow text-orange-400">→</div>
+            </div>
+            <!-- G-F -->
+            <div class="cycle-card" onclick="openPage('18_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;color:#16a34a;">18 · 治理执行全案</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:6px;">FG</span></div>
+                <div class="text-2xl mb-2">🔄</div>
+                <div class="text-sm font-bold text-slate-800">治理执行落地</div>
+                <div class="text-xs text-slate-500 mt-1">体系→规范→管控→优化</div>
+            </div>
+        </div>
+
+        <!-- ── ROW: 运营 O ── -->
+        <div class="grid grid-cols-[100px_1fr_1fr_1fr_1fr_1fr] gap-3 mb-3 items-stretch">
+            <div class="row-label bg-slate-700 py-6 px-3">
+                <div class="text-2xl font-black">O</div>
+                <div class="font-bold text-sm">运营</div>
+                <div class="text-xs text-slate-400 mt-1">Operation</div>
+            </div>
+            <!-- O-C -->
+            <div class="matrix-card" style="--accent:#6b7280;" onclick="openPage('03_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">03</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#f1f5f9;color:#6b7280;padding:2px 7px;border-radius:6px;">CO</span></div>
+                <div class="card-icon">🔄</div>
+                <div class="card-title">运营模式转换</div>
+                <div class="card-sub">AI驱动下企业运营模式的系统性重塑</div>
+                <div class="card-arrow text-slate-400">→</div>
+            </div>
+            <!-- O-V -->
+            <div class="matrix-card" style="--accent:#0ea5e9;" onclick="openPage('07_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">07</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:6px;">VO</span></div>
+                <div class="card-icon">📊</div>
+                <div class="card-title">可衡量的指标</div>
+                <div class="card-sub">构建AI投资回报的指标体系与监测机制</div>
+                <div class="card-arrow text-sky-400">→</div>
+            </div>
+            <!-- O-O -->
+            <div class="matrix-card" style="--accent:#f59e0b;" onclick="openPage('11_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">11</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fef9c3;color:#92400e;padding:2px 7px;border-radius:6px;">OO</span></div>
+                <div class="card-icon">🤝</div>
+                <div class="card-title">AI运营团队</div>
+                <div class="card-sub">AI运营团队的组建、协作与能力建设路径</div>
+                <div class="card-arrow text-amber-400">→</div>
+            </div>
+            <!-- O-R -->
+            <div class="matrix-card" style="--accent:#f97316;" onclick="openPage('15_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">15</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fff7ed;color:#c2410c;padding:2px 7px;border-radius:6px;">RO</span></div>
+                <div class="card-icon">🔒</div>
+                <div class="card-title">AI运营风险</div>
+                <div class="card-sub">运营场景中AI风险的识别与持续防控</div>
+                <div class="card-arrow text-orange-400">→</div>
+            </div>
+            <!-- O-F -->
+            <div class="cycle-card" onclick="openPage('19_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;color:#16a34a;">19 · 运营执行方案</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:6px;">FO</span></div>
+                <div class="text-2xl mb-2">🔄</div>
+                <div class="text-sm font-bold text-slate-800">运营执行落地</div>
+                <div class="text-xs text-slate-500 mt-1">机会→研发→部署→维护</div>
+            </div>
+        </div>
+
+        <!-- ── ROW: 技术 T ── -->
+        <div class="grid grid-cols-[100px_1fr_1fr_1fr_1fr_1fr] gap-3 items-stretch">
+            <div class="row-label bg-slate-900 py-6 px-3">
+                <div class="text-2xl font-black">T</div>
+                <div class="font-bold text-sm">技术</div>
+                <div class="text-xs text-slate-500 mt-1">Technology</div>
+            </div>
+            <!-- T-C -->
+            <div class="matrix-card" style="--accent:#6b7280;" onclick="openPage('04_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">04</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#f1f5f9;color:#6b7280;padding:2px 7px;border-radius:6px;">CT</span></div>
+                <div class="card-icon">🛤️</div>
+                <div class="card-title">技术路线迁移</div>
+                <div class="card-sub">企业AI技术栈从现有架构到目标架构的迁移规划</div>
+                <div class="card-arrow text-slate-400">→</div>
+            </div>
+            <!-- T-V -->
+            <div class="matrix-card" style="--accent:#0ea5e9;" onclick="openPage('08_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">08</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:6px;">VT</span></div>
+                <div class="card-icon">🎯</div>
+                <div class="card-title">适用性选择</div>
+                <div class="card-sub">如何为不同业务场景选择最适合的AI技术方案</div>
+                <div class="card-arrow text-sky-400">→</div>
+            </div>
+            <!-- T-O -->
+            <div class="matrix-card" style="--accent:#f59e0b;" onclick="openPage('12_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">12</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fef9c3;color:#92400e;padding:2px 7px;border-radius:6px;">OT</span></div>
+                <div class="card-icon">🎓</div>
+                <div class="card-title">技术人才准备</div>
+                <div class="card-sub">企业AI技术人才的培养、引进与梯队建设</div>
+                <div class="card-arrow text-amber-400">→</div>
+            </div>
+            <!-- T-R -->
+            <div class="matrix-card" style="--accent:#f97316;" onclick="openPage('16_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;letter-spacing:0.08em;opacity:0.5;">16</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#fff7ed;color:#c2410c;padding:2px 7px;border-radius:6px;">RT</span></div>
+                <div class="card-icon">🔐</div>
+                <div class="card-title">安全&信创</div>
+                <div class="card-sub">AI系统安全合规与国产化信创替代路径</div>
+                <div class="card-arrow text-orange-400">→</div>
+            </div>
+            <!-- T-F -->
+            <div class="cycle-card" onclick="openPage('20_redesigned.html')">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.7rem;font-weight:700;color:#16a34a;">20 · 技术执行方案</span><span style="font-size:0.68rem;font-weight:900;letter-spacing:0.06em;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:6px;">FT</span></div>
+                <div class="text-2xl mb-2">🔄</div>
+                <div class="text-sm font-bold text-slate-800">技术执行落地</div>
+                <div class="text-xs text-slate-500 mt-1">研究→尝试→应用→拓展</div>
+            </div>
+        </div>
+
+        </div><!-- end min-w -->
+        </div><!-- end overflow -->
+    </div>
+</section>
+
+<!-- ═══════════════════ DIMENSIONS ═══════════════════ -->
+<section id="dimensions" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-16">
+    <div class="mb-10">
+        <h2 class="section-title text-2xl font-extrabold text-slate-900 mb-3">五大维度</h2>
+        <p class="text-slate-500 max-w-2xl">CVORF 五维度覆盖了企业 AI 转型从认知到落地的完整生命周期。</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4 text-xl font-black text-slate-600">C</div>
+            <h3 class="font-bold text-slate-900 mb-2">变革 Change</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">聚焦组织变革管理、运营模式转换与技术路线迁移，驱动企业在AI浪潮下主动进化。</p>
+            <div class="mt-4 flex gap-1 flex-wrap">
+                <span class="badge badge-t">AI战略转型</span>
+                <span class="badge badge-t">变革管理</span>
+                <span class="badge badge-t">技术迁移</span>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center mb-4 text-xl font-black text-sky-600">V</div>
+            <h3 class="font-bold text-slate-900 mb-2">价值 Value</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">确保AI投入产生可量化的业务回报，构建从赋能到创新再到指标的价值闭环体系。</p>
+            <div class="mt-4 flex gap-1 flex-wrap">
+                <span class="badge badge-g">AI驱动赋能</span>
+                <span class="badge badge-g">创新模式</span>
+                <span class="badge badge-g">可衡量指标</span>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-4 text-xl font-black text-amber-600">O</div>
+            <h3 class="font-bold text-slate-900 mb-2">组织 Organization</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">从领导层到执行层，建立AI时代的组织架构、治理委员会与人才梯队体系。</p>
+            <div class="mt-4 flex gap-1 flex-wrap">
+                <span class="badge badge-o">领导倡导者</span>
+                <span class="badge badge-o">治理委员会</span>
+                <span class="badge badge-o">人才准备</span>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center mb-4 text-xl font-black text-orange-600">R</div>
+            <h3 class="font-bold text-slate-900 mb-2">风险 Risk</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">构建战略、治理、运营、技术四层立体风险防控体系，保障AI安全合规落地。</p>
+            <div class="mt-4 flex gap-1 flex-wrap">
+                <span class="badge" style="background:#fff7ed;color:#9a3412;">战略风险</span>
+                <span class="badge" style="background:#fff7ed;color:#9a3412;">运营风险</span>
+                <span class="badge" style="background:#fff7ed;color:#9a3412;">安全信创</span>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center mb-4 text-xl font-black text-green-600">F</div>
+            <h3 class="font-bold text-slate-900 mb-2">执行 Fulfillment</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">四层执行闭环方案，从目标对齐到路线图落地，持续优化 AI 项目的实施质量。</p>
+            <div class="mt-4 flex gap-1 flex-wrap">
+                <span class="badge" style="background:#f0fdf4;color:#166534;">战略闭环</span>
+                <span class="badge" style="background:#f0fdf4;color:#166534;">治理闭环</span>
+                <span class="badge" style="background:#f0fdf4;color:#166534;">运营闭环</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ LEVELS ═══════════════════ -->
+<section id="levels" class="bg-slate-50 py-16 scroll-mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10">
+            <h2 class="section-title text-2xl font-extrabold text-slate-900 mb-3">四个层级</h2>
+            <p class="text-slate-500 max-w-2xl">从顶层战略到底层技术，AIGF 覆盖企业 AI 治理的完整决策链条。</p>
+        </div>
+        <div class="space-y-4">
+            <!-- Strategy -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center gap-6">
+                    <div class="flex-shrink-0 w-20 h-20 bg-blue-800 text-white rounded-2xl flex flex-col items-center justify-center">
+                        <div class="font-black text-2xl">S</div>
+                        <div class="text-xs text-blue-200">战略层</div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">战略层 Strategy — 回答"去哪里"</h3>
+                        <p class="text-slate-600 text-sm mb-3 leading-relaxed">战略层聚焦企业AI整体方向的制定与校准，面向董事会与CEO层，解决AI战略缺位、投资布朗运动等核心命题。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('01_redesigned.html')">01 AI战略转型 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('05_redesigned.html')">05 AI驱动赋能 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('09_redesigned.html')">09 领导&倡导者 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('13_redesigned.html')">13 战略风险 →</button>
+                            <button class="text-xs bg-green-50 hover:bg-green-100 text-green-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('17_redesigned.html')">17 战略执行闭环 →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Government -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center gap-6">
+                    <div class="flex-shrink-0 w-20 h-20 bg-sky-700 text-white rounded-2xl flex flex-col items-center justify-center">
+                        <div class="font-black text-2xl">G</div>
+                        <div class="text-xs text-sky-200">治理层</div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">治理层 Government — 回答"怎么管"</h3>
+                        <p class="text-slate-600 text-sm mb-3 leading-relaxed">治理层建立AI治理的制度框架，面向CAIO/CIO/风控委员会，解决AI规范缺失、委员会效能不足等问题。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('02_redesigned.html')">02 AI变革管理 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('06_redesigned.html')">06 AI创新应用 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('10_redesigned.html')">10 AI治理委员会 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('14_redesigned.html')">14 AI风险管理 →</button>
+                            <button class="text-xs bg-green-50 hover:bg-green-100 text-green-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('18_redesigned.html')">18 治理执行全案 →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Operation -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center gap-6">
+                    <div class="flex-shrink-0 w-20 h-20 bg-slate-700 text-white rounded-2xl flex flex-col items-center justify-center">
+                        <div class="font-black text-2xl">O</div>
+                        <div class="text-xs text-slate-300">运营层</div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">运营层 Operation — 回答"怎么跑"</h3>
+                        <p class="text-slate-600 text-sm mb-3 leading-relaxed">运营层将AI能力融入日常经营活动，面向COO/业务部门负责人，驱动运营效率提升与模式创新。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('03_redesigned.html')">03 运营模式转换 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('07_redesigned.html')">07 可衡量指标 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('11_redesigned.html')">11 AI运营团队 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('15_redesigned.html')">15 AI运营风险 →</button>
+                            <button class="text-xs bg-green-50 hover:bg-green-100 text-green-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('19_redesigned.html')">19 运营执行方案 →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Technology -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center gap-6">
+                    <div class="flex-shrink-0 w-20 h-20 bg-slate-900 text-white rounded-2xl flex flex-col items-center justify-center">
+                        <div class="font-black text-2xl">T</div>
+                        <div class="text-xs text-slate-500">技术层</div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg text-slate-900 mb-2">技术层 Technology — 回答"怎么建"</h3>
+                        <p class="text-slate-600 text-sm mb-3 leading-relaxed">技术层解决AI工程化落地的底层问题，面向CTO/技术负责人，覆盖技术选型、人才与安全合规。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('04_redesigned.html')">04 技术路线迁移 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('08_redesigned.html')">08 适用性选择 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('12_redesigned.html')">12 技术人才准备 →</button>
+                            <button class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('16_redesigned.html')">16 安全&信创 →</button>
+                            <button class="text-xs bg-green-50 hover:bg-green-100 text-green-700 px-3 py-1.5 rounded-lg font-medium transition-colors" onclick="openPage('20_redesigned.html')">20 技术执行方案 →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ HOW TO USE ═══════════════════ -->
+<section id="howto" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-mt-16">
+    <div class="mb-10">
+        <h2 class="section-title text-2xl font-extrabold text-slate-900 mb-3">使用指南</h2>
+        <p class="text-slate-500 max-w-2xl">根据您的角色和当前最紧迫的议题，选择合适的切入点。</p>
+    </div>
+    <style>
+        .howto-link {
+            display: flex; align-items: center; gap: 8px;
+            padding: 7px 10px; border-radius: 8px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 500;
+            transition: background 0.15s, transform 0.15s;
+        }
+        .howto-link:hover { transform: translateX(3px); }
+        .howto-link-blue { color: #bfdbfe; }
+        .howto-link-blue:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .howto-link-sky { color: #bae6fd; }
+        .howto-link-sky:hover { background: rgba(255,255,255,0.12); color: #fff; }
+        .howto-link-slate { color: #cbd5e1; }
+        .howto-link-slate:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        .howto-arrow { font-size: 0.75rem; opacity: 0.6; flex-shrink: 0; }
+        .howto-badge {
+            font-size: 0.62rem; font-weight: 800; letter-spacing: 0.05em;
+            padding: 1px 6px; border-radius: 5px; flex-shrink: 0;
+        }
+    </style>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Board / CEO -->
+        <div class="bg-blue-800 text-white rounded-2xl p-7">
+            <div class="text-3xl mb-4">🎯</div>
+            <h3 class="font-bold text-xl mb-3">董事会 / CEO</h3>
+            <p class="text-blue-200 text-sm mb-5 leading-relaxed">关注AI战略方向与风险，建议从战略层入手，重点阅读01、13、17号方案，再延伸至治理层。</p>
+            <div class="space-y-1">
+                <a href="01_redesigned.html" target="_blank" class="howto-link howto-link-blue">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bfdbfe;">CS</span>
+                    01 AI战略转型
+                </a>
+                <a href="09_redesigned.html" target="_blank" class="howto-link howto-link-blue">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bfdbfe;">OS</span>
+                    09 领导&倡导者
+                </a>
+                <a href="13_redesigned.html" target="_blank" class="howto-link howto-link-blue">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bfdbfe;">RS</span>
+                    13 战略风险
+                </a>
+                <a href="17_redesigned.html" target="_blank" class="howto-link howto-link-blue">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bfdbfe;">FS</span>
+                    17 战略执行闭环
+                </a>
+            </div>
+        </div>
+        <!-- CAIO / CIO -->
+        <div class="bg-sky-700 text-white rounded-2xl p-7">
+            <div class="text-3xl mb-4">🏛️</div>
+            <h3 class="font-bold text-xl mb-3">CAIO / CIO / 风控</h3>
+            <p class="text-sky-200 text-sm mb-5 leading-relaxed">关注治理体系建设与风险管控，建议从治理层入手，重点阅读10、14、18号方案。</p>
+            <div class="space-y-1">
+                <a href="02_redesigned.html" target="_blank" class="howto-link howto-link-sky">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bae6fd;">CG</span>
+                    02 AI变革管理
+                </a>
+                <a href="10_redesigned.html" target="_blank" class="howto-link howto-link-sky">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bae6fd;">OG</span>
+                    10 AI治理委员会
+                </a>
+                <a href="14_redesigned.html" target="_blank" class="howto-link howto-link-sky">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bae6fd;">RG</span>
+                    14 AI风险管理
+                </a>
+                <a href="18_redesigned.html" target="_blank" class="howto-link howto-link-sky">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.15);color:#bae6fd;">FG</span>
+                    18 治理执行全案
+                </a>
+            </div>
+        </div>
+        <!-- COO / CTO -->
+        <div class="bg-slate-800 text-white rounded-2xl p-7">
+            <div class="text-3xl mb-4">⚙️</div>
+            <h3 class="font-bold text-xl mb-3">COO / CTO / 部门负责人</h3>
+            <p class="text-slate-300 text-sm mb-5 leading-relaxed">关注落地执行与技术实现，建议从运营/技术层入手，重点阅读03、07、11、04、08、16号方案。</p>
+            <div class="space-y-1">
+                <a href="03_redesigned.html" target="_blank" class="howto-link howto-link-slate">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.1);color:#cbd5e1;">CO</span>
+                    03 运营模式转换
+                </a>
+                <a href="07_redesigned.html" target="_blank" class="howto-link howto-link-slate">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.1);color:#cbd5e1;">VO</span>
+                    07 可衡量指标
+                </a>
+                <a href="16_redesigned.html" target="_blank" class="howto-link howto-link-slate">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.1);color:#cbd5e1;">RT</span>
+                    16 安全&信创
+                </a>
+                <a href="19_redesigned.html" target="_blank" class="howto-link howto-link-slate">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.1);color:#cbd5e1;">FO</span>
+                    19 运营执行方案
+                </a>
+                <a href="20_redesigned.html" target="_blank" class="howto-link howto-link-slate">
+                    <span class="howto-arrow">→</span>
+                    <span class="howto-badge" style="background:rgba(255,255,255,0.1);color:#cbd5e1;">FT</span>
+                    20 技术执行方案
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-8 h-8 bg-sky-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-black text-sm">AI</span>
+                    </div>
+                    <span class="font-black text-lg">企业AI治理框架</span>
+                </div>
+                <p class="text-slate-400 text-sm leading-relaxed">AIGF V1.0 · 面向企业高管与董事会的AI战略落地方法论，20份执行方案覆盖完整治理体系。</p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-sm text-slate-300 mb-4 uppercase tracking-wider">内容分层</h4>
+                <div class="space-y-2 text-sm text-slate-400">
+                    <div>S — 战略层 Strategy</div>
+                    <div>G — 治理层 Government</div>
+                    <div>O — 运营层 Operation</div>
+                    <div>T — 技术层 Technology</div>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold text-sm text-slate-300 mb-4 uppercase tracking-wider">维度框架</h4>
+                <div class="space-y-2 text-sm text-slate-400">
+                    <div>C — 变革 Change</div>
+                    <div>V — 价值 Value</div>
+                    <div>O — 组织 Organization</div>
+                    <div>R — 风险 Risk</div>
+                    <div>F — 执行 Fulfillment</div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
+            <span class="text-slate-500 text-xs">© 2026 企业AI治理框架 AIGF · 企业内参</span>
+            <span class="text-slate-600 text-xs">V1.0 · 内部参考资料</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobile menu toggle
+    document.getElementById('menu-btn').addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Open page in same window (files are in same directory)
+    function openPage(filename) {
+        window.open(filename, '_blank');
+    }
+
+    // Smooth scroll offset fix
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.getElementById('mobile-menu').classList.remove('open');
+        });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationDelay = '0.05s';
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.matrix-card, .cycle-card, .stat-card').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

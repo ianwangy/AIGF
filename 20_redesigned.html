@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业AI技术执行落地建议方案 - 企业内参</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0c1526;
+            --sky: #0369a1;
+            --sky-lt: #e0f2fe;
+            --amber: #d97706;
+            --amber-lt: #fef3c7;
+            --teal: #0f766e;
+            --teal-lt: #ccfbf1;
+            --rose: #be123c;
+            --rose-lt: #ffe4e6;
+            --violet: #6d28d9;
+            --violet-lt: #ede9fe;
+            --slate: #475569;
+            --bg: #f1f5f9;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', 'Segoe UI', sans-serif;
+            background-color: var(--bg);
+            color: var(--ink);
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+        /* ── Nav ── */
+        .nav-pill {
+            padding: 6px 16px; border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+            color: var(--slate); transition: all 0.2s; text-decoration: none; display: inline-block;
+        }
+        .nav-pill:hover { background: var(--sky-lt); color: var(--sky); }
+        .nav-pill.active { background: var(--sky); color: #fff; }
+
+        /* ── Hero ── */
+        .hero-bg {
+            background: linear-gradient(135deg, #0a1628 0%, #0d2240 40%, #0b3355 70%, #0c4068 100%);
+            position: relative; overflow: hidden;
+        }
+        .hero-bg::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(3,105,161,0.35) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(15,118,110,0.2) 0%, transparent 50%),
+                        radial-gradient(ellipse at 65% 80%, rgba(109,40,217,0.15) 0%, transparent 50%);
+        }
+        .hero-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* ── Orbit (4-node loop) ── */
+        .orbit-container { position: relative; width: 380px; height: 380px; flex-shrink: 0; }
+        .orbit-ring { position: absolute; border-radius: 50%; border: 2px dashed rgba(255,255,255,0.13); }
+        .orbit-ring.r1 { inset: 10px; animation: spin 35s linear infinite; }
+        .orbit-ring.r2 { inset: 55px; animation: spin 22s linear infinite reverse; }
+        .orbit-center {
+            position: absolute; inset: 105px;
+            background: radial-gradient(circle, rgba(3,105,161,0.85), rgba(10,22,40,0.95));
+            border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 2px solid rgba(3,105,161,0.7);
+            box-shadow: 0 0 50px rgba(3,105,161,0.45), inset 0 0 30px rgba(3,105,161,0.2);
+        }
+        .orbit-node {
+            position: absolute; width: 78px; height: 78px; border-radius: 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.68rem; text-align: center; cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid; backdrop-filter: blur(8px); z-index: 10; line-height: 1.25;
+        }
+        .orbit-node:hover { transform: scale(1.15); }
+        .orbit-node.n-top    { top:-12px; left:50%; margin-left:-39px; background:rgba(3,105,161,0.92); border-color:#7dd3fc; color:#fff; box-shadow:0 0 22px rgba(3,105,161,0.65); }
+        .orbit-node.n-right  { top:50%; right:-12px; margin-top:-39px; background:rgba(15,118,110,0.92); border-color:#5eead4; color:#fff; box-shadow:0 0 22px rgba(15,118,110,0.65); }
+        .orbit-node.n-bottom { bottom:-12px; left:50%; margin-left:-39px; background:rgba(109,40,217,0.92); border-color:#c4b5fd; color:#fff; box-shadow:0 0 22px rgba(109,40,217,0.65); }
+        .orbit-node.n-left   { top:50%; left:-12px; margin-top:-39px; background:rgba(190,18,60,0.92); border-color:#fda4af; color:#fff; box-shadow:0 0 22px rgba(190,18,60,0.65); }
+
+        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes pulse-glow {
+            0%,100%{box-shadow:0 0 0 0 rgba(3,105,161,0.45);}
+            50%{box-shadow:0 0 0 14px rgba(3,105,161,0);}
+        }
+        .pulse { animation: pulse-glow 2.8s ease-in-out infinite; }
+
+        /* ── Section title ── */
+        .stitle { display:flex; align-items:center; gap:12px; margin-bottom:1.5rem; flex-wrap:wrap; }
+        .stitle-bar { width:5px; height:28px; border-radius:3px; flex-shrink:0; }
+
+        /* ── Phase badge ── */
+        .phase-badge { display:inline-block; padding:3px 14px; border-radius:999px; font-size:0.72rem; font-weight:700; letter-spacing:0.06em; }
+        .badge-sky    { background:#0369a1; color:#fff; }
+        .badge-teal   { background:#0f766e; color:#fff; }
+        .badge-violet { background:#6d28d9; color:#fff; }
+        .badge-rose   { background:#be123c; color:#fff; }
+        .badge-amber  { background:#d97706; color:#fff; }
+
+        /* ── Cards ── */
+        .info-card { border-radius:18px; border:1px solid; overflow:hidden; transition:transform 0.2s,box-shadow 0.2s; }
+        .info-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px -8px rgba(0,0,0,0.13); }
+        .card-sky    { border-color:#bae6fd; background:linear-gradient(135deg,#f0f9ff,#e0f2fe); }
+        .card-teal   { border-color:#99f6e4; background:linear-gradient(135deg,#f0fdfa,#ccfbf1); }
+        .card-violet { border-color:#ddd6fe; background:linear-gradient(135deg,#f5f3ff,#ede9fe); }
+        .card-amber  { border-color:#fde68a; background:linear-gradient(135deg,#fffbeb,#fef3c7); }
+        .card-rose   { border-color:#fecaca; background:linear-gradient(135deg,#fff1f2,#ffe4e6); }
+
+        /* ── Timeline ── */
+        .tl-item { position:relative; padding-left:2.5rem; }
+        .tl-item::before {
+            content:''; position:absolute; left:10px; top:0; bottom:-1rem;
+            width:2px; background:linear-gradient(to bottom, #bae6fd, #e2e8f0);
+        }
+        .tl-item:last-child::before { bottom:0; }
+        .tl-dot {
+            position:absolute; left:0; top:4px;
+            width:22px; height:22px; border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:0.6rem; font-weight:800; color:#fff;
+            z-index:2;
+        }
+
+        /* ── Loop phase tabs ── */
+        .loop-tab { cursor:pointer; transition:all 0.2s; border-radius:12px; }
+        .loop-tab.active { box-shadow:0 4px 20px -4px rgba(0,0,0,0.15); }
+        .loop-tab:not(.active):hover { opacity:0.8; }
+
+        /* ── Maturity bar ── */
+        .mat-bar-bg { height:8px; border-radius:4px; background:#e2e8f0; overflow:hidden; }
+        .mat-bar-fill { height:100%; border-radius:4px; transition:width 1s ease; }
+
+        /* ── Entrance animations ── */
+        .fade-up { opacity:0; transform:translateY(24px); transition:opacity 0.55s ease, transform 0.55s ease; }
+        .fade-up.visible { opacity:1; transform:translateY(0); }
+
+        /* ── Loop flow connector ── */
+        .loop-arrow { font-size:1.6rem; color:#94a3b8; line-height:1; }
+
+        /* ── Tag chips ── */
+        .chip { display:inline-block; padding:2px 10px; border-radius:999px; font-size:0.68rem; font-weight:600; }
+
+        /* ── Risk tag ── */
+        .risk-hi { background:#fee2e2; color:#b91c1c; }
+        .risk-md { background:#fef3c7; color:#92400e; }
+        .risk-lo { background:#dcfce7; color:#166534; }
+
+        /* ── Pillar divider ── */
+        .pillar-divider { height:3px; border-radius:2px; }
+
+        /* ── Section scroll offset ── */
+        section[id] { scroll-margin-top: 72px; }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════ STICKY NAV ══════════════ -->
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4 flex-wrap">
+        <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-sky-600 to-violet-600 flex items-center justify-center">
+                <span class="text-white text-xs font-black">AI</span>
+            </div>
+            <span class="font-black text-base tracking-tight text-slate-900">AI技术执行落地方案</span>
+        </div>
+        <div class="flex items-center gap-1 flex-wrap">
+            <a href="#hero"    class="nav-pill active">方案总览</a>
+            <a href="#research" class="nav-pill">研究判断</a>
+            <a href="#try"     class="nav-pill">试点尝试</a>
+            <a href="#apply"   class="nav-pill">工程应用</a>
+            <a href="#expand"  class="nav-pill">规模拓展</a>
+            <a href="#close"   class="nav-pill">综合建议</a>
+        </div>
+    </div>
+</nav>
+<div style="background:#f1f5f9;border-bottom:1px solid #e2e8f0;padding:8px 24px;display:flex;align-items:center;gap:8px;font-family:sans-serif;font-size:0.8rem;color:#64748b;"><a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:#0369a1;font-weight:600;text-decoration:none;padding:4px 12px;background:#fff;border:1px solid #bae6fd;border-radius:8px;">&#8592; 返回框架首页</a><span style="color:#cbd5e1;">|</span><span>企业AI治理框架 AIGF</span></div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section id="hero" class="hero-bg text-white">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12 md:gap-16">
+        <!-- Left text -->
+        <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-3 mb-5 flex-wrap">
+                <span class="phase-badge badge-sky">企业AI转型</span>
+                <span class="phase-badge badge-teal">技术执行落地</span>
+            </div>
+            <h1 class="font-black text-3xl md:text-5xl leading-tight mb-4">
+                从技术奇点到<br>
+                <span class="text-sky-300">智能竞争壁垒</span>
+            </h1>
+            <p class="text-slate-300 text-base md:text-lg leading-relaxed mb-6 max-w-xl">
+                当第二次浪潮（云计算·大数据）与第三次浪潮（大语言模型·生成式AI）在企业内部深度叠加，<br>
+                唯有以<strong class="text-white">研究→尝试→应用→拓展</strong>四阶段闭环驱动，才能将技术势能转化为可持续的商业价值。
+            </p>
+            <!-- Stats row -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-white/10 rounded-2xl p-4 border border-white/15 text-center">
+                    <div class="text-2xl font-black text-sky-300">72%</div>
+                    <div class="text-xs text-slate-300 mt-1">AI投资未创造价值</div>
+                </div>
+                <div class="bg-white/10 rounded-2xl p-4 border border-white/15 text-center">
+                    <div class="text-2xl font-black text-teal-300">171%</div>
+                    <div class="text-xs text-slate-300 mt-1">智能体平均ROI</div>
+                </div>
+                <div class="bg-white/10 rounded-2xl p-4 border border-white/15 text-center">
+                    <div class="text-2xl font-black text-violet-300">543%</div>
+                    <div class="text-xs text-slate-300 mt-1">中国AI职位增速</div>
+                </div>
+                <div class="bg-white/10 rounded-2xl p-4 border border-white/15 text-center">
+                    <div class="text-2xl font-black text-amber-300">24月</div>
+                    <div class="text-xs text-slate-300 mt-1">标准转型周期</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orbit visual -->
+        <div class="orbit-container flex-shrink-0 hidden md:block">
+            <div class="orbit-ring r1"></div>
+            <div class="orbit-ring r2"></div>
+            <div class="orbit-center pulse">
+                <div class="text-white font-black text-sm">AI</div>
+                <div class="text-sky-200 text-xs mt-0.5">闭环</div>
+                <div class="text-slate-400 text-xs">落地</div>
+            </div>
+            <!-- 4 nodes -->
+            <div class="orbit-node n-top" onclick="document.getElementById('research').scrollIntoView({behavior:'smooth'})">
+                <span class="text-base">🔬</span>
+                <span>研究</span>
+                <span style="font-size:0.55rem;opacity:0.8">Research</span>
+            </div>
+            <div class="orbit-node n-right" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">
+                <span class="text-base">⚙️</span>
+                <span>应用</span>
+                <span style="font-size:0.55rem;opacity:0.8">Apply</span>
+            </div>
+            <div class="orbit-node n-bottom" onclick="document.getElementById('expand').scrollIntoView({behavior:'smooth'})">
+                <span class="text-base">🚀</span>
+                <span>拓展</span>
+                <span style="font-size:0.55rem;opacity:0.8">Expand</span>
+            </div>
+            <div class="orbit-node n-left" onclick="document.getElementById('try').scrollIntoView({behavior:'smooth'})">
+                <span class="text-base">🧪</span>
+                <span>尝试</span>
+                <span style="font-size:0.55rem;opacity:0.8">Try</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom loop strip -->
+    <div class="relative z-10 border-t border-white/10 bg-black/20">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-center gap-3 flex-wrap text-sm">
+            <div class="flex items-center gap-2 text-sky-300 font-bold"><span class="text-lg">🔬</span> 研究·技术研究</div>
+            <div class="loop-arrow">→</div>
+            <div class="flex items-center gap-2 text-rose-300 font-bold"><span class="text-lg">🧪</span> 尝试·技术尝试和实验</div>
+            <div class="loop-arrow">→</div>
+            <div class="flex items-center gap-2 text-teal-300 font-bold"><span class="text-lg">⚙️</span> 应用·试点应用和工程落地</div>
+            <div class="loop-arrow">→</div>
+            <div class="flex items-center gap-2 text-violet-300 font-bold"><span class="text-lg">🚀</span> 拓展·规模化拓展和生态建立</div>
+            <div class="loop-arrow text-sky-400">↩</div>
+            <div class="text-slate-400 text-xs">持续迭代</div>
+        </div>
+    </div>
+</section>
+
+<main class="max-w-7xl mx-auto px-4 py-10 space-y-10">
+
+<!-- ══════════════ 研究 RESEARCH ══════════════ -->
+<section id="research">
+    <div class="stitle">
+        <div class="stitle-bar" style="background:#0369a1"></div>
+        <h2 class="font-black text-xl text-slate-800">技术研究和判断：架构转型战略与适用性选择</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+        <!-- Architecture evolution -->
+        <div class="info-card card-sky p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-sky-600 flex items-center justify-center text-white text-lg flex-shrink-0">🏗️</div>
+                <div>
+                    <div class="font-black text-slate-800">架构演进路径</div>
+                    <div class="text-xs text-slate-500">IOE → 微服务 → AI原生</div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-sm text-slate-700">阶段一：微服务化</span>
+                        <span class="chip" style="background:#dbeafe;color:#1d4ed8;">基础</span>
+                    </div>
+                    <p class="text-xs text-slate-600">容器化+Kubernetes编排，实现弹性算力调配，为AI模块集成提供灵活性底座</p>
+                    <div class="mat-bar-bg mt-2"><div class="mat-bar-fill bg-sky-400" style="width:100%"></div></div>
+                </div>
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-sm text-slate-700">阶段二：云原生迁移</span>
+                        <span class="chip" style="background:#dbeafe;color:#1d4ed8;">关键</span>
+                    </div>
+                    <p class="text-xs text-slate-600">混合云架构：私有云保留核心数据，公有云承载弹性业务，实时流计算替代离线数仓</p>
+                    <div class="mat-bar-bg mt-2"><div class="mat-bar-fill bg-sky-500" style="width:75%"></div></div>
+                </div>
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-sm text-slate-700">终极目标：AI原生架构</span>
+                        <span class="chip" style="background:#0369a1;color:#fff;">战略</span>
+                    </div>
+                    <p class="text-xs text-slate-600">可组合性原则：基础模型层 + AI中间件层 + 应用层逻辑解耦。GPU/TPU异构算力池为核心</p>
+                    <div class="mat-bar-bg mt-2"><div class="mat-bar-fill bg-sky-700" style="width:45%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applicability matrix -->
+        <div class="info-card card-amber p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white text-lg flex-shrink-0">🎯</div>
+                <div>
+                    <div class="font-black text-slate-800">场景适用性矩阵</div>
+                    <div class="text-xs text-slate-500">影响力 × 可行性 四象限</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-teal-50 border border-teal-200 rounded-xl p-3 text-center">
+                    <div class="font-black text-teal-700 text-sm mb-1">🏆 快速赢家</div>
+                    <div class="text-xs text-teal-600 font-semibold">高影响 × 高可行</div>
+                    <div class="text-xs text-slate-600 mt-1">Revenue Ops自动化、情绪分析<br>→ 首批试点，快速建立信心</div>
+                </div>
+                <div class="bg-violet-50 border border-violet-200 rounded-xl p-3 text-center">
+                    <div class="font-black text-violet-700 text-sm mb-1">💎 重大项目</div>
+                    <div class="text-xs text-violet-600 font-semibold">高影响 × 低可行</div>
+                    <div class="text-xs text-slate-600 mt-1">全流程供应链预测<br>→ 长期战略投入</div>
+                </div>
+                <div class="bg-sky-50 border border-sky-200 rounded-xl p-3 text-center">
+                    <div class="font-black text-sky-700 text-sm mb-1">📎 填充场景</div>
+                    <div class="text-xs text-sky-600 font-semibold">低影响 × 高可行</div>
+                    <div class="text-xs text-slate-600 mt-1">主要项目间隙的补充<br>→ 填补空档期</div>
+                </div>
+                <div class="bg-rose-50 border border-rose-200 rounded-xl p-3 text-center">
+                    <div class="font-black text-rose-700 text-sm mb-1">⚠️ 时间陷阱</div>
+                    <div class="text-xs text-rose-600 font-semibold">低影响 × 低可行</div>
+                    <div class="text-xs text-slate-600 mt-1">"影子AI"重灾区<br>→ 坚决规避预算浪费</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Debt clearing + Operational readiness -->
+    <div class="grid md:grid-cols-3 gap-5 mt-5">
+        <div class="info-card card-rose p-5 fade-up md:col-span-1">
+            <div class="font-black text-slate-800 mb-3 flex items-center gap-2">
+                <span>🧹</span> 清除技术债务
+            </div>
+            <p class="text-xs text-slate-600 mb-3">iBEAM框架：利用LLM对遗留代码进行语义分析并自动生成现代化代码</p>
+            <div class="space-y-2">
+                <div class="flex items-start gap-2 bg-white/60 rounded-lg p-2">
+                    <span class="text-rose-500 font-black text-xs mt-0.5">①</span>
+                    <span class="text-xs text-slate-700">AI自动生成<strong>依赖图谱</strong>，确定转换优先级</span>
+                </div>
+                <div class="flex items-start gap-2 bg-white/60 rounded-lg p-2">
+                    <span class="text-rose-500 font-black text-xs mt-0.5">②</span>
+                    <span class="text-xs text-slate-700">叶子到根迁移：先迁移无依赖底层类</span>
+                </div>
+                <div class="flex items-start gap-2 bg-white/60 rounded-lg p-2">
+                    <span class="text-rose-500 font-black text-xs mt-0.5">③</span>
+                    <span class="text-xs text-slate-700">AI同步生成<strong>单元+集成测试套件</strong></span>
+                </div>
+                <div class="bg-rose-100 rounded-lg p-2 text-center">
+                    <span class="text-xs text-rose-700 font-bold"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card card-teal p-5 fade-up md:col-span-2">
+            <div class="font-black text-slate-800 mb-3 flex items-center gap-2">
+                <span>📊</span> AI成熟度五级评估框架（Gartner）
+            </div>
+            <div class="space-y-2">
+                <div class="flex items-center gap-3 bg-white/60 rounded-lg p-2">
+                    <div class="w-6 h-6 rounded-full bg-slate-300 flex items-center justify-center text-xs font-black flex-shrink-0">1</div>
+                    <div class="flex-1">
+                        <div class="text-xs font-bold text-slate-700">初始级</div>
+                        <div class="mat-bar-bg mt-1"><div class="mat-bar-fill bg-slate-300" style="width:20%"></div></div>
+                    </div>
+                    <span class="text-xs text-slate-500">夯实数据基础</span>
+                </div>
+                <div class="flex items-center gap-3 bg-white/60 rounded-lg p-2">
+                    <div class="w-6 h-6 rounded-full bg-sky-400 flex items-center justify-center text-xs font-black flex-shrink-0 text-white">2</div>
+                    <div class="flex-1">
+                        <div class="text-xs font-bold text-slate-700">探索级</div>
+                        <div class="mat-bar-bg mt-1"><div class="mat-bar-fill bg-sky-400" style="width:40%"></div></div>
+                    </div>
+                    <span class="text-xs text-slate-500">试点MVP</span>
+                </div>
+                <div class="flex items-center gap-3 bg-white/60 rounded-lg p-2">
+                    <div class="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center text-xs font-black flex-shrink-0 text-white">3</div>
+                    <div class="flex-1">
+                        <div class="text-xs font-bold text-slate-700">定义级</div>
+                        <div class="mat-bar-bg mt-1"><div class="mat-bar-fill bg-teal-500" style="width:60%"></div></div>
+                    </div>
+                    <span class="text-xs text-slate-500">CoE建立治理</span>
+                </div>
+                <div class="flex items-center gap-3 bg-white/60 rounded-lg p-2">
+                    <div class="w-6 h-6 rounded-full bg-violet-500 flex items-center justify-center text-xs font-black flex-shrink-0 text-white">4</div>
+                    <div class="flex-1">
+                        <div class="text-xs font-bold text-slate-700">量化级</div>
+                        <div class="mat-bar-bg mt-1"><div class="mat-bar-fill bg-violet-500" style="width:80%"></div></div>
+                    </div>
+                    <span class="text-xs text-slate-500">ROI可量化</span>
+                </div>
+                <div class="flex items-center gap-3 bg-white/60 rounded-lg p-2">
+                    <div class="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center text-xs font-black flex-shrink-0 text-white">5</div>
+                    <div class="flex-1">
+                        <div class="text-xs font-bold text-slate-700">优化级</div>
+                        <div class="mat-bar-bg mt-1"><div class="mat-bar-fill bg-amber-500" style="width:100%"></div></div>
+                    </div>
+                    <span class="text-xs text-slate-500">AI原生企业</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════ 尝试 TRY ══════════════ -->
+<section id="try">
+    <div class="stitle">
+        <div class="stitle-bar" style="background:#be123c"></div>
+        <h2 class="font-black text-xl text-slate-800">试点尝试：试点验证、人才准备与安全合规验证</h2>
+    </div>
+
+    <!-- Crawl-Walk-Run-Fly framework -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-5 fade-up">
+        <div class="font-black text-slate-800 mb-5 flex items-center gap-2">
+            <span>🏃</span> "爬·走·跑·飞"的技术赋能框架
+            <span class="text-xs font-normal text-slate-400 ml-2">随AI智能体成为主流，工作重心从提示工程转向系统设计</span>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="rounded-2xl border-2 border-slate-200 p-4 bg-gradient-to-br from-slate-50 to-slate-100 fade-up">
+                <div class="text-2xl mb-2">🐛</div>
+                <div class="font-black text-slate-700 text-sm">爬 Crawl</div>
+                <div class="text-xs text-slate-500 font-semibold mb-2">任务自动化</div>
+                <p class="text-xs text-slate-600">识别工作流中高频、低风险、重复性任务，建立AI辅助初体验</p>
+                <div class="mt-2 chip risk-lo">入门门槛低</div>
+            </div>
+            <div class="rounded-2xl border-2 border-sky-200 p-4 bg-gradient-to-br from-sky-50 to-sky-100 fade-up">
+                <div class="text-2xl mb-2">🚶</div>
+                <div class="font-black text-sky-700 text-sm">走 Walk</div>
+                <div class="text-xs text-sky-600 font-semibold mb-2">知识合成</div>
+                <p class="text-xs text-slate-600">深入学习RAG技术，从企业私有数据源中提取合成上下文相关答案</p>
+                <div class="mt-2 chip" style="background:#dbeafe;color:#1e40af;">信息获取</div>
+            </div>
+            <div class="rounded-2xl border-2 border-teal-200 p-4 bg-gradient-to-br from-teal-50 to-teal-100 fade-up">
+                <div class="text-2xl mb-2">🏃</div>
+                <div class="font-black text-teal-700 text-sm">跑 Run</div>
+                <div class="text-xs text-teal-600 font-semibold mb-2">流程重塑</div>
+                <p class="text-xs text-slate-600">API集成与端到端工作流自动化，让AI跨系统执行全链路任务</p>
+                <div class="mt-2 chip risk-md">中等复杂度</div>
+            </div>
+            <div class="rounded-2xl border-2 border-violet-200 p-4 bg-gradient-to-br from-violet-50 to-violet-100 fade-up">
+                <div class="text-2xl mb-2">✈️</div>
+                <div class="font-black text-violet-700 text-sm">飞 Fly</div>
+                <div class="text-xs text-violet-600 font-semibold mb-2">智能体协作</div>
+                <p class="text-xs text-slate-600">设计多代理协作系统，人类转变为战略编排者，管理伦理边界</p>
+                <div class="mt-2 chip risk-hi">高阶能力</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+        <!-- Security threats -->
+        <div class="info-card card-rose p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white text-lg flex-shrink-0">🛡️</div>
+                <div>
+                    <div class="font-black text-slate-800">安全威胁与防护</div>
+                    <div class="text-xs text-slate-500">全生命周期风险地图</div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-sm text-slate-800">数据投毒与后门</span>
+                        <span class="chip risk-hi">极高风险</span>
+                    </div>
+                    <p class="text-xs text-slate-600">仅需插入0.001%恶意样本即可植入后门；特定触发词激活恶意操作</p>
+                </div>
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-sm text-slate-800">提示注入攻击</span>
+                        <span class="chip risk-hi">首要威胁</span>
+                    </div>
+                    <p class="text-xs text-slate-600">利用自然语言歧义性绕过系统指令，诱导泄露PII或调用非法API</p>
+                </div>
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-sm text-slate-800">AI护栏架构</span>
+                        <span class="chip risk-lo">防护方案</span>
+                    </div>
+                    <p class="text-xs text-slate-600">部署在用户与模型之间；监控+控制+保护三模块双向流量清洗；自适应护栏识别异常指令</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compliance -->
+        <div class="info-card card-violet p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center text-white text-lg flex-shrink-0">⚖️</div>
+                <div>
+                    <div class="font-black text-slate-800">合规红线</div>
+                    <div class="text-xs text-slate-500">中国法律框架 · 过错推定原则</div>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <div class="flex items-start gap-2 bg-white/60 rounded-lg p-2">
+                    <span class="text-violet-600 font-black text-xs mt-0.5 flex-shrink-0">法</span>
+                    <span class="text-xs text-slate-700"><strong>《网络安全法》《数据安全法》《个人信息保护法》</strong>多维约束</span>
+                </div>
+                <div class="flex items-start gap-2 bg-white/60 rounded-lg p-2">
+                    <span class="text-violet-600 font-black text-xs mt-0.5 flex-shrink-0">规</span>
+                    <span class="text-xs text-slate-700">《生成式人工智能服务管理暂行办法》：算法备案 + 内容过滤机制强制要求</span>
+                </div>
+                <div class="flex items-start gap-2 bg-white/60 rounded-lg p-2">
+                    <span class="text-violet-600 font-black text-xs mt-0.5 flex-shrink-0">标</span>
+                    <span class="text-xs text-slate-700">语料合格率≥95%；违法信息占比超5%的来源须整体剔除</span>
+                </div>
+                <div class="flex items-start gap-2 bg-white/60 rounded-lg p-2">
+                    <span class="text-violet-600 font-black text-xs mt-0.5 flex-shrink-0">治</span>
+                    <span class="text-xs text-slate-700">九大维度常态化监控：合法性·透明度·自动化决策·敏感信息·跨境传输等</span>
+                </div>
+                <div class="bg-violet-100 rounded-lg p-2">
+                    <p class="text-xs text-violet-800 font-semibold">⚡ 企业须将合规<strong>代码化、自动化</strong>，构建透明可解释的数据链路</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pilot ROI quick reference -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mt-5 fade-up">
+        <div class="font-black text-slate-800 mb-4 flex items-center gap-2">
+            <span>💡</span> 价值验证指标
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="text-center p-4 rounded-xl" style="background:linear-gradient(135deg,#f0f9ff,#e0f2fe);border:1px solid #bae6fd">
+                <div class="text-3xl font-black text-sky-600">70%</div>
+                <div class="text-xs text-slate-600 mt-1">生产力提升目标</div>
+                <div class="text-xs text-sky-500 mt-1 font-semibold">部分场景翻倍</div>
+            </div>
+            <div class="text-center p-4 rounded-xl" style="background:linear-gradient(135deg,#f0fdfa,#ccfbf1);border:1px solid #99f6e4">
+                <div class="text-3xl font-black text-teal-600">6-10%</div>
+                <div class="text-xs text-slate-600 mt-1">收入贡献增长</div>
+                <div class="text-xs text-teal-500 mt-1 font-semibold">通过创新实现</div>
+            </div>
+            <div class="text-center p-4 rounded-xl" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:1px solid #ddd6fe">
+                <div class="text-3xl font-black text-violet-600">171%</div>
+                <div class="text-xs text-slate-600 mt-1">智能体平均ROI</div>
+                <div class="text-xs text-violet-500 mt-1 font-semibold">远超传统IT项目</div>
+            </div>
+            <div class="text-center p-4 rounded-xl" style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a">
+                <div class="text-3xl font-black text-amber-600">33%</div>
+                <div class="text-xs text-slate-600 mt-1">高管认为具备技能</div>
+                <div class="text-xs text-amber-500 mt-1 font-semibold">人才缺口需重视</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════ 应用 APPLY ══════════════ -->
+<section id="apply">
+    <div class="stitle">
+        <div class="stitle-bar" style="background:#0f766e"></div>
+        <h2 class="font-black text-xl text-slate-800">工程应用：AI网关·智能体编排·信创底座</h2>
+    </div>
+
+    <!-- AI Gateway -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-5 fade-up">
+        <div class="font-black text-slate-800 mb-4 flex items-center gap-2">
+            <span>🔀</span> AI网关核心功能架构
+            <span class="text-xs font-normal text-slate-400 ml-2">解决API碎片化、成本不可控和合规盲点</span>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="rounded-xl p-4 border border-teal-200 bg-gradient-to-br from-teal-50 to-teal-100">
+                <div class="text-xl mb-2">🔌</div>
+                <div class="font-bold text-teal-800 text-sm mb-1">统一API格式化</div>
+                <p class="text-xs text-slate-600">为12+供应商提供OpenAI兼容接口，防止供应商锁定，实现无缝切换</p>
+            </div>
+            <div class="rounded-xl p-4 border border-sky-200 bg-gradient-to-br from-sky-50 to-sky-100">
+                <div class="text-xl mb-2">💰</div>
+                <div class="font-bold text-sky-800 text-sm mb-1">分层预算控制</div>
+                <p class="text-xs text-slate-600">团队/项目/客户三级结构化支出控制，防止运行失控产生巨额成本</p>
+            </div>
+            <div class="rounded-xl p-4 border border-violet-200 bg-gradient-to-br from-violet-50 to-violet-100">
+                <div class="text-xl mb-2">🧠</div>
+                <div class="font-bold text-violet-800 text-sm mb-1">语义缓存</div>
+                <p class="text-xs text-slate-600">语义理解减少冗余调用，不仅是精确匹配，降低延迟并节省推理成本</p>
+            </div>
+            <div class="rounded-xl p-4 border border-amber-200 bg-gradient-to-br from-amber-50 to-amber-100">
+                <div class="text-xl mb-2">🤖</div>
+                <div class="font-bold text-amber-800 text-sm mb-1">Agentic控制</div>
+                <p class="text-xs text-slate-600">管理MCP协议，控制工具访问权限，监控多步工作流执行过程</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+        <!-- Agentic architecture -->
+        <div class="info-card card-teal p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white text-lg flex-shrink-0">🕸️</div>
+                <div>
+                    <div class="font-black text-slate-800">智能体编排四阶段</div>
+                    <div class="text-xs text-slate-500">AI时代组织演进路径</div>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-5 h-5 rounded-full bg-slate-400 flex-shrink-0 flex items-center justify-center text-white text-xs font-black mt-0.5">1</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">任务增效</div>
+                        <p class="text-xs text-slate-600">AI辅助单项任务，人工主导决策，建立信任基础</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-5 h-5 rounded-full bg-sky-500 flex-shrink-0 flex items-center justify-center text-white text-xs font-black mt-0.5">2</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">流程重构</div>
+                        <p class="text-xs text-slate-600">AI重塑核心业务流程，端到端自动化，人工审核关键节点</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-5 h-5 rounded-full bg-teal-600 flex-shrink-0 flex items-center justify-center text-white text-xs font-black mt-0.5">3</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">网络化混合团队</div>
+                        <p class="text-xs text-slate-600">人机协同，AI代理与人类员工组成动态团队，按需调配</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-5 h-5 rounded-full bg-violet-600 flex-shrink-0 flex items-center justify-center text-white text-xs font-black mt-0.5">4</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">智能体生态</div>
+                        <p class="text-xs text-slate-600">多代理自主协作，人类转型为战略编排者，管理伦理边界</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Xinchuang -->
+        <div class="info-card card-sky p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-sky-700 flex items-center justify-center text-white text-lg flex-shrink-0">🇨🇳</div>
+                <div>
+                    <div class="font-black text-slate-800">信创底座：国产算力生态</div>
+                    <div class="text-xs text-slate-500">自主研发芯片算力占比≥60%（科技部要求）</div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-sm text-slate-800">华为昇腾 Ascend 910</span>
+                        <span class="chip" style="background:#0369a1;color:#fff;">主力方案</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-2">性能接近英伟达A100；CANN 6.0模型迁移成功率达90%；MindSpore全球市场份额第三</p>
+                    <div class="mat-bar-bg"><div class="mat-bar-fill bg-sky-500" style="width:90%"></div></div>
+                    <div class="text-xs text-sky-600 mt-1 text-right">迁移成功率90%</div>
+                </div>
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-sm text-slate-800">海光 DCU Z100</span>
+                        <span class="chip" style="background:#0f766e;color:#fff;">迁移友好</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-2">高度"类CUDA"兼容性，存量NVIDIA代码迁移门槛极低；FP64双精度性能优异</p>
+                    <div class="mat-bar-bg"><div class="mat-bar-fill bg-teal-500" style="width:75%"></div></div>
+                    <div class="text-xs text-teal-600 mt-1 text-right">CUDA兼容度高</div>
+                </div>
+                <div class="bg-sky-100 rounded-lg p-2 text-center">
+                    <span class="text-xs text-sky-800 font-bold">整机系统优先采购国产芯片，如神州数码KunTai A924（512 TOPS Int8）</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New roles -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mt-5 fade-up">
+        <div class="font-black text-slate-800 mb-4 flex items-center gap-2">
+            <span>👥</span> AI时代核心角色配置
+            <span class="text-xs font-normal text-slate-400 ml-2">资深专家占比目标≥20%</span>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <div class="rounded-xl p-3 text-center border border-sky-200 bg-sky-50">
+                <div class="text-xl mb-1">👨‍💻</div>
+                <div class="font-bold text-sky-800 text-xs">AI工程师</div>
+                <div class="text-xs text-slate-500 mt-1">模型优化·无需微调训练</div>
+            </div>
+            <div class="rounded-xl p-3 text-center border border-teal-200 bg-teal-50">
+                <div class="text-xl mb-1">🔬</div>
+                <div class="font-bold text-teal-800 text-xs">数据科学家</div>
+                <div class="text-xs text-slate-500 mt-1">数据血缘·价值提取</div>
+            </div>
+            <div class="rounded-xl p-3 text-center border border-violet-200 bg-violet-50">
+                <div class="text-xl mb-1">⚙️</div>
+                <div class="font-bold text-violet-800 text-xs">MLOps工程师</div>
+                <div class="text-xs text-slate-500 mt-1">模型全生命周期管理</div>
+            </div>
+            <div class="rounded-xl p-3 text-center border border-amber-200 bg-amber-50">
+                <div class="text-xl mb-1">🕹️</div>
+                <div class="font-bold text-amber-800 text-xs">AI代理架构师</div>
+                <div class="text-xs text-slate-500 mt-1">设计自主执行代理群</div>
+            </div>
+            <div class="rounded-xl p-3 text-center border border-rose-200 bg-rose-50">
+                <div class="text-xl mb-1">⚖️</div>
+                <div class="font-bold text-rose-800 text-xs">AI伦理官</div>
+                <div class="text-xs text-slate-500 mt-1">公平透明·监管合规</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════ 拓展 EXPAND ══════════════ -->
+<section id="expand">
+    <div class="stitle">
+        <div class="stitle-bar" style="background:#6d28d9"></div>
+        <h2 class="font-black text-xl text-slate-800">规模化拓展：CoE生态·价值衡量·远期路线图</h2>
+    </div>
+
+    <!-- 24-month roadmap -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-5 fade-up">
+        <div class="font-black text-slate-800 mb-5 flex items-center gap-2">
+            <span>🗺️</span> 24个月企业AI转型路线图
+        </div>
+        <div class="space-y-4">
+            <div class="tl-item fade-up">
+                <div class="tl-dot" style="background:#0369a1">1</div>
+                <div class="bg-gradient-to-r from-sky-50 to-white rounded-xl p-4 border border-sky-100 ml-2">
+                    <div class="flex items-center gap-3 flex-wrap mb-2">
+                        <span class="phase-badge badge-sky">第一阶段</span>
+                        <span class="font-black text-slate-800">诊断与基础建设</span>
+                    </div>
+                    <p class="text-xs text-slate-600">完成AI成熟度评估；数据治理审计；选定快速赢家场景；组建核心AI团队；完成信创合规评估</p>
+                </div>
+            </div>
+            <div class="tl-item fade-up">
+                <div class="tl-dot" style="background:#be123c">2</div>
+                <div class="bg-gradient-to-r from-rose-50 to-white rounded-xl p-4 border border-rose-100 ml-2">
+                    <div class="flex items-center gap-3 flex-wrap mb-2">
+                        <span class="phase-badge badge-rose">第二阶段</span>
+                        <span class="font-black text-slate-800">快速赢家试点</span>
+                    </div>
+                    <p class="text-xs text-slate-600">部署3-5个高影响高可行场景MVP；建立AI护栏基础架构；启动"爬·走"阶段员工培训；验证ROI</p>
+                </div>
+            </div>
+            <div class="tl-item fade-up">
+                <div class="tl-dot" style="background:#0f766e">3</div>
+                <div class="bg-gradient-to-r from-teal-50 to-white rounded-xl p-4 border border-teal-100 ml-2">
+                    <div class="flex items-center gap-3 flex-wrap mb-2">
+                        <span class="phase-badge badge-teal">第三阶段</span>
+                        <span class="font-black text-slate-800">工程化落地</span>
+                    </div>
+                    <p class="text-xs text-slate-600">部署AI网关统一管理；国产算力适配；建立CoE卓越中心；推进"跑"阶段API集成与流程重构</p>
+                </div>
+            </div>
+            <div class="tl-item fade-up">
+                <div class="tl-dot" style="background:#6d28d9">4</div>
+                <div class="bg-gradient-to-r from-violet-50 to-white rounded-xl p-4 border border-violet-100 ml-2">
+                    <div class="flex items-center gap-3 flex-wrap mb-2">
+                        <span class="phase-badge badge-violet">第四阶段</span>
+                        <span class="font-black text-slate-800">智能体规模化</span>
+                    </div>
+                    <p class="text-xs text-slate-600">多智能体编排系统上线；CoE转向Hub-and-Spoke联邦模式；"飞"阶段人才培养；AI平民化推广</p>
+                </div>
+            </div>
+            <div class="tl-item fade-up">
+                <div class="tl-dot" style="background:#d97706">5</div>
+                <div class="bg-gradient-to-r from-amber-50 to-white rounded-xl p-4 border border-amber-100 ml-2">
+                    <div class="flex items-center gap-3 flex-wrap mb-2">
+                        <span class="phase-badge badge-amber">第五阶段</span>
+                        <span class="font-black text-slate-800">AI原生生态</span>
+                    </div>
+                    <p class="text-xs text-slate-600">完成AI原生架构迁移；ROI量化与持续优化；治理体系常态化；向智能体生态阶段全面迈进</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+        <!-- CoE model -->
+        <div class="info-card card-violet p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center text-white text-lg flex-shrink-0">🏢</div>
+                <div>
+                    <div class="font-black text-slate-800">AI卓越中心（CoE）演进</div>
+                    <div class="text-xs text-slate-500">从中心化到联邦化</div>
+                </div>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="chip" style="background:#6d28d9;color:#fff;">初期</span>
+                        <span class="font-bold text-sm text-slate-800">中心化模型</span>
+                    </div>
+                    <p class="text-xs text-slate-600">集中建立统一标准、底层平台、伦理框架，形成组织能力基础</p>
+                </div>
+                <div class="flex justify-center text-slate-400 text-lg">↓</div>
+                <div class="bg-white/70 rounded-xl p-3">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="chip" style="background:#0f766e;color:#fff;">成熟期</span>
+                        <span class="font-bold text-sm text-slate-800">Hub-and-Spoke联邦模式</span>
+                    </div>
+                    <p class="text-xs text-slate-600">中央CoE负责底层平台+伦理框架，各业务线AI小队负责场景应用开发</p>
+                </div>
+                <div class="bg-violet-100 rounded-lg p-2">
+                    <p class="text-xs text-violet-800 font-semibold">💡 推动AI平民化：低代码工具让业务人员开发助手代理，降低被替代焦虑</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Value measurement -->
+        <div class="info-card card-amber p-6 fade-up">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white text-lg flex-shrink-0">📈</div>
+                <div>
+                    <div class="font-black text-slate-800">价值衡量体系</div>
+                    <div class="text-xs text-slate-500">高管层ROI精细化量化</div>
+                </div>
+            </div>
+            <div class="space-y-2">
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-8 h-8 rounded-lg bg-sky-100 flex items-center justify-center text-sky-600 font-black text-xs flex-shrink-0">KPI</div>
+                    <div>
+                        <div class="font-bold text-xs text-slate-800">活跃AI用户百分比</div>
+                        <p class="text-xs text-slate-500">反映数字化转型的群众基础与覆盖深度</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600 font-black text-xs flex-shrink-0">⏱</div>
+                    <div>
+                        <div class="font-bold text-xs text-slate-800">决策响应时间缩短</div>
+                        <p class="text-xs text-slate-500">衡量AI在业务流程中的经济回报</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center text-violet-600 font-black text-xs flex-shrink-0">💲</div>
+                    <div>
+                        <div class="font-bold text-xs text-slate-800">单次推理成本</div>
+                        <p class="text-xs text-slate-500">通过Token×价格÷任务量精细核算</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 bg-white/70 rounded-xl p-3">
+                    <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 font-black text-xs flex-shrink-0">ROI</div>
+                    <div>
+                        <div class="font-bold text-xs text-slate-800">智能体项目ROI</div>
+                        <p class="text-xs text-slate-500">平均171%，以此为基准设定项目收益预期</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════ CLOSE LOOP ══════════════ -->
+<section id="close">
+    <div class="stitle">
+        <div class="stitle-bar" style="background:#d97706"></div>
+        <h2 class="font-black text-xl text-slate-800">综合建议：研究→尝试→应用→拓展，实现持续迭代的智能飞轮</h2>
+    </div>
+
+    <!-- Full loop visual -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-6 fade-up">
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-0">
+            <!-- 研究 -->
+            <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-32 h-32 rounded-full flex flex-col items-center justify-center text-center shadow-xl border-2 border-sky-400"
+                     style="background:linear-gradient(135deg,#e0f2fe,#bae6fd)">
+                    <div class="text-2xl mb-1">🔬</div>
+                    <div class="text-sky-700 font-black text-base">研究</div>
+                    <div class="text-sky-500 text-xs mt-0.5">架构·适用性</div>
+                </div>
+                <div class="mt-2 text-center">
+                    <div class="text-xs text-slate-500">成熟度评估</div>
+                    <div class="text-xs text-slate-500">场景矩阵分析</div>
+                </div>
+            </div>
+            <!-- Arrow 1 -->
+            <div class="text-3xl text-slate-300 lg:-rotate-0 rotate-90 mx-2 lg:mx-3">→</div>
+            <!-- 尝试 -->
+            <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-32 h-32 rounded-full flex flex-col items-center justify-center text-center shadow-xl border-2 border-rose-400"
+                     style="background:linear-gradient(135deg,#ffe4e6,#fecaca)">
+                    <div class="text-2xl mb-1">🧪</div>
+                    <div class="text-rose-700 font-black text-base">尝试</div>
+                    <div class="text-rose-500 text-xs mt-0.5">试点·人才·安全</div>
+                </div>
+                <div class="mt-2 text-center">
+                    <div class="text-xs text-slate-500">爬走跑飞框架</div>
+                    <div class="text-xs text-slate-500">合规护栏建立</div>
+                </div>
+            </div>
+            <!-- Arrow 2 -->
+            <div class="text-3xl text-slate-300 lg:-rotate-0 rotate-90 mx-2 lg:mx-3">→</div>
+            <!-- 应用 -->
+            <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-32 h-32 rounded-full flex flex-col items-center justify-center text-center shadow-xl border-2 border-teal-400"
+                     style="background:linear-gradient(135deg,#ccfbf1,#99f6e4)">
+                    <div class="text-2xl mb-1">⚙️</div>
+                    <div class="text-teal-700 font-black text-base">应用</div>
+                    <div class="text-teal-500 text-xs mt-0.5">工程·信创·智能体</div>
+                </div>
+                <div class="mt-2 text-center">
+                    <div class="text-xs text-slate-500">AI网关部署</div>
+                    <div class="text-xs text-slate-500">国产算力适配</div>
+                </div>
+            </div>
+            <!-- Arrow 3 -->
+            <div class="text-3xl text-slate-300 lg:-rotate-0 rotate-90 mx-2 lg:mx-3">→</div>
+            <!-- 拓展 -->
+            <div class="flex flex-col items-center flex-shrink-0">
+                <div class="w-32 h-32 rounded-full flex flex-col items-center justify-center text-center shadow-xl border-2 border-violet-400"
+                     style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">
+                    <div class="text-2xl mb-1">🚀</div>
+                    <div class="text-violet-700 font-black text-base">拓展</div>
+                    <div class="text-violet-500 text-xs mt-0.5">规模化·CoE·ROI</div>
+                </div>
+                <div class="mt-2 text-center">
+                    <div class="text-xs text-slate-500">智能体生态</div>
+                    <div class="text-xs text-slate-500">AI平民化</div>
+                </div>
+            </div>
+            <!-- Feedback -->
+            <div class="text-3xl text-sky-300 rotate-90 lg:rotate-0 mx-2 lg:mx-3 opacity-60">↩</div>
+            <div class="text-xs text-slate-400 hidden lg:block">持续迭代<br>优化闭环</div>
+        </div>
+        <p class="text-center text-sm text-slate-500 mt-8 max-w-3xl mx-auto leading-relaxed">
+            技术转型并非线性任务清单，而是复杂的系统演进过程。<strong class="text-slate-800">研究·尝试·应用·拓展</strong>四阶段构成持续旋转的智能飞轮——每一次循环都将技术能力转化为更深层的竞争壁垒，最终实现从"数字化"到"智能化"的质变跃迁。
+        </p>
+    </div>
+
+    <!-- 3 strategic anchors -->
+    <div class="grid sm:grid-cols-3 gap-5 fade-up">
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white">
+            <div class="text-2xl mb-3">🏗️</div>
+            <div class="font-black text-sky-300 mb-2">架构领先</div>
+            <p class="text-xs text-slate-300 leading-relaxed">果断跨越IOE泥潭，利用AI辅助迁移工具快速抵达云原生与AI原生底座。向量化数据能力和异构算力编排视为战略性资源。</p>
+        </div>
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white">
+            <div class="text-2xl mb-3">🤖</div>
+            <div class="font-black text-teal-300 mb-2">智能体革命</div>
+            <p class="text-xs text-slate-300 leading-relaxed">从Chatbot升级至具备自主规划和执行能力的智能体系统，实现核心业务流程深度智能化。唯当AI代替繁琐重复任务，效率红利方才释放。</p>
+        </div>
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white">
+            <div class="text-2xl mb-3">⚖️</div>
+            <div class="font-black text-amber-300 mb-2">工程合规</div>
+            <p class="text-xs text-slate-300 leading-relaxed">面对密集法规，将合规代码化、自动化，建立透明可解释的数据链路，赢得客户与监管机构信任，以治理红利换取战略确定性。</p>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-slate-900 text-slate-400 py-6 px-4 mt-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+        <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded bg-gradient-to-br from-sky-600 to-violet-600 flex items-center justify-center">
+                <span class="text-white text-xs font-black">AI</span>
+            </div>
+            <span class="text-sm font-semibold">AI技术执行落地建议方案</span>
+        </div>
+        <div class="text-xs text-slate-500">企业AI技术转型 · 研究→尝试→应用→拓展 全闭环方法论</div>
+    </div>
+</footer>
+
+<script>
+// ── Nav active state ──────────────────────────────────────────
+const sections = ['hero','research','try','apply','expand','close'];
+const navLinks = document.querySelectorAll('.nav-pill');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const id = e.target.id;
+            navLinks.forEach(l => {
+                l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+            });
+        }
+    });
+}, { threshold: 0.3 });
+
+sections.forEach(s => {
+    const el = document.getElementById(s);
+    if (el) observer.observe(el);
+});
+
+// ── Entrance animations ──────────────────────────────────────────
+const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            animObserver.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.fade-up').forEach(el => animObserver.observe(el));
+
+// ── Maturity bars animate on scroll ──────────────────────────────
+const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            const fills = e.target.querySelectorAll('.mat-bar-fill');
+            fills.forEach(f => {
+                const target = f.style.width;
+                f.style.width = '0';
+                setTimeout(() => { f.style.width = target; }, 100);
+            });
+            barObserver.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.info-card, .bg-white').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>
