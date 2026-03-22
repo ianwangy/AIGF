@@ -4,6 +4,8 @@
 # 企业AI治理框架 · AIGF
 ### AI Governance Framework for the Enterprise
 
+https://ianwangy.github.io/AIGF/
+
 **`v0.1`** &nbsp;·&nbsp; Enterprise Intelligence Series · 企业内参系列
 
 </div>
