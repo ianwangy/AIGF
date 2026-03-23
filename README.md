@@ -6,7 +6,7 @@
 
 https://ianwangy.github.io/AIGF/
 
-**`v0.1`** &nbsp;·&nbsp; Enterprise Intelligence Series · 企业内参系列
+**`v1.0`** &nbsp;·&nbsp; Enterprise Intelligence Series · 企业内参系列
 
 </div>
 
