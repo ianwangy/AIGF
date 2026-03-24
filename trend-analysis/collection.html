@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>采集引擎 — AI趋势分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: #f8fafc; color: #0f172a; }
+        .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .log-row:nth-child(odd) { background: #f8fafc; }
+        .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .progress-bar { height: 6px; border-radius: 9999px; overflow: hidden; background: #e2e8f0; }
+        .progress-fill { height: 100%; border-radius: 9999px; transition: width 1s ease; }
+    </style>
+</head>
+<body class="antialiased">
+
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-14 flex items-center gap-3 text-sm">
+        <a href="index.html" class="text-sky-600 hover:text-sky-700 font-medium">← 趋势分析总览</a>
+        <span class="text-slate-300">›</span>
+        <span class="font-bold text-slate-800">⚙️ 采集引擎</span>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 mb-2">采集引擎监控</h1>
+            <p class="text-slate-500 text-sm">实时监控所有数据源的采集任务状态，管理调度策略，查看采集日志与数据质量指标。</p>
+        </div>
+        <div class="flex gap-3">
+            <button class="border border-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-sm hover:bg-slate-50 transition-colors">暂停全部</button>
+            <button class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors">▶ 全量采集</button>
+        </div>
+    </div>
+
+    <!-- STATS OVERVIEW -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="status-dot bg-green-500 pulse"></span>
+                <span class="text-xs text-slate-500">今日采集</span>
+            </div>
+            <div class="text-2xl font-black text-slate-900">1,284</div>
+            <div class="text-xs text-green-600 mt-1">↑ 较昨日 +12%</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-2">去重后入库</div>
+            <div class="text-2xl font-black text-slate-900">986</div>
+            <div class="text-xs text-slate-400 mt-1">去重率 23.2%</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-2">待分类</div>
+            <div class="text-2xl font-black text-amber-500">142</div>
+            <div class="text-xs text-slate-400 mt-1">需人工审核 18条</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-2">采集成功率</div>
+            <div class="text-2xl font-black text-green-600">96.8%</div>
+            <div class="text-xs text-red-500 mt-1">2个源异常</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- JOB QUEUE -->
+        <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6">
+            <h2 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                <span>任务队列</span>
+                <span class="badge" style="background:#dcfce7;color:#166534;">●&nbsp;调度中</span>
+            </h2>
+            <div class="space-y-3" id="job-queue">
+                <!-- injected by JS -->
+            </div>
+        </div>
+
+        <!-- PIPELINE STEPS -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+            <h2 class="font-bold text-slate-900 mb-4">采集流水线</h2>
+            <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 bg-green-500 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
+                    <div>
+                        <div class="text-sm font-semibold">拉取原始内容</div>
+                        <div class="text-xs text-slate-400">HTTP请求 / Webhook接收</div>
+                    </div>
+                </div>
+                <div class="ml-3.5 w-px h-4 bg-slate-200"></div>
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 bg-green-500 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
+                    <div>
+                        <div class="text-sm font-semibold">内容解析提取</div>
+                        <div class="text-xs text-slate-400">标题/正文/发布时间/来源</div>
+                    </div>
+                </div>
+                <div class="ml-3.5 w-px h-4 bg-slate-200"></div>
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 bg-sky-500 text-white rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0 pulse">↻</div>
+                    <div>
+                        <div class="text-sm font-semibold">去重过滤</div>
+                        <div class="text-xs text-slate-400">URL哈希 + 语义相似度</div>
+                    </div>
+                </div>
+                <div class="ml-3.5 w-px h-4 bg-slate-200"></div>
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 bg-slate-200 text-slate-400 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">4</div>
+                    <div>
+                        <div class="text-sm font-semibold text-slate-400">内容清洗标准化</div>
+                        <div class="text-xs text-slate-300">去广告/格式统一/语言检测</div>
+                    </div>
+                </div>
+                <div class="ml-3.5 w-px h-4 bg-slate-200"></div>
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 bg-slate-200 text-slate-400 rounded-lg flex items-center justify-center text-xs font-bold flex-shrink-0">5</div>
+                    <div>
+                        <div class="text-sm font-semibold text-slate-400">入库 → 分类队列</div>
+                        <div class="text-xs text-slate-300">写入数据库，推入分类任务</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLLECTION VOLUME CHART -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6">
+        <h2 class="font-bold text-slate-900 mb-4">近7日采集量趋势</h2>
+        <div style="height: 220px; position: relative;">
+            <canvas id="volumeChart"></canvas>
+        </div>
+    </div>
+
+    <!-- ERROR HANDLING DESIGN -->
+    <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-4 border-l-4 border-sky-500 pl-4">异常处理策略</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <span class="text-amber-500">⚠</span> 超时重试
+                </div>
+                <div class="text-sm text-slate-600 space-y-1">
+                    <div>• 首次失败：60秒后重试</div>
+                    <div>• 第二次失败：5分钟后重试</div>
+                    <div>• 第三次失败：标记异常，通知管理员</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <span class="text-red-500">✕</span> 内容解析失败
+                </div>
+                <div class="text-sm text-slate-600 space-y-1">
+                    <div>• 保留原始内容备份</div>
+                    <div>• 进入人工审核队列</div>
+                    <div>• 更新解析规则配置</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <span class="text-blue-500">🔒</span> 认证失效
+                </div>
+                <div class="text-sm text-slate-600 space-y-1">
+                    <div>• 自动尝试刷新Token</div>
+                    <div>• 发送认证过期通知</div>
+                    <div>• 暂停该源直至重新配置</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLECTION LOG -->
+    <div class="bg-white rounded-2xl border border-slate-200">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+            <h2 class="font-bold text-slate-900">采集日志</h2>
+            <div class="flex gap-2">
+                <select class="text-xs border border-slate-200 rounded-lg px-2 py-1">
+                    <option>全部级别</option>
+                    <option>INFO</option>
+                    <option>WARN</option>
+                    <option>ERROR</option>
+                </select>
+                <button class="text-xs text-sky-600 font-medium">导出日志</button>
+            </div>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-xs">
+                <thead>
+                    <tr class="border-b border-slate-100 bg-slate-50">
+                        <th class="text-left text-slate-400 font-semibold px-5 py-2.5 uppercase tracking-wider">时间</th>
+                        <th class="text-left text-slate-400 font-semibold px-4 py-2.5 uppercase tracking-wider">级别</th>
+                        <th class="text-left text-slate-400 font-semibold px-4 py-2.5 uppercase tracking-wider">数据源</th>
+                        <th class="text-left text-slate-400 font-semibold px-4 py-2.5 uppercase tracking-wider">消息</th>
+                        <th class="text-left text-slate-400 font-semibold px-4 py-2.5 uppercase tracking-wider">条数</th>
+                    </tr>
+                </thead>
+                <tbody id="log-table">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<script>
+// Job Queue
+const JOBS = [
+    { name:'MIT Technology Review', type:'RSS', status:'running', progress:72 },
+    { name:'ArXiv AI Papers', type:'API', status:'running', progress:45 },
+    { name:'Bloomberg AI News', type:'API', status:'queued', progress:0 },
+    { name:'OpenAI Blog', type:'RSS', status:'completed', progress:100 },
+    { name:'国家互联网信息办公室', type:'爬虫', status:'error', progress:30 },
+];
+const JOB_STATUS = {
+    running:   { label:'采集中', badge:'bg-sky-100 text-sky-700', bar:'bg-sky-500' },
+    queued:    { label:'等待中', badge:'bg-slate-100 text-slate-600', bar:'bg-slate-300' },
+    completed: { label:'已完成', badge:'bg-green-100 text-green-700', bar:'bg-green-500' },
+    error:     { label:'异常', badge:'bg-red-100 text-red-700', bar:'bg-red-400' },
+};
+document.getElementById('job-queue').innerHTML = JOBS.map(j => {
+    const st = JOB_STATUS[j.status];
+    return `<div class="flex items-center gap-4 py-2 px-2 rounded-lg hover:bg-slate-50">
+        <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+                <span class="font-medium text-sm text-slate-800">${j.name}</span>
+                <span class="badge bg-slate-100 text-slate-600">${j.type}</span>
+                <span class="badge ${st.badge}">${st.label}</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill ${st.bar}" style="width:${j.progress}%"></div></div>
+        </div>
+        <div class="text-sm font-bold text-slate-500 w-10 text-right">${j.progress}%</div>
+    </div>`;
+}).join('');
+
+// Log
+const LOGS = [
+    { time:'14:32:18', level:'INFO', source:'OpenAI Blog', msg:'采集完成，获取新条目', count:'+3' },
+    { time:'14:31:45', level:'INFO', source:'MIT Technology Review', msg:'采集中...', count:'--' },
+    { time:'14:30:02', level:'ERROR', source:'国家互联网信息办公室', msg:'连接超时，正在重试 (1/3)', count:'0' },
+    { time:'14:25:10', level:'WARN', source:'Gartner Reports', msg:'返回内容格式异常，已转人工审核', count:'+1' },
+    { time:'14:20:00', level:'INFO', source:'ArXiv AI Papers', msg:'采集完成，去重后入库', count:'+27' },
+    { time:'14:15:33', level:'INFO', source:'Bloomberg AI News', msg:'采集完成', count:'+14' },
+];
+const LEVEL_STYLE = {
+    INFO:  'bg-blue-50 text-blue-700',
+    WARN:  'bg-amber-50 text-amber-700',
+    ERROR: 'bg-red-50 text-red-700',
+};
+document.getElementById('log-table').innerHTML = LOGS.map((l,i) => `
+    <tr class="log-row border-b border-slate-50">
+        <td class="px-5 py-2.5 font-mono text-slate-500">${l.time}</td>
+        <td class="px-4 py-2.5"><span class="badge ${LEVEL_STYLE[l.level]}">${l.level}</span></td>
+        <td class="px-4 py-2.5 text-slate-700">${l.source}</td>
+        <td class="px-4 py-2.5 text-slate-600">${l.msg}</td>
+        <td class="px-4 py-2.5 font-mono font-bold ${l.count.startsWith('+')?'text-green-600':'text-slate-400'}">${l.count}</td>
+    </tr>`).join('');
+
+// Chart
+const ctx = document.getElementById('volumeChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['3/18','3/19','3/20','3/21','3/22','3/23','3/24'],
+        datasets: [{
+            label: '采集总量',
+            data: [980, 1120, 1050, 1340, 1180, 1090, 1284],
+            backgroundColor: 'rgba(14,165,233,0.15)',
+            borderColor: '#0ea5e9',
+            borderWidth: 2,
+            borderRadius: 6,
+        },{
+            label: '入库量',
+            data: [780, 890, 820, 1040, 930, 850, 986],
+            backgroundColor: 'rgba(34,197,94,0.15)',
+            borderColor: '#22c55e',
+            borderWidth: 2,
+            borderRadius: 6,
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+    }
+});
+</script>
+</body>
+</html>

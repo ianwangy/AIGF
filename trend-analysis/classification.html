@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息分类 — AI趋势分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: #f8fafc; color: #0f172a; }
+        .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+        .article-card { transition: all 0.2s; }
+        .article-card:hover { box-shadow: 0 8px 20px -4px rgba(0,0,0,0.1); border-color: #0ea5e9; }
+        .cat-chip { cursor: pointer; border: 1.5px solid #e2e8f0; transition: all 0.15s; }
+        .cat-chip.selected { border-color: #0369a1; background: #dbeafe; color: #1e40af; }
+        .cat-chip:hover:not(.selected) { border-color: #94a3b8; background: #f8fafc; }
+        .filter-btn { transition: all 0.2s; border: 1.5px solid #e2e8f0; }
+        .filter-btn.active { border-color: #0369a1; background: #dbeafe; color: #1e40af; }
+        .confidence-bar { height: 4px; border-radius: 9999px; background: #e2e8f0; overflow: hidden; }
+        .confidence-fill { height: 100%; border-radius: 9999px; }
+    </style>
+</head>
+<body class="antialiased">
+
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-14 flex items-center gap-3 text-sm">
+        <a href="index.html" class="text-sky-600 hover:text-sky-700 font-medium">← 趋势分析总览</a>
+        <span class="text-slate-300">›</span>
+        <span class="font-bold text-slate-800">🗂️ 信息分类</span>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 mb-2">信息分类管理</h1>
+            <p class="text-slate-500 text-sm">AI自动对采集内容进行多维分类打标，支持人工审核校正，可自定义分类规则与体系。</p>
+        </div>
+        <div class="flex gap-3">
+            <button class="border border-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-sm hover:bg-slate-50 transition-colors">配置分类规则</button>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors">批量重新分类</button>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">待分类</div>
+            <div class="text-2xl font-black text-amber-500">142</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">AI已自动分类</div>
+            <div class="text-2xl font-black text-green-600">986</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">待人工审核</div>
+            <div class="text-2xl font-black text-orange-500">18</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">AI分类准确率</div>
+            <div class="text-2xl font-black text-sky-600">91.4%</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+        <!-- LEFT: CATEGORY TREE -->
+        <div class="lg:col-span-1">
+            <div class="bg-white rounded-2xl border border-slate-200 p-5 sticky top-20">
+                <h2 class="font-bold text-slate-900 mb-4">分类体系</h2>
+
+                <!-- Primary categories -->
+                <div class="space-y-1 text-sm" id="cat-tree">
+                    <!-- injected by JS -->
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-slate-100">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">重要性等级</div>
+                    <div class="space-y-1 text-sm">
+                        <button class="filter-btn active w-full text-left px-3 py-2 rounded-lg">⭐⭐⭐ 高度重要</button>
+                        <button class="filter-btn w-full text-left px-3 py-2 rounded-lg">⭐⭐ 中等重要</button>
+                        <button class="filter-btn w-full text-left px-3 py-2 rounded-lg">⭐ 参考信息</button>
+                    </div>
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-slate-100">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">审核状态</div>
+                    <div class="space-y-1 text-sm">
+                        <button class="filter-btn w-full text-left px-3 py-2 rounded-lg">全部</button>
+                        <button class="filter-btn w-full text-left px-3 py-2 rounded-lg">待审核</button>
+                        <button class="filter-btn w-full text-left px-3 py-2 rounded-lg">已审核</button>
+                        <button class="filter-btn w-full text-left px-3 py-2 rounded-lg">已拒绝</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: ARTICLE LIST -->
+        <div class="lg:col-span-3 space-y-4">
+
+            <!-- Search/Filter Bar -->
+            <div class="bg-white rounded-xl border border-slate-200 p-4 flex flex-wrap gap-3 items-center">
+                <input type="text" placeholder="搜索关键词..." class="flex-1 min-w-48 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-sky-400">
+                <select class="border border-slate-200 rounded-lg px-3 py-2 text-sm">
+                    <option>按时间排序</option>
+                    <option>按重要性排序</option>
+                    <option>按AI置信度排序</option>
+                </select>
+                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                    <input type="checkbox" class="rounded"> 仅显示低置信度
+                </label>
+            </div>
+
+            <!-- Article cards -->
+            <div id="article-list" class="space-y-3">
+                <!-- injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CLASSIFICATION RULES DESIGN -->
+    <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-4 border-l-4 border-sky-500 pl-4">分类规则配置（设计说明）</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                <h3 class="font-bold text-slate-800 mb-3">AI自动分类逻辑</h3>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex items-start gap-2"><span class="text-sky-500 font-bold mt-0.5">①</span> 标题 + 摘要输入LLM，按预设分类体系进行零样本或少样本分类</div>
+                    <div class="flex items-start gap-2"><span class="text-sky-500 font-bold mt-0.5">②</span> 同时运行关键词规则引擎（高速、可解释）作为辅助依据</div>
+                    <div class="flex items-start gap-2"><span class="text-sky-500 font-bold mt-0.5">③</span> 综合两路结果计算置信度分数，低于阈值(0.75)转人工审核</div>
+                    <div class="flex items-start gap-2"><span class="text-sky-500 font-bold mt-0.5">④</span> 人工校正结果反馈到训练集，持续优化分类准确率</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                <h3 class="font-bold text-slate-800 mb-3">人工审核工作流</h3>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex items-start gap-2"><span class="text-indigo-500 font-bold mt-0.5">①</span> 低置信度条目进入"待审核"队列，显示AI建议分类</div>
+                    <div class="flex items-start gap-2"><span class="text-indigo-500 font-bold mt-0.5">②</span> 审核员可确认AI分类、修改分类或拒绝（标记为无关内容）</div>
+                    <div class="flex items-start gap-2"><span class="text-indigo-500 font-bold mt-0.5">③</span> 支持批量操作：选中多条同类内容统一审核</div>
+                    <div class="flex items-start gap-2"><span class="text-indigo-500 font-bold mt-0.5">④</span> 审核记录完整保留，支持追溯和质量评估</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ARTICLE REVIEW MODAL -->
+<div id="review-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/40" onclick="closeModal()"></div>
+    <div class="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-start justify-between mb-4">
+                <h2 class="text-lg font-black text-slate-900">审核分类</h2>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
+            </div>
+            <div id="modal-content" class="space-y-4">
+                <!-- content injected when opened -->
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="closeModal()" class="flex-1 border border-slate-200 text-slate-600 font-semibold py-2.5 rounded-xl text-sm hover:bg-slate-50">拒绝（无关内容）</button>
+                <button onclick="closeModal()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors">确认分类并保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const CATEGORIES = [
+    { id:'tech', label:'技术研究', icon:'🔬', count: 312, color:'blue' },
+    { id:'market', label:'市场动态', icon:'📈', count: 228, color:'green' },
+    { id:'policy', label:'政策法规', icon:'⚖️', count: 97, color:'orange' },
+    { id:'compete', label:'竞争情报', icon:'🏢', count: 184, color:'purple' },
+    { id:'macro', label:'宏观环境', icon:'🌍', count: 88, color:'sky' },
+    { id:'industry', label:'行业应用', icon:'🏭', count: 77, color:'slate' },
+];
+const COLOR_MAP = { blue:'#dbeafe:#1e40af', green:'#dcfce7:#166534', orange:'#ffedd5:#9a3412', purple:'#ede9fe:#5b21b6', sky:'#e0f2fe:#0369a1', slate:'#f1f5f9:#334155' };
+document.getElementById('cat-tree').innerHTML = CATEGORIES.map(c => {
+    const [bg,tc] = COLOR_MAP[c.color].split(':');
+    return `<button class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors text-slate-700">
+        <span class="flex items-center gap-2">${c.icon} ${c.label}</span>
+        <span class="text-xs font-bold rounded-full px-2 py-0.5" style="background:${bg};color:${tc}">${c.count}</span>
+    </button>`;
+}).join('');
+
+const ARTICLES = [
+    { id:1, title:'GPT-5 技术报告：推理能力大幅突破', summary:'OpenAI发布GPT-5技术报告，在数学推理、代码生成和科学问题解答上实现显著提升，并引入新的多模态能力框架。', source:'OpenAI Blog', time:'2小时前', cats:['技术研究'], aiCats:['技术研究','市场动态'], confidence:0.94, importance:5, status:'auto' },
+    { id:2, title:'欧盟AI法案正式生效：企业合规窗口期解析', summary:'欧盟AI Act正式生效，高风险AI系统须在24个月内完成合规备案，涉及医疗、金融、教育等核心行业。', source:'Reuters', time:'4小时前', cats:['政策法规'], aiCats:['政策法规'], confidence:0.97, importance:5, status:'reviewed' },
+    { id:3, title:'字节跳动AI基础设施投资计划曝光', summary:'据知情人士透露，字节跳动计划2025年在AI基础设施投资超过150亿美元，重点布局自研芯片和大模型训练集群。', source:'Bloomberg', time:'5小时前', cats:['竞争情报','市场动态'], aiCats:['市场动态'], confidence:0.71, importance:4, status:'pending' },
+    { id:4, title:'MIT研究：AI辅助决策可能放大组织偏见', summary:'MIT媒体实验室最新研究表明，在缺乏多样性数据的情况下，AI辅助决策系统会系统性放大现有组织偏见，需要治理机制介入。', source:'MIT Technology Review', time:'昨天', cats:['技术研究'], aiCats:['技术研究','政策法规'], confidence:0.82, importance:3, status:'auto' },
+    { id:5, title:'麦肯锡2025全球AI状态报告发布', summary:'报告显示62%的企业正在某业务流程中使用生成式AI，较去年增长近一倍，但仍有68%表示未建立系统性AI治理框架。', source:'McKinsey Global Institute', time:'昨天', cats:['行业应用','市场动态'], aiCats:['行业应用','市场动态'], confidence:0.96, importance:4, status:'reviewed' },
+];
+const STATUS_BADGE = {
+    auto:     'bg-sky-50 text-sky-700',
+    reviewed: 'bg-green-50 text-green-700',
+    pending:  'bg-amber-50 text-amber-700',
+};
+const STATUS_LABEL = { auto:'AI已分类', reviewed:'人工已审核', pending:'待人工审核' };
+const IMP_STARS = { 5:'⭐⭐⭐', 4:'⭐⭐⭐', 3:'⭐⭐', 2:'⭐', 1:'⭐' };
+
+document.getElementById('article-list').innerHTML = ARTICLES.map(a => {
+    const confColor = a.confidence >= 0.9 ? '#22c55e' : a.confidence >= 0.75 ? '#f59e0b' : '#ef4444';
+    const confPct = Math.round(a.confidence * 100);
+    const cats = a.cats.map(c => `<span class="badge" style="background:#dbeafe;color:#1e40af;">${c}</span>`).join(' ');
+    return `<div class="article-card bg-white rounded-2xl border border-slate-200 p-5">
+        <div class="flex items-start justify-between gap-4">
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-2 flex-wrap">
+                    <span class="badge ${STATUS_BADGE[a.status]}">${STATUS_LABEL[a.status]}</span>
+                    ${cats}
+                    <span class="text-xs text-slate-400">${a.source} · ${a.time}</span>
+                </div>
+                <h3 class="font-bold text-slate-900 text-sm mb-1.5">${a.title}</h3>
+                <p class="text-xs text-slate-500 leading-relaxed line-clamp-2">${a.summary}</p>
+                <div class="mt-3 flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs text-slate-400">AI置信度</span>
+                        <div class="confidence-bar w-20"><div class="confidence-fill" style="width:${confPct}%;background:${confColor}"></div></div>
+                        <span class="text-xs font-bold" style="color:${confColor}">${confPct}%</span>
+                    </div>
+                    <span class="text-xs text-slate-400">重要性 ${IMP_STARS[a.importance]}</span>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2 flex-shrink-0">
+                <button onclick="openReview(${a.id})" class="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-medium px-3 py-1.5 rounded-lg transition-colors">审核</button>
+                <button class="text-xs bg-slate-50 hover:bg-slate-100 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition-colors">详情</button>
+            </div>
+        </div>
+    </div>`;
+}).join('');
+
+function openReview(id) {
+    const a = ARTICLES.find(x => x.id === id);
+    if (!a) return;
+    document.getElementById('modal-content').innerHTML = `
+        <div class="bg-slate-50 rounded-xl p-4">
+            <h3 class="font-bold text-slate-900 text-sm mb-1">${a.title}</h3>
+            <p class="text-xs text-slate-500">${a.summary}</p>
+        </div>
+        <div>
+            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">AI建议分类</div>
+            <div class="flex flex-wrap gap-2">${a.aiCats.map(c=>`<span class="badge bg-sky-100 text-sky-700">${c}</span>`).join('')}</div>
+        </div>
+        <div>
+            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">修正分类（可多选）</div>
+            <div class="flex flex-wrap gap-2">
+                ${['技术研究','市场动态','政策法规','竞争情报','宏观环境','行业应用'].map(c =>
+                    `<button class="cat-chip px-3 py-1.5 rounded-lg text-sm ${a.cats.includes(c)?'selected':''}">${c}</button>`
+                ).join('')}
+            </div>
+        </div>
+        <div>
+            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">重要性等级</div>
+            <div class="flex gap-2">
+                ${[1,2,3,4,5].map(n=>`<button class="px-3 py-1.5 rounded-lg text-sm border ${a.importance===n?'border-sky-500 bg-sky-50 text-sky-700':'border-slate-200 text-slate-600'}">${n}</button>`).join('')}
+            </div>
+        </div>`;
+    document.getElementById('review-modal').classList.remove('hidden');
+    document.querySelectorAll('.cat-chip').forEach(btn => {
+        btn.addEventListener('click', () => btn.classList.toggle('selected'));
+    });
+}
+function closeModal() { document.getElementById('review-modal').classList.add('hidden'); }
+</script>
+</body>
+</html>

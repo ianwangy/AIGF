@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识关联归并 — AI趋势分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: #f8fafc; color: #0f172a; }
+        .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+        .topic-card { transition: all 0.2s; cursor: pointer; }
+        .topic-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px -6px rgba(0,0,0,0.1); border-color: #7c3aed; }
+        .topic-card.selected { border-color: #7c3aed; background: #fdf4ff; }
+        .relation-line { stroke: #c4b5fd; stroke-width: 2; fill: none; stroke-dasharray: 4; }
+        .similar-item { transition: background 0.15s; }
+        .similar-item:hover { background: #f5f3ff; }
+        .timeline-item { border-left: 2px solid #e2e8f0; padding-left: 16px; position: relative; }
+        .timeline-item::before { content:''; position:absolute; left:-5px; top:4px; width:8px; height:8px; border-radius:50%; background:#7c3aed; }
+    </style>
+</head>
+<body class="antialiased">
+
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-14 flex items-center gap-3 text-sm">
+        <a href="index.html" class="text-sky-600 hover:text-sky-700 font-medium">← 趋势分析总览</a>
+        <span class="text-slate-300">›</span>
+        <span class="font-bold text-slate-800">🕸️ 知识关联归并</span>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 mb-2">知识关联与归并</h1>
+            <p class="text-slate-500 text-sm">自动识别相似信息并进行关联聚合，构建议题知识图谱，追踪同一技术趋势/事件的演进脉络。</p>
+        </div>
+        <div class="flex gap-3">
+            <button class="border border-slate-200 text-slate-600 font-semibold px-4 py-2 rounded-xl text-sm hover:bg-slate-50 transition-colors">相似度阈值设置</button>
+            <button class="bg-violet-600 hover:bg-violet-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition-colors">执行全量关联分析</button>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">知识议题</div>
+            <div class="text-2xl font-black text-violet-600">47</div>
+            <div class="text-xs text-slate-400 mt-1">自动聚合形成</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">待确认归并</div>
+            <div class="text-2xl font-black text-amber-500">12</div>
+            <div class="text-xs text-slate-400 mt-1">需人工确认</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">已建立关联</div>
+            <div class="text-2xl font-black text-slate-900">1,284</div>
+            <div class="text-xs text-slate-400 mt-1">条目间关联关系</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-xs text-slate-500 mb-1">归并节省</div>
+            <div class="text-2xl font-black text-green-600">31%</div>
+            <div class="text-xs text-slate-400 mt-1">重复内容消除率</div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- TOPIC LIST -->
+        <div class="lg:col-span-1">
+            <h2 class="font-bold text-slate-900 mb-3 text-sm uppercase tracking-wider text-slate-500">知识议题</h2>
+            <div class="space-y-2" id="topic-list">
+                <!-- injected by JS -->
+            </div>
+        </div>
+
+        <!-- TOPIC DETAIL -->
+        <div class="lg:col-span-2" id="topic-detail">
+            <div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-400">
+                <div class="text-4xl mb-3">🕸️</div>
+                <div class="text-sm">选择左侧议题查看关联详情</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MERGE SUGGESTIONS -->
+    <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-4 border-l-4 border-violet-500 pl-4">待确认归并建议</h2>
+        <div class="space-y-3" id="merge-list">
+            <!-- injected by JS -->
+        </div>
+    </section>
+
+    <!-- KNOWLEDGE DESIGN -->
+    <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-4 border-l-4 border-violet-500 pl-4">关联机制说明</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="font-bold text-slate-800 mb-2">语义相似关联</div>
+                <div class="text-sm text-slate-600">使用向量嵌入计算文章语义相似度，相似度 > 0.85 自动归入同一议题，0.7–0.85 进入人工确认队列。</div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="font-bold text-slate-800 mb-2">实体关联</div>
+                <div class="text-sm text-slate-600">提取人名、公司、技术名词、政策名称等实体，相同实体出现在不同条目中则建立关联关系，形成实体知识图谱。</div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="font-bold text-slate-800 mb-2">时序脉络追踪</div>
+                <div class="text-sm text-slate-600">同一议题下的条目按时间排列，自动识别"跟进报道"与"新发展"，展示事件的完整演进时间线。</div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+const TOPICS = [
+    { id:1, label:'大模型能力突破', count:18, cat:'技术研究', hot:true },
+    { id:2, label:'AI监管政策收紧', count:12, cat:'政策法规', hot:true },
+    { id:3, label:'AI芯片供应链博弈', count:9, cat:'竞争情报', hot:false },
+    { id:4, label:'企业AI治理框架', count:7, cat:'行业应用', hot:false },
+    { id:5, label:'多模态AI应用落地', count:14, cat:'市场动态', hot:true },
+    { id:6, label:'AI Agent自主化趋势', count:11, cat:'技术研究', hot:false },
+    { id:7, label:'AI安全与对齐研究', count:8, cat:'技术研究', hot:false },
+];
+
+const TOPIC_DETAILS = {
+    1: {
+        title:'大模型能力突破',
+        summary:'围绕新一代大语言模型在推理、代码、多模态等能力上的快速进展，涵盖OpenAI、Anthropic、Google、国内厂商等多家动态。',
+        articles: [
+            { title:'GPT-5 技术报告：推理能力大幅突破', source:'OpenAI Blog', time:'2小时前', relation:'核心文章' },
+            { title:'Claude 3.7 扩展思维模式测评报告', source:'Anthropic', time:'昨天', relation:'同类进展' },
+            { title:'Gemini Ultra 2.0 代码能力基准刷新', source:'Google DeepMind', time:'3天前', relation:'同类进展' },
+            { title:'国内大模型2025年能力对比评测', source:'量子位', time:'上周', relation:'综合分析' },
+        ],
+        timeline: [
+            { time:'2025-03', event:'GPT-5 发布，推理能力创新高' },
+            { time:'2025-02', event:'Claude 3.7 扩展思维上线' },
+            { time:'2025-01', event:'Gemini 2.0 多模态突破发布' },
+            { time:'2024-12', event:'多家厂商发布年终能力测评' },
+        ],
+        related: ['AI Agent自主化趋势','多模态AI应用落地'],
+    }
+};
+
+document.getElementById('topic-list').innerHTML = TOPICS.map(t => {
+    const catColors = {'技术研究':'#dbeafe:#1e40af','政策法规':'#ffedd5:#9a3412','竞争情报':'#ede9fe:#5b21b6','行业应用':'#f1f5f9:#334155','市场动态':'#dcfce7:#166534'};
+    const [bg,tc] = (catColors[t.cat]||'#f1f5f9:#334155').split(':');
+    return `<div class="topic-card bg-white rounded-xl border border-slate-200 p-4" onclick="showTopicDetail(${t.id})">
+        <div class="flex items-start justify-between gap-2">
+            <div class="font-semibold text-sm text-slate-800">${t.label}</div>
+            ${t.hot ? '<span class="text-xs text-red-500 font-bold flex-shrink-0">🔥热</span>' : ''}
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+            <span class="badge" style="background:${bg};color:${tc}">${t.cat}</span>
+            <span class="text-xs text-slate-400">${t.count} 条相关</span>
+        </div>
+    </div>`;
+}).join('');
+
+function showTopicDetail(id) {
+    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+
+    const d = TOPIC_DETAILS[id];
+    if (!d) {
+        document.getElementById('topic-detail').innerHTML = `<div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-slate-400"><div class="text-sm">该议题详情开发中</div></div>`;
+        return;
+    }
+
+    const articleRows = d.articles.map(a =>
+        `<div class="similar-item flex items-start gap-3 py-2.5 px-2 rounded-lg">
+            <div class="flex-1 min-w-0">
+                <div class="text-sm font-medium text-slate-800">${a.title}</div>
+                <div class="text-xs text-slate-400 mt-0.5">${a.source} · ${a.time}</div>
+            </div>
+            <span class="badge bg-violet-50 text-violet-700 flex-shrink-0">${a.relation}</span>
+        </div>`
+    ).join('');
+
+    const timelineRows = d.timeline.map(t =>
+        `<div class="timeline-item pb-3">
+            <div class="text-xs text-violet-600 font-bold">${t.time}</div>
+            <div class="text-sm text-slate-700 mt-0.5">${t.event}</div>
+        </div>`
+    ).join('');
+
+    document.getElementById('topic-detail').innerHTML = `
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
+            <div>
+                <h3 class="text-lg font-black text-slate-900 mb-1">${d.title}</h3>
+                <p class="text-sm text-slate-500">${d.summary}</p>
+                <div class="flex gap-2 mt-2">
+                    ${d.related.map(r => `<span class="badge bg-violet-50 text-violet-700">关联：${r}</span>`).join('')}
+                </div>
+            </div>
+            <div>
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">相关文章（${d.articles.length}条）</div>
+                ${articleRows}
+            </div>
+            <div>
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">演进时间线</div>
+                <div class="space-y-0">${timelineRows}</div>
+            </div>
+        </div>`;
+}
+
+const MERGES = [
+    { a:'GPT-5 发布消息泄露（Reddit）', b:'OpenAI官方确认GPT-5开发中', similarity:0.91, reason:'同一事件不同报道' },
+    { a:'欧盟AI法案最终文本', b:'EU AI Act详细条款解读', similarity:0.88, reason:'原文与解读关系' },
+    { a:'字节跳动AI投资150亿', b:'字节AI算力扩张计划分析', similarity:0.83, reason:'同一事件不同视角' },
+];
+document.getElementById('merge-list').innerHTML = MERGES.map(m => `
+    <div class="bg-white rounded-xl border border-amber-200 p-4">
+        <div class="flex flex-col md:flex-row md:items-center gap-3">
+            <div class="flex-1 min-w-0">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-2">
+                    <div class="text-sm font-medium text-slate-800 flex-1">${m.a}</div>
+                    <div class="text-slate-400 text-xs flex-shrink-0 font-mono">相似度 ${Math.round(m.similarity*100)}%</div>
+                    <div class="text-slate-400">↔</div>
+                    <div class="text-sm font-medium text-slate-800 flex-1">${m.b}</div>
+                </div>
+                <div class="text-xs text-amber-700 mt-1.5">归并依据：${m.reason}</div>
+            </div>
+            <div class="flex gap-2 flex-shrink-0">
+                <button class="text-xs bg-violet-50 hover:bg-violet-100 text-violet-700 font-medium px-3 py-1.5 rounded-lg transition-colors">确认归并</button>
+                <button class="text-xs bg-slate-50 hover:bg-slate-100 text-slate-600 font-medium px-3 py-1.5 rounded-lg transition-colors">保持独立</button>
+            </div>
+        </div>
+    </div>`).join('');
+</script>
+</body>
+</html>

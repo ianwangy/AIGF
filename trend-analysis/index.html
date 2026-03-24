@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI发展趋势分析 — 功能设计</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: #f8fafc; color: #0f172a; }
+        .module-card { transition: all 0.25s; border: 1.5px solid #e2e8f0; }
+        .module-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -8px rgba(0,0,0,0.12); border-color: #0ea5e9; }
+        .flow-arrow { color: #94a3b8; font-size: 1.5rem; text-align: center; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <a href="../index.html" class="text-sky-600 hover:text-sky-700 text-sm font-medium flex items-center gap-1">← 返回框架首页</a>
+            <span class="text-slate-300">|</span>
+            <span class="text-sm text-slate-500">01 · AI战略转型</span>
+            <span class="text-slate-300">›</span>
+            <span class="text-sm font-bold text-slate-800">Step 1 · AI发展趋势分析</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="badge" style="background:#dbeafe;color:#1e40af;">功能设计 v0.1</span>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-10 space-y-12">
+
+    <!-- HERO -->
+    <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-sky-900 text-white rounded-2xl p-10">
+        <div class="flex items-start justify-between">
+            <div>
+                <div class="text-xs font-bold text-sky-300 tracking-widest mb-3">01 · CS · AI战略转型 / 第一步</div>
+                <h1 class="text-3xl font-black mb-3">AI发展趋势分析</h1>
+                <p class="text-slate-300 max-w-2xl leading-relaxed">
+                    持续监测全球AI技术演进、市场动态与政策环境，从多源信息中提炼战略洞察，自动评估其对企业AI转型路径的影响，并在关键时点向决策者推送预警与行动建议。
+                </p>
+            </div>
+            <div class="text-6xl opacity-20">📡</div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-8">
+            <a href="sources.html" class="bg-white/10 hover:bg-white/20 border border-white/15 rounded-xl p-4 text-center transition-all cursor-pointer">
+                <div class="text-2xl mb-1">🗄️</div>
+                <div class="text-xs font-semibold">数据源管理</div>
+            </a>
+            <a href="collection.html" class="bg-white/10 hover:bg-white/20 border border-white/15 rounded-xl p-4 text-center transition-all cursor-pointer">
+                <div class="text-2xl mb-1">⚙️</div>
+                <div class="text-xs font-semibold">采集引擎</div>
+            </a>
+            <a href="classification.html" class="bg-white/10 hover:bg-white/20 border border-white/15 rounded-xl p-4 text-center transition-all cursor-pointer">
+                <div class="text-2xl mb-1">🗂️</div>
+                <div class="text-xs font-semibold">信息分类</div>
+            </a>
+            <a href="knowledge.html" class="bg-white/10 hover:bg-white/20 border border-white/15 rounded-xl p-4 text-center transition-all cursor-pointer">
+                <div class="text-2xl mb-1">🕸️</div>
+                <div class="text-xs font-semibold">知识关联</div>
+            </a>
+            <a href="insights.html" class="bg-white/10 hover:bg-white/20 border border-white/15 rounded-xl p-4 text-center transition-all cursor-pointer">
+                <div class="text-2xl mb-1">💡</div>
+                <div class="text-xs font-semibold">洞察与预警</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- FLOW DIAGRAM -->
+    <section>
+        <h2 class="text-xl font-extrabold text-slate-900 mb-6 border-l-4 border-sky-500 pl-4">功能流程总览</h2>
+        <div class="bg-white rounded-2xl border border-slate-200 p-8">
+            <div class="flex flex-col md:flex-row items-center gap-2 overflow-x-auto">
+
+                <!-- Step 1: Sources -->
+                <div class="flex-1 min-w-48 bg-slate-50 rounded-xl p-5 border border-slate-200 text-center">
+                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <span class="text-white font-black text-sm">1</span>
+                    </div>
+                    <div class="font-bold text-sm text-slate-800 mb-1">信息来源配置</div>
+                    <div class="text-xs text-slate-500">RSS / API / 爬虫 / 手工</div>
+                    <div class="text-xs text-slate-500">采集频率设置</div>
+                </div>
+
+                <div class="flow-arrow hidden md:block">→</div>
+
+                <!-- Step 2: Collection -->
+                <div class="flex-1 min-w-48 bg-slate-50 rounded-xl p-5 border border-slate-200 text-center">
+                    <div class="w-10 h-10 bg-sky-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <span class="text-white font-black text-sm">2</span>
+                    </div>
+                    <div class="font-bold text-sm text-slate-800 mb-1">自动采集执行</div>
+                    <div class="text-xs text-slate-500">定时任务调度</div>
+                    <div class="text-xs text-slate-500">去重 / 清洗 / 入库</div>
+                </div>
+
+                <div class="flow-arrow hidden md:block">→</div>
+
+                <!-- Step 3: Classification -->
+                <div class="flex-1 min-w-48 bg-slate-50 rounded-xl p-5 border border-slate-200 text-center">
+                    <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <span class="text-white font-black text-sm">3</span>
+                    </div>
+                    <div class="font-bold text-sm text-slate-800 mb-1">信息分类打标</div>
+                    <div class="text-xs text-slate-500">AI自动分类</div>
+                    <div class="text-xs text-slate-500">人工校正/审核</div>
+                </div>
+
+                <div class="flow-arrow hidden md:block">→</div>
+
+                <!-- Step 4: Knowledge -->
+                <div class="flex-1 min-w-48 bg-slate-50 rounded-xl p-5 border border-slate-200 text-center">
+                    <div class="w-10 h-10 bg-violet-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <span class="text-white font-black text-sm">4</span>
+                    </div>
+                    <div class="font-bold text-sm text-slate-800 mb-1">知识关联归并</div>
+                    <div class="text-xs text-slate-500">关联映射</div>
+                    <div class="text-xs text-slate-500">重复归并 / 知识图谱</div>
+                </div>
+
+                <div class="flow-arrow hidden md:block">→</div>
+
+                <!-- Step 5: Insights -->
+                <div class="flex-1 min-w-48 bg-slate-50 rounded-xl p-5 border border-slate-200 text-center">
+                    <div class="w-10 h-10 bg-amber-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <span class="text-white font-black text-sm">5</span>
+                    </div>
+                    <div class="font-bold text-sm text-slate-800 mb-1">洞察生成分析</div>
+                    <div class="text-xs text-slate-500">趋势识别</div>
+                    <div class="text-xs text-slate-500">战略影响评估</div>
+                </div>
+
+                <div class="flow-arrow hidden md:block">→</div>
+
+                <!-- Step 6: Alerts -->
+                <div class="flex-1 min-w-48 bg-slate-50 rounded-xl p-5 border border-orange-200 text-center">
+                    <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center mx-auto mb-3">
+                        <span class="text-white font-black text-sm">6</span>
+                    </div>
+                    <div class="font-bold text-sm text-slate-800 mb-1">预警与行动建议</div>
+                    <div class="text-xs text-slate-500">等级预警推送</div>
+                    <div class="text-xs text-slate-500">决策者通知</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DATA MODEL OVERVIEW -->
+    <section>
+        <h2 class="text-xl font-extrabold text-slate-900 mb-6 border-l-4 border-sky-500 pl-4">核心数据模型</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+            <!-- Source -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 text-sm font-black">S</div>
+                    <h3 class="font-bold text-slate-800">DataSource 数据源</h3>
+                </div>
+                <div class="space-y-1.5 text-xs text-slate-600 font-mono bg-slate-50 rounded-lg p-3">
+                    <div><span class="text-sky-600">id</span>: string</div>
+                    <div><span class="text-sky-600">name</span>: string</div>
+                    <div><span class="text-sky-600">type</span>: rss|api|crawler|manual</div>
+                    <div><span class="text-sky-600">url</span>: string</div>
+                    <div><span class="text-sky-600">frequency</span>: CronExpression</div>
+                    <div><span class="text-sky-600">auth</span>: AuthConfig?</div>
+                    <div><span class="text-sky-600">tags</span>: string[]</div>
+                    <div><span class="text-sky-600">status</span>: active|paused|error</div>
+                    <div><span class="text-sky-600">lastFetchAt</span>: DateTime</div>
+                </div>
+            </div>
+
+            <!-- Article -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 text-sm font-black">A</div>
+                    <h3 class="font-bold text-slate-800">Article 信息条目</h3>
+                </div>
+                <div class="space-y-1.5 text-xs text-slate-600 font-mono bg-slate-50 rounded-lg p-3">
+                    <div><span class="text-sky-600">id</span>: string</div>
+                    <div><span class="text-sky-600">sourceId</span>: string</div>
+                    <div><span class="text-sky-600">title</span>: string</div>
+                    <div><span class="text-sky-600">summary</span>: string</div>
+                    <div><span class="text-sky-600">url</span>: string</div>
+                    <div><span class="text-sky-600">publishedAt</span>: DateTime</div>
+                    <div><span class="text-sky-600">categories</span>: Category[]</div>
+                    <div><span class="text-sky-600">tags</span>: string[]</div>
+                    <div><span class="text-sky-600">importance</span>: 1-5</div>
+                    <div><span class="text-sky-600">reviewStatus</span>: auto|reviewed|rejected</div>
+                    <div><span class="text-sky-600">relatedIds</span>: string[]</div>
+                </div>
+            </div>
+
+            <!-- Insight -->
+            <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center text-amber-600 text-sm font-black">I</div>
+                    <h3 class="font-bold text-slate-800">Insight 战略洞察</h3>
+                </div>
+                <div class="space-y-1.5 text-xs text-slate-600 font-mono bg-slate-50 rounded-lg p-3">
+                    <div><span class="text-sky-600">id</span>: string</div>
+                    <div><span class="text-sky-600">title</span>: string</div>
+                    <div><span class="text-sky-600">description</span>: string</div>
+                    <div><span class="text-sky-600">evidenceIds</span>: string[]</div>
+                    <div><span class="text-sky-600">impactDimensions</span>: Dimension[]</div>
+                    <div><span class="text-sky-600">impactLevel</span>: low|medium|high|critical</div>
+                    <div><span class="text-sky-600">timeHorizon</span>: near|mid|long</div>
+                    <div><span class="text-sky-600">alertTriggered</span>: boolean</div>
+                    <div><span class="text-sky-600">actions</span>: Action[]</div>
+                    <div><span class="text-sky-600">generatedAt</span>: DateTime</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MODULE LINKS -->
+    <section>
+        <h2 class="text-xl font-extrabold text-slate-900 mb-6 border-l-4 border-sky-500 pl-4">各模块功能详情</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            <a href="sources.html" class="module-card bg-white rounded-2xl p-6 block hover:no-underline">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">🗄️</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-1">数据源管理</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">配置信息来源类型（RSS/API/爬虫/手工）、认证方式、采集频率，监控源健康状态。</p>
+                        <div class="mt-3 flex flex-wrap gap-1">
+                            <span class="badge" style="background:#dbeafe;color:#1e40af;">来源配置</span>
+                            <span class="badge" style="background:#dbeafe;color:#1e40af;">频率管理</span>
+                            <span class="badge" style="background:#dbeafe;color:#1e40af;">健康监控</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="collection.html" class="module-card bg-white rounded-2xl p-6 block hover:no-underline">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">⚙️</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-1">采集引擎</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">定时任务调度、实时状态监控、采集日志、异常重试机制、数据去重与清洗。</p>
+                        <div class="mt-3 flex flex-wrap gap-1">
+                            <span class="badge" style="background:#e0f2fe;color:#0369a1;">任务调度</span>
+                            <span class="badge" style="background:#e0f2fe;color:#0369a1;">去重清洗</span>
+                            <span class="badge" style="background:#e0f2fe;color:#0369a1;">异常处理</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="classification.html" class="module-card bg-white rounded-2xl p-6 block hover:no-underline">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">🗂️</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-1">信息分类</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">AI自动分类打标，支持多维度分类体系，人工审核校正，分类规则自定义。</p>
+                        <div class="mt-3 flex flex-wrap gap-1">
+                            <span class="badge" style="background:#ede9fe;color:#5b21b6;">AI分类</span>
+                            <span class="badge" style="background:#ede9fe;color:#5b21b6;">人工校正</span>
+                            <span class="badge" style="background:#ede9fe;color:#5b21b6;">规则配置</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="knowledge.html" class="module-card bg-white rounded-2xl p-6 block hover:no-underline">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-violet-50 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">🕸️</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-1">知识关联归并</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">相似内容自动关联与合并，构建知识图谱，追踪同一议题的演进脉络。</p>
+                        <div class="mt-3 flex flex-wrap gap-1">
+                            <span class="badge" style="background:#f3e8ff;color:#6b21a8;">相似关联</span>
+                            <span class="badge" style="background:#f3e8ff;color:#6b21a8;">知识图谱</span>
+                            <span class="badge" style="background:#f3e8ff;color:#6b21a8;">脉络追踪</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="insights.html" class="module-card bg-white rounded-2xl p-6 block hover:no-underline">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">💡</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-1">洞察生成与战略分析</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">从分类信息中提炼趋势洞察，评估对企业AI战略5维度的影响，生成行动建议。</p>
+                        <div class="mt-3 flex flex-wrap gap-1">
+                            <span class="badge" style="background:#fef3c7;color:#92400e;">趋势识别</span>
+                            <span class="badge" style="background:#fef3c7;color:#92400e;">影响评估</span>
+                            <span class="badge" style="background:#fef3c7;color:#92400e;">行动建议</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="insights.html#alerts" class="module-card bg-white rounded-2xl p-6 block hover:no-underline border-orange-200">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">🔔</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 mb-1">预警与通知</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">多级预警机制，按影响等级推送给对应决策者，支持邮件/消息/看板多渠道。</p>
+                        <div class="mt-3 flex flex-wrap gap-1">
+                            <span class="badge" style="background:#fff7ed;color:#9a3412;">等级预警</span>
+                            <span class="badge" style="background:#fff7ed;color:#9a3412;">多渠道推送</span>
+                            <span class="badge" style="background:#fff7ed;color:#9a3412;">决策者通知</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="max-w-7xl mx-auto px-6 py-8 mt-4 border-t border-slate-200">
+    <div class="flex justify-between items-center text-xs text-slate-400">
+        <span>AIGF · 01 AI战略转型 · Step 1 功能设计</span>
+        <span>v0.1 · 待接入原型样式</span>
+    </div>
+</footer>
+
+</body>
+</html>

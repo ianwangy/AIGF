@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据源管理 — AI趋势分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans SC', sans-serif; background: #f8fafc; color: #0f172a; }
+        .badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 9999px; font-weight: 600; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .source-row { transition: background 0.15s; }
+        .source-row:hover { background: #f1f5f9; }
+        .tab-btn { transition: all 0.2s; border-bottom: 2px solid transparent; }
+        .tab-btn.active { border-bottom-color: #0ea5e9; color: #0369a1; font-weight: 700; }
+        .form-label { font-size: 0.8rem; font-weight: 600; color: #475569; margin-bottom: 4px; display: block; }
+        .form-input { border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; width: 100%; font-size: 0.875rem; transition: border-color 0.2s; outline: none; }
+        .form-input:focus { border-color: #0ea5e9; }
+        .form-select { border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; width: 100%; font-size: 0.875rem; background: white; }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-6 h-14 flex items-center gap-3 text-sm">
+        <a href="index.html" class="text-sky-600 hover:text-sky-700 font-medium">← 趋势分析总览</a>
+        <span class="text-slate-300">›</span>
+        <span class="font-bold text-slate-800">🗄️ 数据源管理</span>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+    <!-- HEADER -->
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 mb-2">数据源管理</h1>
+            <p class="text-slate-500 text-sm">配置与管理AI趋势信息的采集来源，支持RSS订阅、API接入、网页爬取与手工录入四种模式。</p>
+        </div>
+        <button onclick="showAddModal()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors flex-shrink-0">+ 添加数据源</button>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-2xl font-black text-slate-900">24</div>
+            <div class="text-xs text-slate-500 mt-1">总数据源</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-2xl font-black text-green-600">21</div>
+            <div class="text-xs text-slate-500 mt-1">运行中</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-2xl font-black text-red-500">2</div>
+            <div class="text-xs text-slate-500 mt-1">采集异常</div>
+        </div>
+        <div class="bg-white rounded-xl border border-slate-200 p-5">
+            <div class="text-2xl font-black text-slate-400">1</div>
+            <div class="text-xs text-slate-500 mt-1">已暂停</div>
+        </div>
+    </div>
+
+    <!-- SOURCE TYPE TABS -->
+    <div class="bg-white rounded-2xl border border-slate-200">
+        <div class="flex border-b border-slate-100 px-4">
+            <button class="tab-btn active px-4 py-3 text-sm text-slate-600" onclick="switchTab(this,'all')">全部 <span class="text-xs bg-slate-100 px-1.5 py-0.5 rounded-full ml-1">24</span></button>
+            <button class="tab-btn px-4 py-3 text-sm text-slate-600" onclick="switchTab(this,'rss')">RSS订阅 <span class="text-xs bg-slate-100 px-1.5 py-0.5 rounded-full ml-1">10</span></button>
+            <button class="tab-btn px-4 py-3 text-sm text-slate-600" onclick="switchTab(this,'api')">API接入 <span class="text-xs bg-slate-100 px-1.5 py-0.5 rounded-full ml-1">8</span></button>
+            <button class="tab-btn px-4 py-3 text-sm text-slate-600" onclick="switchTab(this,'crawler')">网页爬取 <span class="text-xs bg-slate-100 px-1.5 py-0.5 rounded-full ml-1">4</span></button>
+            <button class="tab-btn px-4 py-3 text-sm text-slate-600" onclick="switchTab(this,'manual')">手工录入 <span class="text-xs bg-slate-100 px-1.5 py-0.5 rounded-full ml-1">2</span></button>
+        </div>
+
+        <!-- Source Table -->
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-slate-100">
+                        <th class="text-left text-xs font-semibold text-slate-400 px-5 py-3 uppercase tracking-wider">来源名称</th>
+                        <th class="text-left text-xs font-semibold text-slate-400 px-4 py-3 uppercase tracking-wider">类型</th>
+                        <th class="text-left text-xs font-semibold text-slate-400 px-4 py-3 uppercase tracking-wider">分类标签</th>
+                        <th class="text-left text-xs font-semibold text-slate-400 px-4 py-3 uppercase tracking-wider">采集频率</th>
+                        <th class="text-left text-xs font-semibold text-slate-400 px-4 py-3 uppercase tracking-wider">最近采集</th>
+                        <th class="text-left text-xs font-semibold text-slate-400 px-4 py-3 uppercase tracking-wider">状态</th>
+                        <th class="text-left text-xs font-semibold text-slate-400 px-4 py-3 uppercase tracking-wider">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="source-table-body">
+                    <!-- rows injected by JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- FREQUENCY CONFIG DESIGN -->
+    <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-4 border-l-4 border-sky-500 pl-4">采集频率配置说明</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="text-lg font-black text-green-600 mb-1">实时</div>
+                <div class="text-xs text-slate-500">Webhook推送 / Streaming API</div>
+                <div class="text-xs text-slate-400 mt-2">适用：高时效性平台API、内部系统事件</div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="text-lg font-black text-sky-600 mb-1">高频</div>
+                <div class="text-xs text-slate-500">每15分钟 / 每小时</div>
+                <div class="text-xs text-slate-400 mt-2">适用：新闻RSS、社交媒体、技术博客</div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="text-lg font-black text-amber-600 mb-1">日常</div>
+                <div class="text-xs text-slate-500">每日 / 每周</div>
+                <div class="text-xs text-slate-400 mt-2">适用：行业报告、研究机构、政策文件</div>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+                <div class="text-lg font-black text-slate-600 mb-1">按需</div>
+                <div class="text-xs text-slate-500">手动触发</div>
+                <div class="text-xs text-slate-400 mt-2">适用：手工录入、专项研究报告</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOURCE CATEGORIES -->
+    <section>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-4 border-l-4 border-sky-500 pl-4">来源信息分类维度</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
+                <div class="text-xl mb-1">🔬</div>
+                <div class="font-semibold text-blue-800 text-sm">技术研究</div>
+                <div class="text-xs text-blue-600 mt-1">论文/模型/算法</div>
+            </div>
+            <div class="bg-green-50 border border-green-200 rounded-xl p-4 text-center">
+                <div class="text-xl mb-1">📈</div>
+                <div class="font-semibold text-green-800 text-sm">市场动态</div>
+                <div class="text-xs text-green-600 mt-1">投融资/产品发布</div>
+            </div>
+            <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 text-center">
+                <div class="text-xl mb-1">⚖️</div>
+                <div class="font-semibold text-orange-800 text-sm">政策法规</div>
+                <div class="text-xs text-orange-600 mt-1">监管/合规/标准</div>
+            </div>
+            <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center">
+                <div class="text-xl mb-1">🏢</div>
+                <div class="font-semibold text-purple-800 text-sm">竞争情报</div>
+                <div class="text-xs text-purple-600 mt-1">竞品/行业动向</div>
+            </div>
+            <div class="bg-sky-50 border border-sky-200 rounded-xl p-4 text-center">
+                <div class="text-xl mb-1">🌍</div>
+                <div class="font-semibold text-sky-800 text-sm">宏观环境</div>
+                <div class="text-xs text-sky-600 mt-1">经济/地缘/社会</div>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center">
+                <div class="text-xl mb-1">🏭</div>
+                <div class="font-semibold text-slate-800 text-sm">行业应用</div>
+                <div class="text-xs text-slate-600 mt-1">落地案例/实践</div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- ADD SOURCE MODAL (hidden) -->
+<div id="add-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/40" onclick="hideAddModal()"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-white shadow-2xl overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-black text-slate-900">添加数据源</h2>
+                <button onclick="hideAddModal()" class="text-slate-400 hover:text-slate-600 text-xl">✕</button>
+            </div>
+
+            <div class="space-y-5">
+                <div>
+                    <label class="form-label">来源名称 *</label>
+                    <input type="text" class="form-input" placeholder="如：MIT Technology Review RSS">
+                </div>
+
+                <div>
+                    <label class="form-label">接入类型 *</label>
+                    <select class="form-select" id="source-type-select" onchange="updateTypeFields()">
+                        <option value="rss">RSS 订阅</option>
+                        <option value="api">API 接入</option>
+                        <option value="crawler">网页爬取</option>
+                        <option value="manual">手工录入</option>
+                    </select>
+                </div>
+
+                <div id="url-field">
+                    <label class="form-label">URL / Endpoint *</label>
+                    <input type="text" class="form-input" placeholder="https://...">
+                </div>
+
+                <div id="auth-field" class="hidden">
+                    <label class="form-label">认证方式</label>
+                    <select class="form-select">
+                        <option>无认证</option>
+                        <option>API Key</option>
+                        <option>Bearer Token</option>
+                        <option>Basic Auth</option>
+                        <option>OAuth 2.0</option>
+                    </select>
+                    <input type="text" class="form-input mt-2" placeholder="API Key 或 Token">
+                </div>
+
+                <div>
+                    <label class="form-label">采集频率</label>
+                    <select class="form-select" id="freq-select">
+                        <option value="realtime">实时（Webhook/Streaming）</option>
+                        <option value="15m">每15分钟</option>
+                        <option value="1h" selected>每小时</option>
+                        <option value="6h">每6小时</option>
+                        <option value="1d">每天</option>
+                        <option value="1w">每周</option>
+                        <option value="manual">手动触发</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="form-label">默认信息分类（可多选）</label>
+                    <div class="grid grid-cols-2 gap-2 mt-1">
+                        <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="rounded"> 技术研究</label>
+                        <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="rounded"> 市场动态</label>
+                        <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="rounded"> 政策法规</label>
+                        <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="rounded"> 竞争情报</label>
+                        <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="rounded"> 宏观环境</label>
+                        <label class="flex items-center gap-2 text-sm cursor-pointer"><input type="checkbox" class="rounded"> 行业应用</label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="form-label">重要性权重</label>
+                    <div class="flex items-center gap-3">
+                        <input type="range" min="1" max="5" value="3" class="flex-1" id="importance-slider" oninput="updateImportanceLabel()">
+                        <span id="importance-label" class="text-sm font-bold text-sky-600 w-6 text-center">3</span>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-400 mt-1"><span>低</span><span>高</span></div>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button onclick="hideAddModal()" class="flex-1 border border-slate-200 text-slate-600 font-semibold py-2.5 rounded-xl text-sm hover:bg-slate-50 transition-colors">取消</button>
+                    <button class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors">保存数据源</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const SOURCES = [
+    { id:1, name:'MIT Technology Review', type:'rss', url:'https://www.technologyreview.com/feed/', categories:['技术研究','市场动态'], freq:'每小时', lastFetch:'10分钟前', status:'active' },
+    { id:2, name:'ArXiv AI Papers', type:'api', url:'https://export.arxiv.org/api/query', categories:['技术研究'], freq:'每6小时', lastFetch:'2小时前', status:'active' },
+    { id:3, name:'McKinsey AI Insights', type:'crawler', url:'https://www.mckinsey.com/capabilities/quantumblack/our-insights', categories:['行业应用','市场动态'], freq:'每天', lastFetch:'昨天', status:'active' },
+    { id:4, name:'国家互联网信息办公室', type:'crawler', url:'https://www.cac.gov.cn', categories:['政策法规'], freq:'每天', lastFetch:'1小时前', status:'error' },
+    { id:5, name:'OpenAI Blog', type:'rss', url:'https://openai.com/blog/rss.xml', categories:['技术研究','市场动态'], freq:'每小时', lastFetch:'30分钟前', status:'active' },
+    { id:6, name:'Bloomberg AI News API', type:'api', url:'https://api.bloomberg.com/ai-news', categories:['市场动态','竞争情报'], freq:'每15分钟', lastFetch:'5分钟前', status:'active' },
+    { id:7, name:'行业专家手工报告', type:'manual', url:'-', categories:['行业应用'], freq:'手动', lastFetch:'3天前', status:'paused' },
+    { id:8, name:'Gartner Reports RSS', type:'rss', url:'https://www.gartner.com/en/rss', categories:['行业应用','市场动态'], freq:'每天', lastFetch:'6小时前', status:'error' },
+];
+
+const STATUS_MAP = {
+    active: { label:'运行中', bg:'bg-green-100', text:'text-green-700', dot:'bg-green-500' },
+    error:  { label:'采集异常', bg:'bg-red-100', text:'text-red-700', dot:'bg-red-500' },
+    paused: { label:'已暂停', bg:'bg-slate-100', text:'text-slate-600', dot:'bg-slate-400' },
+};
+const TYPE_MAP = {
+    rss: { label:'RSS', bg:'bg-blue-100', text:'text-blue-700' },
+    api: { label:'API', bg:'bg-sky-100', text:'text-sky-700' },
+    crawler: { label:'爬虫', bg:'bg-indigo-100', text:'text-indigo-700' },
+    manual: { label:'手工', bg:'bg-slate-100', text:'text-slate-700' },
+};
+
+function renderTable(sources) {
+    const tbody = document.getElementById('source-table-body');
+    tbody.innerHTML = sources.map(s => {
+        const st = STATUS_MAP[s.status];
+        const tp = TYPE_MAP[s.type];
+        const cats = s.categories.map(c => `<span class="badge" style="background:#f1f5f9;color:#475569;">${c}</span>`).join(' ');
+        return `<tr class="source-row border-b border-slate-50 cursor-pointer">
+            <td class="px-5 py-3.5">
+                <div class="font-semibold text-slate-800 text-sm">${s.name}</div>
+                <div class="text-xs text-slate-400 truncate max-w-48">${s.url}</div>
+            </td>
+            <td class="px-4 py-3.5"><span class="badge ${tp.bg} ${tp.text}">${tp.label}</span></td>
+            <td class="px-4 py-3.5"><div class="flex flex-wrap gap-1">${cats}</div></td>
+            <td class="px-4 py-3.5 text-sm text-slate-600">${s.freq}</td>
+            <td class="px-4 py-3.5 text-sm text-slate-500">${s.lastFetch}</td>
+            <td class="px-4 py-3.5">
+                <div class="flex items-center gap-1.5">
+                    <span class="status-dot ${st.dot}"></span>
+                    <span class="text-xs ${st.text}">${st.label}</span>
+                </div>
+            </td>
+            <td class="px-4 py-3.5">
+                <div class="flex gap-2 text-xs">
+                    <button class="text-sky-600 hover:text-sky-800 font-medium">编辑</button>
+                    <button class="text-slate-400 hover:text-slate-600">立即采集</button>
+                    <button class="text-red-400 hover:text-red-600">${s.status==='paused'?'启用':'暂停'}</button>
+                </div>
+            </td>
+        </tr>`;
+    }).join('');
+}
+
+renderTable(SOURCES);
+
+function switchTab(btn, type) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = type === 'all' ? SOURCES : SOURCES.filter(s => s.type === type);
+    renderTable(filtered);
+}
+
+function showAddModal() { document.getElementById('add-modal').classList.remove('hidden'); }
+function hideAddModal() { document.getElementById('add-modal').classList.add('hidden'); }
+
+function updateTypeFields() {
+    const type = document.getElementById('source-type-select').value;
+    const authField = document.getElementById('auth-field');
+    const urlField = document.getElementById('url-field');
+    authField.classList.toggle('hidden', type === 'manual');
+    urlField.classList.toggle('hidden', type === 'manual');
+}
+
+function updateImportanceLabel() {
+    document.getElementById('importance-label').textContent = document.getElementById('importance-slider').value;
+}
+</script>
+</body>
+</html>
