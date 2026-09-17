@@ -603,6 +603,8 @@ table.data tr.selected td { background: #ccfbf1; }
 }
 .callout-info { background: var(--info-soft); color: #1e40af; border: 1px solid #93c5fd; }
 .callout-ai { background: var(--accent-soft); color: #134e4a; border: 1px solid #5eead4; }
+.callout-warn { background: var(--warning-soft); color: #92400e; border: 1px solid #fcd34d; }
+.callout-danger { background: var(--danger-soft); color: #991b1b; border: 1px solid #fca5a5; }
 
 /* Empty / helper */
 .hint { font-size: 12px; color: var(--text-muted); }

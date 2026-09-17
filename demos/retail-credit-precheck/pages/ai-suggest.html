@@ -16,7 +16,14 @@
       app.innerHTML = DemoApp.renderShell("ai");
       const root = document.getElementById("page-root");
       const c = DemoApp.getSelectedCase();
-      const ai = DEMO_DATA.aiSuggestion;
+      const details = DemoApp.getCaseDetails(c.id);
+      const ai = details.aiSuggestion;
+      const isContrast = DemoApp.isHighRiskContrast(c);
+      const isReject = /拒绝|强制人审/.test(ai.verdict);
+
+      const adoptToast = isReject
+        ? "已预填「" + ai.verdict + "」至复核页（演示 · 可改判）"
+        : "已预填「" + ai.verdict + " · 额度 " + (ai.suggestedAmountLabel || "") + "」至复核页（演示）";
 
       root.innerHTML = `
         <div class="page-header">
@@ -29,6 +36,12 @@
             <a class="btn btn-primary" href="review.html">进入人工复核 →</a>
           </div>
         </div>
+
+        ${
+          isContrast
+            ? `<div class="callout callout-danger"><strong>对照场景：</strong>AI 建议「${ai.verdict}」· 综合分 ${ai.score} · 动作含「不得自动通过」。下一屏可演示人审改判（有条件通过 / 退回补件）。</div>`
+            : ""
+        }
 
         <div class="grid-main-side">
           <div class="card ai-panel">
@@ -73,9 +86,9 @@
               <div class="case-meta" style="flex-direction:column;align-items:stretch">
                 <span class="meta-chip"><strong>申请人</strong> ${c.applicant}</span>
                 <span class="meta-chip"><strong>申请金额</strong> ${c.amountLabel}</span>
-                <span class="meta-chip"><strong>建议额度</strong> ¥100,000</span>
+                <span class="meta-chip"><strong>建议额度</strong> ${ai.suggestedAmountLabel || "—"}</span>
                 <span class="meta-chip"><strong>产品/期限</strong> ${c.product} / ${c.tenure}</span>
-                <span class="meta-chip"><strong>规则预警</strong> R-INC-03 · R-DTI-07</span>
+                <span class="meta-chip"><strong>规则要点</strong> ${ai.ruleSummary || "—"}</span>
               </div>
             </div>
             <div class="card" style="margin-top:16px">
@@ -84,7 +97,7 @@
                 AI 不替代授信决策。本屏输出进入审计轨迹；复核岗可「采纳 / 改判 / 退回补件」，并必填理由，形成可追溯闭环。
               </p>
               <button type="button" class="btn btn-accent btn-sm" style="margin-top:12px;width:100%" id="btn-adopt">
-                预采纳建议（演示）
+                ${isReject ? "预采纳拒绝建议（演示 · 可改判）" : "预采纳建议（演示）"}
               </button>
             </div>
           </div>
@@ -98,7 +111,8 @@
 
       document.getElementById("btn-adopt").addEventListener("click", () => {
         sessionStorage.setItem("demo_pre_adopt", "1");
-        DemoApp.showToast("已预填「有条件通过 · 额度 10 万」至复核页（演示）");
+        sessionStorage.setItem("demo_pre_adopt_case", c.id);
+        DemoApp.showToast(adoptToast);
       });
     })();
   </script>

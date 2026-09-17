@@ -16,8 +16,12 @@
       app.innerHTML = DemoApp.renderShell("materials");
       const root = document.getElementById("page-root");
       const c = DemoApp.getSelectedCase();
-      const mats = DEMO_DATA.materials;
-      const rules = DEMO_DATA.rules;
+      const details = DemoApp.getCaseDetails(c.id);
+      const mats = details.materials;
+      const rules = details.rules;
+      const isContrast = DemoApp.isHighRiskContrast(c);
+      const missCount = mats.filter(function (m) { return m.status === "miss"; }).length;
+      const blockCount = rules.filter(function (r) { return r.level === "block"; }).length;
 
       root.innerHTML = `
         <div class="page-header">
@@ -30,6 +34,12 @@
             <a class="btn btn-primary" href="ai-suggest.html">生成 AI 建议 →</a>
           </div>
         </div>
+
+        ${
+          isContrast
+            ? `<div class="callout callout-warn"><strong>对照场景：</strong>王*强 · 高风险。材料严重缺失 ${missCount} 项 · 阻断规则 ${blockCount} 条。本路径用于演示 AI 建议拒绝后的人审改判。</div>`
+            : ""
+        }
 
         <div class="case-meta">
           <span class="meta-chip"><strong>城市</strong> ${c.city}</span>

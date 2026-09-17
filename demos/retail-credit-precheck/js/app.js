@@ -85,6 +85,20 @@
     sessionStorage.setItem("demo_case_id", id);
   }
 
+  /** 按案件取详情；缺省回退张*伟 */
+  function getCaseDetails(caseId) {
+    var data = window.DEMO_DATA;
+    if (!data || !data.caseDetails) return null;
+    var id = caseId || (getSelectedCase() && getSelectedCase().id);
+    if (id && data.caseDetails[id]) return data.caseDetails[id];
+    var fallback = data.defaultCaseId || "CASE-20260917-0842";
+    return data.caseDetails[fallback] || null;
+  }
+
+  function isHighRiskContrast(c) {
+    return c && c.id === "CASE-20260916-1203";
+  }
+
   function fmtStatusBadge(status) {
     var map = { pending: "badge-pending", review: "badge-review", pass: "badge-pass", reject: "badge-reject" };
     return map[status] || "badge-rule";
@@ -101,6 +115,8 @@
     showToast: showToast,
     getSelectedCase: getSelectedCase,
     setSelectedCase: setSelectedCase,
+    getCaseDetails: getCaseDetails,
+    isHighRiskContrast: isHighRiskContrast,
     fmtStatusBadge: fmtStatusBadge,
     fmtRiskBadge: fmtRiskBadge,
     currentPageId: currentPageId,
