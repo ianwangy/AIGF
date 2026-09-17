@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>案件列表 · 信贷预审辅助演示</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    (function () {
+      const app = document.getElementById("app");
+      app.innerHTML = DemoApp.renderShell("list");
+      const root = document.getElementById("page-root");
+      const cases = DEMO_DATA.cases;
+      const selected = DemoApp.getSelectedCase();
+
+      root.innerHTML = `
+        <div class="page-header">
+          <div>
+            <h2>预审案件队列</h2>
+            <p class="subtitle">今日待处理与在途案件 · 点击一行进入材料与规则核验</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-outline btn-sm" type="button" id="btn-refresh">刷新队列</button>
+            <a class="btn btn-primary" href="pages/materials.html" id="btn-enter">进入选中案件 →</a>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <strong>演示提示：</strong>默认已选中「张*伟 · 消费贷 ¥150,000」。点击表格行可切换案件，再点「进入选中案件」或双击行进入下一屏。
+        </div>
+
+        <div class="card">
+          <div class="filters">
+            <select id="filter-status" aria-label="状态筛选">
+              <option value="all">全部状态</option>
+              <option value="pending">待预审</option>
+              <option value="review">复核中</option>
+              <option value="pass">已通过</option>
+              <option value="reject">已拒绝</option>
+            </select>
+            <select id="filter-product" aria-label="产品筛选">
+              <option value="all">全部产品</option>
+              <option value="消费贷">消费贷</option>
+            </select>
+            <input type="search" id="filter-q" placeholder="搜索案件号 / 姓名…" style="min-width:200px" />
+            <span class="hint" id="filter-count"></span>
+          </div>
+          <div class="table-wrap">
+            <table class="data" id="case-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>案件号</th>
+                  <th>申请人</th>
+                  <th>产品</th>
+                  <th>申请金额</th>
+                  <th>期限</th>
+                  <th>渠道</th>
+                  <th>风险</th>
+                  <th>状态</th>
+                  <th>进件时间</th>
+                </tr>
+              </thead>
+              <tbody id="case-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="page-actions">
+          <span class="hint">主路径：列表 → 材料/规则 → AI 建议 → 人工复核 → 度量看板</span>
+          <a class="btn btn-accent" href="pages/materials.html">下一步：材料与规则 →</a>
+        </div>
+      `;
+
+      let currentId = selected.id;
+
+      function renderRows() {
+        const st = document.getElementById("filter-status").value;
+        const prod = document.getElementById("filter-product").value;
+        const q = document.getElementById("filter-q").value.trim().toLowerCase();
+        const filtered = cases.filter((c) => {
+          if (st !== "all" && c.status !== st) return false;
+          if (prod !== "all" && c.product !== prod) return false;
+          if (q && !(c.id.toLowerCase().includes(q) || c.applicant.includes(q))) return false;
+          return true;
+        });
+        document.getElementById("filter-count").textContent = `共 ${filtered.length} 件`;
+        const tbody = document.getElementById("case-tbody");
+        tbody.innerHTML = filtered
+          .map(
+            (c) => `
+          <tr class="clickable ${c.id === currentId ? "selected" : ""}" data-id="${c.id}">
+            <td><input type="radio" name="case" ${c.id === currentId ? "checked" : ""} aria-label="选择 ${c.id}" /></td>
+            <td><code style="font-size:11px">${c.id}</code></td>
+            <td>${c.applicant}</td>
+            <td>${c.product}</td>
+            <td><strong>${c.amountLabel}</strong></td>
+            <td>${c.tenure}</td>
+            <td>${c.channel}</td>
+            <td><span class="badge ${DemoApp.fmtRiskBadge(c.riskLevel)}">${c.riskLabel}</span></td>
+            <td><span class="badge ${DemoApp.fmtStatusBadge(c.status)}">${c.statusLabel}</span></td>
+            <td style="font-family:var(--mono);font-size:12px;color:var(--text-muted)">${c.submitTime}</td>
+          </tr>`
+          )
+          .join("");
+
+        tbody.querySelectorAll("tr").forEach((tr) => {
+          tr.addEventListener("click", () => {
+            currentId = tr.dataset.id;
+            DemoApp.setSelectedCase(currentId);
+            renderRows();
+          });
+          tr.addEventListener("dblclick", () => {
+            DemoApp.setSelectedCase(tr.dataset.id);
+            location.href = "pages/materials.html";
+          });
+        });
+      }
+
+      ["filter-status", "filter-product", "filter-q"].forEach((id) => {
+        document.getElementById(id).addEventListener("input", renderRows);
+        document.getElementById(id).addEventListener("change", renderRows);
+      });
+      document.getElementById("btn-refresh").addEventListener("click", () => {
+        DemoApp.showToast("队列已刷新（模拟）");
+        renderRows();
+      });
+      document.getElementById("btn-enter").addEventListener("click", (e) => {
+        DemoApp.setSelectedCase(currentId);
+      });
+
+      DemoApp.setSelectedCase(currentId);
+      renderRows();
+    })();
+  </script>
+</body>
+</html>

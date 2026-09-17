@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>人工复核 · 信贷预审辅助演示</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    (function () {
+      const app = document.getElementById("app");
+      app.innerHTML = DemoApp.renderShell("review");
+      const root = document.getElementById("page-root");
+      const c = DemoApp.getSelectedCase();
+      const timeline = DEMO_DATA.auditTimeline.slice();
+      const preAdopt = sessionStorage.getItem("demo_pre_adopt") === "1";
+
+      root.innerHTML = `
+        <div class="page-header">
+          <div>
+            <h2>人工复核 &amp; 审计时间线</h2>
+            <p class="subtitle">案件 ${c.id} · ${c.applicant} · 终裁权在人 · 全量可追溯</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn btn-outline" href="ai-suggest.html">← AI 建议</a>
+            <a class="btn btn-primary" href="metrics.html">查看度量看板 →</a>
+          </div>
+        </div>
+
+        <div class="grid-side-main">
+          <div class="card">
+            <div class="card-title">审计时间线</div>
+            <div class="timeline" id="timeline">
+              ${timeline
+                .map(
+                  (t) => `
+                <div class="tl-item">
+                  <div class="tl-dot ${t.type}"></div>
+                  <div class="tl-time">${t.time}</div>
+                  <div class="tl-content"><strong>${t.actor}</strong> — ${t.text}</div>
+                </div>`
+                )
+                .join("")}
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">复核决策</div>
+            ${
+              preAdopt
+                ? `<div class="callout callout-ai">已从 AI 建议页预采纳：有条件通过 · 建议额度 ¥100,000。可直接提交或改判。</div>`
+                : `<div class="callout callout-info">请选择决策并填写理由。提交后将追加审计事件（演示写入本页时间线）。</div>`
+            }
+
+            <div class="decision-options" id="decisions">
+              <div class="decision-opt ${preAdopt ? "selected-pass" : ""}" data-v="pass">
+                <div class="opt-title">有条件通过</div>
+                <div class="opt-desc">下调额度 / 补件后放行</div>
+              </div>
+              <div class="decision-opt" data-v="return">
+                <div class="opt-title">退回补件</div>
+                <div class="opt-desc">要求补充工作证明等</div>
+              </div>
+              <div class="decision-opt" data-v="reject">
+                <div class="opt-title">拒绝</div>
+                <div class="opt-desc">负债匹配度不足</div>
+              </div>
+            </div>
+
+            <div class="review-form">
+              <label for="amount">核准额度（元）</label>
+              <select id="amount">
+                <option value="150000">150,000（原申请）</option>
+                <option value="100000" ${preAdopt ? "selected" : ""}>100,000（AI 建议）</option>
+                <option value="80000">80,000</option>
+                <option value="0">—（拒绝/退回不适用）</option>
+              </select>
+
+              <label for="reason">决策理由（必填 · 进入审计）</label>
+              <textarea id="reason" rows="4" placeholder="例：采纳 AI 下调额度建议；流水波动可接受，要求补传工作证明后放款前核验。">${
+                preAdopt
+                  ? "采纳 AI「有条件通过」建议：核准额度 10 万，关注流水波动；工作证明可后补。"
+                  : ""
+              }</textarea>
+
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary" id="btn-submit">提交决策</button>
+                <button type="button" class="btn btn-outline" id="btn-reset">重置</button>
+              </div>
+              <p class="hint" style="margin-top:10px" id="submit-hint"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-actions">
+          <a class="btn btn-ghost" href="ai-suggest.html">← AI 建议</a>
+          <a class="btn btn-accent" href="metrics.html">下一步：轻量度量看板 →</a>
+        </div>
+      `;
+
+      let decision = preAdopt ? "pass" : null;
+
+      document.querySelectorAll(".decision-opt").forEach((el) => {
+        el.addEventListener("click", () => {
+          document.querySelectorAll(".decision-opt").forEach((o) => {
+            o.classList.remove("selected-pass", "selected-reject", "selected-return");
+          });
+          decision = el.dataset.v;
+          if (decision === "pass") el.classList.add("selected-pass");
+          else if (decision === "reject") el.classList.add("selected-reject");
+          else el.classList.add("selected-return");
+        });
+      });
+
+      document.getElementById("btn-reset").addEventListener("click", () => {
+        decision = null;
+        document.querySelectorAll(".decision-opt").forEach((o) => {
+          o.classList.remove("selected-pass", "selected-reject", "selected-return");
+        });
+        document.getElementById("reason").value = "";
+        document.getElementById("submit-hint").textContent = "";
+        sessionStorage.removeItem("demo_pre_adopt");
+      });
+
+      document.getElementById("btn-submit").addEventListener("click", () => {
+        const reason = document.getElementById("reason").value.trim();
+        if (!decision) {
+          DemoApp.showToast("请先选择决策：通过 / 退回 / 拒绝");
+          return;
+        }
+        if (!reason) {
+          DemoApp.showToast("请填写决策理由（审计必填）");
+          return;
+        }
+        const labels = { pass: "有条件通过", return: "退回补件", reject: "拒绝" };
+        const amt = document.getElementById("amount").value;
+        const now = new Date();
+        const hh = String(now.getHours()).padStart(2, "0");
+        const mm = String(now.getMinutes()).padStart(2, "0");
+        const ss = String(now.getSeconds()).padStart(2, "0");
+        const timeStr = `${hh}:${mm}:${ss}`;
+
+        const tl = document.getElementById("timeline");
+        const item = document.createElement("div");
+        item.className = "tl-item";
+        item.innerHTML = `
+          <div class="tl-dot human"></div>
+          <div class="tl-time">${timeStr}</div>
+          <div class="tl-content"><strong>预审岗 · 周*</strong> — 提交决策：${labels[decision]}；额度 ${
+          amt === "0" ? "不适用" : "¥" + Number(amt).toLocaleString("zh-CN")
+        }。理由：${reason}</div>
+        `;
+        tl.appendChild(item);
+        document.getElementById("submit-hint").textContent =
+          "✓ 决策已写入审计时间线（演示本地）。可继续查看度量看板。";
+        sessionStorage.setItem("demo_decision", decision);
+        DemoApp.showToast("复核决策已提交 · 审计事件已追加");
+      });
+    })();
+  </script>
+</body>
+</html>

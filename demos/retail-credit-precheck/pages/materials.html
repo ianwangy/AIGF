@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>材料与规则 · 信贷预审辅助演示</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    (function () {
+      const app = document.getElementById("app");
+      app.innerHTML = DemoApp.renderShell("materials");
+      const root = document.getElementById("page-root");
+      const c = DemoApp.getSelectedCase();
+      const mats = DEMO_DATA.materials;
+      const rules = DEMO_DATA.rules;
+
+      root.innerHTML = `
+        <div class="page-header">
+          <div>
+            <h2>材料完整性 &amp; 规则命中</h2>
+            <p class="subtitle">案件 ${c.id} · ${c.applicant} · ${c.product} ${c.amountLabel}</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn btn-outline" href="../index.html">← 返回列表</a>
+            <a class="btn btn-primary" href="ai-suggest.html">生成 AI 建议 →</a>
+          </div>
+        </div>
+
+        <div class="case-meta">
+          <span class="meta-chip"><strong>城市</strong> ${c.city}</span>
+          <span class="meta-chip"><strong>渠道</strong> ${c.channel}</span>
+          <span class="meta-chip"><strong>期限</strong> ${c.tenure}</span>
+          <span class="meta-chip"><strong>收入</strong> ${c.income}</span>
+          <span class="meta-chip"><strong>职业</strong> ${c.employment}</span>
+          <span class="meta-chip"><strong>风险</strong> <span class="badge ${DemoApp.fmtRiskBadge(c.riskLevel)}">${c.riskLabel}</span></span>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">进件材料清单</div>
+            <ul class="mat-list">
+              ${mats
+                .map(
+                  (m) => `
+                <li class="mat-item">
+                  <div class="mat-icon ${m.status}">${m.icon}</div>
+                  <div class="mat-info">
+                    <div class="name">${m.name}</div>
+                    <div class="meta">${m.meta}</div>
+                  </div>
+                  <span class="badge ${
+                    m.status === "ok" ? "badge-pass" : m.status === "warn" ? "badge-pending" : "badge-reject"
+                  }">${m.status === "ok" ? "齐全" : m.status === "warn" ? "需关注" : "缺失"}</span>
+                </li>`
+                )
+                .join("")}
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-title">规则引擎命中</div>
+            ${rules
+              .map(
+                (r) => `
+              <div class="rule-hit ${r.level === "pass" ? "pass" : r.level === "warn" ? "warn" : "block"}">
+                <div class="code">${r.code}</div>
+                <div class="desc">
+                  <strong>${r.title}
+                    <span class="badge ${
+                      r.level === "pass" ? "badge-pass" : r.level === "warn" ? "badge-pending" : "badge-reject"
+                    }" style="margin-left:6px">${r.level === "pass" ? "通过" : r.level === "warn" ? "预警" : "阻断"}</span>
+                  </strong>
+                  ${r.desc}
+                </div>
+              </div>`
+              )
+              .join("")}
+          </div>
+        </div>
+
+        <div class="callout callout-ai" style="margin-top:16px">
+          <strong>AI 原生差异点：</strong>规则命中与材料缺口不是终点——下一屏由模型综合解释「为何预警、建议怎么处」，并给出可执行动作，供人审一键采纳或改判。
+        </div>
+
+        <div class="page-actions">
+          <a class="btn btn-ghost" href="../index.html">← 案件列表</a>
+          <a class="btn btn-accent" href="ai-suggest.html">下一步：查看 AI 建议 →</a>
+        </div>
+      `;
+    })();
+  </script>
+</body>
+</html>

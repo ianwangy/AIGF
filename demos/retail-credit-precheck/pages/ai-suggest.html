@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI 建议 · 信贷预审辅助演示</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    (function () {
+      const app = document.getElementById("app");
+      app.innerHTML = DemoApp.renderShell("ai");
+      const root = document.getElementById("page-root");
+      const c = DemoApp.getSelectedCase();
+      const ai = DEMO_DATA.aiSuggestion;
+
+      root.innerHTML = `
+        <div class="page-header">
+          <div>
+            <h2>AI 预审建议</h2>
+            <p class="subtitle">案件 ${c.id} · ${c.applicant} · 模型输出仅供辅助，终裁权在人</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn btn-outline" href="materials.html">← 材料/规则</a>
+            <a class="btn btn-primary" href="review.html">进入人工复核 →</a>
+          </div>
+        </div>
+
+        <div class="grid-main-side">
+          <div class="card ai-panel">
+            <div class="card-title">模型建议（可解释）</div>
+            <div class="ai-verdict">
+              <div class="ai-score">
+                <span class="val">${ai.score}</span>
+                <span class="lbl">综合分</span>
+              </div>
+              <div class="ai-verdict-text">
+                <h3><span class="badge badge-ai">AI</span> ${ai.verdict}</h3>
+                <p>${ai.verdictDetail}</p>
+                <div style="margin-top:10px;font-size:12px;color:var(--text-secondary)">
+                  置信度 ${ai.confidence}%
+                  <div class="confidence-bar"><div class="fill" style="width:${ai.confidence}%"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-title" style="margin-top:8px">关键因子</div>
+            <ul class="factor-list">
+              ${ai.factors
+                .map(
+                  (f) => `
+                <li class="factor-item">
+                  <span class="factor-dot ${f.type}"></span>
+                  <span>${f.text}</span>
+                </li>`
+                )
+                .join("")}
+            </ul>
+
+            <div class="card-title" style="margin-top:16px">建议动作</div>
+            <ol style="padding-left:18px;font-size:13px;color:var(--text-secondary)">
+              ${ai.actions.map((a) => `<li style="margin-bottom:6px">${a}</li>`).join("")}
+            </ol>
+          </div>
+
+          <div>
+            <div class="card">
+              <div class="card-title">申请摘要</div>
+              <div class="case-meta" style="flex-direction:column;align-items:stretch">
+                <span class="meta-chip"><strong>申请人</strong> ${c.applicant}</span>
+                <span class="meta-chip"><strong>申请金额</strong> ${c.amountLabel}</span>
+                <span class="meta-chip"><strong>建议额度</strong> ¥100,000</span>
+                <span class="meta-chip"><strong>产品/期限</strong> ${c.product} / ${c.tenure}</span>
+                <span class="meta-chip"><strong>规则预警</strong> R-INC-03 · R-DTI-07</span>
+              </div>
+            </div>
+            <div class="card" style="margin-top:16px">
+              <div class="card-title">人机协同说明</div>
+              <p class="hint" style="line-height:1.6">
+                AI 不替代授信决策。本屏输出进入审计轨迹；复核岗可「采纳 / 改判 / 退回补件」，并必填理由，形成可追溯闭环。
+              </p>
+              <button type="button" class="btn btn-accent btn-sm" style="margin-top:12px;width:100%" id="btn-adopt">
+                预采纳建议（演示）
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-actions">
+          <a class="btn btn-ghost" href="materials.html">← 材料与规则</a>
+          <a class="btn btn-accent" href="review.html">下一步：人工复核与审计 →</a>
+        </div>
+      `;
+
+      document.getElementById("btn-adopt").addEventListener("click", () => {
+        sessionStorage.setItem("demo_pre_adopt", "1");
+        DemoApp.showToast("已预填「有条件通过 · 额度 10 万」至复核页（演示）");
+      });
+    })();
+  </script>
+</body>
+</html>

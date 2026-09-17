@@ -391,3 +391,7 @@ This framework is intended as internal reference material. Content is for enterp
 `v0.1` · 2025
 
 </div>
+
+## 演示原型
+
+- [银行·零售信贷预审辅助（脱敏演示）](./demos/retail-credit-precheck/) — 本地 `python3 -m http.server 8080`

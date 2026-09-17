@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>度量看板 · 信贷预审辅助演示</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <div id="app"></div>
+  <script src="../js/data.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    (function () {
+      const app = document.getElementById("app");
+      app.innerHTML = DemoApp.renderShell("metrics");
+      const root = document.getElementById("page-root");
+      const m = DEMO_DATA.metrics;
+
+      root.innerHTML = `
+        <div class="page-header">
+          <div>
+            <h2>轻量运营度量</h2>
+            <p class="subtitle">近 7 日模拟指标 · 用于演示「人机协同是否跑通、是否可量化」</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn btn-outline" href="review.html">← 人工复核</a>
+            <a class="btn btn-primary" href="../index.html">回到案件列表</a>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:16px">
+          ${m.kpis
+            .map(
+              (k) => `
+            <div class="card metric-card">
+              <div class="metric-val">${k.value}<span class="unit">${k.unit}</span></div>
+              <div class="metric-label">${k.label}</div>
+              <div class="metric-delta ${k.deltaType}">${k.delta}</div>
+            </div>`
+            )
+            .join("")}
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">预审漏斗（近7日 · 模拟）</div>
+            <div class="bar-chart">
+              ${m.funnel
+                .map(
+                  (f) => `
+                <div class="bar-row">
+                  <span>${f.label}</span>
+                  <div class="bar-track"><div class="bar-fill" style="width:${f.pct}%"></div></div>
+                  <span class="bar-val">${f.val}</span>
+                </div>`
+                )
+                .join("")}
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">人机一致率（模拟）</div>
+            <div class="bar-chart">
+              ${m.disagreement
+                .map(
+                  (d) => `
+                <div class="bar-row">
+                  <span>${d.label}</span>
+                  <div class="bar-track"><div class="bar-fill" style="width:${d.pct}%;background:${
+                    d.pct > 50 ? "var(--accent)" : "var(--warning)"
+                  }"></div></div>
+                  <span class="bar-val">${d.pct}%</span>
+                </div>
+                <p class="hint" style="margin:-4px 0 8px 110px">${d.note}</p>`
+                )
+                .join("")}
+            </div>
+            <div class="callout callout-ai" style="margin-top:16px;margin-bottom:0">
+              <strong>演示收尾：</strong>指标证明「输入→AI→人审→可度量」闭环。正式试点需对接真实案件与模型治理——欢迎预约<strong>远程诊断</strong>评估贵行现状与差距。
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px;text-align:center;padding:28px">
+          <h3 style="color:var(--primary);margin-bottom:8px;font-size:16px">下一步：远程诊断</h3>
+          <p class="subtitle" style="max-width:520px;margin:0 auto 16px">
+            用 60–90 分钟梳理贵行零售信贷预审的数据、规则、人审与审计现状，输出可落地的 AI 原生试点范围（脱敏演示 ≠ 生产就绪）。
+          </p>
+          <div class="btn-group" style="justify-content:center">
+            <a class="btn btn-accent btn-lg" href="../index.html">再走一遍主路径</a>
+            <button type="button" class="btn btn-primary btn-lg" id="btn-cta">了解远程诊断（演示）</button>
+          </div>
+        </div>
+
+        <div class="page-actions">
+          <a class="btn btn-ghost" href="review.html">← 人工复核</a>
+          <span class="hint">演示结束 · 模拟数据 · 不接生产</span>
+        </div>
+      `;
+
+      document.getElementById("btn-cta").addEventListener("click", () => {
+        DemoApp.showToast("演示 CTA：请联系原生未来团队预约远程诊断（本原型无表单后端）");
+      });
+    })();
+  </script>
+</body>
+</html>
