@@ -91,6 +91,21 @@
             <a class="btn btn-accent btn-lg" href="../index.html">再走一遍主路径</a>
             <button type="button" class="btn btn-primary btn-lg" id="btn-cta">了解远程诊断（演示）</button>
           </div>
+          <div id="cta-booking" hidden style="max-width:560px;margin:20px auto 0;text-align:left">
+            <div class="callout callout-info" style="margin-bottom:0">
+              <strong>预约信息（演示占位 · 无真实后端）</strong>
+              <p style="margin:10px 0 8px;font-size:13px;line-height:1.6">联系原生未来首席 / 预约 60–90 分钟远程诊断。以下为演示占位邮箱，非生产联系方式。</p>
+              <pre id="cta-copy-text" style="white-space:pre-wrap;word-break:break-word;background:rgba(255,255,255,0.65);border:1px solid #93c5fd;border-radius:6px;padding:12px;font-size:12px;line-height:1.55;font-family:var(--mono);color:var(--text);margin:0 0 12px;user-select:all">【原生未来 · 远程诊断预约 · 演示占位】
+主题：零售信贷预审 AI 原生试点 · 远程诊断（60–90 分钟）
+联系：hello@nativefuture.example（演示占位邮箱，非真实收件）
+说明：请将贵行现状摘要（脱敏）与期望窗口回复至该邮箱；本页面无表单后端，信息仅供复制。
+来源：信贷预审辅助演示 · GitHub Pages</pre>
+              <div class="btn-group">
+                <button type="button" class="btn btn-primary" id="btn-copy-cta">复制预约信息</button>
+              </div>
+              <p class="hint" id="cta-copy-hint" style="margin-top:8px;margin-bottom:0"></p>
+            </div>
+          </div>
         </div>
 
         <div class="page-actions">
@@ -99,8 +114,47 @@
         </div>
       `;
 
+      const bookingPanel = document.getElementById("cta-booking");
+      const copyTextEl = document.getElementById("cta-copy-text");
+      const copyHint = document.getElementById("cta-copy-hint");
+
       document.getElementById("btn-cta").addEventListener("click", () => {
-        DemoApp.showToast("演示 CTA：请联系原生未来团队预约远程诊断（本原型无表单后端）");
+        bookingPanel.hidden = false;
+        bookingPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        DemoApp.showToast("已展开预约说明（演示占位 · 可复制）");
+      });
+
+      function selectCopyText() {
+        const range = document.createRange();
+        range.selectNodeContents(copyTextEl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+
+      document.getElementById("btn-copy-cta").addEventListener("click", () => {
+        const text = copyTextEl.textContent.trim();
+        const done = function (ok) {
+          if (ok) {
+            copyHint.textContent = "✓ 已复制到剪贴板（演示占位信息）。";
+            DemoApp.showToast("预约信息已复制");
+          } else {
+            selectCopyText();
+            copyHint.textContent = "自动复制失败：已选中文本，请按 Ctrl/Cmd+C 手动复制。";
+            DemoApp.showToast("请手动复制已选中文本");
+          }
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { done(true); }).catch(function () { done(false); });
+        } else {
+          try {
+            selectCopyText();
+            const ok = document.execCommand("copy");
+            done(!!ok);
+          } catch (e) {
+            done(false);
+          }
+        }
       });
     })();
   </script>

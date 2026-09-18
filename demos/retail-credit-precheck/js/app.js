@@ -109,6 +109,51 @@
     return map[level] || "badge-rule";
   }
 
+
+  /** 演示时钟：基于案件时间线末条递增秒数，避免与本地墙钟混用 */
+  function parseDemoTime(timeStr) {
+    var parts = String(timeStr || "09:00:00").split(":");
+    var h = parseInt(parts[0], 10) || 0;
+    var m = parseInt(parts[1], 10) || 0;
+    var s = parseInt(parts[2], 10) || 0;
+    return h * 3600 + m * 60 + s;
+  }
+
+  function formatDemoTime(totalSec) {
+    var t = ((totalSec % 86400) + 86400) % 86400;
+    var h = Math.floor(t / 3600);
+    var m = Math.floor((t % 3600) / 60);
+    var s = t % 60;
+    return (
+      String(h).padStart(2, "0") + ":" +
+      String(m).padStart(2, "0") + ":" +
+      String(s).padStart(2, "0")
+    );
+  }
+
+  /**
+   * 取下一条演示时钟时间。
+   * @param {{ caseId?: string, timeline?: Array<{time:string}>, incrementSec?: number }} opts
+   */
+  function nextDemoClockTime(opts) {
+    opts = opts || {};
+    var caseId = opts.caseId || (getSelectedCase() && getSelectedCase().id) || "default";
+    var timeline = opts.timeline;
+    var step = opts.incrementSec != null ? opts.incrementSec : 28;
+    var key = "demo_clock_sec_" + caseId;
+    var nextSec;
+    var stored = sessionStorage.getItem(key);
+    if (stored != null && stored !== "") {
+      nextSec = parseInt(stored, 10) + step;
+    } else if (timeline && timeline.length) {
+      nextSec = parseDemoTime(timeline[timeline.length - 1].time) + step;
+    } else {
+      nextSec = 9 * 3600 + 20 * 60; /* 09:20:00 固定模拟日回退 */
+    }
+    sessionStorage.setItem(key, String(nextSec));
+    return formatDemoTime(nextSec);
+  }
+
   window.DemoApp = {
     PAGES: PAGES,
     renderShell: renderShell,
@@ -120,6 +165,9 @@
     fmtStatusBadge: fmtStatusBadge,
     fmtRiskBadge: fmtRiskBadge,
     currentPageId: currentPageId,
-    basePath: basePath
+    basePath: basePath,
+    parseDemoTime: parseDemoTime,
+    formatDemoTime: formatDemoTime,
+    nextDemoClockTime: nextDemoClockTime
   };
 })();
